@@ -15,9 +15,8 @@ class AdminController extends Controller
     }
     public function getIndex()
     {
-    	//return 'Admin\'s page';
-        $user = Auth::guard('admin')->user();
-        echo $user->email;
+        $admin = Auth::guard('admin')->user();
+        return view('admin.dashboard', compact('admin'));
     }
     public function getLogout() {
     	Auth::guard('admin')->logout();

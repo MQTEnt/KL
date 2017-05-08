@@ -18,6 +18,7 @@ class CreateStaffsTable extends Migration
             $table->string('email')->unique();
             $table->string('phone');
             $table->string('description');
+            $table->string('address');
             $table->smallInteger('role');
             $table->date('dob');
             $table->string('password');
