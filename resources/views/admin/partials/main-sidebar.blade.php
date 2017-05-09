@@ -11,26 +11,15 @@
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
-    <!-- search form -->
-    <form action="#" method="get" class="sidebar-form">
-      <div class="input-group">
-        <input type="text" name="q" class="form-control" placeholder="Tìm kiếm...">
-        <span class="input-group-btn">
-          <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
-          </button>
-        </span>
-      </div>
-    </form>
-    <!-- /.search form -->
     <!-- sidebar menu: : style can be found in sidebar.less -->
     <ul class="sidebar-menu">
       <li class="header">MENU</li>
-      <li class="{{ Request::is('admin/dashboard') ? 'active' : '' }} treeview">
-        <a href="{{ route('dashboard.index')}}">
+      <li class="{{ Route::is('admin.dashboard.index') ? 'active' : '' }} treeview">
+        <a href="{{ route('admin.dashboard.index')}}">
           <i class="fa fa-dashboard"></i> <span>Dashboard</span>
         </a>
       </li>
-      <li class="{{ Request::is('admin/doctor*')||Request::is('admin/nurse*') ? 'active' : '' }} treeview">
+      <li class="{{ Route::is('doctor.*')||Route::is('nurse.*') ? 'active' : '' }} treeview">
         <a href="#">
           <i class="fa fa-users" aria-hidden="true"></i>
           <span>Quản lý nhân sự</span>
@@ -38,8 +27,8 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class="{{ Request::is('admin/doctor*') ? 'active' : '' }}"><a href="{{route('doctor.index')}}"><i class="fa fa-user-md" aria-hidden="true"></i> Quản lý bác sĩ</a></li>
-          <li class="{{ Request::is('admin/nurse*') ? 'active' : '' }}"><a href="#"><i class="fa fa-wheelchair" aria-hidden="true"></i> Quản lý điều dưỡng viên</a></li>
+          <li class="{{ Route::is('doctor.*') ? 'active' : '' }}"><a href="{{route('doctor.index')}}"><i class="fa fa-user-md" aria-hidden="true"></i> Quản lý bác sĩ</a></li>
+          <li class="{{ Route::is('nurse.*') ? 'active' : '' }}"><a href="{{route('nurse.index')}}"><i class="fa fa-wheelchair" aria-hidden="true"></i> Quản lý điều dưỡng viên</a></li>
         </ul>
       </li>
     </ul>

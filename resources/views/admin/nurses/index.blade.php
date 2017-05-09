@@ -1,10 +1,10 @@
 @extends('admin.layouts.master')
-@section('title','Quản lý bác sĩ')
-@section('feature-title', 'Quản lý bác sĩ')
+@section('title','Quản lý điều dưỡng viên')
+@section('feature-title', 'Quản lý điều dưỡng viên')
 @section('main-content')
 <div class="row margin-bottom">
 	<div class="col-lg-2">
-		<a class="btn btn-block btn-primary" href="{{route('doctor.create')}}"><i class="fa fa-user-plus"></i> Thêm mới</a>
+		<a class="btn btn-block btn-primary" href="{{route('nurse.create')}}"><i class="fa fa-user-plus"></i> Thêm mới</a>
 	</div>
 </div>
 @if(Session::has('alert'))
@@ -18,11 +18,11 @@
 <!-- table -->
 <div class="box">
 	<div class="box-header">
-		<h3 class="box-title">Danh sách các bác sĩ</h3>
+		<h3 class="box-title">Danh sách các điều dưỡng viên</h3>
 		<div class="box-tools">
-			<form action="{{route('doctor.search')}}">
+			<form action="{{route('nurse.search')}}">
 				<div class="input-group input-group-sm" style="width: 200px;">
-					<input type="text" name="q" class="form-control pull-right" placeholder="Nhập tên bác sĩ để tìm kiếm">
+					<input type="text" name="q" class="form-control pull-right" placeholder="Nhập tên điều dưỡng viên...">
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 					</div>
@@ -41,20 +41,20 @@
 				<th>Email</th>
 				<th style='text-align: center'>Chi tiết</th>
 			</tr>
-			@foreach($doctors as $doctor)
+			@foreach($nurses as $nurse)
 			<tr style="cursor: pointer">
-				<td>{{$doctor->id}}</td>
-				<td>{{$doctor->name}}</td>
-				<td>{{date_format(date_create($doctor->dob),'m/d/Y')}}</td>
-				<td>{{$doctor->phone}}</td>
-				<td>{{$doctor->email}}</td>
-				<td style='text-align: center'><a href="{{route('doctor.show', $doctor->id)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
+				<td>{{$nurse->id}}</td>
+				<td>{{$nurse->name}}</td>
+				<td>{{date_format(date_create($nurse->dob),'m/d/Y')}}</td>
+				<td>{{$nurse->phone}}</td>
+				<td>{{$nurse->email}}</td>
+				<td style='text-align: center'><a href="{{route('nurse.show', $nurse->id)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
 			</tr>
 			@endforeach
 		</table>
 	</div>
 	<div class="box-footer clearfix">
-		{{$doctors->links()}}
+		{{$nurses->links()}}
 	</div>
 	<!-- /.box-body -->
 </div>
