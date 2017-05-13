@@ -52,6 +52,15 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::put('medicine/{id}', ['as' => 'medicine.update', 'uses' => 'Admin\MedicineController@update']);
 	Route::delete('medicine/{id}', ['as' => 'medicine.destroy', 'uses' => 'Admin\MedicineController@destroy']);
 
+	//Room
+	Route::get('room/search', ['as' => 'room.search', 'uses' => 'Admin\RoomController@getSearch']);
+	Route::get('room', ['as' => 'room.index', 'uses' => 'Admin\RoomController@index']);
+	Route::get('room/create', ['as' => 'room.create', 'uses' => 'Admin\RoomController@create']);
+	Route::post('room', ['as' => 'room.store', 'uses' => 'Admin\RoomController@store']);
+	Route::get('room/{id}', ['as' => 'room.show', 'uses' => 'Admin\RoomController@show']);
+	Route::put('room/{id}', ['as' => 'room.update', 'uses' => 'Admin\RoomController@update']);
+	Route::delete('room/{id}', ['as' => 'room.destroy', 'uses' => 'Admin\RoomController@destroy']);
+
 });
 
 /* 

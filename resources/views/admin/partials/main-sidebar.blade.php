@@ -36,6 +36,11 @@
           <i class="fa fa-medkit"></i> <span>Quản lý thuốc</span>
         </a>
       </li>
+      <li class="{{ Route::is('room.*') ? 'active' : '' }} treeview">
+        <a href="{{ route('room.index')}}">
+          <i class="fa fa-building"></i> <span>Quản lý phòng khám</span>
+        </a>
+      </li>
     </ul>
   </section>
   <!-- /.sidebar -->
