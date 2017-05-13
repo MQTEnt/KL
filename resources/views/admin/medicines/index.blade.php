@@ -1,10 +1,10 @@
 @extends('admin.layouts.master')
-@section('title','Quản lý bác sĩ')
-@section('feature-title', 'Quản lý bác sĩ')
+@section('title','Quản lý thuốc')
+@section('feature-title', 'Quản lý thuốc')
 @section('main-content')
 <div class="row margin-bottom">
 	<div class="col-lg-2">
-		<a class="btn btn-block btn-primary" href="{{route('doctor.create')}}"><i class="fa fa-user-plus"></i> Thêm mới</a>
+		<a class="btn btn-block btn-primary" href="{{route('medicine.create')}}"><i class="fa fa-pencil-square-o"></i> Thêm mới</a>
 	</div>
 </div>
 @if(Session::has('alert'))
@@ -19,16 +19,16 @@
 <div class="box">
 	<div class="box-header">
 		<h3 class="box-title">
-			@if(count($doctors) > 0)
-				Danh sách các bác sĩ
+			@if(count($medicines) > 0)
+				Danh sách thuốc
 			@else
 				Không tìm thấy thông tin
 			@endif
 		</h3>
 		<div class="box-tools">
-			<form action="{{route('doctor.search')}}">
+			<form action="{{route('medicine.search')}}">
 				<div class="input-group input-group-sm" style="width: 200px;">
-					<input type="text" name="q" class="form-control pull-right" placeholder="Nhập tên bác sĩ để tìm kiếm">
+					<input type="text" name="q" class="form-control pull-right" placeholder="Nhập tên thuốc...">
 					<div class="input-group-btn">
 						<button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
 					</div>
@@ -37,34 +37,34 @@
 		</div>
 	</div>
 	<!-- /.box-header -->
-	@if(count($doctors) > 0)
+	@if(count($medicines) > 0)
 	<div class="box-body table-responsive no-padding">
 		<table class="table table-hover">
 			<tr>
 				<th>ID</th>
-				<th>Họ và tên</th>
-				<th>Ngày sinh</th>
-				<th>Số điện thoại</th>
-				<th>Email</th>
+				<th>Tên thuốc</th>
+				<th>Chỉ định</th>
+				<th>Đơn vị</th>
 				<th style='text-align: center'>Chi tiết</th>
 			</tr>
-			@foreach($doctors as $doctor)
+			@foreach($medicines as $medicine)
 			<tr style="cursor: pointer">
-				<td>{{$doctor->id}}</td>
-				<td>{{$doctor->name}}</td>
-				<td>{{date_format(date_create($doctor->dob),'m/d/Y')}}</td>
-				<td>{{$doctor->phone}}</td>
-				<td>{{$doctor->email}}</td>
-				<td style='text-align: center'><a href="{{route('doctor.show', $doctor->id)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
+				<td>{{$medicine->id}}</td>
+				<td>{{$medicine->name}}</td>
+				<td>
+					{{str_limit($medicine->indications, 40, '...')}}
+				</td>
+				<td>{{$medicine->unit}}</td>
+				<td style='text-align: center'><a href="{{route('medicine.show', $medicine->id)}}"><i class="fa fa-chevron-circle-right"></i></a></td>
 			</tr>
 			@endforeach
 		</table>
 	</div>
 	<div class="box-footer clearfix">
-		{{$doctors->links()}}
+		{{$medicines->links()}}
 	</div>
-	<!-- /.box-body -->
 	@endif
+	<!-- /.box-body -->
 </div>
 <!-- /.table -->
 

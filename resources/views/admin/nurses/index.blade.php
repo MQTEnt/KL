@@ -18,7 +18,13 @@
 <!-- table -->
 <div class="box">
 	<div class="box-header">
-		<h3 class="box-title">Danh sách các điều dưỡng viên</h3>
+		<h3 class="box-title">
+			@if(count($nurses) > 0)
+				Danh sách các điều dưỡng viên
+			@else
+				Không tìm thấy thông tin
+			@endif
+		</h3>
 		<div class="box-tools">
 			<form action="{{route('nurse.search')}}">
 				<div class="input-group input-group-sm" style="width: 200px;">
@@ -31,6 +37,7 @@
 		</div>
 	</div>
 	<!-- /.box-header -->
+	@if(count($nurses) > 0)
 	<div class="box-body table-responsive no-padding">
 		<table class="table table-hover">
 			<tr>
@@ -56,6 +63,7 @@
 	<div class="box-footer clearfix">
 		{{$nurses->links()}}
 	</div>
+	@endif
 	<!-- /.box-body -->
 </div>
 <!-- /.table -->

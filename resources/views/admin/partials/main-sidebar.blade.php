@@ -27,9 +27,14 @@
           </span>
         </a>
         <ul class="treeview-menu">
-          <li class="{{ Route::is('doctor.*') ? 'active' : '' }}"><a href="{{route('doctor.index')}}"><i class="fa fa-user-md" aria-hidden="true"></i> Quản lý bác sĩ</a></li>
-          <li class="{{ Route::is('nurse.*') ? 'active' : '' }}"><a href="{{route('nurse.index')}}"><i class="fa fa-wheelchair" aria-hidden="true"></i> Quản lý điều dưỡng viên</a></li>
+          <li class="{{ Route::is('doctor.*') ? 'active' : '' }}"><a href="{{route('doctor.index')}}"><i class="fa fa-user-md"></i> Quản lý bác sĩ</a></li>
+          <li class="{{ Route::is('nurse.*') ? 'active' : '' }}"><a href="{{route('nurse.index')}}"><i class="fa fa-female"></i> Quản lý điều dưỡng viên</a></li>
         </ul>
+      </li>
+      <li class="{{ Route::is('medicine.*') ? 'active' : '' }} treeview">
+        <a href="{{ route('medicine.index')}}">
+          <i class="fa fa-medkit"></i> <span>Quản lý thuốc</span>
+        </a>
       </li>
     </ul>
   </section>

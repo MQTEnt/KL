@@ -14,7 +14,7 @@
 			<div class="box box-primary">
 				<div class="box-body box-profile">
 					<img class="profile-user-img img-responsive img-circle" src="/img/doctor.png">
-
+					<h3 class="profile-username text-center">ID: {{$doctor->id}}</h3>
 					<h3 class="profile-username text-center">{{$doctor->name}}</h3>
 
 					<p class="text-muted text-center">Bác sĩ</p>
