@@ -41,6 +41,11 @@
           <i class="fa fa-building"></i> <span>Quản lý phòng khám</span>
         </a>
       </li>
+      <li class="{{ Route::is('activity.*') ? 'active' : '' }} treeview">
+        <a href="{{ route('activity.index')}}">
+          <i class="fa fa-calendar"></i> <span>Quản lý hoạt động điều trị</span>
+        </a>
+      </li>
     </ul>
   </section>
   <!-- /.sidebar -->

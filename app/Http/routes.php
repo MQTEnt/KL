@@ -61,6 +61,15 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::put('room/{id}', ['as' => 'room.update', 'uses' => 'Admin\RoomController@update']);
 	Route::delete('room/{id}', ['as' => 'room.destroy', 'uses' => 'Admin\RoomController@destroy']);
 
+	//Activity
+	Route::get('activity/search', ['as' => 'activity.search', 'uses' => 'Admin\ActivityController@getSearch']);
+	Route::get('activity', ['as' => 'activity.index', 'uses' => 'Admin\ActivityController@index']);
+	Route::get('activity/create', ['as' => 'activity.create', 'uses' => 'Admin\ActivityController@create']);
+	Route::post('activity', ['as' => 'activity.store', 'uses' => 'Admin\ActivityController@store']);
+	Route::get('activity/{id}', ['as' => 'activity.show', 'uses' => 'Admin\ActivityController@show']);
+	Route::put('activity/{id}', ['as' => 'activity.update', 'uses' => 'Admin\ActivityController@update']);
+	Route::delete('activity/{id}', ['as' => 'activity.destroy', 'uses' => 'Admin\ActivityController@destroy']);
+
 });
 
 /* 
