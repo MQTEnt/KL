@@ -6,22 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth;
 use App\Activity;
 use App\Http\Requests\ActivityFormRequest;
 class ActivityController extends Controller
 {
-	private $admin;
 	public function __construct() {
     	$this->middleware('admin');
-    	$this->admin = Auth::guard('admin')->user();
     }
     public function index(){
         $activities = Activity::select()->paginate(5);
-        return view('admin.activities.index', ['admin'=> $this->admin, 'activities' => $activities]);
+        return view('admin.activities.index', ['activities' => $activities]);
     }
     public function create(){
-        return view('admin.activities.create', ['admin'=> $this->admin]);
+        return view('admin.activities.create');
     }
     public function store(ActivityFormRequest $request){
         Activity::create([
@@ -33,7 +30,7 @@ class ActivityController extends Controller
     }
     public function show($id){
         $activity = Activity::findOrFail($id);
-        return view('admin.activities.show', ['admin' => $this->admin, 'activity' => $activity]);
+        return view('admin.activities.show', ['activity' => $activity]);
     }
     public function update($id, ActivityFormRequest $request){
         $activity = Activity::findOrFail($id);
@@ -53,6 +50,6 @@ class ActivityController extends Controller
         $query = $request->q;
         $activities = Activity::where([
             ['name', 'LIKE', '%'.$query.'%']])->paginate(5);
-        return view('admin.activities.index', ['admin'=> $this->admin, 'activities' => $activities]);
+        return view('admin.activities.index', ['activities' => $activities]);
     }
 }

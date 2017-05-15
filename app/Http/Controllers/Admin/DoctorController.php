@@ -6,22 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth;
 use App\Staff;
 use App\Http\Requests\StaffFormRequest;
 class DoctorController extends Controller
 {
-	private $admin;
 	public function __construct() {
     	$this->middleware('admin');
-    	$this->admin = Auth::guard('admin')->user();
     }
     public function index(){
         $doctors = Staff::select()->where('role', 1)->paginate(5);
-        return view('admin.doctors.index', ['admin'=> $this->admin, 'doctors' => $doctors]);
+        return view('admin.doctors.index', ['doctors' => $doctors]);
     }
     public function create(){
-        return view('admin.doctors.create', ['admin'=> $this->admin]);
+        return view('admin.doctors.create');
     }
     public function store(StaffFormRequest $request){
         Staff::create([
@@ -38,7 +35,7 @@ class DoctorController extends Controller
     }
     public function show($id){
         $doctor = Staff::findOrFail($id);
-        return view('admin.doctors.show', ['admin' => $this->admin, 'doctor' => $doctor]);
+        return view('admin.doctors.show', ['doctor' => $doctor]);
     }
     public function update($id, StaffFormRequest $request){
         $doctor = Staff::findOrFail($id);
@@ -63,6 +60,6 @@ class DoctorController extends Controller
         $doctors = Staff::where([
             ['name', 'LIKE', '%'.$query.'%'],
             ['role', '=', 1]])->paginate(5);
-        return view('admin.doctors.index', ['admin'=> $this->admin, 'doctors' => $doctors]);
+        return view('admin.doctors.index', ['doctors' => $doctors]);
     }
 }

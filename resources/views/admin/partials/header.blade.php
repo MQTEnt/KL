@@ -19,7 +19,7 @@
         <li class="dropdown user user-menu">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <img src="/img/user.png" class="user-image" alt="User Image">
-            <span class="hidden-xs">{{$admin->name}}</span>
+            <span class="hidden-xs">{{Auth::guard('admin')->user()->name}}</span>
           </a>
           <ul class="dropdown-menu">
             <!-- User image -->
@@ -27,8 +27,8 @@
               <img src="/img/user.png" class="img-circle" alt="User Image">
 
               <p>
-                {{$admin->name}}
-                <small>Tham gia ngày: {{date_format($admin->created_at,"d/m/Y")}}</small>
+                {{Auth::guard('admin')->user()->name}}
+                <small>Tham gia ngày: {{date_format(Auth::guard('admin')->user()->created_at,"d/m/Y")}}</small>
               </p>
             </li>
             <!-- Menu Body -->

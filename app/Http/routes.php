@@ -70,6 +70,14 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::put('activity/{id}', ['as' => 'activity.update', 'uses' => 'Admin\ActivityController@update']);
 	Route::delete('activity/{id}', ['as' => 'activity.destroy', 'uses' => 'Admin\ActivityController@destroy']);
 
+	//Symptom
+	Route::get('symptom/search', ['as' => 'symptom.search', 'uses' => 'Admin\SymptomController@getSearch']);
+	Route::get('symptom', ['as' => 'symptom.index', 'uses' => 'Admin\SymptomController@index']);
+	Route::get('symptom/create', ['as' => 'symptom.create', 'uses' => 'Admin\SymptomController@create']);
+	Route::post('symptom', ['as' => 'symptom.store', 'uses' => 'Admin\SymptomController@store']);
+	Route::get('symptom/{id}', ['as' => 'symptom.show', 'uses' => 'Admin\SymptomController@show']);
+	Route::put('symptom/{id}', ['as' => 'symptom.update', 'uses' => 'Admin\SymptomController@update']);
+	Route::delete('symptom/{id}', ['as' => 'symptom.destroy', 'uses' => 'Admin\SymptomController@destroy']);
 });
 
 /* 

@@ -7,7 +7,7 @@
         <img src="/img/user.png" class="img-circle" alt="User Image">
       </div>
       <div class="pull-left info">
-        <p>{{$admin->name}}</p>
+        <p>{{Auth::guard('admin')->user()->name}}</p>
         <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
       </div>
     </div>
@@ -45,6 +45,17 @@
         <a href="{{ route('activity.index')}}">
           <i class="fa fa-calendar"></i> <span>Quản lý hoạt động điều trị</span>
         </a>
+      </li>
+      <li class="{{ Route::is('symptom.*') ? 'active' : '' }} treeview">
+        <a href="#">
+          <i class="fa fa-list-ul"></i></i>
+          <span>Quản lý danh mục khám bệnh</span>
+          <span class="pull-right-container">
+          </span>
+        </a>
+        <ul class="treeview-menu">
+          <li class="{{ Route::is('symptom.*') ? 'active' : '' }}"><a href="{{route('symptom.index')}}"><i class="fa fa-comment"></i> Quản lý triệu chứng cơ năng</a></li>
+        </ul>
       </li>
     </ul>
   </section>

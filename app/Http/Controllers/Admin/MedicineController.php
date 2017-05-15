@@ -6,22 +6,19 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth;
 use App\Medicine;
 use App\Http\Requests\MedicineFormRequest;
 class MedicineController extends Controller
 {
-    private $admin;
 	public function __construct() {
     	$this->middleware('admin');
-    	$this->admin = Auth::guard('admin')->user();
     }
     public function index(){
         $medicines = Medicine::select()->paginate(5);
-        return view('admin.medicines.index', ['admin'=> $this->admin, 'medicines' => $medicines]);
+        return view('admin.medicines.index', ['medicines' => $medicines]);
     }
     public function create(){
-        return view('admin.medicines.create', ['admin'=> $this->admin]);
+        return view('admin.medicines.create');
     }
     public function store(MedicineFormRequest $request){
         Medicine::create([
@@ -36,7 +33,7 @@ class MedicineController extends Controller
     }
     public function show($id){
         $medicine = Medicine::findOrFail($id);
-        return view('admin.medicines.show', ['admin' => $this->admin, 'medicine' => $medicine]);
+        return view('admin.medicines.show', ['medicine' => $medicine]);
     }
     public function update($id, MedicineFormRequest $request){
         $medicine = Medicine::findOrFail($id);
@@ -59,6 +56,6 @@ class MedicineController extends Controller
         $query = $request->q;
         $medicines = Medicine::where([
             ['name', 'LIKE', '%'.$query.'%']])->paginate(5);
-        return view('admin.medicines.index', ['admin'=> $this->admin, 'medicines' => $medicines]);
+        return view('admin.medicines.index', ['medicines' => $medicines]);
     }
 }

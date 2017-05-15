@@ -6,23 +6,20 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use Auth;
 use App\Staff;
 use App\Http\Requests\StaffFormRequest;
 
 class NurseController extends Controller
 {
-    private $admin;
 	public function __construct() {
     	$this->middleware('admin');
-    	$this->admin = Auth::guard('admin')->user();
     }
     public function index(){
         $nurses = Staff::select()->where('role', 2)->paginate(5);
-        return view('admin.nurses.index', ['admin'=> $this->admin, 'nurses' => $nurses]);
+        return view('admin.nurses.index', ['nurses' => $nurses]);
     }
     public function create(){
-        return view('admin.nurses.create', ['admin'=> $this->admin]);
+        return view('admin.nurses.create');
     }
     public function store(StaffFormRequest $request){
         Staff::create([
@@ -39,7 +36,7 @@ class NurseController extends Controller
     }
     public function show($id){
         $nurse = Staff::findOrFail($id);
-        return view('admin.nurses.show', ['admin' => $this->admin, 'nurse' => $nurse]);
+        return view('admin.nurses.show', ['nurse' => $nurse]);
     }
     public function update($id, StaffFormRequest $request){
         $nurse = Staff::findOrFail($id);
@@ -64,6 +61,6 @@ class NurseController extends Controller
         $nurses = Staff::where([
             ['name', 'LIKE', '%'.$query.'%'],
             ['role', '=', 2]])->paginate(5);
-        return view('admin.nurses.index', ['admin'=> $this->admin, 'nurses' => $nurses]);
+        return view('admin.nurses.index', ['nurses' => $nurses]);
     }
 }
