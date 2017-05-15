@@ -46,7 +46,7 @@
           <i class="fa fa-calendar"></i> <span>Quản lý hoạt động điều trị</span>
         </a>
       </li>
-      <li class="{{ Route::is('symptom.*') ? 'active' : '' }} treeview">
+      <li class="{{ Route::is('symptom.*')||Route::is('sign.*') ? 'active' : '' }} treeview">
         <a href="#">
           <i class="fa fa-list-ul"></i></i>
           <span>Quản lý danh mục khám bệnh</span>
@@ -55,6 +55,9 @@
         </a>
         <ul class="treeview-menu">
           <li class="{{ Route::is('symptom.*') ? 'active' : '' }}"><a href="{{route('symptom.index')}}"><i class="fa fa-comment"></i> Quản lý triệu chứng cơ năng</a></li>
+        </ul>
+        <ul class="treeview-menu">
+          <li class="{{ Route::is('sign.*') ? 'active' : '' }}"><a href="{{route('sign.index')}}"><i class="fa fa-eye"></i> Quản lý triệu chứng thực thể</a></li>
         </ul>
       </li>
     </ul>

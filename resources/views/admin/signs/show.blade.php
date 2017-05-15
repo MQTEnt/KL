@@ -1,8 +1,8 @@
 @extends('admin.layouts.master')
-@section('title', 'Quản lý danh sách triệu chứng cơ năng')
-@section('feature-title', 'Thông tin triệu chứng cơ năng')
+@section('title', 'Quản lý danh sách triệu chứng thực thể')
+@section('feature-title', 'Thông tin triệu chứng thực thể')
 @section('back-page')
-	<p><a href="{{route('symptom.index')}}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Trở lại trang danh sách</a></p>
+	<p><a href="{{route('sign.index')}}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Trở lại trang danh sách</a></p>
 @stop
 @section('main-content')
 	<div class="row">
@@ -10,7 +10,7 @@
 			<div class="box box-primary">
 				<!-- form start -->
 				<div class="box-body">
-					<form id="formEdit" role="form" method="POST" action="{{ route('symptom.update', $symptom->id) }}">
+					<form id="formEdit" role="form" method="POST" action="{{ route('sign.update', $sign->id) }}">
 						{{ csrf_field() }}
 						<input name="_method" type="hidden" value="PUT">
 						<div class="form-group">
@@ -18,7 +18,7 @@
 							<input type="text" 
 							class="form-control" 
 							name="id" 
-							value="{{ $symptom->id }}"
+							value="{{ $sign->id }}"
 							disabled>
 						</div>
 
@@ -28,7 +28,7 @@
 							type="text" 
 							class="form-control" 
 							name="name" 
-							value="{{ $symptom->name }}"
+							value="{{ $sign->name }}"
 							placeholder="Điền tên triệu chứng">
 							@if ($errors->has('name'))
 							<span class="help-block">
@@ -43,7 +43,7 @@
 							class="form-control" 
 							name="description" 
 							placeholder="Điền mô tả"
-							required>{{$symptom->description}}</textarea>
+							required>{{$sign->description}}</textarea>
 							@if ($errors->has('description'))
 							<span class="help-block">
 								<strong>{{ $errors->first('description') }}</strong>
@@ -64,7 +64,7 @@
 					<!-- Modal Alert -->
 					<div class="modal fade" id="alertModal" role="dialog">
 					 	<div class="modal-dialog modal-sm">
-					 		<form id="deleteForm" role="form" method="POST" action="{{ route('symptom.destroy', $symptom->id) }}">
+					 		<form id="deleteForm" role="form" method="POST" action="{{ route('sign.destroy', $sign->id) }}">
 								{{ csrf_field() }}
 								<input name="_method" type="hidden" value="DELETE">
 						 		<div class="modal-content">
