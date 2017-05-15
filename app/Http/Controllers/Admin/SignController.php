@@ -47,8 +47,8 @@ class SignController extends Controller
     }
     public function getSearch(Request $request){
         $query = $request->q;
-        $sign = Sign::where([
+        $signs = Sign::where([
             ['name', 'LIKE', '%'.$query.'%']])->paginate(5);
-        return view('admin.sign.index', ['sign' => $sign]);
+        return view('admin.signs.index', ['signs' => $signs]);
     }
 }

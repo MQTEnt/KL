@@ -87,6 +87,15 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('sign/{id}', ['as' => 'sign.show', 'uses' => 'Admin\SignController@show']);
 	Route::put('sign/{id}', ['as' => 'sign.update', 'uses' => 'Admin\SignController@update']);
 	Route::delete('sign/{id}', ['as' => 'sign.destroy', 'uses' => 'Admin\SignController@destroy']);
+
+	//Sign
+	Route::get('index/search', ['as' => 'index.search', 'uses' => 'Admin\IndexController@getSearch']);
+	Route::get('index', ['as' => 'index.index', 'uses' => 'Admin\IndexController@index']);
+	Route::get('index/create', ['as' => 'index.create', 'uses' => 'Admin\IndexController@create']);
+	Route::post('index', ['as' => 'index.store', 'uses' => 'Admin\IndexController@store']);
+	Route::get('index/{id}', ['as' => 'index.show', 'uses' => 'Admin\IndexController@show']);
+	Route::put('index/{id}', ['as' => 'index.update', 'uses' => 'Admin\IndexController@update']);
+	Route::delete('index/{id}', ['as' => 'index.destroy', 'uses' => 'Admin\IndexController@destroy']);
 });
 
 /* 
