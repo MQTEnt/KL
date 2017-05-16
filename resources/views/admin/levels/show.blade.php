@@ -1,79 +1,50 @@
 @extends('admin.layouts.master')
-@section('title', 'Quản lý danh sách chỉ số xét nghiệm')
-@section('feature-title', 'Thông tin chỉ số xét nghiệm')
+@section('title', 'Quản lý mức chỉ số')
+@section('feature-title', 'Thông tin mức chỉ số')
 @section('back-page')
-	<p><a href="{{route('index.index')}}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Trở lại trang danh sách</a></p>
+	<p><a href="{{route('index.show', $index->id)}}"><i class="fa fa-chevron-left" aria-hidden="true"></i> Trở lại trang danh sách</a></p>
 @stop
 @section('main-content')
 	<div class="row">
-		<div class="col-lg-4">
+		<div class="col-lg-10 col-lg-offset-1">
 			<div class="box box-primary">
 				<div class="box-header">
-				<p><a href="{{ route('level.create', $index->id) }}"><i class="fa fa-plus-circle"></i> Thêm mức chỉ số</a></p>
-				@if(count($index->levels()->get()) > 0)
-					<h3 class="box-title">Các mức của chỉ số</h3>
-				@endif
-				</div>
-				<div class="box-body table-responsive">
-				@if(Session::has('alert'))
-				<div id="alert" class="box">
-					<div class="callout callout-success" style="margin-bottom: 0!important;">
-						<h4><i class="fa fa-info"></i> Thông báo:</h4>
-						{{Session::get('alert')}}
-					</div>
-				</div>
-				@endif
-				@if(count($index->levels()->get()) > 0)
-					<table class="table table-hover">
-						<tr>
-							<th>Tên mức</th>
-							<th>Tối đa</th>
-							<th>Tối thiểu</th>
-							<th style='text-align: center'>Chi tiết</th>
-							</tr>
-						@foreach($index->levels()->get() as $level)
-						<tr style="cursor: pointer">
-							<td>{{$level->name}}</td>
-							<td>{{$level->max}}</td>
-							<td>{{$level->min}}</td>
-							<td style='text-align: center'><a href="{{route('level.show', ['index_id' => $index->id, 'id' => $level->id])}}"><i class="fa fa-chevron-circle-right"></i></a></td>
-						</tr>
-						@endforeach
-					</table>
-				@endif
-				</div>
-				<div class="box-footer clearfix">
-				</div>
-			</div>
-
-		</div>
-		<div class="col-lg-8">
-			<div class="box box-primary">
-				<div class="box-header">
-					<h3 class="box-title">Thông tin chỉ số</h3>
+					<h3 class="box-title">Thông tin mức</h3>
 				</div>
 				<!-- form start -->
 				<div class="box-body">
-					<form id="formEdit" role="form" method="POST" action="{{ route('index.update', $index->id) }}">
+					<form id="formEdit" role="form" method="POST" action="{{ route('level.update',['index_id' => $index->id, 'id' => $level->id]) }}">
 						{{ csrf_field() }}
 						<input name="_method" type="hidden" value="PUT">
-						<div class="form-group">
-							<label for="id">Mã triệu chứng</label>
-							<input type="text" 
-							class="form-control" 
-							name="id" 
-							value="{{ $index->id }}"
-							disabled>
+						@if ($errors->has('index_id'))
+						<div id="alert" class="box">
+							<div class="callout callout-danger" style="margin-bottom: 10px!important;">
+								<h4><i class="fa fa-info"></i> Lỗi:</h4>
+								<strong>{{ $errors->first('index_id') }}</strong>
+							</div>
 						</div>
-
-						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+						@endif
+						<div class="form-group">
 							<label for="name">Tên chỉ số</label>
 							<input 	id="name" 
 							type="text" 
 							class="form-control" 
 							name="name" 
 							value="{{ $index->name }}"
-							placeholder="Điền tên chỉ số">
+							disabled 
+							>
+							<input type="hidden" name="index_id" value="{{$index->id}}">
+						</div>
+
+						<div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+							<label for="name">Tên mức chỉ số</label>
+							<input 	id="name" 
+							type="text" 
+							class="form-control" 
+							name="name" 
+							value="{{ $level->name }}"
+							placeholder="Điền tên mức chỉ số"
+							required>
 							@if ($errors->has('name'))
 							<span class="help-block">
 								<strong>{{ $errors->first('name') }}</strong>
@@ -81,18 +52,34 @@
 							@endif
 						</div>
 
-						<div class="form-group{{ $errors->has('unit') ? ' has-error' : '' }}">
-							<label for="unit">Tên đơn vị</label>
-							<input 	id="unit" 
+						<div class="form-group{{ $errors->has('max') ? ' has-error' : '' }}">
+							<label for="max">Chỉ số tối đa</label>
+							<input 	id="max" 
 							type="text" 
 							class="form-control" 
-							name="unit" 
-							value="{{ $index->unit }}"
-							placeholder="Điền đơn vị"
+							name="max" 
+							value="{{ $level->max }}"
+							placeholder="Điền chỉ số tối đa"
 							required>
-							@if ($errors->has('unit'))
+							@if ($errors->has('max'))
 							<span class="help-block">
-								<strong>{{ $errors->first('unit') }}</strong>
+								<strong>{{ $errors->first('max') }}</strong>
+							</span>
+							@endif
+						</div>
+
+						<div class="form-group{{ $errors->has('min') ? ' has-error' : '' }}">
+							<label for="min">Chỉ số tối thiểu</label>
+							<input 	id="min" 
+							type="text"
+							class="form-control" 
+							name="min" 
+							value="{{ $level->min }}"
+							placeholder="Điền chỉ số tối thiểu"
+							required>
+							@if ($errors->has('min'))
+							<span class="help-block">
+								<strong>{{ $errors->first('min') }}</strong>
 							</span>
 							@endif
 						</div>
@@ -103,7 +90,7 @@
 							class="form-control" 
 							name="description" 
 							placeholder="Điền mô tả"
-							required>{{$index->description}}</textarea>
+							required>{{$level->description}}</textarea>
 							@if ($errors->has('description'))
 							<span class="help-block">
 								<strong>{{ $errors->first('description') }}</strong>
@@ -124,7 +111,7 @@
 					<!-- Modal Alert -->
 					<div class="modal fade" id="alertModal" role="dialog">
 					 	<div class="modal-dialog modal-sm">
-					 		<form id="deleteForm" role="form" method="POST" action="{{ route('index.destroy', $index->id) }}">
+					 		<form id="deleteForm" role="form" method="POST" action="{{ route('level.destroy',['index_id' => $index->id, 'id' => $level->id]) }}">
 								{{ csrf_field() }}
 								<input name="_method" type="hidden" value="DELETE">
 						 		<div class="modal-content">
@@ -154,9 +141,6 @@
 			$('#btnUpdate').click(function(){
 				$('#formEdit').submit();
 			})
-
-			//Alert effect
-			$('#alert').fadeOut(5000);
 		});
 	</script>
 @stop

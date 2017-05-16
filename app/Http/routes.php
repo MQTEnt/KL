@@ -88,7 +88,7 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::put('sign/{id}', ['as' => 'sign.update', 'uses' => 'Admin\SignController@update']);
 	Route::delete('sign/{id}', ['as' => 'sign.destroy', 'uses' => 'Admin\SignController@destroy']);
 
-	//Sign
+	//Index
 	Route::get('index/search', ['as' => 'index.search', 'uses' => 'Admin\IndexController@getSearch']);
 	Route::get('index', ['as' => 'index.index', 'uses' => 'Admin\IndexController@index']);
 	Route::get('index/create', ['as' => 'index.create', 'uses' => 'Admin\IndexController@create']);
@@ -96,6 +96,13 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('index/{id}', ['as' => 'index.show', 'uses' => 'Admin\IndexController@show']);
 	Route::put('index/{id}', ['as' => 'index.update', 'uses' => 'Admin\IndexController@update']);
 	Route::delete('index/{id}', ['as' => 'index.destroy', 'uses' => 'Admin\IndexController@destroy']);
+
+	//Level
+	Route::get('level/show/{index_id}/{id}', ['as' => 'level.show', 'uses' => 'Admin\LevelController@show']);
+	Route::put('level/update/{index_id}/{id}', ['as' => 'level.update', 'uses' => 'Admin\LevelController@update']);
+	Route::get('level/create/{index_id}', ['as' => 'level.create', 'uses' => 'Admin\LevelController@create']);
+	Route::post('level/store/{index_id}', ['as' => 'level.store', 'uses' => 'Admin\LevelController@store']);
+	Route::delete('level/delete/{index_id}/{id}', ['as' => 'level.destroy', 'uses' => 'Admin\LevelController@destroy']);
 });
 
 /* 
