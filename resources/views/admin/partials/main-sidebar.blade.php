@@ -46,7 +46,7 @@
           <i class="fa fa-calendar"></i> <span>Quản lý hoạt động điều trị</span>
         </a>
       </li>
-      <li class="{{ Route::is('symptom.*')||Route::is('sign.*')||Route::is('index.*') ? 'active' : '' }} treeview">
+      <li class="{{ Route::is('symptom.*')||Route::is('sign.*')||Route::is('index.*')||Route::is('exploration.*')||Route::is('image.*') ? 'active' : '' }} treeview">
         <a href="#">
           <i class="fa fa-list-ul"></i></i>
           <span>Quản lý danh mục khám bệnh</span>
@@ -61,6 +61,12 @@
         </ul>
         <ul class="treeview-menu">
           <li class="{{ Route::is('index.*') ? 'active' : '' }}"><a href="{{route('index.index')}}"><i class="fa fa-tint"></i> Quản lý chỉ số xét nghiệm</a></li>
+        </ul>
+        <ul class="treeview-menu">
+          <li class="{{ Route::is('exploration.*') ? 'active' : '' }}"><a href="{{route('exploration.index')}}"><i class="fa fa-stethoscope"></i> Quản lý thăm dò chức năng</a></li>
+        </ul>
+        <ul class="treeview-menu">
+          <li class="{{ Route::is('image.*') ? 'active' : '' }}"><a href="{{route('image.index')}}"><i class="fa fa-film"></i> Quản lý chẩn đoán hình ảnh</a></li>
         </ul>
       </li>
     </ul>

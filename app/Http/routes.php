@@ -103,6 +103,24 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('level/create/{index_id}', ['as' => 'level.create', 'uses' => 'Admin\LevelController@create']);
 	Route::post('level/store/{index_id}', ['as' => 'level.store', 'uses' => 'Admin\LevelController@store']);
 	Route::delete('level/delete/{index_id}/{id}', ['as' => 'level.destroy', 'uses' => 'Admin\LevelController@destroy']);
+
+	//Exploration
+	Route::get('exploration/search', ['as' => 'exploration.search', 'uses' => 'Admin\ExplorationController@getSearch']);
+	Route::get('exploration', ['as' => 'exploration.index', 'uses' => 'Admin\ExplorationController@index']);
+	Route::get('exploration/create', ['as' => 'exploration.create', 'uses' => 'Admin\ExplorationController@create']);
+	Route::post('exploration', ['as' => 'exploration.store', 'uses' => 'Admin\ExplorationController@store']);
+	Route::get('exploration/{id}', ['as' => 'exploration.show', 'uses' => 'Admin\ExplorationController@show']);
+	Route::put('exploration/{id}', ['as' => 'exploration.update', 'uses' => 'Admin\ExplorationController@update']);
+	Route::delete('exploration/{id}', ['as' => 'exploration.destroy', 'uses' => 'Admin\ExplorationController@destroy']);
+
+	//Image
+	Route::get('image/search', ['as' => 'image.search', 'uses' => 'Admin\ImageController@getSearch']);
+	Route::get('image', ['as' => 'image.index', 'uses' => 'Admin\ImageController@index']);
+	Route::get('image/create', ['as' => 'image.create', 'uses' => 'Admin\ImageController@create']);
+	Route::post('image', ['as' => 'image.store', 'uses' => 'Admin\ImageController@store']);
+	Route::get('image/{id}', ['as' => 'image.show', 'uses' => 'Admin\ImageController@show']);
+	Route::put('image/{id}', ['as' => 'image.update', 'uses' => 'Admin\ImageController@update']);
+	Route::delete('image/{id}', ['as' => 'image.destroy', 'uses' => 'Admin\ImageController@destroy']);
 });
 
 /* 
