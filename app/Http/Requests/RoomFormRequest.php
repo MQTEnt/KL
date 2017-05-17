@@ -23,8 +23,9 @@ class RoomFormRequest extends Request
      */
     public function rules()
     {
+        $id = $this->id;
         return [
-            'name' => 'required|max:10',
+            'name' => 'required|max:10|unique:rooms,name,'.$id,
             'limit' => 'required|numeric'
         ];
     }
@@ -34,6 +35,7 @@ class RoomFormRequest extends Request
         return [
             'name.required' => 'Không được để trống',
             'name.max' => 'Tên phòng không vượt quá 10 kí tự',
+            'name.unique' => 'Tên đã tồn tại, mời chọn tên khác',
             'limit.required' => 'Không được để trống',
             'limit.numeric' => 'Mời nhập đúng định dạng số'
         ];
