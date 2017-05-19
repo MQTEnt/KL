@@ -28,6 +28,7 @@
   </head>
   <body class="hold-transition skin-blue sidebar-mini">
     <div class="wrapper">
+      <?php $admin = Auth::guard('admin')->user(); ?>
       @include('admin.partials.header')
       <!-- Left side column. contains the logo and sidebar -->
       @include('admin.partials.main-sidebar')

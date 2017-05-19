@@ -6,22 +6,22 @@ use Illuminate\Http\Request;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use App\Staff;
-use App\Http\Requests\StaffFormRequest;
+use App\User;
+use App\Http\Requests\UserFormRequest;
 class DoctorController extends Controller
 {
 	public function __construct() {
     	$this->middleware('admin');
     }
     public function index(){
-        $doctors = Staff::select()->where('role', 1)->paginate(5);
+        $doctors = User::select()->where('role', 1)->paginate(5);
         return view('admin.doctors.index', ['doctors' => $doctors]);
     }
     public function create(){
         return view('admin.doctors.create');
     }
-    public function store(StaffFormRequest $request){
-        Staff::create([
+    public function store(UserFormRequest $request){
+        User::create([
             'name' => $request->name,
             'dob' => date_format(date_create($request->dob),"Y-m-d"),
             'address' => $request->address,
@@ -34,11 +34,11 @@ class DoctorController extends Controller
         return redirect()->route('doctor.index')->with(['alert' => 'Đã thêm thành công!']);
     }
     public function show($id){
-        $doctor = Staff::findOrFail($id);
+        $doctor = User::findOrFail($id);
         return view('admin.doctors.show', ['doctor' => $doctor]);
     }
-    public function update($id, StaffFormRequest $request){
-        $doctor = Staff::findOrFail($id);
+    public function update($id, UserFormRequest $request){
+        $doctor = User::findOrFail($id);
         $doctor->update([
             'name' => $request->name,
             'dob' => date_format(date_create($request->dob),"Y-m-d"),
@@ -51,13 +51,13 @@ class DoctorController extends Controller
         return redirect()->route('doctor.index')->with(['alert' => 'Đã cập nhật thành công!']);
     }
     public function destroy($id){
-        $doctor = Staff::findOrFail($id);
+        $doctor = User::findOrFail($id);
         $doctor->delete();
         return redirect()->route('doctor.index')->with(['alert' => 'Đã xóa thành công!']);
     }
     public function getSearch(Request $request){
         $query = $request->q;
-        $doctors = Staff::where([
+        $doctors = User::where([
             ['name', 'LIKE', '%'.$query.'%'],
             ['role', '=', 1]])->paginate(5);
         return view('admin.doctors.index', ['doctors' => $doctors]);

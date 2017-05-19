@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
-class StaffFormRequest extends Request
+class UserFormRequest extends Request
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -27,7 +27,7 @@ class StaffFormRequest extends Request
         return [
             'name' => 'required|min:3',
             'address' => 'required',
-            'email' => 'required|email|unique:staffs,email,'.$id,
+            'email' => 'required|email|unique:users,email,'.$id,
             'dob' => 'required|date',
             'phone' => 'required|numeric',
             'password' => 'required|min:6'
