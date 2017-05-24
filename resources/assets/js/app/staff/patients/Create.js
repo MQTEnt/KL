@@ -63,7 +63,7 @@ class Create extends React.Component{
 	    formData.append('_token', _token);
 
 	    //POST (AJAX)
-	    fetch('patient', {
+	    fetch('/patient', {
 	      method: 'POST',
 	      credentials: 'same-origin',
 	      body: formData
@@ -72,6 +72,8 @@ class Create extends React.Component{
 	      return response.json()
 	    }).then(function(obj) {
 	      if(obj.stat==1){
+	      	//Clear form
+	      	this.form.clearForm();
 	      	//Open dialog
 		    this.setState({
 				openDialog: true

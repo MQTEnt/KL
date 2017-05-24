@@ -52213,6 +52213,33 @@
 				);
 			}
 		}, {
+			key: 'clearForm',
+			value: function clearForm() {
+				this.setState({
+					inputGender: 3,
+					inputRoom: 1,
+					errorInputName: 'Không được để trống',
+					errorInputAddress: 'Không được để trống',
+					errorInputCity: 'Không được để trống',
+					errorInputIdCard: 'Không được để trống',
+					errorInputEmail: '',
+					onChangeInputName: false,
+					onChangeInputAddress: false,
+					onChangeInputCity: false,
+					onChangeInputIdCard: false,
+					onSubmit: false
+				});
+				this.name.input.value = '';
+				this.address.input.value = '';
+				this.city.input.value = '';
+				this.id_card.input.value = '';
+				this.insurance_card.input.value = '';
+				this.job.input.value = '';
+				this.number.input.value = '';
+				this.email.input.value = '';
+				this.description.input.value = '';
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				var _this2 = this;
@@ -52336,7 +52363,6 @@
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'Ghi ch\xFA',
 						fullWidth: true,
-						multiLine: true,
 						ref: function ref(input) {
 							_this2.description = input;
 						},
@@ -57906,7 +57932,7 @@
 				formData.append('_token', _token);
 
 				//POST (AJAX)
-				fetch('patient', {
+				fetch('/patient', {
 					method: 'POST',
 					credentials: 'same-origin',
 					body: formData
@@ -57914,6 +57940,8 @@
 					return response.json();
 				}).then(function (obj) {
 					if (obj.stat == 1) {
+						//Clear form
+						this.form.clearForm();
 						//Open dialog
 						this.setState({
 							openDialog: true

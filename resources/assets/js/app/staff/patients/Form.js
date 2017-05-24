@@ -192,6 +192,31 @@ class Form extends React.Component{
 			    </SelectField>
 	    	)
 	}
+	clearForm(){
+		this.setState({
+			inputGender: 3,
+      		inputRoom: 1,
+      		errorInputName: 'Không được để trống',
+      		errorInputAddress: 'Không được để trống',
+      		errorInputCity: 'Không được để trống',
+      		errorInputIdCard: 'Không được để trống',
+      		errorInputEmail: '',
+      		onChangeInputName: false,
+      		onChangeInputAddress: false,
+      		onChangeInputCity: false,
+      		onChangeInputIdCard: false,
+      		onSubmit: false
+		});
+		this.name.input.value='';
+		this.address.input.value='';
+		this.city.input.value='';
+		this.id_card.input.value='';
+		this.insurance_card.input.value='';
+		this.job.input.value='';
+		this.number.input.value='';
+		this.email.input.value='';
+		this.description.input.value='';
+	}
 	render(){
 		return (
 			<div>
@@ -294,7 +319,6 @@ class Form extends React.Component{
 				<TextField
 					hintText="Ghi chú"
 					fullWidth={true}
-					multiLine={true}
 					ref={(input) => { this.description = input; }}
 					floatingLabelText="Điền ghi chú"
 					defaultValue={(this.props.editing)?this.props.selectedPatient.description:''}
