@@ -123,8 +123,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::delete('image/{id}', ['as' => 'image.destroy', 'uses' => 'Admin\ImageController@destroy']);
 });
 
+
 /* 
- * User Login/Logout
+ * User (Staff) Login/Logout
  */
 Route::auth();
 Route::get('login', 'Auth\AuthController@getLogin');
@@ -134,3 +135,26 @@ Route::get('login', 'Auth\AuthController@getLogin');
  * 
  */
 Route::get('/home', 'HomeController@index');
+
+Route::get('/staff', function(){
+	return view('staff.index');
+});
+
+/*
+ * API
+ */
+//Route::get('patient/search', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearch']);
+Route::get('patient', ['as' => 'patient.index', 'uses' => 'Staff\PatientController@index']);
+// Route::get('patient/create', ['as' => 'patient.create', 'uses' => 'Staff\PatientController@create']);
+Route::post('patient', ['as' => 'patient.store', 'uses' => 'Staff\PatientController@store']);
+// Route::get('patient/{id}', ['as' => 'patient.show', 'uses' => 'Staff\PatientController@show']);
+Route::put('patient/{id}', ['as' => 'patient.update', 'uses' => 'Staff\PatientController@update']);
+Route::delete('patient/{id}', ['as' => 'patient.destroy', 'uses' => 'Staff\PatientController@destroy']);
+
+Route::get('/room', function(){
+	return App\Room::all();
+}); //Add middleware
+
+Route::get('/getToken', function(){
+    return Response::json(['token'=>csrf_token()]);
+});
