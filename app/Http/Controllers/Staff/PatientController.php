@@ -52,4 +52,17 @@ class PatientController extends Controller
 		$patient->delete();
 		return ['stat' => 1];
 	}
+	public function getSearchName(Request $request){
+		$query = $request->q;
+        $patients = Patient::where([
+            ['name', 'LIKE', '%'.$query.'%']])->groupBy('name')->pluck('name')->toArray();
+        return $patients;
+	}
+	public function getSearch(Request $request)
+	{
+		$query = $request->q;
+        $patients = Patient::where([
+            ['name', 'LIKE', '%'.$query.'%']])->get();
+        return $patients;
+	}
 }

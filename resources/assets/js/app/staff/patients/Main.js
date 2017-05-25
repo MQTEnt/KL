@@ -47,6 +47,7 @@ class Main extends React.Component {
             patients={this.props.patients}
             handleUpdate={this.props.handleUpdate}
             handleDelete={this.props.handleDelete}
+            getPatients={this.props.getPatients}
           />
         </Tab>
         <Tab 

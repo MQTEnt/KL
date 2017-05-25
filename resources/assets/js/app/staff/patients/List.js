@@ -3,8 +3,10 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import Dialog from 'material-ui/Dialog';
 import Alert from '../partials/Alert';
 import FlatButton from 'material-ui/FlatButton';
+import Search from './Search';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ContentSave from 'material-ui/svg-icons/content/save';
+import ActionAssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
 import {fullWhite} from 'material-ui/styles/colors';
 import Form from './Form';
 const style = {
@@ -212,6 +214,7 @@ class List extends React.Component{
 
     return (
       <div>
+        <Search getPatients={this.props.getPatients}/>
         <Table
           onCellClick={this.onCellClickHandle}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -226,7 +229,7 @@ class List extends React.Component{
         </Table>
 
         <Dialog
-          title="Thông tin bệnh nhân"
+          title={<p><ActionAssignmentInd style={{'position': 'relative', 'top': '5px'}}/>Thông tin bệnh nhân</p>}
           actions={actions}
           modal={false}
           open={this.state.openDialog}

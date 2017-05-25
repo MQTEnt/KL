@@ -143,7 +143,8 @@ Route::get('/staff', function(){
 /*
  * API
  */
-//Route::get('patient/search', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearch']);
+Route::get('patient/searchName', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearchName']);
+Route::get('patient/search', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearch']);
 Route::get('patient', ['as' => 'patient.index', 'uses' => 'Staff\PatientController@index']);
 // Route::get('patient/create', ['as' => 'patient.create', 'uses' => 'Staff\PatientController@create']);
 Route::post('patient', ['as' => 'patient.store', 'uses' => 'Staff\PatientController@store']);
