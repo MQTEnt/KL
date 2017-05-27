@@ -4,6 +4,7 @@ import Dialog from 'material-ui/Dialog';
 import Alert from '../partials/Alert';
 import FlatButton from 'material-ui/FlatButton';
 import Search from './Search';
+import TableFooter from './TableFooter';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import ActionAssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
@@ -165,10 +166,10 @@ class List extends React.Component{
   }
   displayRows(){
     return (
-      <TableBody displayRowCheckbox={false}>
+      <TableBody showRowHover={true} displayRowCheckbox={false}>
         {
           this.props.patients.map( (patient) => (
-              <TableRow key={patient.id}>
+              <TableRow key={patient.id} style={{'cursor': 'pointer'}}>
                   <TableRowColumn  data-id={patient.id}>{patient.id}</TableRowColumn>
                   <TableRowColumn  data-id={patient.id}>{patient.name}</TableRowColumn>
                   <TableRowColumn  data-id={patient.id}>{patient.address}</TableRowColumn>
@@ -226,8 +227,13 @@ class List extends React.Component{
             </TableRow>
           </TableHeader>
           {this.displayRows()}
+          <TableFooter 
+            current_page={this.props.current_page} 
+            last_page={this.props.last_page} 
+            getPatients={this.props.getPatients}
+            qSearch={this.props.qSearch}
+          />
         </Table>
-
         <Dialog
           title={<p><ActionAssignmentInd style={{'position': 'relative', 'top': '5px'}}/>Thông tin bệnh nhân</p>}
           actions={actions}

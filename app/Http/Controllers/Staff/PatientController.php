@@ -10,7 +10,7 @@ use App\Patient;
 class PatientController extends Controller
 {
 	public function index(){
-		$patients = Patient::all();
+		$patients = Patient::paginate(10);
 		return $patients;
 	}
 	public function store(Request $request){
@@ -62,7 +62,7 @@ class PatientController extends Controller
 	{
 		$query = $request->q;
         $patients = Patient::where([
-            ['name', 'LIKE', '%'.$query.'%']])->get();
+            ['name', 'LIKE', '%'.$query.'%']])->paginate(10);
         return $patients;
 	}
 }

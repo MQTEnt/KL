@@ -6,19 +6,23 @@ class Patient extends React.Component{
 		super(props);
 
 		this.state = {
-			'patients': [],
-			isLoading: true
+			patients: [],
+			isLoading: true,
+			current_page: 0,
+			last_page: 0,
+			qSearch: ''
 		}
 		this.handleAdd = this.handleAdd.bind(this);
 		this.handleUpdate = this.handleUpdate.bind(this);
 		this.handleDelete = this.handleDelete.bind(this);
 		this.getPatients = this.getPatients.bind(this);
 	}
-	getPatients(url){
+	getPatients(url, qSearch){
 		//Reset data
 		this.setState({
-			'patients': [],
-			'isLoading': true
+			patients: [],
+			isLoading: true,
+			qSearch: qSearch
 		});
 		//Get data
 		setTimeout(function(){
@@ -30,10 +34,11 @@ class Patient extends React.Component{
 				//Data Response
 				//console.log('Data Response: ', obj);
 				this.setState({
-				  		'patients': obj,
+				  		'patients': obj.data,
+				  		'last_page': obj.last_page,
+				  		'current_page': obj.current_page,
 				  		'isLoading': false
 				});
-
 			}.bind(this))
 			.catch(function(ex) {
 				//Log Error
@@ -75,7 +80,7 @@ class Patient extends React.Component{
 		});
 	}
 	componentDidMount(){
-		this.getPatients('/patient');
+		this.getPatients('/patient','');
 	}
 
 	render(){
@@ -87,6 +92,9 @@ class Patient extends React.Component{
 					handleUpdate={this.handleUpdate}
 					handleDelete={this.handleDelete}
 					getPatients={this.getPatients}
+					current_page={this.state.current_page}
+					last_page={this.state.last_page}
+					qSearch={this.state.qSearch}
 				/>
 				{
 					(this.state.isLoading)?

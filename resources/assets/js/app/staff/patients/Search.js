@@ -36,11 +36,11 @@ class Search extends Component {
   };
   handleOnClickItem(){
     var url = '/patient/search?q='+this.state.selectedItem;
-    this.props.getPatients(url);
+    this.props.getPatients(url, this.state.selectedItem);
   }
   render() {
     return (
-      <div style={{'textAlign': 'right'}}>
+      <div style={{'textAlign': 'right', 'width': '95%', 'margin': '0 auto'}}>
         <AutoComplete
           hintText="Nhập tên bệnh nhân"
           dataSource={this.state.items}
