@@ -27,7 +27,9 @@ class Patient extends React.Component{
 		//Get data
 		setTimeout(function(){
 			//Get data
-			fetch(url)
+			fetch(url, {
+				credentials: 'same-origin'
+			})
 			.then(function(response) {
 				return response.json()
 			}).then(function(obj) {

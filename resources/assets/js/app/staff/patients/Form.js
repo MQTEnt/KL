@@ -160,7 +160,9 @@ class Form extends React.Component{
 	}
 	componentDidMount(){
 		//Get data
-		fetch('/room')
+		fetch('/room', {
+			credentials: 'same-origin'
+		})
 		.then(function(response) {
 			return response.json()
 		}).then(function(obj) {

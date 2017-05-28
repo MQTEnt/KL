@@ -7,13 +7,14 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Patient;
+use App\Http\Requests\PatientFormRequest;
 class PatientController extends Controller
 {
 	public function index(){
 		$patients = Patient::paginate(10);
 		return $patients;
 	}
-	public function store(Request $request){
+	public function store(PatientFormRequest $request){
 		$patient = new Patient();
 		$patient->name = $request->name;
 		$patient->gender = $request->gender;
@@ -30,7 +31,7 @@ class PatientController extends Controller
 		$patient->save();
 		return ['stat' => 1, 'patient' => $patient];
 	}
-	public function update($id, Request $request){
+	public function update($id, PatientFormRequest $request){
 		$patient = Patient::findOrFail($id);
 		$patient->name = $request->name;
 		$patient->gender = $request->gender;
