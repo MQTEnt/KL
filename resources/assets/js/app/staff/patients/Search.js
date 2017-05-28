@@ -18,7 +18,9 @@ class Search extends Component {
   }
   handleUpdateInput(value){
     //Get data from server
-    fetch('/patient/searchName?q='+value)
+    fetch('/patient/searchName?q='+value, {
+        credentials: 'same-origin'
+      })
       .then(function(response) {
         return response.json()
       }).then(function(obj) {

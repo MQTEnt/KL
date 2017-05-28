@@ -5,6 +5,7 @@ import FlatButton from 'material-ui/FlatButton';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import Form from './Form';
+import autoBind from 'react-autobind';
 
 const style = {
   main: {
@@ -21,10 +22,8 @@ class Create extends React.Component{
 		this.state = {
 			openDialog: false
 		};
-		this.handleClickOk = this.handleClickOk.bind(this);
-		this.handleCloseDialog = this.handleCloseDialog.bind(this);
-		this.handleClickCreate = this.handleClickCreate.bind(this);
-		this.addPatient = this.addPatient.bind(this);
+		
+		autoBind(this);
 	}
 	handleCloseDialog(){
 		this.setState({

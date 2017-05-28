@@ -3,6 +3,8 @@ import TextField from 'material-ui/TextField';
 import DatePicker from 'material-ui/DatePicker';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import autoBind from 'react-autobind';
+
 class Form extends React.Component{
 	constructor(props){
 		super(props);
@@ -18,15 +20,7 @@ class Form extends React.Component{
       		errorInputEmail: ''
 		}
 		//
-		this.handleChangeInputGender = this.handleChangeInputGender.bind(this);
-		this.handleChangeInputRoom = this.handleChangeInputRoom.bind(this);
-		this.validateInputName = this.validateInputName.bind(this);
-		this.validateInputAddress = this.validateInputAddress.bind(this);
-		this.validateInputCity = this.validateInputCity.bind(this);
-		this.validateInputIdCard = this.validateInputIdCard.bind(this);
-		this.validateInputEmail = this.validateInputEmail.bind(this);
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleChangeInputDate = this.handleChangeInputDate.bind(this);
+		autoBind(this);
 	}
 	handleSubmit(){
 		this.setState({onSubmit: true});

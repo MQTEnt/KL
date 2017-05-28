@@ -1,6 +1,8 @@
 import React from 'react';
 import Main from './Main';
 import CircularProgress from 'material-ui/CircularProgress';
+import autoBind from 'react-autobind';
+
 class Patient extends React.Component{
 	constructor(props){
 		super(props);
@@ -12,10 +14,7 @@ class Patient extends React.Component{
 			last_page: 0,
 			qSearch: ''
 		}
-		this.handleAdd = this.handleAdd.bind(this);
-		this.handleUpdate = this.handleUpdate.bind(this);
-		this.handleDelete = this.handleDelete.bind(this);
-		this.getPatients = this.getPatients.bind(this);
+		autoBind(this);
 	}
 	getPatients(url, qSearch){
 		//Reset data

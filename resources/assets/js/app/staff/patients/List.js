@@ -10,6 +10,8 @@ import ContentSave from 'material-ui/svg-icons/content/save';
 import ActionAssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
 import {fullWhite} from 'material-ui/styles/colors';
 import Form from './Form';
+import autoBind from 'react-autobind';
+
 const style = {
   button: {
     color: 'white',
@@ -27,16 +29,7 @@ class List extends React.Component{
     };
 
     //
-    this.onCellClickHandle = this.onCellClickHandle.bind(this);
-    this.handleClose =this.handleClose.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleAlert = this.handleAlert.bind(this);
-    this.handleDelete = this.handleDelete.bind(this);
-    this.handleAlertAccept = this.handleAlertAccept.bind(this);
-    this.handleAlertCancel = this.handleAlertCancel.bind(this);
-    this.updatePatient = this.updatePatient.bind(this);
-    this.handleClickOk = this.handleClickOk.bind(this);
-    this.handleCloseDialogNoti = this.handleCloseDialogNoti.bind(this);
+    autoBind(this);
   }
   updatePatient(obj){
     var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
