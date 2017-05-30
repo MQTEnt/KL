@@ -9,15 +9,7 @@ export default class Alert extends React.Component {
   constructor(props)
   {
     super(props);
-
-    this.state = {close: false}
-    //
-    this.handleClose = this.handleClose.bind(this);
   }
-
-  handleClose() {
-    this.setState({close: true});
-  };
 
   render() {
     const actions = [

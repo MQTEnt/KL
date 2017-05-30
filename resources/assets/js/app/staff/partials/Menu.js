@@ -6,6 +6,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ImageDehaze from 'material-ui/svg-icons/image/dehaze';
 import SocialPeople from 'material-ui/svg-icons/social/people';
+import ActionAssignment from 'material-ui/svg-icons/action/assignment'
 const style = {
   icon: {
     position: 'relative',
@@ -62,6 +63,11 @@ export default class Menu extends React.Component {
           <Link style={style.link} activeStyle={style.active} to={"/staff/patient"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
               <SocialPeople style={style.icon}/> Quản lý bệnh nhân
+            </MenuItem>
+          </Link>
+          <Link style={style.link} activeStyle={style.active} to={"/staff/record"}>
+            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+              <ActionAssignment style={style.icon}/> Quản lý bệnh án
             </MenuItem>
           </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/pageA"}>

@@ -5,6 +5,8 @@ import Master from "./layouts/Master";
 import PageA from "./PageA";
 import PageB from "./PageB";
 import Patients from './patients/App';
+import PatientDetail from './patients/Detail';
+import Records from './records/App'
 
 class App extends Component{
 	constructor(props){
@@ -14,8 +16,10 @@ class App extends Component{
 		return (
 			<Router history={browserHistory}>
                 <Route path={"/staff"} component={Master} >
-                    <IndexRoute component={Patients} />
+                    <IndexRoute component={Records} />
                     <Route path={"/staff/patient"} component={Patients} />
+                    <Route path={"/staff/patient/:patient_id"} component={PatientDetail} />
+                    <Route path={"/staff/record"} component={Records} />
                     <Route path={"/staff/pageA"} component={PageA} />
                     <Route path={"/staff/pageB"} component={PageB} />
                 </Route>

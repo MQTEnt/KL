@@ -24,4 +24,9 @@ class Patient extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function records()
+    {
+        return $this->hasMany('App\Record');
+    }
 }

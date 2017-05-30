@@ -144,6 +144,9 @@ Route::get('/staff', function(){
  * API
  */
 Route::group(['middleware' => ['auth']], function(){
+	/*
+	 * Patient
+	 */
 	Route::get('patient/searchName', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearchName']);
 	Route::get('patient/search', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearch']);
 	Route::get('patient', ['as' => 'patient.index', 'uses' => 'Staff\PatientController@index']);
@@ -153,6 +156,13 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::put('patient/{id}', ['as' => 'patient.update', 'uses' => 'Staff\PatientController@update']);
 	Route::delete('patient/{id}', ['as' => 'patient.destroy', 'uses' => 'Staff\PatientController@destroy']);
 
+	/*
+	 * Record 
+	 */
+	Route::post('record', 'Staff\RecordController@store');
+
+
+	
 	Route::get('staff/user', function(Illuminate\Http\Request $request){
 		$user = Auth::user();
 		return $user;
@@ -161,4 +171,10 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('/room', function(){
 	return App\Room::all();
 	});
+});
+
+//Test
+Route::get('/test', function(){
+	$record = App\Record::find(1);
+	return $record->patient;
 });
