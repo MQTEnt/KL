@@ -38,8 +38,6 @@ class Main extends React.Component {
           <p>{this.state.alert}</p>
           <List
             patients={this.props.patients}
-            handleUpdate={this.props.handleUpdate}
-            handleDelete={this.props.handleDelete}
             getPatients={this.props.getPatients}
             current_page={this.props.current_page}
             last_page={this.props.last_page}

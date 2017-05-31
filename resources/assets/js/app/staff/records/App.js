@@ -47,39 +47,6 @@ class Patient extends React.Component{
 			});
 		}.bind(this), 1500);
 	}
-	handleAdd(newPatient){
-		let newMovieList = this.state.patients;
-		newMovieList.push(newPatient);
-		this.setState({
-			'patients': newMovieList
-		});
-	}
-	handleUpdate(updatedPatient){
-		let patients = this.state.patients;
-		let objIndex = patients.findIndex((obj => obj.id === updatedPatient.id));
-		
-		//console.log("Before update: ", patients[objIndex])
-
-		//Update object's property.
-		patients[objIndex] = updatedPatient;
-
-		this.setState({
-			'movies': patients
-		});
-	}
-	handleDelete(patientId){
-		let patients = this.state.patients;
-		let objIndex = patients.findIndex((obj => obj.id === patientId));
-		
-		//console.log("Before update: ", patients[objIndex])
-
-		//Update object's property.
-		patients.splice(objIndex, 1);
-
-		this.setState({
-			'patients': patients
-		});
-	}
 	componentDidMount(){
 		this.getPatients('/patient','');
 	}
@@ -89,9 +56,6 @@ class Patient extends React.Component{
 			<div>
 				<Main
 					patients={this.state.patients}
-					handleAdd={this.handleAdd}
-					handleUpdate={this.handleUpdate}
-					handleDelete={this.handleDelete}
 					getPatients={this.getPatients}
 					current_page={this.state.current_page}
 					last_page={this.state.last_page}

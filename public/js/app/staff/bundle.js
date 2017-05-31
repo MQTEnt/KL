@@ -71531,49 +71531,6 @@
 				}.bind(this), 1500);
 			}
 		}, {
-			key: 'handleAdd',
-			value: function handleAdd(newPatient) {
-				var newMovieList = this.state.patients;
-				newMovieList.push(newPatient);
-				this.setState({
-					'patients': newMovieList
-				});
-			}
-		}, {
-			key: 'handleUpdate',
-			value: function handleUpdate(updatedPatient) {
-				var patients = this.state.patients;
-				var objIndex = patients.findIndex(function (obj) {
-					return obj.id === updatedPatient.id;
-				});
-
-				//console.log("Before update: ", patients[objIndex])
-
-				//Update object's property.
-				patients[objIndex] = updatedPatient;
-
-				this.setState({
-					'movies': patients
-				});
-			}
-		}, {
-			key: 'handleDelete',
-			value: function handleDelete(patientId) {
-				var patients = this.state.patients;
-				var objIndex = patients.findIndex(function (obj) {
-					return obj.id === patientId;
-				});
-
-				//console.log("Before update: ", patients[objIndex])
-
-				//Update object's property.
-				patients.splice(objIndex, 1);
-
-				this.setState({
-					'patients': patients
-				});
-			}
-		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				this.getPatients('/patient', '');
@@ -71586,9 +71543,6 @@
 					null,
 					_react2.default.createElement(_Main2.default, {
 						patients: this.state.patients,
-						handleAdd: this.handleAdd,
-						handleUpdate: this.handleUpdate,
-						handleDelete: this.handleDelete,
 						getPatients: this.getPatients,
 						current_page: this.state.current_page,
 						last_page: this.state.last_page,
@@ -71698,8 +71652,6 @@
 	          ),
 	          _react2.default.createElement(_List2.default, {
 	            patients: this.props.patients,
-	            handleUpdate: this.props.handleUpdate,
-	            handleDelete: this.props.handleDelete,
 	            getPatients: this.props.getPatients,
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
