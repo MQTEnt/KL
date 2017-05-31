@@ -2,7 +2,8 @@ import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import List from './List';
 import SocialPeople from 'material-ui/svg-icons/social/people';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment'
+import ActionAssignment from 'material-ui/svg-icons/action/assignment';
+import ListRecord from './ListRecord';
 const style = {
   tabs: {
     marginBottom: 50
@@ -42,6 +43,7 @@ class Main extends React.Component {
             current_page={this.props.current_page}
             last_page={this.props.last_page}
             qSearch={this.props.qSearch}
+            isLoadingPatients={this.props.isLoadingPatients}
           />
         </Tab>
         <Tab 
@@ -49,7 +51,7 @@ class Main extends React.Component {
           value={1}
           icon={<ActionAssignment/>}
         >
-          <p>Danh sách bệnh án</p>
+          <ListRecord/>
         </Tab>
       </Tabs>
     );

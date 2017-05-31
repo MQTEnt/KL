@@ -15,4 +15,30 @@ class RecordController extends Controller
 		$record->save();
 		return ['stat' => 1, 'record'=> $record];
 	}
+	public function index(){
+		$records = Record::paginate(10);
+		return $records;
+	}
+	public function getSearch(Request $request)
+	{
+		$id = $request->q;
+		if($id == '')
+		{
+			$records = Record::paginate(10);
+			return $records;
+		}
+        $record = Record::find($id);
+        if(!is_null($record))
+	        return [
+	        	'current_page' => 1,
+				'last_page' => 1,
+				'data' => [$record]
+	        ];
+	    else
+	    	return [
+	    		'current_page' => 1,
+	    		'last_page' => 0,
+	    		'data' => null
+	    	];
+	}
 }

@@ -47636,10 +47636,6 @@
 
 	var _Main2 = _interopRequireDefault(_Main);
 
-	var _CircularProgress = __webpack_require__(556);
-
-	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
-
 	var _reactAutobind = __webpack_require__(643);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -47764,13 +47760,9 @@
 						getPatients: this.getPatients,
 						current_page: this.state.current_page,
 						last_page: this.state.last_page,
-						qSearch: this.state.qSearch
-					}),
-					this.state.isLoading ? _react2.default.createElement(
-						'div',
-						{ style: { 'margin': '0 auto', 'width': '0' } },
-						_react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
-					) : ''
+						qSearch: this.state.qSearch,
+						isLoading: this.state.isLoading
+					})
 				);
 			}
 		}]);
@@ -47887,7 +47879,8 @@
 	            getPatients: this.props.getPatients,
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
-	            qSearch: this.props.qSearch
+	            qSearch: this.props.qSearch,
+	            isLoading: this.props.isLoading
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -48675,6 +48668,10 @@
 
 	var _Form2 = _interopRequireDefault(_Form);
 
+	var _CircularProgress = __webpack_require__(556);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
 	var _reactAutobind = __webpack_require__(643);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -48927,7 +48924,8 @@
 	          getList: this.props.getPatients,
 	          hintText: 'Nh\u1EADp t\xEAn',
 	          apiSearchGroup: '/patient/searchName',
-	          apiSearch: '/patient/search'
+	          apiSearch: '/patient/search',
+	          autoComplete: true
 	        }),
 	        _react2.default.createElement(
 	          _Table.Table,
@@ -48970,6 +48968,11 @@
 	            api: '/patient/search'
 	          })
 	        ),
+	        this.props.isLoading ? _react2.default.createElement(
+	          'div',
+	          { style: { 'margin': '0 auto', 'width': '0' } },
+	          _react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+	        ) : '',
 	        _react2.default.createElement(
 	          _Dialog2.default,
 	          {
@@ -53071,13 +53074,17 @@
 	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        'div',
 	        { style: { 'textAlign': 'right', 'width': '95%', 'margin': '0 auto' } },
 	        _react2.default.createElement(_AutoComplete2.default, {
 	          hintText: this.props.hintText,
 	          dataSource: this.state.items,
-	          onUpdateInput: this.handleUpdateInput,
+	          onUpdateInput: this.props.autoComplete ? this.handleUpdateInput : function (value) {
+	            _this2.setState({ selectedItem: value });
+	          },
 	          floatingLabelText: 'T\xECm ki\u1EBFm'
 	        }),
 	        _react2.default.createElement(
@@ -71464,10 +71471,6 @@
 
 	var _Main2 = _interopRequireDefault(_Main);
 
-	var _CircularProgress = __webpack_require__(556);
-
-	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
-
 	var _reactAutobind = __webpack_require__(643);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -71546,13 +71549,9 @@
 						getPatients: this.getPatients,
 						current_page: this.state.current_page,
 						last_page: this.state.last_page,
-						qSearch: this.state.qSearch
-					}),
-					this.state.isLoading ? _react2.default.createElement(
-						'div',
-						{ style: { 'margin': '0 auto', 'width': '0' } },
-						_react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
-					) : ''
+						qSearch: this.state.qSearch,
+						isLoadingPatients: this.state.isLoading
+					})
 				);
 			}
 		}]);
@@ -71591,6 +71590,10 @@
 	var _assignment = __webpack_require__(476);
 
 	var _assignment2 = _interopRequireDefault(_assignment);
+
+	var _ListRecord = __webpack_require__(655);
+
+	var _ListRecord2 = _interopRequireDefault(_ListRecord);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -71655,7 +71658,8 @@
 	            getPatients: this.props.getPatients,
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
-	            qSearch: this.props.qSearch
+	            qSearch: this.props.qSearch,
+	            isLoadingPatients: this.props.isLoadingPatients
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -71665,11 +71669,7 @@
 	            value: 1,
 	            icon: _react2.default.createElement(_assignment2.default, null)
 	          },
-	          _react2.default.createElement(
-	            'p',
-	            null,
-	            'Danh s\xE1ch b\u1EC7nh \xE1n'
-	          )
+	          _react2.default.createElement(_ListRecord2.default, null)
 	        )
 	      );
 	    }
@@ -71698,10 +71698,6 @@
 
 	var _Table = __webpack_require__(501);
 
-	var _Alert = __webpack_require__(519);
-
-	var _Alert2 = _interopRequireDefault(_Alert);
-
 	var _Search = __webpack_require__(523);
 
 	var _Search2 = _interopRequireDefault(_Search);
@@ -71710,17 +71706,13 @@
 
 	var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
-	var _delete = __webpack_require__(639);
-
-	var _delete2 = _interopRequireDefault(_delete);
-
-	var _save = __webpack_require__(640);
-
-	var _save2 = _interopRequireDefault(_save);
-
 	var _Detail = __webpack_require__(652);
 
 	var _Detail2 = _interopRequireDefault(_Detail);
+
+	var _CircularProgress = __webpack_require__(556);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
 
 	var _reactAutobind = __webpack_require__(643);
 
@@ -71820,7 +71812,8 @@
 	          getList: this.props.getPatients,
 	          hintText: 'Nh\u1EADp t\xEAn',
 	          apiSearchGroup: '/patient/searchName',
-	          apiSearch: '/patient/search'
+	          apiSearch: '/patient/search',
+	          autoComplete: true
 	        }),
 	        _react2.default.createElement(
 	          _Table.Table,
@@ -71863,6 +71856,11 @@
 	            api: '/patient/search'
 	          })
 	        ),
+	        this.props.isLoadingPatients ? _react2.default.createElement(
+	          'div',
+	          { style: { 'margin': '0 auto', 'width': '0' } },
+	          _react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+	        ) : '',
 	        _react2.default.createElement(_Detail2.default, {
 	          selectedPatient: this.state.selectedPatient,
 	          handleClose: this.handleClose,
@@ -71902,10 +71900,6 @@
 	var _FlatButton = __webpack_require__(520);
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
-
-	var _IconButton = __webpack_require__(456);
-
-	var _IconButton2 = _interopRequireDefault(_IconButton);
 
 	var _assignmentInd = __webpack_require__(641);
 
@@ -72212,6 +72206,196 @@
 	}(_react2.default.Component);
 
 	exports.default = SnackBar;
+
+/***/ }),
+/* 655 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Table = __webpack_require__(501);
+
+	var _Search = __webpack_require__(523);
+
+	var _Search2 = _interopRequireDefault(_Search);
+
+	var _TableFooter = __webpack_require__(534);
+
+	var _TableFooter2 = _interopRequireDefault(_TableFooter);
+
+	var _CircularProgress = __webpack_require__(556);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
+	var _reactAutobind = __webpack_require__(643);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var List = function (_React$Component) {
+	  _inherits(List, _React$Component);
+
+	  function List(props) {
+	    _classCallCheck(this, List);
+
+	    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+
+	    _this.state = {
+	      openDialog: false,
+	      selectedRecord: null,
+	      records: null,
+	      isLoading: true,
+	      qSearch: ''
+	    };
+
+	    //
+	    (0, _reactAutobind2.default)(_this);
+	    return _this;
+	  }
+
+	  _createClass(List, [{
+	    key: 'getRecords',
+	    value: function getRecords(url, qSearch) {
+	      this.setState({
+	        records: [],
+	        isLoading: true
+	      });
+	      setTimeout(function () {
+	        //Get data
+	        fetch(url, {
+	          credentials: 'same-origin'
+	        }).then(function (response) {
+	          return response.json();
+	        }).then(function (obj) {
+	          //Data Response
+	          //console.log('Data Response: ', obj);
+	          this.setState({
+	            'records': obj.data,
+	            'last_page': obj.last_page,
+	            'current_page': obj.current_page,
+	            'isLoading': false
+	          });
+	        }.bind(this)).catch(function (ex) {
+	          //Log Error
+	          console.log('parsing failed', ex);
+	        });
+	      }.bind(this), 1500);
+	    }
+	  }, {
+	    key: 'onCellClickHandle',
+	    value: function onCellClickHandle(rowNumber, columnNumber, evt) {
+	      this.setState({ 'openDialog': true });
+	      var selectedRecordId = parseInt(evt.target.dataset.id, 10); //get property data-id
+	      //console.log("activityId", selectedRecordId);
+
+	      var records = this.state.records;
+	      var indexObj = records.findIndex(function (obj) {
+	        return obj.id === selectedRecordId;
+	      });
+	      var selectedRecord = records[indexObj];
+
+	      //console.log(selectedRecord);
+	      this.setState({
+	        'selectedRecord': selectedRecord
+	      });
+	    }
+	  }, {
+	    key: 'handleClose',
+	    value: function handleClose() {
+	      this.setState({ openDialog: false });
+	    }
+	  }, {
+	    key: 'displayRows',
+	    value: function displayRows() {
+	      if (this.state.records != null) return _react2.default.createElement(
+	        _Table.TableBody,
+	        { showRowHover: true, displayRowCheckbox: false },
+	        this.state.records.map(function (record) {
+	          return _react2.default.createElement(
+	            _Table.TableRow,
+	            { key: record.id, style: { 'cursor': 'pointer' } },
+	            _react2.default.createElement(
+	              _Table.TableRowColumn,
+	              { 'data-id': record.id },
+	              record.id
+	            )
+	          );
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getRecords('/record', '');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_Search2.default, {
+	          getList: this.getRecords,
+	          hintText: 'Nh\u1EADp m\xE3 b\u1EC7nh \xE1n',
+	          apiSearch: '/record/search',
+	          autoComplete: false
+	        }),
+	        _react2.default.createElement(
+	          _Table.Table,
+	          {
+	            onCellClick: this.onCellClickHandle },
+	          _react2.default.createElement(
+	            _Table.TableHeader,
+	            { displaySelectAll: false, adjustForCheckbox: false },
+	            _react2.default.createElement(
+	              _Table.TableRow,
+	              null,
+	              _react2.default.createElement(
+	                _Table.TableHeaderColumn,
+	                null,
+	                'ID'
+	              )
+	            )
+	          ),
+	          this.displayRows(),
+	          _react2.default.createElement(_TableFooter2.default, {
+	            current_page: this.state.current_page,
+	            last_page: this.state.last_page,
+	            getList: this.getRecords,
+	            qSearch: '',
+	            api: '/record'
+	          })
+	        ),
+	        this.state.isLoading ? _react2.default.createElement(
+	          'div',
+	          { style: { 'margin': '0 auto', 'width': '0' } },
+	          _react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+	        ) : ''
+	      );
+	    }
+	  }]);
+
+	  return List;
+	}(_react2.default.Component);
+
+	exports.default = List;
 
 /***/ })
 /******/ ]);

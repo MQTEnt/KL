@@ -2,7 +2,6 @@ import React from 'react';
 import {Link} from "react-router";
 import Dialog from 'material-ui/Dialog';
 import FlatButton from 'material-ui/FlatButton';
-import IconButton from 'material-ui/IconButton';
 import ActionAssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import ContentContentCopy from 'material-ui/svg-icons/content/content-copy';

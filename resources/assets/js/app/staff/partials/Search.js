@@ -48,7 +48,7 @@ class Search extends Component {
         <AutoComplete
           hintText={this.props.hintText}
           dataSource={this.state.items}
-          onUpdateInput={this.handleUpdateInput}
+          onUpdateInput={(this.props.autoComplete)?this.handleUpdateInput:(value)=>{this.setState({selectedItem: value})}}
           floatingLabelText="Tìm kiếm"
         />
         <IconButton tooltip="Bấm để tìm kiếm" onClick={this.handleOnClickItem}>

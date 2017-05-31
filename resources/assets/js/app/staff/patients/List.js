@@ -10,6 +10,7 @@ import ContentSave from 'material-ui/svg-icons/content/save';
 import ActionAssignmentInd from 'material-ui/svg-icons/action/assignment-ind';
 import {fullWhite} from 'material-ui/styles/colors';
 import Form from './Form';
+import CircularProgress from 'material-ui/CircularProgress';
 import autoBind from 'react-autobind';
 
 const style = {
@@ -213,6 +214,7 @@ class List extends React.Component{
           hintText='Nhập tên'
           apiSearchGroup='/patient/searchName'
           apiSearch='/patient/search'
+          autoComplete={true}
         />
         <Table
           onCellClick={this.onCellClickHandle}>
@@ -233,6 +235,13 @@ class List extends React.Component{
             api='/patient/search'
           />
         </Table>
+        {
+          (this.props.isLoading)?
+          <div style={{'margin': '0 auto', 'width': '0'}}>
+            <CircularProgress size={80} thickness={5}/>
+          </div>
+          :''
+        }
         <Dialog
           title={<p><ActionAssignmentInd style={{'position': 'relative', 'top': '5px'}}/>Thông tin bệnh nhân</p>}
           actions={actions}

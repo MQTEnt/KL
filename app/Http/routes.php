@@ -159,8 +159,9 @@ Route::group(['middleware' => ['auth']], function(){
 	/*
 	 * Record 
 	 */
+	Route::get('record/search', 'Staff\RecordController@getSearch');
 	Route::post('record', 'Staff\RecordController@store');
-
+	Route::get('record', 'Staff\RecordController@index');
 
 	
 	Route::get('staff/user', function(Illuminate\Http\Request $request){

@@ -51,6 +51,7 @@ class Main extends React.Component {
             current_page={this.props.current_page}
             last_page={this.props.last_page}
             qSearch={this.props.qSearch}
+            isLoading={this.props.isLoading}
           />
         </Tab>
         <Tab 

@@ -1,11 +1,9 @@
 import React from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
-import Alert from '../partials/Alert';
 import Search from '../partials/Search';
 import TableFooter from '../partials/TableFooter';
-import ActionDelete from 'material-ui/svg-icons/action/delete';
-import ContentSave from 'material-ui/svg-icons/content/save';
 import Detail from './Detail';
+import CircularProgress from 'material-ui/CircularProgress';
 import autoBind from 'react-autobind';
 
 class List extends React.Component{
@@ -63,6 +61,7 @@ class List extends React.Component{
           hintText='Nhập tên'
           apiSearchGroup='/patient/searchName'
           apiSearch='/patient/search'
+          autoComplete={true}
         />
         <Table
           onCellClick={this.onCellClickHandle}>
@@ -83,11 +82,18 @@ class List extends React.Component{
             api='/patient/search'
           />
         </Table>
-          <Detail
-            selectedPatient={this.state.selectedPatient}
-            handleClose={this.handleClose}
-            openDialog={this.state.openDialog}
-          />
+        {
+          (this.props.isLoadingPatients)?
+          <div style={{'margin': '0 auto', 'width': '0'}}>
+            <CircularProgress size={80} thickness={5}/>
+          </div>
+          :''
+        }
+        <Detail
+          selectedPatient={this.state.selectedPatient}
+          handleClose={this.handleClose}
+          openDialog={this.state.openDialog}
+        />
       </div>
     );
   }

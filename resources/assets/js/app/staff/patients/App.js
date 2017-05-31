@@ -1,6 +1,5 @@
 import React from 'react';
 import Main from './Main';
-import CircularProgress from 'material-ui/CircularProgress';
 import autoBind from 'react-autobind';
 
 class Patient extends React.Component{
@@ -96,14 +95,8 @@ class Patient extends React.Component{
 					current_page={this.state.current_page}
 					last_page={this.state.last_page}
 					qSearch={this.state.qSearch}
+					isLoading={this.state.isLoading}
 				/>
-				{
-					(this.state.isLoading)?
-					<div style={{'margin': '0 auto', 'width': '0'}}>
-						<CircularProgress size={80} thickness={5}/>
-					</div>
-					:''
-				}
 			</div>
 		);
 	}
