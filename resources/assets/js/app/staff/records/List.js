@@ -1,8 +1,8 @@
 import React from 'react';
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Alert from '../partials/Alert';
-import Search from './Search';
-import TableFooter from './TableFooter';
+import Search from '../partials/Search';
+import TableFooter from '../partials/TableFooter';
 import ActionDelete from 'material-ui/svg-icons/action/delete';
 import ContentSave from 'material-ui/svg-icons/content/save';
 import Detail from './Detail';
@@ -58,7 +58,12 @@ class List extends React.Component{
   render(){
     return (
       <div>
-        <Search getPatients={this.props.getPatients}/>
+        <Search 
+          getList={this.props.getPatients}
+          hintText='Nhập tên'
+          apiSearchGroup='/patient/searchName'
+          apiSearch='/patient/search'
+        />
         <Table
           onCellClick={this.onCellClickHandle}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
@@ -73,8 +78,9 @@ class List extends React.Component{
           <TableFooter 
             current_page={this.props.current_page} 
             last_page={this.props.last_page} 
-            getPatients={this.props.getPatients}
+            getList={this.props.getPatients}
             qSearch={this.props.qSearch}
+            api='/patient/search'
           />
         </Table>
           <Detail

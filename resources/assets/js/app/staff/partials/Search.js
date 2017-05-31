@@ -17,8 +17,9 @@ class Search extends Component {
     this.handleOnClickItem = this.handleOnClickItem.bind(this);
   }
   handleUpdateInput(value){
+    let api = this.props.apiSearchGroup;
     //Get data from server
-    fetch('/patient/searchName?q='+value, {
+    fetch(api+'?q='+value, {
         credentials: 'same-origin'
       })
       .then(function(response) {
@@ -37,14 +38,15 @@ class Search extends Component {
     });
   };
   handleOnClickItem(){
-    var url = '/patient/search?q='+this.state.selectedItem;
-    this.props.getPatients(url, this.state.selectedItem);
+    let api = this.props.apiSearch;
+    let url = api+'?q='+this.state.selectedItem;
+    this.props.getList(url, this.state.selectedItem);
   }
   render() {
     return (
       <div style={{'textAlign': 'right', 'width': '95%', 'margin': '0 auto'}}>
         <AutoComplete
-          hintText="Nhập tên bệnh nhân"
+          hintText={this.props.hintText}
           dataSource={this.state.items}
           onUpdateInput={this.handleUpdateInput}
           floatingLabelText="Tìm kiếm"

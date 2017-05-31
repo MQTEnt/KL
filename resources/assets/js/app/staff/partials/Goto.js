@@ -21,7 +21,7 @@ class Goto extends React.Component{
 		let page = this.state.page;
 		let pattern = /^(0|([1-9]\d*))$/;
 		if(page>=1 && page<=this.props.last_page && page!=this.props.current_page && pattern.test(page)){
-			this.props.goToPage(page,'');
+			this.props.goToPage(page);
 		}
 		else
 			return false;

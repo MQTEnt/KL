@@ -48923,7 +48923,12 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Search2.default, { getPatients: this.props.getPatients }),
+	        _react2.default.createElement(_Search2.default, {
+	          getList: this.props.getPatients,
+	          hintText: 'Nh\u1EADp t\xEAn',
+	          apiSearchGroup: '/patient/searchName',
+	          apiSearch: '/patient/search'
+	        }),
 	        _react2.default.createElement(
 	          _Table.Table,
 	          {
@@ -48960,8 +48965,9 @@
 	          _react2.default.createElement(_TableFooter2.default, {
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
-	            getPatients: this.props.getPatients,
-	            qSearch: this.props.qSearch
+	            getList: this.props.getPatients,
+	            qSearch: this.props.qSearch,
+	            api: '/patient/search'
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -53037,8 +53043,9 @@
 	  _createClass(Search, [{
 	    key: 'handleUpdateInput',
 	    value: function handleUpdateInput(value) {
+	      var api = this.props.apiSearchGroup;
 	      //Get data from server
-	      fetch('/patient/searchName?q=' + value, {
+	      fetch(api + '?q=' + value, {
 	        credentials: 'same-origin'
 	      }).then(function (response) {
 	        return response.json();
@@ -53057,8 +53064,9 @@
 	  }, {
 	    key: 'handleOnClickItem',
 	    value: function handleOnClickItem() {
-	      var url = '/patient/search?q=' + this.state.selectedItem;
-	      this.props.getPatients(url, this.state.selectedItem);
+	      var api = this.props.apiSearch;
+	      var url = api + '?q=' + this.state.selectedItem;
+	      this.props.getList(url, this.state.selectedItem);
 	    }
 	  }, {
 	    key: 'render',
@@ -53067,7 +53075,7 @@
 	        'div',
 	        { style: { 'textAlign': 'right', 'width': '95%', 'margin': '0 auto' } },
 	        _react2.default.createElement(_AutoComplete2.default, {
-	          hintText: 'Nh\u1EADp t\xEAn b\u1EC7nh nh\xE2n',
+	          hintText: this.props.hintText,
 	          dataSource: this.state.items,
 	          onUpdateInput: this.handleUpdateInput,
 	          floatingLabelText: 'T\xECm ki\u1EBFm'
@@ -55091,19 +55099,20 @@
 
 	  _createClass(TableFooter, [{
 	    key: 'handleOnClick',
-	    value: function handleOnClick(page) {
+	    value: function handleOnClick(api, page) {
 	      var qSearch = this.props.qSearch;
 	      var regex = /^\s+$/;
 	      if (regex.test(qSearch)) qSearch = '';
 
-	      var url = '/patient/search?q=' + qSearch + '&page=' + page;
-	      this.props.getPatients(url, qSearch);
+	      var url = api + '?q=' + qSearch + '&page=' + page;
+	      this.props.getList(url, qSearch);
 	    }
 	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var current_page = this.props.current_page;
 	      var last_page = this.props.last_page;
+	      var api = this.props.api;
 	      if (last_page === 0) return _react2.default.createElement(
 	        _materialUi.TableFooter,
 	        { adjustForCheckbox: false },
@@ -55135,12 +55144,12 @@
 	            { style: styles.footerContent },
 	            _react2.default.createElement(
 	              _materialUi.IconButton,
-	              { disabled: current_page === 1, onClick: this.handleOnClick.bind(this, current_page - 1) },
+	              { disabled: current_page === 1, onClick: this.handleOnClick.bind(this, api, current_page - 1) },
 	              _react2.default.createElement(_keyboardArrowLeft2.default, null)
 	            ),
 	            _react2.default.createElement(
 	              _materialUi.IconButton,
-	              { disabled: current_page === last_page, onClick: this.handleOnClick.bind(this, current_page + 1) },
+	              { disabled: current_page === last_page, onClick: this.handleOnClick.bind(this, api, current_page + 1) },
 	              _react2.default.createElement(_keyboardArrowRight2.default, null)
 	            )
 	          ),
@@ -55152,7 +55161,7 @@
 	          _react2.default.createElement(
 	            _materialUi.TableRowColumn,
 	            { style: { 'width': '50%' } },
-	            _react2.default.createElement(_Goto2.default, { goToPage: this.handleOnClick.bind(this), last_page: this.props.last_page, current_page: this.props.current_page })
+	            _react2.default.createElement(_Goto2.default, { goToPage: this.handleOnClick.bind(this, api), last_page: this.props.last_page, current_page: this.props.current_page })
 	          )
 	        )
 	      );
@@ -70472,7 +70481,7 @@
 				var page = this.state.page;
 				var pattern = /^(0|([1-9]\d*))$/;
 				if (page >= 1 && page <= this.props.last_page && page != this.props.current_page && pattern.test(page)) {
-					this.props.goToPage(page, '');
+					this.props.goToPage(page);
 				} else return false;
 			}
 		}, {
@@ -71741,11 +71750,11 @@
 
 	var _Alert2 = _interopRequireDefault(_Alert);
 
-	var _Search = __webpack_require__(652);
+	var _Search = __webpack_require__(523);
 
 	var _Search2 = _interopRequireDefault(_Search);
 
-	var _TableFooter = __webpack_require__(653);
+	var _TableFooter = __webpack_require__(534);
 
 	var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
@@ -71757,7 +71766,7 @@
 
 	var _save2 = _interopRequireDefault(_save);
 
-	var _Detail = __webpack_require__(655);
+	var _Detail = __webpack_require__(652);
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
@@ -71855,7 +71864,12 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Search2.default, { getPatients: this.props.getPatients }),
+	        _react2.default.createElement(_Search2.default, {
+	          getList: this.props.getPatients,
+	          hintText: 'Nh\u1EADp t\xEAn',
+	          apiSearchGroup: '/patient/searchName',
+	          apiSearch: '/patient/search'
+	        }),
 	        _react2.default.createElement(
 	          _Table.Table,
 	          {
@@ -71892,8 +71906,9 @@
 	          _react2.default.createElement(_TableFooter2.default, {
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
-	            getPatients: this.props.getPatients,
-	            qSearch: this.props.qSearch
+	            getList: this.props.getPatients,
+	            qSearch: this.props.qSearch,
+	            api: '/patient/search'
 	          })
 	        ),
 	        _react2.default.createElement(_Detail2.default, {
@@ -71912,338 +71927,6 @@
 
 /***/ }),
 /* 652 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _AutoComplete = __webpack_require__(524);
-
-	var _AutoComplete2 = _interopRequireDefault(_AutoComplete);
-
-	var _search = __webpack_require__(533);
-
-	var _search2 = _interopRequireDefault(_search);
-
-	var _IconButton = __webpack_require__(456);
-
-	var _IconButton2 = _interopRequireDefault(_IconButton);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/**
-	 * The input is used to create the `items`, so the input always matches three entries.
-	 */
-	var Search = function (_Component) {
-	  _inherits(Search, _Component);
-
-	  function Search(props) {
-	    _classCallCheck(this, Search);
-
-	    var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
-
-	    _this.state = {
-	      items: [],
-	      selectedItem: ''
-	    };
-	    _this.handleUpdateInput = _this.handleUpdateInput.bind(_this);
-	    _this.handleOnClickItem = _this.handleOnClickItem.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(Search, [{
-	    key: 'handleUpdateInput',
-	    value: function handleUpdateInput(value) {
-	      //Get data from server
-	      fetch('/patient/searchName?q=' + value, {
-	        credentials: 'same-origin'
-	      }).then(function (response) {
-	        return response.json();
-	      }).then(function (obj) {
-	        //Data Response
-	        //console.log('Data Response: ', obj);
-	        this.setState({
-	          items: obj,
-	          selectedItem: value
-	        });
-	      }.bind(this)).catch(function (ex) {
-	        //Log Error
-	        console.log('parsing failed', ex);
-	      });
-	    }
-	  }, {
-	    key: 'handleOnClickItem',
-	    value: function handleOnClickItem() {
-	      var url = '/patient/search?q=' + this.state.selectedItem;
-	      this.props.getPatients(url, this.state.selectedItem);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: { 'textAlign': 'right', 'width': '95%', 'margin': '0 auto' } },
-	        _react2.default.createElement(_AutoComplete2.default, {
-	          hintText: 'Nh\u1EADp t\xEAn b\u1EC7nh nh\xE2n',
-	          dataSource: this.state.items,
-	          onUpdateInput: this.handleUpdateInput,
-	          floatingLabelText: 'T\xECm ki\u1EBFm'
-	        }),
-	        _react2.default.createElement(
-	          _IconButton2.default,
-	          { tooltip: 'B\u1EA5m \u0111\u1EC3 t\xECm ki\u1EBFm', onClick: this.handleOnClickItem },
-	          _react2.default.createElement(_search2.default, null)
-	        )
-	      );
-	    }
-	  }]);
-
-	  return Search;
-	}(_react.Component);
-
-	exports.default = Search;
-
-/***/ }),
-/* 653 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _materialUi = __webpack_require__(535);
-
-	var _keyboardArrowLeft = __webpack_require__(635);
-
-	var _keyboardArrowLeft2 = _interopRequireDefault(_keyboardArrowLeft);
-
-	var _keyboardArrowRight = __webpack_require__(636);
-
-	var _keyboardArrowRight2 = _interopRequireDefault(_keyboardArrowRight);
-
-	var _Goto = __webpack_require__(654);
-
-	var _Goto2 = _interopRequireDefault(_Goto);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var styles = {
-	  footerContent: {
-	    float: 'right'
-	  },
-	  footerText: {
-	    float: 'right',
-	    paddingTop: 16,
-	    height: 16
-	  }
-	};
-
-	var TableFooter = function (_React$Component) {
-	  _inherits(TableFooter, _React$Component);
-
-	  function TableFooter(props) {
-	    _classCallCheck(this, TableFooter);
-
-	    return _possibleConstructorReturn(this, (TableFooter.__proto__ || Object.getPrototypeOf(TableFooter)).call(this, props));
-	  }
-
-	  _createClass(TableFooter, [{
-	    key: 'handleOnClick',
-	    value: function handleOnClick(page) {
-	      var qSearch = this.props.qSearch;
-	      var regex = /^\s+$/;
-	      if (regex.test(qSearch)) qSearch = '';
-
-	      var url = '/patient/search?q=' + qSearch + '&page=' + page;
-	      this.props.getPatients(url, qSearch);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var current_page = this.props.current_page;
-	      var last_page = this.props.last_page;
-	      if (last_page === 0) return _react2.default.createElement(
-	        _materialUi.TableFooter,
-	        { adjustForCheckbox: false },
-	        _react2.default.createElement(
-	          _materialUi.TableRow,
-	          null,
-	          _react2.default.createElement(
-	            _materialUi.TableRowColumn,
-	            { style: styles.footerContent },
-	            current_page !== 0 ? _react2.default.createElement(
-	              'p',
-	              null,
-	              _react2.default.createElement(
-	                'b',
-	                null,
-	                'Kh\xF4ng c\xF3 d\u1EEF li\u1EC7u'
-	              )
-	            ) : ''
-	          )
-	        )
-	      );else return _react2.default.createElement(
-	        _materialUi.TableFooter,
-	        { adjustForCheckbox: false },
-	        _react2.default.createElement(
-	          _materialUi.TableRow,
-	          null,
-	          _react2.default.createElement(
-	            _materialUi.TableRowColumn,
-	            { style: styles.footerContent },
-	            _react2.default.createElement(
-	              _materialUi.IconButton,
-	              { disabled: current_page === 1, onClick: this.handleOnClick.bind(this, current_page - 1) },
-	              _react2.default.createElement(_keyboardArrowLeft2.default, null)
-	            ),
-	            _react2.default.createElement(
-	              _materialUi.IconButton,
-	              { disabled: current_page === last_page, onClick: this.handleOnClick.bind(this, current_page + 1) },
-	              _react2.default.createElement(_keyboardArrowRight2.default, null)
-	            )
-	          ),
-	          _react2.default.createElement(
-	            _materialUi.TableRowColumn,
-	            { style: styles.footerText },
-	            'Trang ' + current_page + ' trên ' + last_page
-	          ),
-	          _react2.default.createElement(
-	            _materialUi.TableRowColumn,
-	            { style: { 'width': '50%' } },
-	            _react2.default.createElement(_Goto2.default, { goToPage: this.handleOnClick.bind(this), last_page: this.props.last_page, current_page: this.props.current_page })
-	          )
-	        )
-	      );
-	    }
-	  }]);
-
-	  return TableFooter;
-	}(_react2.default.Component);
-
-	;
-	TableFooter.muiName = 'TableFooter';
-	exports.default = TableFooter;
-
-/***/ }),
-/* 654 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _IconButton = __webpack_require__(456);
-
-	var _IconButton2 = _interopRequireDefault(_IconButton);
-
-	var _forward = __webpack_require__(638);
-
-	var _forward2 = _interopRequireDefault(_forward);
-
-	var _TextField = __webpack_require__(526);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	/**
-	 * Simple Icon Menus demonstrating some of the layouts possible using the `anchorOrigin` and
-	 * `targetOrigin` properties.
-	 */
-	var Goto = function (_React$Component) {
-		_inherits(Goto, _React$Component);
-
-		function Goto(props) {
-			_classCallCheck(this, Goto);
-
-			var _this = _possibleConstructorReturn(this, (Goto.__proto__ || Object.getPrototypeOf(Goto)).call(this, props));
-
-			_this.state = { 'page': 0 };
-			_this.handleOnClick = _this.handleOnClick.bind(_this);
-			_this.handleOnChangeText = _this.handleOnChangeText.bind(_this);
-			return _this;
-		}
-
-		_createClass(Goto, [{
-			key: 'handleOnChangeText',
-			value: function handleOnChangeText(e) {
-				this.setState({ 'page': e.target.value });
-			}
-		}, {
-			key: 'handleOnClick',
-			value: function handleOnClick() {
-				var page = this.state.page;
-				var pattern = /^(0|([1-9]\d*))$/;
-				if (page >= 1 && page <= this.props.last_page && page != this.props.current_page && pattern.test(page)) {
-					this.props.goToPage(page, '');
-				} else return false;
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(_TextField2.default, { style: { 'width': '20%', 'position': 'relative', 'top': '-7px', 'paddingRight': '20px' }, hintText: 'S\u1ED1 trang', hintStyle: { 'fontSize': '80%' }, onBlur: this.handleOnChangeText }),
-					_react2.default.createElement(
-						_IconButton2.default,
-						{ onClick: this.handleOnClick },
-						_react2.default.createElement(_forward2.default, null)
-					)
-				);
-			}
-		}]);
-
-		return Goto;
-	}(_react2.default.Component);
-
-	exports.default = Goto;
-
-/***/ }),
-/* 655 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72280,7 +71963,7 @@
 
 	var _add2 = _interopRequireDefault(_add);
 
-	var _contentCopy = __webpack_require__(656);
+	var _contentCopy = __webpack_require__(653);
 
 	var _contentCopy2 = _interopRequireDefault(_contentCopy);
 
@@ -72290,7 +71973,7 @@
 
 	var _Alert2 = _interopRequireDefault(_Alert);
 
-	var _SnackBar = __webpack_require__(657);
+	var _SnackBar = __webpack_require__(654);
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
@@ -72482,7 +72165,7 @@
 	exports.default = Detail;
 
 /***/ }),
-/* 656 */
+/* 653 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72517,7 +72200,7 @@
 	exports.default = ContentContentCopy;
 
 /***/ }),
-/* 657 */
+/* 654 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
