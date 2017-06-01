@@ -15,8 +15,18 @@ class RecordController extends Controller
 		$record->save();
 		return ['stat' => 1, 'record'=> $record];
 	}
-	public function index(){
-		$records = Record::paginate(10);
+	public function index(Request $request){
+		$minDate = $request->minDate;
+		$maxDate = $request->maxDate;
+		if(!is_null($minDate) && !is_null($maxDate))
+		{
+			$records = Record::where([
+				['created_at', '<=', $maxDate],
+				['created_at', '>=', $minDate]
+			])->orderBy('created_at', 'desc')->paginate(10);
+		}
+		else
+			$records = Record::orderBy('created_at', 'desc')->paginate(10);
 		return $records;
 	}
 	public function getSearch(Request $request)
@@ -24,7 +34,7 @@ class RecordController extends Controller
 		$id = $request->q;
 		if($id == '')
 		{
-			$records = Record::paginate(10);
+			$records = Record::orderBy('created_at', 'desc')->paginate(10);
 			return $records;
 		}
         $record = Record::find($id);

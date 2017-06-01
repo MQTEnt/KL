@@ -72245,11 +72245,11 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _extension = __webpack_require__(658);
+	var _extension = __webpack_require__(656);
 
 	var _extension2 = _interopRequireDefault(_extension);
 
-	var _RangedDate = __webpack_require__(656);
+	var _RangedDate = __webpack_require__(657);
 
 	var _RangedDate2 = _interopRequireDefault(_RangedDate);
 
@@ -72281,7 +72281,9 @@
 	      qSearch: '',
 	      current_page: 0,
 	      last_page: 0,
-	      rangedDateSearch: false
+	      rangedDateSearch: false,
+	      maxDate: null,
+	      minDate: null
 	    };
 
 	    //
@@ -72290,6 +72292,14 @@
 	  }
 
 	  _createClass(List, [{
+	    key: 'setDate',
+	    value: function setDate(minDate, maxDate) {
+	      this.setState({
+	        minDate: minDate,
+	        maxDate: maxDate
+	      });
+	    }
+	  }, {
 	    key: 'getRecords',
 	    value: function getRecords(url, qSearch) {
 	      this.setState({
@@ -72389,7 +72399,10 @@
 	          ),
 	          _react2.default.createElement('div', { style: { display: 'inline-block', width: '48px' } })
 	        ),
-	        this.state.rangedDateSearch ? _react2.default.createElement(_RangedDate2.default, null) : _react2.default.createElement(_Search2.default, {
+	        this.state.rangedDateSearch ? _react2.default.createElement(_RangedDate2.default, {
+	          setDate: this.setDate,
+	          getList: this.getRecords
+	        }) : _react2.default.createElement(_Search2.default, {
 	          getList: this.getRecords,
 	          hintText: 'Nh\u1EADp m\xE3 b\u1EC7nh \xE1n',
 	          apiSearch: '/record/search',
@@ -72417,7 +72430,7 @@
 	            current_page: this.state.current_page,
 	            last_page: this.state.last_page,
 	            getList: this.getRecords,
-	            qSearch: '',
+	            qSearch: this.state.rangedDateSearch ? '&minDate=' + this.state.minDate + '&maxDate=' + this.state.maxDate : '',
 	            api: '/record'
 	          })
 	        ),
@@ -72437,120 +72450,6 @@
 
 /***/ }),
 /* 656 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _DatePicker = __webpack_require__(558);
-
-	var _DatePicker2 = _interopRequireDefault(_DatePicker);
-
-	var _search = __webpack_require__(533);
-
-	var _search2 = _interopRequireDefault(_search);
-
-	var _IconButton = __webpack_require__(456);
-
-	var _IconButton2 = _interopRequireDefault(_IconButton);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var style = {
-	  'textAlign': 'right',
-	  'width': '95%',
-	  'margin': '0 auto',
-	  'overflow': 'hidden'
-	};
-	/**
-	 * `DatePicker` can be implemented as a controlled input,
-	 * where `value` is handled by state in the parent component.
-	 */
-
-	var RangedDate = function (_React$Component) {
-	  _inherits(RangedDate, _React$Component);
-
-	  function RangedDate(props) {
-	    _classCallCheck(this, RangedDate);
-
-	    var _this = _possibleConstructorReturn(this, (RangedDate.__proto__ || Object.getPrototypeOf(RangedDate)).call(this, props));
-
-	    _this.state = {
-	      minDate: null,
-	      maxDate: null
-	    };
-	    _this.handleChangeMinDate = _this.handleChangeMinDate.bind(_this);
-	    _this.handleChangeMaxDate = _this.handleChangeMaxDate.bind(_this);
-	    return _this;
-	  }
-
-	  _createClass(RangedDate, [{
-	    key: 'handleChangeMinDate',
-	    value: function handleChangeMinDate(event, date) {
-	      this.setState({
-	        minDate: date
-	      });
-	    }
-	  }, {
-	    key: 'handleChangeMaxDate',
-	    value: function handleChangeMaxDate(event, date) {
-	      this.setState({
-	        maxDate: date
-	      });
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { style: style },
-	        _react2.default.createElement(_DatePicker2.default, {
-	          hintText: 'T\u1EEB ng\xE0y',
-	          value: this.state.minDate,
-	          onChange: this.handleChangeMinDate,
-	          autoOk: true,
-	          style: { display: 'inline-block' }
-	        }),
-	        _react2.default.createElement('div', { style: { display: 'inline-block', width: '48px' } }),
-	        _react2.default.createElement(_DatePicker2.default, {
-	          hintText: '\u0110\u1EBFn ng\xE0y',
-	          value: this.state.maxDate,
-	          onChange: this.handleChangeMaxDate,
-	          autoOk: true,
-	          style: { display: 'inline-block' }
-	        }),
-	        _react2.default.createElement(
-	          _IconButton2.default,
-	          { tooltip: 'B\u1EA5m \u0111\u1EC3 t\xECm ki\u1EBFm' },
-	          _react2.default.createElement(_search2.default, null)
-	        )
-	      );
-	    }
-	  }]);
-
-	  return RangedDate;
-	}(_react2.default.Component);
-
-	exports.default = RangedDate;
-
-/***/ }),
-/* 657 */,
-/* 658 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72583,6 +72482,135 @@
 	ActionExtension.muiName = 'SvgIcon';
 
 	exports.default = ActionExtension;
+
+/***/ }),
+/* 657 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _DatePicker = __webpack_require__(558);
+
+	var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+	var _search = __webpack_require__(533);
+
+	var _search2 = _interopRequireDefault(_search);
+
+	var _IconButton = __webpack_require__(456);
+
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+
+	var _reactAutobind = __webpack_require__(643);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var style = {
+	  'textAlign': 'right',
+	  'width': '95%',
+	  'margin': '0 auto',
+	  'overflow': 'hidden'
+	};
+	/**
+	 * `DatePicker` can be implemented as a controlled input,
+	 * where `value` is handled by state in the parent component.
+	 */
+
+	var RangedDate = function (_React$Component) {
+	  _inherits(RangedDate, _React$Component);
+
+	  function RangedDate(props) {
+	    _classCallCheck(this, RangedDate);
+
+	    var _this = _possibleConstructorReturn(this, (RangedDate.__proto__ || Object.getPrototypeOf(RangedDate)).call(this, props));
+
+	    _this.state = {
+	      minDate: new Date(),
+	      maxDate: new Date()
+	    };
+	    (0, _reactAutobind2.default)(_this);
+	    return _this;
+	  }
+
+	  _createClass(RangedDate, [{
+	    key: 'handleChangeMinDate',
+	    value: function handleChangeMinDate(event, date) {
+	      this.setState({
+	        minDate: date
+	      });
+	    }
+	  }, {
+	    key: 'handleChangeMaxDate',
+	    value: function handleChangeMaxDate(event, date) {
+	      this.setState({
+	        maxDate: date
+	      });
+	    }
+	  }, {
+	    key: 'onClickSearch',
+	    value: function onClickSearch() {
+	      var date = new Date(this.state.minDate);
+	      var minDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+	      date = new Date(this.state.maxDate);
+	      var maxDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+
+	      this.props.setDate(minDate, maxDate);
+	      this.props.getList('/record?minDate=' + minDate + '&maxDate=' + maxDate, '');
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { style: style },
+	        _react2.default.createElement(_DatePicker2.default, {
+	          hintText: 'T\u1EEB ng\xE0y',
+	          floatingLabelText: 'T\u1EEB ng\xE0y',
+	          value: this.state.minDate,
+	          onChange: this.handleChangeMinDate,
+	          autoOk: true,
+	          style: { display: 'inline-block' }
+	        }),
+	        _react2.default.createElement('div', { style: { display: 'inline-block', width: '48px' } }),
+	        _react2.default.createElement(_DatePicker2.default, {
+	          hintText: '\u0110\u1EBFn ng\xE0y',
+	          floatingLabelText: '\u0110\u1EBFn ng\xE0y',
+	          value: this.state.maxDate,
+	          onChange: this.handleChangeMaxDate,
+	          autoOk: true,
+	          style: { display: 'inline-block' }
+	        }),
+	        _react2.default.createElement(
+	          _IconButton2.default,
+	          { tooltip: 'B\u1EA5m \u0111\u1EC3 t\xECm ki\u1EBFm', tooltipPosition: 'top-left', onClick: this.onClickSearch },
+	          _react2.default.createElement(_search2.default, null)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return RangedDate;
+	}(_react2.default.Component);
+
+	exports.default = RangedDate;
 
 /***/ })
 /******/ ]);

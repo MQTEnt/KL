@@ -21,11 +21,19 @@ class List extends React.Component{
       qSearch: '',
       current_page: 0,
       last_page: 0,
-      rangedDateSearch: false
+      rangedDateSearch: false,
+      maxDate: null,
+      minDate: null
     };
 
     //
     autoBind(this);
+  }
+  setDate(minDate, maxDate){
+    this.setState({
+        minDate: minDate,
+        maxDate: maxDate
+    });
   }
   getRecords(url, qSearch){
     this.setState({
@@ -108,7 +116,10 @@ class List extends React.Component{
           <div style={{display: 'inline-block', width: '48px'}}></div>
         </div>
         {(this.state.rangedDateSearch)?
-          <RangedDate/>
+          <RangedDate
+            setDate={this.setDate}
+            getList={this.getRecords}
+          />
           :
           <Search 
             getList={this.getRecords}
@@ -129,7 +140,7 @@ class List extends React.Component{
             current_page={this.state.current_page} 
             last_page={this.state.last_page} 
             getList={this.getRecords}
-            qSearch=''
+            qSearch={(this.state.rangedDateSearch)?'&minDate='+this.state.minDate+'&maxDate='+this.state.maxDate:''}
             api='/record'
           />
         </Table>
