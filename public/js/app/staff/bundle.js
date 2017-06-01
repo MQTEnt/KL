@@ -72237,6 +72237,22 @@
 
 	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
 
+	var _SelectField = __webpack_require__(600);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(419);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _extension = __webpack_require__(658);
+
+	var _extension2 = _interopRequireDefault(_extension);
+
+	var _RangedDate = __webpack_require__(656);
+
+	var _RangedDate2 = _interopRequireDefault(_RangedDate);
+
 	var _reactAutobind = __webpack_require__(643);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -72262,7 +72278,10 @@
 	      selectedRecord: null,
 	      records: null,
 	      isLoading: true,
-	      qSearch: ''
+	      qSearch: '',
+	      current_page: 0,
+	      last_page: 0,
+	      rangedDateSearch: false
 	    };
 
 	    //
@@ -72322,6 +72341,11 @@
 	      this.setState({ openDialog: false });
 	    }
 	  }, {
+	    key: 'onClickRangedDateSearch',
+	    value: function onClickRangedDateSearch(event, index, value) {
+	      if (this.state.rangedDateSearch !== value) this.setState({ rangedDateSearch: value });
+	    }
+	  }, {
 	    key: 'displayRows',
 	    value: function displayRows() {
 	      if (this.state.records != null) return _react2.default.createElement(
@@ -72351,7 +72375,21 @@
 	      return _react2.default.createElement(
 	        'div',
 	        null,
-	        _react2.default.createElement(_Search2.default, {
+	        _react2.default.createElement(
+	          'div',
+	          { style: { width: '95%', textAlign: 'right', margin: '0 auto' } },
+	          _react2.default.createElement(
+	            _SelectField2.default,
+	            {
+	              value: this.state.rangedDateSearch,
+	              onChange: this.onClickRangedDateSearch
+	            },
+	            _react2.default.createElement(_MenuItem2.default, { value: true, primaryText: 'T\xECm ki\u1EBFm theo ng\xE0y' }),
+	            _react2.default.createElement(_MenuItem2.default, { value: false, primaryText: 'T\xECm ki\u1EBFm theo m\xE3 b\u1EC7nh \xE1n' })
+	          ),
+	          _react2.default.createElement('div', { style: { display: 'inline-block', width: '48px' } })
+	        ),
+	        this.state.rangedDateSearch ? _react2.default.createElement(_RangedDate2.default, null) : _react2.default.createElement(_Search2.default, {
 	          getList: this.getRecords,
 	          hintText: 'Nh\u1EADp m\xE3 b\u1EC7nh \xE1n',
 	          apiSearch: '/record/search',
@@ -72396,6 +72434,155 @@
 	}(_react2.default.Component);
 
 	exports.default = List;
+
+/***/ }),
+/* 656 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _DatePicker = __webpack_require__(558);
+
+	var _DatePicker2 = _interopRequireDefault(_DatePicker);
+
+	var _search = __webpack_require__(533);
+
+	var _search2 = _interopRequireDefault(_search);
+
+	var _IconButton = __webpack_require__(456);
+
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var style = {
+	  'textAlign': 'right',
+	  'width': '95%',
+	  'margin': '0 auto',
+	  'overflow': 'hidden'
+	};
+	/**
+	 * `DatePicker` can be implemented as a controlled input,
+	 * where `value` is handled by state in the parent component.
+	 */
+
+	var RangedDate = function (_React$Component) {
+	  _inherits(RangedDate, _React$Component);
+
+	  function RangedDate(props) {
+	    _classCallCheck(this, RangedDate);
+
+	    var _this = _possibleConstructorReturn(this, (RangedDate.__proto__ || Object.getPrototypeOf(RangedDate)).call(this, props));
+
+	    _this.state = {
+	      minDate: null,
+	      maxDate: null
+	    };
+	    _this.handleChangeMinDate = _this.handleChangeMinDate.bind(_this);
+	    _this.handleChangeMaxDate = _this.handleChangeMaxDate.bind(_this);
+	    return _this;
+	  }
+
+	  _createClass(RangedDate, [{
+	    key: 'handleChangeMinDate',
+	    value: function handleChangeMinDate(event, date) {
+	      this.setState({
+	        minDate: date
+	      });
+	    }
+	  }, {
+	    key: 'handleChangeMaxDate',
+	    value: function handleChangeMaxDate(event, date) {
+	      this.setState({
+	        maxDate: date
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        { style: style },
+	        _react2.default.createElement(_DatePicker2.default, {
+	          hintText: 'T\u1EEB ng\xE0y',
+	          value: this.state.minDate,
+	          onChange: this.handleChangeMinDate,
+	          autoOk: true,
+	          style: { display: 'inline-block' }
+	        }),
+	        _react2.default.createElement('div', { style: { display: 'inline-block', width: '48px' } }),
+	        _react2.default.createElement(_DatePicker2.default, {
+	          hintText: '\u0110\u1EBFn ng\xE0y',
+	          value: this.state.maxDate,
+	          onChange: this.handleChangeMaxDate,
+	          autoOk: true,
+	          style: { display: 'inline-block' }
+	        }),
+	        _react2.default.createElement(
+	          _IconButton2.default,
+	          { tooltip: 'B\u1EA5m \u0111\u1EC3 t\xECm ki\u1EBFm' },
+	          _react2.default.createElement(_search2.default, null)
+	        )
+	      );
+	    }
+	  }]);
+
+	  return RangedDate;
+	}(_react2.default.Component);
+
+	exports.default = RangedDate;
+
+/***/ }),
+/* 657 */,
+/* 658 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ActionExtension = function ActionExtension(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M20.5 11H19V7c0-1.1-.9-2-2-2h-4V3.5C13 2.12 11.88 1 10.5 1S8 2.12 8 3.5V5H4c-1.1 0-1.99.9-1.99 2v3.8H3.5c1.49 0 2.7 1.21 2.7 2.7s-1.21 2.7-2.7 2.7H2V20c0 1.1.9 2 2 2h3.8v-1.5c0-1.49 1.21-2.7 2.7-2.7 1.49 0 2.7 1.21 2.7 2.7V22H17c1.1 0 2-.9 2-2v-4h1.5c1.38 0 2.5-1.12 2.5-2.5S21.88 11 20.5 11z' }));
+	};
+	ActionExtension = (0, _pure2.default)(ActionExtension);
+	ActionExtension.displayName = 'ActionExtension';
+	ActionExtension.muiName = 'SvgIcon';
+
+	exports.default = ActionExtension;
 
 /***/ })
 /******/ ]);

@@ -3,6 +3,10 @@ import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColu
 import Search from '../partials/Search';
 import TableFooter from '../partials/TableFooter';
 import CircularProgress from 'material-ui/CircularProgress';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import ActionExtension from 'material-ui/svg-icons/action/extension';
+import RangedDate from './RangedDate';
 import autoBind from 'react-autobind';
 
 class List extends React.Component{
@@ -14,7 +18,10 @@ class List extends React.Component{
       selectedRecord: null,
       records: null,
       isLoading: true,
-      qSearch: ''
+      qSearch: '',
+      current_page: 0,
+      last_page: 0,
+      rangedDateSearch: false
     };
 
     //
@@ -64,7 +71,11 @@ class List extends React.Component{
   }
   handleClose(){
     this.setState({openDialog: false});
-  };
+  }
+  onClickRangedDateSearch(event, index, value){
+    if(this.state.rangedDateSearch !== value)
+      this.setState({rangedDateSearch: value})
+  }
   displayRows(){
     if(this.state.records != null)
       return (
@@ -86,12 +97,26 @@ class List extends React.Component{
   render(){
     return (
       <div>
-        <Search 
-          getList={this.getRecords}
-          hintText='Nhập mã bệnh án'
-          apiSearch='/record/search'
-          autoComplete={false}
-        />
+        <div style={{width: '95%', textAlign: 'right', margin: '0 auto'}}>
+          <SelectField
+            value={this.state.rangedDateSearch}
+            onChange={this.onClickRangedDateSearch}
+          >
+            <MenuItem value={true} primaryText="Tìm kiếm theo ngày" />
+            <MenuItem value={false} primaryText="Tìm kiếm theo mã bệnh án" />
+          </SelectField>
+          <div style={{display: 'inline-block', width: '48px'}}></div>
+        </div>
+        {(this.state.rangedDateSearch)?
+          <RangedDate/>
+          :
+          <Search 
+            getList={this.getRecords}
+            hintText='Nhập mã bệnh án'
+            apiSearch='/record/search'
+            autoComplete={false}
+          />
+        }
         <Table
           onCellClick={this.onCellClickHandle}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
