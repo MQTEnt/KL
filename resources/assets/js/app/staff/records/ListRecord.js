@@ -18,7 +18,7 @@ class List extends React.Component{
       selectedRecord: null,
       records: null,
       isLoading: true,
-      qSearch: '',
+      searchKey: '',
       current_page: 0,
       last_page: 0,
       rangedDateSearch: false,
@@ -35,7 +35,12 @@ class List extends React.Component{
         maxDate: maxDate
     });
   }
-  getRecords(url, qSearch){
+  setSearchKey(key){
+    this.setState({
+        searchKey: key
+    });
+  }
+  getRecords(url){
     this.setState({
       records: [],
       isLoading: true
@@ -100,7 +105,7 @@ class List extends React.Component{
       )
   }
   componentDidMount(){
-    this.getRecords('/record','');
+    this.getRecords('/record');
   }
   render(){
     return (
@@ -123,6 +128,7 @@ class List extends React.Component{
           :
           <Search 
             getList={this.getRecords}
+            setSearchKey={this.setSearchKey}
             hintText='Nhập mã bệnh án'
             apiSearch='/record/search'
             autoComplete={false}
@@ -140,8 +146,7 @@ class List extends React.Component{
             current_page={this.state.current_page} 
             last_page={this.state.last_page} 
             getList={this.getRecords}
-            qSearch={(this.state.rangedDateSearch)?'&minDate='+this.state.minDate+'&maxDate='+this.state.maxDate:''}
-            api='/record'
+            api={(this.state.rangedDateSearch)?'/record?minDate='+this.state.minDate+'&maxDate='+this.state.maxDate:'/record?'}
           />
         </Table>
         {

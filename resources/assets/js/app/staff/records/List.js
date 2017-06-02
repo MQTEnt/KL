@@ -58,6 +58,7 @@ class List extends React.Component{
       <div>
         <Search 
           getList={this.props.getPatients}
+          setSearchKey={this.props.setSearchKey}
           hintText='Nhập tên'
           apiSearchGroup='/patient/searchName'
           apiSearch='/patient/search'
@@ -78,8 +79,7 @@ class List extends React.Component{
             current_page={this.props.current_page} 
             last_page={this.props.last_page} 
             getList={this.props.getPatients}
-            qSearch={this.props.qSearch}
-            api='/patient/search'
+            api={'/patient/search?q='+this.props.searchKey}
           />
         </Table>
         {

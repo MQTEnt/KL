@@ -18,13 +18,8 @@ class TableFooter extends React.Component{
     super(props);
   }
   handleOnClick(api, page){
-    let qSearch = this.props.qSearch;
-    let regex = /^\s+$/;
-    if(regex.test(qSearch))
-      qSearch = '';
-
-    let url = api+'?q='+qSearch+'&page=' + page;
-    this.props.getList(url, qSearch);
+    let url = api+'&page=' + page;
+    this.props.getList(url);
   }
   render() {
     let current_page = this.props.current_page;

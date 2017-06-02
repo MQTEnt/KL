@@ -11,16 +11,15 @@ class Patient extends React.Component{
 			isLoading: true,
 			current_page: 0,
 			last_page: 0,
-			qSearch: ''
+			searchKey: ''
 		}
 		autoBind(this);
 	}
-	getPatients(url, qSearch){
+	getPatients(url){
 		//Reset data
 		this.setState({
 			patients: [],
-			isLoading: true,
-			qSearch: qSearch
+			isLoading: true
 		});
 		//Get data
 		setTimeout(function(){
@@ -46,10 +45,12 @@ class Patient extends React.Component{
 			});
 		}.bind(this), 1500);
 	}
-	componentDidMount(){
-		this.getPatients('/patient','');
+	setSearchKey(key){
+		this.setState({'searchKey': key});
 	}
-
+	componentDidMount(){
+		this.getPatients('/patient');
+	}
 	render(){
 		return (
 			<div>
@@ -58,7 +59,8 @@ class Patient extends React.Component{
 					getPatients={this.getPatients}
 					current_page={this.state.current_page}
 					last_page={this.state.last_page}
-					qSearch={this.state.qSearch}
+					searchKey={this.state.searchKey}
+					setSearchKey={this.setSearchKey}
 					isLoadingPatients={this.state.isLoading}
 				/>
 			</div>

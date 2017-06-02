@@ -47661,20 +47661,24 @@
 				isLoading: true,
 				current_page: 0,
 				last_page: 0,
-				qSearch: ''
+				searchKey: ''
 			};
 			(0, _reactAutobind2.default)(_this);
 			return _this;
 		}
 
 		_createClass(Patient, [{
+			key: 'setSearchKey',
+			value: function setSearchKey(key) {
+				this.setState({ searchKey: key });
+			}
+		}, {
 			key: 'getPatients',
-			value: function getPatients(url, qSearch) {
+			value: function getPatients(url) {
 				//Reset data
 				this.setState({
 					patients: [],
-					isLoading: true,
-					qSearch: qSearch
+					isLoading: true
 				});
 				//Get data
 				setTimeout(function () {
@@ -47744,7 +47748,7 @@
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.getPatients('/patient', '');
+				this.getPatients('/patient');
 			}
 		}, {
 			key: 'render',
@@ -47760,7 +47764,8 @@
 						getPatients: this.getPatients,
 						current_page: this.state.current_page,
 						last_page: this.state.last_page,
-						qSearch: this.state.qSearch,
+						searchKey: this.state.searchKey,
+						setSearchKey: this.setSearchKey,
 						isLoading: this.state.isLoading
 					})
 				);
@@ -47879,7 +47884,8 @@
 	            getPatients: this.props.getPatients,
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
-	            qSearch: this.props.qSearch,
+	            searchKey: this.props.searchKey,
+	            setSearchKey: this.props.setSearchKey,
 	            isLoading: this.props.isLoading
 	          })
 	        ),
@@ -48923,6 +48929,7 @@
 	        _react2.default.createElement(_Search2.default, {
 	          getList: this.props.getPatients,
 	          hintText: 'Nh\u1EADp t\xEAn',
+	          setSearchKey: this.props.setSearchKey,
 	          apiSearchGroup: '/patient/searchName',
 	          apiSearch: '/patient/search',
 	          autoComplete: true
@@ -48964,8 +48971,7 @@
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
 	            getList: this.props.getPatients,
-	            qSearch: this.props.qSearch,
-	            api: '/patient/search'
+	            api: '/patient/search?q=' + this.props.searchKey
 	          })
 	        ),
 	        this.props.isLoading ? _react2.default.createElement(
@@ -53068,8 +53074,14 @@
 	    key: 'handleOnClickItem',
 	    value: function handleOnClickItem() {
 	      var api = this.props.apiSearch;
-	      var url = api + '?q=' + this.state.selectedItem;
-	      this.props.getList(url, this.state.selectedItem);
+	      var searchKey = this.state.selectedItem;
+
+	      var regex = /^\s+$/;
+	      if (regex.test(searchKey)) searchKey = '';
+	      var url = api + '?q=' + searchKey;
+
+	      this.props.setSearchKey(searchKey);
+	      this.props.getList(url);
 	    }
 	  }, {
 	    key: 'render',
@@ -55107,12 +55119,8 @@
 	  _createClass(TableFooter, [{
 	    key: 'handleOnClick',
 	    value: function handleOnClick(api, page) {
-	      var qSearch = this.props.qSearch;
-	      var regex = /^\s+$/;
-	      if (regex.test(qSearch)) qSearch = '';
-
-	      var url = api + '?q=' + qSearch + '&page=' + page;
-	      this.props.getList(url, qSearch);
+	      var url = api + '&page=' + page;
+	      this.props.getList(url);
 	    }
 	  }, {
 	    key: 'render',
@@ -71496,7 +71504,7 @@
 				isLoading: true,
 				current_page: 0,
 				last_page: 0,
-				qSearch: ''
+				searchKey: ''
 			};
 			(0, _reactAutobind2.default)(_this);
 			return _this;
@@ -71504,12 +71512,11 @@
 
 		_createClass(Patient, [{
 			key: 'getPatients',
-			value: function getPatients(url, qSearch) {
+			value: function getPatients(url) {
 				//Reset data
 				this.setState({
 					patients: [],
-					isLoading: true,
-					qSearch: qSearch
+					isLoading: true
 				});
 				//Get data
 				setTimeout(function () {
@@ -71534,9 +71541,14 @@
 				}.bind(this), 1500);
 			}
 		}, {
+			key: 'setSearchKey',
+			value: function setSearchKey(key) {
+				this.setState({ 'searchKey': key });
+			}
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				this.getPatients('/patient', '');
+				this.getPatients('/patient');
 			}
 		}, {
 			key: 'render',
@@ -71549,7 +71561,8 @@
 						getPatients: this.getPatients,
 						current_page: this.state.current_page,
 						last_page: this.state.last_page,
-						qSearch: this.state.qSearch,
+						searchKey: this.state.searchKey,
+						setSearchKey: this.setSearchKey,
 						isLoadingPatients: this.state.isLoading
 					})
 				);
@@ -71658,7 +71671,8 @@
 	            getPatients: this.props.getPatients,
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
-	            qSearch: this.props.qSearch,
+	            searchKey: this.props.searchKey,
+	            setSearchKey: this.props.setSearchKey,
 	            isLoadingPatients: this.props.isLoadingPatients
 	          })
 	        ),
@@ -71810,6 +71824,7 @@
 	        null,
 	        _react2.default.createElement(_Search2.default, {
 	          getList: this.props.getPatients,
+	          setSearchKey: this.props.setSearchKey,
 	          hintText: 'Nh\u1EADp t\xEAn',
 	          apiSearchGroup: '/patient/searchName',
 	          apiSearch: '/patient/search',
@@ -71852,8 +71867,7 @@
 	            current_page: this.props.current_page,
 	            last_page: this.props.last_page,
 	            getList: this.props.getPatients,
-	            qSearch: this.props.qSearch,
-	            api: '/patient/search'
+	            api: '/patient/search?q=' + this.props.searchKey
 	          })
 	        ),
 	        this.props.isLoadingPatients ? _react2.default.createElement(
@@ -72278,7 +72292,7 @@
 	      selectedRecord: null,
 	      records: null,
 	      isLoading: true,
-	      qSearch: '',
+	      searchKey: '',
 	      current_page: 0,
 	      last_page: 0,
 	      rangedDateSearch: false,
@@ -72300,8 +72314,15 @@
 	      });
 	    }
 	  }, {
+	    key: 'setSearchKey',
+	    value: function setSearchKey(key) {
+	      this.setState({
+	        searchKey: key
+	      });
+	    }
+	  }, {
 	    key: 'getRecords',
-	    value: function getRecords(url, qSearch) {
+	    value: function getRecords(url) {
 	      this.setState({
 	        records: [],
 	        isLoading: true
@@ -72377,7 +72398,7 @@
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
-	      this.getRecords('/record', '');
+	      this.getRecords('/record');
 	    }
 	  }, {
 	    key: 'render',
@@ -72404,6 +72425,7 @@
 	          getList: this.getRecords
 	        }) : _react2.default.createElement(_Search2.default, {
 	          getList: this.getRecords,
+	          setSearchKey: this.setSearchKey,
 	          hintText: 'Nh\u1EADp m\xE3 b\u1EC7nh \xE1n',
 	          apiSearch: '/record/search',
 	          autoComplete: false
@@ -72430,8 +72452,7 @@
 	            current_page: this.state.current_page,
 	            last_page: this.state.last_page,
 	            getList: this.getRecords,
-	            qSearch: this.state.rangedDateSearch ? '&minDate=' + this.state.minDate + '&maxDate=' + this.state.maxDate : '',
-	            api: '/record'
+	            api: this.state.rangedDateSearch ? '/record?minDate=' + this.state.minDate + '&maxDate=' + this.state.maxDate : '/record?'
 	          })
 	        ),
 	        this.state.isLoading ? _react2.default.createElement(

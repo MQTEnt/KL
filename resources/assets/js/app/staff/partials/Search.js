@@ -39,8 +39,15 @@ class Search extends Component {
   };
   handleOnClickItem(){
     let api = this.props.apiSearch;
-    let url = api+'?q='+this.state.selectedItem;
-    this.props.getList(url, this.state.selectedItem);
+    let searchKey = this.state.selectedItem;
+
+    let regex = /^\s+$/;
+    if(regex.test(searchKey))
+      searchKey = '';
+    let url = api+'?q='+searchKey;
+
+    this.props.setSearchKey(searchKey);
+    this.props.getList(url);
   }
   render() {
     return (

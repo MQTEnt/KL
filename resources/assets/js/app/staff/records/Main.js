@@ -42,7 +42,8 @@ class Main extends React.Component {
             getPatients={this.props.getPatients}
             current_page={this.props.current_page}
             last_page={this.props.last_page}
-            qSearch={this.props.qSearch}
+            searchKey={this.props.searchKey}
+            setSearchKey={this.props.setSearchKey}
             isLoadingPatients={this.props.isLoadingPatients}
           />
         </Tab>
