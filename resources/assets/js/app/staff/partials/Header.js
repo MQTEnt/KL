@@ -37,7 +37,7 @@ class Header extends React.Component{
 		window.location = "/logout";
 	}
 	componentDidMount(){
-		fetch('/staff/user',{
+		fetch('/user/staff',{
 			credentials: 'same-origin'
 		})
 		.then(function(response) {

@@ -46302,7 +46302,7 @@
 		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
-				fetch('/staff/user', {
+				fetch('/user/staff', {
 					credentials: 'same-origin'
 				}).then(function (response) {
 					return response.json();
@@ -72381,7 +72381,7 @@
 	    value: function displayRows() {
 	      if (this.state.records != null) return _react2.default.createElement(
 	        _Table.TableBody,
-	        { showRowHover: true, displayRowCheckbox: false },
+	        { showRowHover: true, displayRowCheckbox: false, style: { 'cursor': 'pointer' } },
 	        this.state.records.map(function (record) {
 	          return _react2.default.createElement(
 	            _Table.TableRow,
@@ -72390,6 +72390,16 @@
 	              _Table.TableRowColumn,
 	              { 'data-id': record.id },
 	              record.id
+	            ),
+	            _react2.default.createElement(
+	              _Table.TableRowColumn,
+	              { 'data-id': record.id },
+	              record.patient.name
+	            ),
+	            _react2.default.createElement(
+	              _Table.TableRowColumn,
+	              { 'data-id': record.id },
+	              record.created_at.split(" ")[0]
 	            )
 	          );
 	        })
@@ -72422,7 +72432,8 @@
 	        ),
 	        this.state.rangedDateSearch ? _react2.default.createElement(_RangedDate2.default, {
 	          setDate: this.setDate,
-	          getList: this.getRecords
+	          getList: this.getRecords,
+	          api: '/record/searchByDate?'
 	        }) : _react2.default.createElement(_Search2.default, {
 	          getList: this.getRecords,
 	          setSearchKey: this.setSearchKey,
@@ -72443,7 +72454,17 @@
 	              _react2.default.createElement(
 	                _Table.TableHeaderColumn,
 	                null,
-	                'ID'
+	                'M\xE3 b\u1EC7nh \xE1n'
+	              ),
+	              _react2.default.createElement(
+	                _Table.TableHeaderColumn,
+	                null,
+	                'T\xEAn b\u1EC7nh nh\xE2n'
+	              ),
+	              _react2.default.createElement(
+	                _Table.TableHeaderColumn,
+	                null,
+	                'Ng\xE0y t\u1EA1o'
 	              )
 	            )
 	          ),
@@ -72452,7 +72473,7 @@
 	            current_page: this.state.current_page,
 	            last_page: this.state.last_page,
 	            getList: this.getRecords,
-	            api: this.state.rangedDateSearch ? '/record?minDate=' + this.state.minDate + '&maxDate=' + this.state.maxDate : '/record?'
+	            api: this.state.rangedDateSearch ? '/record/searchByDate?minDate=' + this.state.minDate + '&maxDate=' + this.state.maxDate : '/record?'
 	          })
 	        ),
 	        this.state.isLoading ? _react2.default.createElement(
@@ -72594,7 +72615,7 @@
 	      var maxDate = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
 
 	      this.props.setDate(minDate, maxDate);
-	      this.props.getList('/record?minDate=' + minDate + '&maxDate=' + maxDate, '');
+	      this.props.getList(this.props.api + 'minDate=' + minDate + '&maxDate=' + maxDate);
 	    }
 	  }, {
 	    key: 'render',

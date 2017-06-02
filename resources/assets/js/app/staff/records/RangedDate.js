@@ -45,7 +45,7 @@ export default class RangedDate extends React.Component {
     let maxDate = date.getFullYear()+'-'+(date.getMonth()+ 1)+'-'+date.getDate();
     
     this.props.setDate(minDate, maxDate);
-    this.props.getList('/record?minDate='+minDate+'&maxDate='+maxDate, '');
+    this.props.getList(this.props.api+'minDate='+minDate+'&maxDate='+maxDate);
   }
   render() {
     return (

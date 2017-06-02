@@ -15,18 +15,8 @@ class RecordController extends Controller
 		$record->save();
 		return ['stat' => 1, 'record'=> $record];
 	}
-	public function index(Request $request){
-		$minDate = $request->minDate;
-		$maxDate = $request->maxDate;
-		if(!is_null($minDate) && !is_null($maxDate))
-		{
-			$records = Record::where([
-				['created_at', '<=', $maxDate],
-				['created_at', '>=', $minDate]
-			])->orderBy('created_at', 'desc')->paginate(10);
-		}
-		else
-			$records = Record::orderBy('created_at', 'desc')->paginate(10);
+	public function index(){
+		$records = Record::with('patient')->orderBy('created_at', 'desc')->paginate(10);
 		return $records;
 	}
 	public function getSearch(Request $request)
@@ -34,7 +24,7 @@ class RecordController extends Controller
 		$id = $request->q;
 		if($id == '')
 		{
-			$records = Record::orderBy('created_at', 'desc')->paginate(10);
+			$records = Record::with('patient')->orderBy('created_at', 'desc')->paginate(10);
 			return $records;
 		}
         $record = Record::find($id);
@@ -50,5 +40,17 @@ class RecordController extends Controller
 	    		'last_page' => 0,
 	    		'data' => null
 	    	];
+	}
+	public function getSearchByDate(Request $request){
+		$minDate = $request->minDate;
+		$maxDate = $request->maxDate;
+		if(!is_null($minDate) && !is_null($maxDate))
+		{
+			$records = Record::with('patient')->where([
+				['created_at', '<=', $maxDate],
+				['created_at', '>=', $minDate]
+			])->orderBy('created_at', 'desc')->paginate(10);
+			return $records;
+		}
 	}
 }

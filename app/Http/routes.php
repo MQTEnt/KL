@@ -140,6 +140,9 @@ Route::get('/staff', function(){
 	return view('staff.index');
 })->middleware(['auth']);
 
+Route::get('/staff/{after}', function(){
+	return view('staff.index');
+})->where('after', '[\s\S]+')->middleware(['auth']);
 /*
  * API
  */
@@ -159,12 +162,13 @@ Route::group(['middleware' => ['auth']], function(){
 	/*
 	 * Record 
 	 */
+	Route::get('record/searchByDate', 'Staff\RecordController@getSearchByDate');
 	Route::get('record/search', 'Staff\RecordController@getSearch');
 	Route::post('record', 'Staff\RecordController@store');
 	Route::get('record', 'Staff\RecordController@index');
 
 	
-	Route::get('staff/user', function(Illuminate\Http\Request $request){
+	Route::get('user/staff', function(Illuminate\Http\Request $request){
 		$user = Auth::user();
 		return $user;
 	});

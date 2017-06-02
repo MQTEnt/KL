@@ -92,11 +92,13 @@ class List extends React.Component{
   displayRows(){
     if(this.state.records != null)
       return (
-        <TableBody showRowHover={true} displayRowCheckbox={false}>
+        <TableBody showRowHover={true} displayRowCheckbox={false} style={{'cursor': 'pointer'}}>
           {
             this.state.records.map( (record) => (
                 <TableRow key={record.id} style={{'cursor': 'pointer'}}>
                     <TableRowColumn  data-id={record.id}>{record.id}</TableRowColumn>
+                    <TableRowColumn  data-id={record.id}>{record.patient.name}</TableRowColumn>
+                    <TableRowColumn  data-id={record.id}>{record.created_at.split(" ")[0]}</TableRowColumn>
                 </TableRow>
               )
             )
@@ -124,6 +126,7 @@ class List extends React.Component{
           <RangedDate
             setDate={this.setDate}
             getList={this.getRecords}
+            api={'/record/searchByDate?'}
           />
           :
           <Search 
@@ -138,7 +141,9 @@ class List extends React.Component{
           onCellClick={this.onCellClickHandle}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>ID</TableHeaderColumn>
+              <TableHeaderColumn>Mã bệnh án</TableHeaderColumn>
+              <TableHeaderColumn>Tên bệnh nhân</TableHeaderColumn>
+              <TableHeaderColumn>Ngày tạo</TableHeaderColumn>
             </TableRow>
           </TableHeader>
           {this.displayRows()}
@@ -146,7 +151,7 @@ class List extends React.Component{
             current_page={this.state.current_page} 
             last_page={this.state.last_page} 
             getList={this.getRecords}
-            api={(this.state.rangedDateSearch)?'/record?minDate='+this.state.minDate+'&maxDate='+this.state.maxDate:'/record?'}
+            api={(this.state.rangedDateSearch)?'/record/searchByDate?minDate='+this.state.minDate+'&maxDate='+this.state.maxDate:'/record?'}
           />
         </Table>
         {
