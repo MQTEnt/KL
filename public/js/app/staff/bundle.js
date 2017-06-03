@@ -71411,6 +71411,24 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _CircularProgress = __webpack_require__(556);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
+	var _List = __webpack_require__(586);
+
+	var _event = __webpack_require__(662);
+
+	var _event2 = _interopRequireDefault(_event);
+
+	var _assignment = __webpack_require__(476);
+
+	var _assignment2 = _interopRequireDefault(_assignment);
+
+	var _Subheader = __webpack_require__(465);
+
+	var _Subheader2 = _interopRequireDefault(_Subheader);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71425,15 +71443,86 @@
 		function Detail(props) {
 			_classCallCheck(this, Detail);
 
-			return _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).call(this, props));
+
+			_this.state = {
+				patient: null,
+				records: null,
+				isLoading: true
+			};
+			return _this;
 		}
 
 		_createClass(Detail, [{
+			key: 'getPatient',
+			value: function getPatient() {
+				this.setState({
+					isLoading: true
+				});
+				setTimeout(function () {
+					fetch('/patient/' + this.props.params.patient_id, {
+						credentials: 'same-origin'
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						//Data Response
+						//console.log('Data Response: ', obj);
+						this.setState({
+							'patient': obj.patient,
+							'records': obj.records,
+							isLoading: false
+						});
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 1500);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.getPatient();
+			}
+		}, {
+			key: 'renderListRecord',
+			value: function renderListRecord() {
+				var records = this.state.records;
+				return _react2.default.createElement(
+					_List.List,
+					{ style: { 'margin': '0 auto', 'width': '90%' } },
+					_react2.default.createElement(
+						_Subheader2.default,
+						{ style: { fontSize: '120%' } },
+						'Danh s\xE1ch b\u1EC7nh \xE1n c\u1EE7a b\u1EC7nh nh\xE2n:'
+					),
+					Object.keys(records).map(function (key) {
+						return _react2.default.createElement(_List.ListItem, {
+							key: key,
+							primaryText: 'Tháng ' + key.split("-")[1] + ' năm ' + key.split("-")[0],
+							leftIcon: _react2.default.createElement(_event2.default, null),
+							initiallyOpen: false,
+							primaryTogglesNestedList: true,
+							nestedItems: records[key].map(function (record) {
+								return _react2.default.createElement(_List.ListItem, {
+									key: record.id,
+									primaryText: 'Bệnh án mã ' + record.id + ' tạo vào ' + record.created_at,
+									leftIcon: _react2.default.createElement(_assignment2.default, null)
+								});
+							})
+						});
+					})
+				);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
-				return _react2.default.createElement(
+				return this.state.isLoading ? _react2.default.createElement(
 					'div',
-					null,
+					{ style: { 'margin': '20% auto', 'width': '0' } },
+					_react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+				) : _react2.default.createElement(
+					'div',
+					{ style: { 'margin': '5% auto', 'width': '80%' } },
 					_react2.default.createElement(
 						'p',
 						null,
@@ -71445,11 +71534,7 @@
 						null,
 						'Th\xF4ng tin b\u1EC7nh nh\xE2n...'
 					),
-					_react2.default.createElement(
-						'p',
-						null,
-						'Danh s\xE1ch b\u1EC7nh \xE1n c\u1EE7a b\u1EC7nh nh\xE2n'
-					)
+					this.renderListRecord()
 				);
 			}
 		}]);
@@ -71771,7 +71856,7 @@
 	      });
 	      var selectedPatient = patients[indexObj];
 	      //Convert dob to object
-	      selectedPatient.dob = new Date(selectedPatient.dob);
+	      //selectedPatient.dob = new Date(selectedPatient.dob);
 	      //console.log(selectedPatient);
 	      this.setState({
 	        'selectedPatient': selectedPatient
@@ -72087,10 +72172,41 @@
 						_react2.default.createElement(
 							'li',
 							null,
+							'Ng\xE0y sinh: ',
 							_react2.default.createElement(
-								_reactRouter.Link,
-								{ to: "/staff/patient/" + patient.id },
-								'Detail'
+								'b',
+								null,
+								patient.dob
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'\u0110\u1ECBa ch\u1EC9: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient.address
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'S\u1ED1 ch\u1EE9ng minh nh\xE2n d\xE2n: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient.id_card
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'S\u1ED1 \u0111i\u1EC7n tho\u1EA1i: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient.phone
 							)
 						)
 					),
@@ -72653,6 +72769,45 @@
 	}(_react2.default.Component);
 
 	exports.default = RangedDate;
+
+/***/ }),
+/* 658 */,
+/* 659 */,
+/* 660 */,
+/* 661 */,
+/* 662 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ActionEvent = function ActionEvent(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z' }));
+	};
+	ActionEvent = (0, _pure2.default)(ActionEvent);
+	ActionEvent.displayName = 'ActionEvent';
+	ActionEvent.muiName = 'SvgIcon';
+
+	exports.default = ActionEvent;
 
 /***/ })
 /******/ ]);

@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Patient;
+use App\Record;
+use Carbon\Carbon;
 use App\Http\Requests\PatientFormRequest;
 class PatientController extends Controller
 {
@@ -65,5 +67,13 @@ class PatientController extends Controller
         $patients = Patient::where([
             ['name', 'LIKE', '%'.$query.'%']])->paginate(10);
         return $patients;
+	}
+	public function getPatient($id){
+		$patient = Patient::findOrFail($id);
+		$records = Record::select('id', 'created_at')->where('patient_id', $id)->get()
+					->groupBy(function($val) {
+            			return Carbon::parse($val->created_at)->format('Y-m');
+     				});
+		return ['patient' => $patient, 'records' => $records];
 	}
 }

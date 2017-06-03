@@ -116,7 +116,10 @@ class Detail extends React.Component{
 	        >
 				<ul style={style.ul}>
 					<li>Họ và tên: <b>{patient.name}</b></li>
-					<li><Link to={"/staff/patient/"+patient.id}>Detail</Link></li>
+					<li>Ngày sinh: <b>{patient.dob}</b></li>
+					<li>Địa chỉ: <b>{patient.address}</b></li>
+					<li>Số chứng minh nhân dân: <b>{patient.id_card}</b></li>
+					<li>Số điện thoại: <b>{patient.phone}</b></li>
 				</ul>
 				<Alert 
 					open={this.state.openAlert}

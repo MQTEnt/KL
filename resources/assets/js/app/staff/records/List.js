@@ -27,7 +27,7 @@ class List extends React.Component{
     let indexObj = patients.findIndex((obj => obj.id === selectedPatientId));
     let selectedPatient = patients[indexObj];
     //Convert dob to object
-    selectedPatient.dob = new Date(selectedPatient.dob);
+    //selectedPatient.dob = new Date(selectedPatient.dob);
     //console.log(selectedPatient);
     this.setState({
         'selectedPatient': selectedPatient
