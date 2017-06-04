@@ -64,9 +64,30 @@ class PatientController extends Controller
 	public function getSearch(Request $request)
 	{
 		$query = $request->q;
-        $patients = Patient::where([
-            ['name', 'LIKE', '%'.$query.'%']])->paginate(10);
-        return $patients;
+		if(preg_match("/\\d/", $query) > 0)
+		{
+			//Search by ID
+			$patient = Patient::find($query);
+	        if(!is_null($patient))
+		        return [
+		        	'current_page' => 1,
+					'last_page' => 1,
+					'data' => [$patient]
+		        ];
+		    else
+		    	return [
+		    		'current_page' => 1,
+		    		'last_page' => 0,
+		    		'data' => []
+		    	];
+	    }
+	    else
+	    {
+		    //Search by name
+	        $patients = Patient::where([
+	            ['name', 'LIKE', '%'.$query.'%']])->paginate(10);
+	        return $patients;
+	    }
 	}
 	public function getPatient($id){
 		$patient = Patient::findOrFail($id);

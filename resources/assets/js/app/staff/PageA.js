@@ -1,63 +1,102 @@
-import React, {Component} from "react";
-class PageA extends Component {
-	constructor(props){
-		super(props);
-	}
-    render() {
+import React from 'react';
+import FlatButton from 'material-ui/FlatButton';
+import RaisedButton from 'material-ui/RaisedButton';
+import {
+  Step,
+  Stepper,
+  StepLabel,
+} from 'material-ui/Stepper';
+import ArrowForwardIcon from 'material-ui/svg-icons/navigation/arrow-forward';
+import TextField from 'material-ui/TextField';
+/**
+ * It is possible to specify your own step connector by passing an element to the `connector`
+ * prop. If you want to remove the connector, pass `null` to the `connector` prop.
+ */
+class PageA extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.handleNext = this.handleNext.bind(this);
+    this.handlePrev = this.handlePrev.bind(this);
+
+    this.state = {
+        stepIndex: 0,
+    };
+  }
+
+  getStepContent(stepIndex) {
+    switch (stepIndex) {
+      case 0:
         return (
-            <div>
-                <h3>After trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
+            <TextField
+                hintText="Hint Text"
+            />
+        );
 
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
+      case 1:
+        return (
+          <p>
+            {'An ad group contains one or more ads which target a shared set of keywords.'}
+          </p>
+        );
 
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floatingAfter trying to find an example where the FloatingActionButton floats at its standard bottom-right screen position with no results, I come to you if you could provide one because it seems to be a normal button with no inteligence to float to that corner by default.
-
-Is it supposed I have to make it float by setting a custom css rule? Material-UI docs doesn't mention any property about floating</h3>
-            </div>
+      case 2:
+        return (
+          <p>
+            {'Try out different ad text to see what brings in the most customers, and learn ' +
+            'how to enhance your ads using features like ad extensions. If you run into any ' +
+            'problems with your ads, find out how to tell if they\'re running and how to ' +
+            'resolve approval issues.'}
+          </p>
         );
     }
+  }
+
+  handleNext() {
+    const {stepIndex} = this.state;
+
+    if (stepIndex < 2) {
+      this.setState({stepIndex: stepIndex + 1});
+    }
+  }
+
+  handlePrev() {
+    const {stepIndex} = this.state;
+
+    if (stepIndex > 0) {
+      this.setState({stepIndex: stepIndex - 1});
+    }
+  }
+
+  render() {
+    const {stepIndex} = this.state;
+
+    return (
+      <div style={{width: '100%', maxWidth: 700, margin: 'auto'}}>
+        <Stepper activeStep={stepIndex}>
+          <Step/>
+          <Step/>
+          <Step/>
+        </Stepper>
+
+        {this.getStepContent(stepIndex)}
+
+        <div style={{marginTop: 24, marginBottom: 12}}>
+          <FlatButton
+            label="Back"
+            disabled={stepIndex === 0}
+            onTouchTap={this.handlePrev}
+            style={{marginRight: 12}}
+          />
+          <RaisedButton
+            label={stepIndex === 2 ? 'Finish' : 'Next'}
+            primary={true}
+            onTouchTap={this.handleNext}
+          />
+        </div>
+      </div>
+    );
+  }
 }
 
 export default PageA;

@@ -59,7 +59,7 @@ class List extends React.Component{
         <Search 
           getList={this.props.getPatients}
           setSearchKey={this.props.setSearchKey}
-          hintText='Nhập tên'
+          hintText='Nhập tên hoặc mã bệnh nhân'
           apiSearchGroup='/patient/searchName'
           apiSearch='/patient/search'
           autoComplete={true}

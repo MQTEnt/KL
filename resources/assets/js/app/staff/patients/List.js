@@ -211,7 +211,7 @@ class List extends React.Component{
       <div>
         <Search 
           getList={this.props.getPatients}
-          hintText='Nhập tên'
+          hintText='Nhập tên hoặc mã bệnh nhân'
           setSearchKey={this.props.setSearchKey}
           apiSearchGroup='/patient/searchName'
           apiSearch='/patient/search'
