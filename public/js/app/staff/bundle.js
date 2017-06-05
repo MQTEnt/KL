@@ -22406,6 +22406,10 @@
 
 	var _App6 = _interopRequireDefault(_App5);
 
+	var _IndexesDetail = __webpack_require__(667);
+
+	var _IndexesDetail2 = _interopRequireDefault(_IndexesDetail);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22437,6 +22441,7 @@
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/patient/:patient_id", component: _Detail2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/record", component: _App4.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/index", component: _App6.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/index/:record_id", component: _IndexesDetail2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageA", component: _PageA2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageB", component: _PageB2.default })
 	        )
@@ -73472,6 +73477,8 @@
 
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 
+	var _reactRouter = __webpack_require__(188);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73553,7 +73560,11 @@
 									rightIconButton: _react2.default.createElement(
 										_IconButton2.default,
 										null,
-										_react2.default.createElement(_create2.default, null)
+										_react2.default.createElement(
+											_reactRouter.Link,
+											{ style: { textDecoration: 'none' }, to: "/staff/index/" + record.id },
+											_react2.default.createElement(_create2.default, null)
+										)
 									)
 								});
 							})
@@ -73691,6 +73702,174 @@
 	ContentCreate.muiName = 'SvgIcon';
 
 	exports.default = ContentCreate;
+
+/***/ }),
+/* 665 */,
+/* 666 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(506);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var TextInputs = function (_React$Component) {
+		_inherits(TextInputs, _React$Component);
+
+		function TextInputs(props) {
+			_classCallCheck(this, TextInputs);
+
+			return _possibleConstructorReturn(this, (TextInputs.__proto__ || Object.getPrototypeOf(TextInputs)).call(this, props));
+		}
+
+		_createClass(TextInputs, [{
+			key: 'render',
+			value: function render() {
+				var indexes = this.props.indexes;
+				return _react2.default.createElement(
+					'div',
+					null,
+					indexes.map(function (index) {
+						return _react2.default.createElement(
+							'div',
+							{ key: index.id, style: { 'margin': '0 auto', 'width': '50%' } },
+							_react2.default.createElement(_TextField2.default, {
+								fullWidth: true,
+								defaultValue: index.value,
+								floatingLabelText: index.name
+							})
+						);
+					})
+				);
+			}
+		}]);
+
+		return TextInputs;
+	}(_react2.default.Component);
+
+	exports.default = TextInputs;
+
+/***/ }),
+/* 667 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _CircularProgress = __webpack_require__(567);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
+	var _TextInputs = __webpack_require__(666);
+
+	var _TextInputs2 = _interopRequireDefault(_TextInputs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var IndexesDetail = function (_React$Component) {
+		_inherits(IndexesDetail, _React$Component);
+
+		function IndexesDetail(props) {
+			_classCallCheck(this, IndexesDetail);
+
+			var _this = _possibleConstructorReturn(this, (IndexesDetail.__proto__ || Object.getPrototypeOf(IndexesDetail)).call(this, props));
+
+			_this.state = {
+				isLoading: true,
+				indexes: []
+			};
+			return _this;
+		}
+
+		_createClass(IndexesDetail, [{
+			key: 'getIndexes',
+			value: function getIndexes(url) {
+				setTimeout(function () {
+					//Get data
+					fetch(url, {
+						credentials: 'same-origin'
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						//Data Response
+						console.log('Data Response: ', obj);
+
+						//Do something ...
+						this.setState({
+							isLoading: false,
+							indexes: obj
+						});
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 1500);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var record_id = this.props.params.record_id;
+				this.getIndexes('/index/' + record_id);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'p',
+						null,
+						'K\u1EBFt qu\u1EA3 x\xE9t nghi\u1EC7m c\u1EE7a b\u1EC7nh \xE1n m\xE3 ',
+						this.props.params.record_id
+					),
+					this.state.isLoading ? _react2.default.createElement(
+						'div',
+						{ style: { 'margin': '20% auto', 'width': '0' } },
+						_react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+					) : _react2.default.createElement(_TextInputs2.default, { indexes: this.state.indexes })
+				);
+			}
+		}]);
+
+		return IndexesDetail;
+	}(_react2.default.Component);
+
+	exports.default = IndexesDetail;
 
 /***/ })
 /******/ ]);

@@ -168,7 +168,20 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('record', 'Staff\RecordController@store');
 	Route::get('record', 'Staff\RecordController@index');
 
+	/*
+	 * Index
+	 */
+	Route::get('index/{record_id}', function($record_id){
+		$indexes = DB::table('indexes')
+		            ->leftJoin(DB::raw("(SELECT * FROM record_index WHERE record_id = $record_id) AS temp_tbl"), 'indexes.id', '=', 'temp_tbl.index_id')
+		            ->select('indexes.*', 'temp_tbl.value')
+		            ->orderBy('id')
+		            ->get();
+        return $indexes;
+	});
 	
+
+	/////////////////////////
 	Route::get('user/staff', function(Illuminate\Http\Request $request){
 		$user = Auth::user();
 		return $user;
