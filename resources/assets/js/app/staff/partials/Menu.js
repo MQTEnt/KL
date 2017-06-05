@@ -70,6 +70,11 @@ export default class Menu extends React.Component {
               <ActionAssignment style={style.icon}/> Quản lý bệnh án
             </MenuItem>
           </Link>
+          <Link style={style.link} activeStyle={style.active} to={"/staff/index"}>
+            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+              <ActionAssignment style={style.icon}/> Nhập chỉ số xét nghiệm
+            </MenuItem>
+          </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/pageA"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
               Trang A

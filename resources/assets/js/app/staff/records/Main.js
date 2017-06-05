@@ -36,7 +36,6 @@ class Main extends React.Component {
           value={0}
           icon={<SocialPeople/>}
         >
-          <p>{this.state.alert}</p>
           <List
             patients={this.props.patients}
             getPatients={this.props.getPatients}

@@ -17,17 +17,11 @@ class Main extends React.Component {
       value: 0,
     };
     this.handleChange = this.handleChange.bind(this);
-    this.changeAlert = this.handleChange.bind(this);
   }
 
   handleChange(value){
     this.setState({
       value: value,
-    });
-  };
-  changeAlert(text){
-    this.setState({
-      alert: text
     });
   }
   render() {
@@ -42,7 +36,6 @@ class Main extends React.Component {
           value={0}
           icon={<SocialPeople/>}
         >
-          <p>{this.state.alert}</p>
           <List
             patients={this.props.patients}
             handleUpdate={this.props.handleUpdate}
@@ -63,7 +56,6 @@ class Main extends React.Component {
           <Create
             handleAdd={this.props.handleAdd}
             handleChangeTab={this.handleChange}
-            handleChangeAlert={this.changeAlert}
           />
         </Tab>
       </Tabs>
