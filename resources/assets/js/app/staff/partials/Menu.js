@@ -6,7 +6,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ImageDehaze from 'material-ui/svg-icons/image/dehaze';
 import SocialPeople from 'material-ui/svg-icons/social/people';
-import ActionAssignment from 'material-ui/svg-icons/action/assignment'
+import ActionAssignment from 'material-ui/svg-icons/action/assignment';
+import ActionInvertColors from 'material-ui/svg-icons/action/invert-colors'
 const style = {
   icon: {
     position: 'relative',
@@ -72,17 +73,7 @@ export default class Menu extends React.Component {
           </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/index"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              <ActionAssignment style={style.icon}/> Nhập chỉ số xét nghiệm
-            </MenuItem>
-          </Link>
-          <Link style={style.link} activeStyle={style.active} to={"/staff/pageA"}>
-            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              Trang A
-            </MenuItem>
-          </Link>
-          <Link style={style.link} activeStyle={style.active} to={"/staff/pageB"}>
-            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              Trang B
+              <ActionInvertColors style={style.icon}/> Chỉ số xét nghiệm
             </MenuItem>
           </Link>
         </Drawer>

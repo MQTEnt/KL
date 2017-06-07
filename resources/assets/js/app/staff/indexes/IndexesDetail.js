@@ -9,6 +9,7 @@ class IndexesDetail extends React.Component{
 			isLoading: true,
 			indexes: []
 		}
+		this.getIndexes = this.getIndexes.bind(this);
 	}
 	getIndexes(url){
 		setTimeout(function(){
@@ -41,13 +42,18 @@ class IndexesDetail extends React.Component{
 	render(){
 		return(
 			<div>
-			<p>Kết quả xét nghiệm của bệnh án mã {this.props.params.record_id}</p>
+			<p style={{textAlign: 'center'}}>Kết quả xét nghiệm của bệnh án mã <b>{this.props.params.record_id}</b></p>
 			{(this.state.isLoading)?
 					<div style={{'margin': '20% auto', 'width': '0'}}>
 						<CircularProgress size={80} thickness={5}/>
 					</div>
 					:
-					<TextInputs indexes={this.state.indexes} />
+					<TextInputs 
+						indexes={this.state.indexes} 
+						api={'/index/'+this.props.params.record_id}
+						recordId={this.props.params.record_id}
+						getListIndex = {this.getIndexes}
+					/>
 			}
 			</div>
 		)
