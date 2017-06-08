@@ -45,7 +45,7 @@ class Form extends React.Component{
 				'room_id': this.state.inputRoom
 			};
 			if(this.props.editing)
-				this.props.updatePatient(obj)
+				this.props.updatePatient(obj);
 			else
 				this.props.addPatient(obj);
 		}

@@ -27,7 +27,7 @@ class PatientFormRequest extends Request
             'name' => 'required|min:3',
             'address' => 'required|min:5',
             'city' => 'required|min:3',
-            'id_card' => 'required|numeric|min:9',
+            'id_card' => 'required|numeric|digits_between:9,20',
             'email' => 'email'
         ];
     }
