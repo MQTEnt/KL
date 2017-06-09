@@ -55774,22 +55774,27 @@
 	  _createClass(Search, [{
 	    key: 'handleUpdateInput',
 	    value: function handleUpdateInput(value) {
-	      var api = this.props.apiSearchGroup;
-	      //Get data from server
-	      fetch(api + '?q=' + value, {
-	        credentials: 'same-origin'
-	      }).then(function (response) {
-	        return response.json();
-	      }).then(function (obj) {
-	        //Data Response
-	        //console.log('Data Response: ', obj);
-	        this.setState({
-	          items: obj,
-	          selectedItem: value
+	      if (value.length === 1) {
+	        var api = this.props.apiSearchGroup;
+	        //Get data from server
+	        fetch(api + '?q=' + value, {
+	          credentials: 'same-origin'
+	        }).then(function (response) {
+	          return response.json();
+	        }).then(function (obj) {
+	          //Data Response
+	          //console.log('Data Response: ', obj);
+	          this.setState({
+	            items: obj
+	          });
+	        }.bind(this)).catch(function (ex) {
+	          //Log Error
+	          console.log('parsing failed', ex);
 	        });
-	      }.bind(this)).catch(function (ex) {
-	        //Log Error
-	        console.log('parsing failed', ex);
+	      }
+
+	      this.setState({
+	        selectedItem: value
 	      });
 	    }
 	  }, {

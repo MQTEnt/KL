@@ -17,24 +17,30 @@ class Search extends Component {
     this.handleOnClickItem = this.handleOnClickItem.bind(this);
   }
   handleUpdateInput(value){
-    let api = this.props.apiSearchGroup;
-    //Get data from server
-    fetch(api+'?q='+value, {
-        credentials: 'same-origin'
-      })
-      .then(function(response) {
-        return response.json()
-      }).then(function(obj) {
-        //Data Response
-        //console.log('Data Response: ', obj);
-        this.setState({
-          items: obj,
-          selectedItem: value
-        });
-      }.bind(this))
-      .catch(function(ex) {
-        //Log Error
-        console.log('parsing failed', ex)
+    if(value.length === 1)
+    {
+      let api = this.props.apiSearchGroup;
+      //Get data from server
+      fetch(api+'?q='+value, {
+          credentials: 'same-origin'
+        })
+        .then(function(response) {
+          return response.json()
+        }).then(function(obj) {
+          //Data Response
+          //console.log('Data Response: ', obj);
+          this.setState({
+            items: obj
+          });
+        }.bind(this))
+        .catch(function(ex) {
+          //Log Error
+          console.log('parsing failed', ex);
+      });
+    }
+
+    this.setState({
+      selectedItem: value
     });
   };
   handleOnClickItem(){

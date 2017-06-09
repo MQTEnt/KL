@@ -8,6 +8,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Patient;
 use App\Record;
+use DB;
 use Carbon\Carbon;
 use App\Http\Requests\PatientFormRequest;
 class PatientController extends Controller
@@ -57,8 +58,11 @@ class PatientController extends Controller
 	}
 	public function getSearchName(Request $request){
 		$query = $request->q;
-        $patients = Patient::where([
-            ['name', 'LIKE', '%'.$query.'%']])->groupBy('name')->pluck('name')->toArray();
+		$patients = DB::table('patients')
+						->select('name')
+						->where('name', 'LIKE', '%'.$query.'%')
+						->groupBy(DB::raw('name COLLATE utf8_vietnamese_ci'))
+						->pluck('name');
         return $patients;
 	}
 	public function getSearch(Request $request)
