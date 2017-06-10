@@ -2,6 +2,10 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionCached from 'material-ui/svg-icons/action/cached';
+import Alert from './Alert';
+import SnackBar from './SnackBar';
+import LinearProgress from 'material-ui/LinearProgress';
+import autoBind from 'react-autobind';
 
 const styles = {
   button: {
@@ -11,9 +15,24 @@ const styles = {
 class TextInputs extends React.Component{
 	constructor(props){
 		super(props);
+		this.state = {
+			'openAlert': false,
+			'openSnackBar': false,
+			'openProgress': false
+		}
 		this.inputs = [];
-		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleOnBlurInput = this.handleOnBlurInput.bind(this);
+		autoBind(this);
+	}
+	alertCancel(){
+		this.setState({
+			'openAlert': false
+		});
+	}
+	alertAccept(){
+		this.handleSubmit();
+		this.setState({
+			'openAlert': false
+		});
 	}
 	handleOnBlurInput(value, index){
 		/*Validate here*/
@@ -82,6 +101,16 @@ class TextInputs extends React.Component{
 		console.log('Edit Array', editArr);
 		console.log('Delete Array', deleteArr);
 		
+		if(addArr.length === 0 && editArr.length === 0 && deleteArr.length === 0)
+		{
+			console.log('Nothing update!');
+			return;
+		}
+		//Display progress
+		this.setState({
+			'openProgress': true
+		});
+
 		let json_addArr = JSON.stringify(addArr);
 		let json_editArr = JSON.stringify(editArr);
 		let json_deleteArr = JSON.stringify(deleteArr);
@@ -95,24 +124,29 @@ class TextInputs extends React.Component{
 
 		let api = this.props.api
 	    //POST (AJAX)
-	    fetch(api, {
-	      method: 'POST',
-	      credentials: 'same-origin',
-	      body: formData
-	    })
-	    .then(function(response) {
-	      return response.json()
-	    }).then(function(obj) {
-	      	if(obj.state === 1)
-	      	{
-	      		console.log('Updated Success');
-	      		this.props.getListIndex('/index/'+this.props.recordId);
-	      	}
-	    }.bind(this))
-	    .catch(function(ex) {
-	      //Log Error
-	      console.log('parsing failed', ex)
-	    });
+	    setTimeout(function(){
+		    fetch(api, {
+		      method: 'POST',
+		      credentials: 'same-origin',
+		      body: formData
+		    })
+		    .then(function(response) {
+		      return response.json()
+		    }).then(function(obj) {
+		      	if(obj.state === 1)
+		      	{
+		      		this.props.updateIndexes(obj.indexes);
+		      		this.setState({
+		      			openSnackBar: true,
+		      			openProgress: false
+		      		});
+		      	}
+		    }.bind(this))
+		    .catch(function(ex) {
+		      //Log Error
+		      console.log('parsing failed', ex)
+		    });
+		}.bind(this), 1500);
 	}
 	render(){
 		let indexes = this.props.indexes;
@@ -135,9 +169,26 @@ class TextInputs extends React.Component{
 						primary={true}
 						icon={<ActionCached />}
 						style={styles.button}
-						onClick={this.handleSubmit}
+						onClick={()=>{this.setState({'openAlert': true})}}
     				/>
 				</div>
+				{(this.state.openProgress)?
+					<div style={{'margin': '0 auto', 'width': '50%'}}>
+						<LinearProgress mode="indeterminate" />
+					</div>
+					:''
+				}
+				<Alert
+					alertAccept={this.alertAccept}
+					alertCancel={this.alertCancel}
+					open={this.state.openAlert}
+					noti="Bạn có chắc muốn cập nhật?"
+				/>
+				<SnackBar
+					open={this.state.openSnackBar}
+					noti="Đã cập nhật thành công"
+					onRequestClose={()=>{this.setState({openSnackBar: false})}}
+				/>
 			</div>
 		);
 	}

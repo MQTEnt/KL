@@ -73774,6 +73774,7 @@
 				indexes: []
 			};
 			_this.getIndexes = _this.getIndexes.bind(_this);
+			_this.updateIndexes = _this.updateIndexes.bind(_this);
 			return _this;
 		}
 
@@ -73808,6 +73809,13 @@
 				this.getIndexes('/index/' + record_id);
 			}
 		}, {
+			key: 'updateIndexes',
+			value: function updateIndexes(indexes) {
+				this.setState({
+					'indexes': indexes
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -73831,7 +73839,7 @@
 						indexes: this.state.indexes,
 						api: '/index/' + this.props.params.record_id,
 						recordId: this.props.params.record_id,
-						getListIndex: this.getIndexes
+						updateIndexes: this.updateIndexes
 					})
 				);
 			}
@@ -73870,6 +73878,22 @@
 
 	var _cached2 = _interopRequireDefault(_cached);
 
+	var _Alert = __webpack_require__(540);
+
+	var _Alert2 = _interopRequireDefault(_Alert);
+
+	var _SnackBar = __webpack_require__(658);
+
+	var _SnackBar2 = _interopRequireDefault(_SnackBar);
+
+	var _LinearProgress = __webpack_require__(596);
+
+	var _LinearProgress2 = _interopRequireDefault(_LinearProgress);
+
+	var _reactAutobind = __webpack_require__(646);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -73892,13 +73916,32 @@
 
 			var _this = _possibleConstructorReturn(this, (TextInputs.__proto__ || Object.getPrototypeOf(TextInputs)).call(this, props));
 
+			_this.state = {
+				'openAlert': false,
+				'openSnackBar': false,
+				'openProgress': false
+			};
 			_this.inputs = [];
-			_this.handleSubmit = _this.handleSubmit.bind(_this);
-			_this.handleOnBlurInput = _this.handleOnBlurInput.bind(_this);
+			(0, _reactAutobind2.default)(_this);
 			return _this;
 		}
 
 		_createClass(TextInputs, [{
+			key: 'alertCancel',
+			value: function alertCancel() {
+				this.setState({
+					'openAlert': false
+				});
+			}
+		}, {
+			key: 'alertAccept',
+			value: function alertAccept() {
+				this.handleSubmit();
+				this.setState({
+					'openAlert': false
+				});
+			}
+		}, {
 			key: 'handleOnBlurInput',
 			value: function handleOnBlurInput(value, index) {
 				/*Validate here*/
@@ -73961,6 +74004,15 @@
 				console.log('Edit Array', editArr);
 				console.log('Delete Array', deleteArr);
 
+				if (addArr.length === 0 && editArr.length === 0 && deleteArr.length === 0) {
+					console.log('Nothing update!');
+					return;
+				}
+				//Display progress
+				this.setState({
+					'openProgress': true
+				});
+
 				var json_addArr = JSON.stringify(addArr);
 				var json_editArr = JSON.stringify(editArr);
 				var json_deleteArr = JSON.stringify(deleteArr);
@@ -73974,21 +74026,26 @@
 
 				var api = this.props.api;
 				//POST (AJAX)
-				fetch(api, {
-					method: 'POST',
-					credentials: 'same-origin',
-					body: formData
-				}).then(function (response) {
-					return response.json();
-				}).then(function (obj) {
-					if (obj.state === 1) {
-						console.log('Updated Success');
-						this.props.getListIndex('/index/' + this.props.recordId);
-					}
-				}.bind(this)).catch(function (ex) {
-					//Log Error
-					console.log('parsing failed', ex);
-				});
+				setTimeout(function () {
+					fetch(api, {
+						method: 'POST',
+						credentials: 'same-origin',
+						body: formData
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						if (obj.state === 1) {
+							this.props.updateIndexes(obj.indexes);
+							this.setState({
+								openSnackBar: true,
+								openProgress: false
+							});
+						}
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 1500);
 			}
 		}, {
 			key: 'render',
@@ -74021,9 +74078,29 @@
 							primary: true,
 							icon: _react2.default.createElement(_cached2.default, null),
 							style: styles.button,
-							onClick: this.handleSubmit
+							onClick: function onClick() {
+								_this2.setState({ 'openAlert': true });
+							}
 						})
-					)
+					),
+					this.state.openProgress ? _react2.default.createElement(
+						'div',
+						{ style: { 'margin': '0 auto', 'width': '50%' } },
+						_react2.default.createElement(_LinearProgress2.default, { mode: 'indeterminate' })
+					) : '',
+					_react2.default.createElement(_Alert2.default, {
+						alertAccept: this.alertAccept,
+						alertCancel: this.alertCancel,
+						open: this.state.openAlert,
+						noti: 'B\u1EA1n c\xF3 ch\u1EAFc mu\u1ED1n c\u1EADp nh\u1EADt?'
+					}),
+					_react2.default.createElement(_SnackBar2.default, {
+						open: this.state.openSnackBar,
+						noti: '\u0110\xE3 c\u1EADp nh\u1EADt th\xE0nh c\xF4ng',
+						onRequestClose: function onRequestClose() {
+							_this2.setState({ openSnackBar: false });
+						}
+					})
 				);
 			}
 		}]);

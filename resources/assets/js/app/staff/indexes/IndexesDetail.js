@@ -10,6 +10,7 @@ class IndexesDetail extends React.Component{
 			indexes: []
 		}
 		this.getIndexes = this.getIndexes.bind(this);
+		this.updateIndexes = this.updateIndexes.bind(this);
 	}
 	getIndexes(url){
 		setTimeout(function(){
@@ -39,6 +40,11 @@ class IndexesDetail extends React.Component{
 		let record_id = this.props.params.record_id;
 		this.getIndexes('/index/'+record_id);
 	}
+	updateIndexes(indexes){
+		this.setState({
+			'indexes': indexes
+		})
+	}
 	render(){
 		return(
 			<div>
@@ -52,7 +58,7 @@ class IndexesDetail extends React.Component{
 						indexes={this.state.indexes} 
 						api={'/index/'+this.props.params.record_id}
 						recordId={this.props.params.record_id}
-						getListIndex = {this.getIndexes}
+						updateIndexes = {this.updateIndexes}
 					/>
 			}
 			</div>

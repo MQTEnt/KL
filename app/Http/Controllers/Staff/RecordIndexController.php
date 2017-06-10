@@ -57,6 +57,13 @@ class RecordIndexController extends Controller
 		{
 			Record_Index::destroy($deleteArr);
 		}
-		return ['state' => 1];
+		
+		//Get list index
+		$indexes = DB::table('indexes')
+		            ->leftJoin(DB::raw("(SELECT * FROM record_index WHERE record_id = $record_id) AS temp_tbl"), 'indexes.id', '=', 'temp_tbl.index_id')
+		            ->select('indexes.id AS index_id', 'indexes.name', 'temp_tbl.value', 'temp_tbl.id AS id')
+		            ->orderBy('index_id')
+		            ->get();
+        return ['state' => 1, 'indexes' => $indexes];
 	}
 }
