@@ -56,11 +56,9 @@ class PatientController extends Controller
 		$patient->delete();
 		return ['stat' => 1];
 	}
-	public function getSearchName(Request $request){
-		$query = $request->q;
+	public function getSearchName(){
 		$patients = DB::table('patients')
 						->select('name')
-						->where('name', 'LIKE', '%'.$query.'%')
 						->groupBy(DB::raw('name COLLATE utf8_vietnamese_ci'))
 						->pluck('name');
         return $patients;

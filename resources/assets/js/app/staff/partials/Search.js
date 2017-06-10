@@ -17,11 +17,11 @@ class Search extends Component {
     this.handleOnClickItem = this.handleOnClickItem.bind(this);
   }
   handleUpdateInput(value){
-    if(value.length === 1)
+    if(value.length === 1 && this.state.items.length === 0)
     {
       let api = this.props.apiSearchGroup;
       //Get data from server
-      fetch(api+'?q='+value, {
+      fetch(api, {
           credentials: 'same-origin'
         })
         .then(function(response) {
