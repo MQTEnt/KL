@@ -27,7 +27,8 @@ class RecordController extends Controller
 			$records = Record::with('patient')->orderBy('created_at', 'desc')->paginate(10);
 			return $records;
 		}
-        $record = Record::find($id);
+		//else
+        $record = Record::with('patient')->get()->find($id);
         if(!is_null($record))
 	        return [
 	        	'current_page' => 1,
@@ -44,10 +45,12 @@ class RecordController extends Controller
 	public function getSearchByDate(Request $request){
 		$minDate = $request->minDate;
 		$maxDate = $request->maxDate;
+		$maxDate = date('Y-m-d', strtotime($maxDate. ' + 1 days'));
+
 		if(!is_null($minDate) && !is_null($maxDate))
 		{
 			$records = Record::with('patient')->where([
-				['created_at', '<=', $maxDate],
+				['created_at', '<', $maxDate],
 				['created_at', '>=', $minDate]
 			])->orderBy('created_at', 'desc')->paginate(10);
 			return $records;
