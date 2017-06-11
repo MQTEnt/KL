@@ -132,7 +132,7 @@ class Form extends React.Component{
 		}
 	}
 	handleChangeInputDate(x, obj){
-		let date = obj.getFullYear()+'-'+(obj.getMonth()+ 1)+'-'+obj.getDate();
+		let date = obj.getFullYear()+'/'+(obj.getMonth()+ 1)+'/'+obj.getDate();
 		this.setState({inputDob: date});
 	}
 	handleChangeInputGender(event, index, value){

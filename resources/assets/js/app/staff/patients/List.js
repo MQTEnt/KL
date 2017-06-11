@@ -41,7 +41,7 @@ class List extends React.Component{
     formData.append('city', obj.city);
 
     var date = new Date(obj.dob);
-    var dob = date.getFullYear()+'-'+(date.getMonth()+ 1)+'-'+date.getDate();
+    var dob = date.getFullYear()+'/'+(date.getMonth()+ 1)+'/'+date.getDate();
     formData.append('dob', dob);
 
     formData.append('id_card', obj.id_card);

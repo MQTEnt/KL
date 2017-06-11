@@ -51924,7 +51924,7 @@
 	      formData.append('city', obj.city);
 
 	      var date = new Date(obj.dob);
-	      var dob = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+	      var dob = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
 	      formData.append('dob', dob);
 
 	      formData.append('id_card', obj.id_card);
@@ -71032,7 +71032,7 @@
 		}, {
 			key: 'handleChangeInputDate',
 			value: function handleChangeInputDate(x, obj) {
-				var date = obj.getFullYear() + '-' + (obj.getMonth() + 1) + '-' + obj.getDate();
+				var date = obj.getFullYear() + '/' + (obj.getMonth() + 1) + '/' + obj.getDate();
 				this.setState({ inputDob: date });
 			}
 		}, {
@@ -71444,7 +71444,7 @@
 				formData.append('city', obj.city);
 
 				var date = new Date(obj.dob);
-				var dob = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+				var dob = date.getFullYear() + '/' + (date.getMonth() + 1) + '/' + date.getDate();
 				formData.append('dob', dob);
 
 				formData.append('id_card', obj.id_card);
