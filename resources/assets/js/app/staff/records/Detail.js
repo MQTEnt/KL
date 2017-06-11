@@ -60,6 +60,8 @@ class Detail extends React.Component{
 					openSnackBar: true,
 					newRecordId: obj.record.id
 				});
+			//Refresh list record
+			this.props.refreshListRecord();
 	    }.bind(this))
 	    .catch(function(ex) {
 	      //Log Error

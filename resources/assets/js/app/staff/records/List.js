@@ -93,6 +93,7 @@ class List extends React.Component{
           selectedPatient={this.state.selectedPatient}
           handleClose={this.handleClose}
           openDialog={this.state.openDialog}
+          refreshListRecord={this.props.refreshListRecord}
         />
       </div>
     );

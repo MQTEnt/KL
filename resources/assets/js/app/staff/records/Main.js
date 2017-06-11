@@ -17,6 +17,7 @@ class Main extends React.Component {
       value: 0,
     };
     this.handleChange = this.handleChange.bind(this);
+    this.refreshListRecord = this.refreshListRecord.bind(this);
   }
 
   handleChange(value){
@@ -24,6 +25,9 @@ class Main extends React.Component {
       value: value,
     });
   };
+  refreshListRecord(){
+    this.listRecord.refresh();
+  }
   render() {
     return (
       <Tabs
@@ -44,6 +48,7 @@ class Main extends React.Component {
             searchKey={this.props.searchKey}
             setSearchKey={this.props.setSearchKey}
             isLoadingPatients={this.props.isLoadingPatients}
+            refreshListRecord={this.refreshListRecord}
           />
         </Tab>
         <Tab 
@@ -51,7 +56,9 @@ class Main extends React.Component {
           value={1}
           icon={<ActionAssignment/>}
         >
-          <ListRecord/>
+          <ListRecord
+            ref={(ref)=>this.listRecord = ref}
+          />
         </Tab>
       </Tabs>
     );

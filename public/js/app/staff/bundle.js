@@ -72093,6 +72093,7 @@
 	      value: 0
 	    };
 	    _this.handleChange = _this.handleChange.bind(_this);
+	    _this.refreshListRecord = _this.refreshListRecord.bind(_this);
 	    return _this;
 	  }
 
@@ -72104,8 +72105,15 @@
 	      });
 	    }
 	  }, {
+	    key: 'refreshListRecord',
+	    value: function refreshListRecord() {
+	      this.listRecord.refresh();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      var _this2 = this;
+
 	      return _react2.default.createElement(
 	        _Tabs.Tabs,
 	        {
@@ -72127,7 +72135,8 @@
 	            last_page: this.props.last_page,
 	            searchKey: this.props.searchKey,
 	            setSearchKey: this.props.setSearchKey,
-	            isLoadingPatients: this.props.isLoadingPatients
+	            isLoadingPatients: this.props.isLoadingPatients,
+	            refreshListRecord: this.refreshListRecord
 	          })
 	        ),
 	        _react2.default.createElement(
@@ -72137,7 +72146,11 @@
 	            value: 1,
 	            icon: _react2.default.createElement(_assignment2.default, null)
 	          },
-	          _react2.default.createElement(_ListRecord2.default, null)
+	          _react2.default.createElement(_ListRecord2.default, {
+	            ref: function ref(_ref) {
+	              return _this2.listRecord = _ref;
+	            }
+	          })
 	        )
 	      );
 	    }
@@ -72332,7 +72345,8 @@
 	        _react2.default.createElement(_Detail2.default, {
 	          selectedPatient: this.state.selectedPatient,
 	          handleClose: this.handleClose,
-	          openDialog: this.state.openDialog
+	          openDialog: this.state.openDialog,
+	          refreshListRecord: this.props.refreshListRecord
 	        })
 	      );
 	    }
@@ -72463,6 +72477,8 @@
 						openSnackBar: true,
 						newRecordId: obj.record.id
 					});
+					//Refresh list record
+					this.props.refreshListRecord();
 				}.bind(this)).catch(function (ex) {
 					//Log Error
 					console.log('parsing failed', ex);
@@ -72889,6 +72905,19 @@
 	          );
 	        })
 	      );
+	    }
+	  }, {
+	    key: 'refresh',
+	    value: function refresh() {
+	      //console.log('Refresh');
+	      this.setState({
+	        isLoading: true,
+	        searchKey: '',
+	        rangedDateSearch: false,
+	        maxDate: null,
+	        minDate: null
+	      });
+	      this.getRecords('/record');
 	    }
 	  }, {
 	    key: 'componentDidMount',

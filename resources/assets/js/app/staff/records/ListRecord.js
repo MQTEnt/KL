@@ -106,6 +106,17 @@ class List extends React.Component{
         </TableBody>
       )
   }
+  refresh(){
+    //console.log('Refresh');
+    this.setState({
+      isLoading: true,
+      searchKey: '',
+      rangedDateSearch: false,
+      maxDate: null,
+      minDate: null
+    });
+    this.getRecords('/record');
+  }
   componentDidMount(){
     this.getRecords('/record');
   }
