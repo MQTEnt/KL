@@ -11,7 +11,7 @@ const styles = {
   },
 };
 
-export default class TabsExampleControlled extends React.Component {
+export default class ExaminationDetail extends React.Component {
 
   constructor(props) {
     super(props);
@@ -39,12 +39,7 @@ export default class TabsExampleControlled extends React.Component {
         >
           <Tab value={0}>
             <div>
-              <h2 style={styles.headline}>Controllable Tab A</h2>
-              <p>
-                Tabs are also controllable if you want to programmatically pass them their values.
-                This allows for more functionality in Tabs such as not
-                having any Tab selected or assigning them different values.
-              </p>
+              <h2 style={styles.headline}>Mã bệnh án: {this.props.params.record_id}</h2>
             </div>
           </Tab>
           <Tab value={1}>

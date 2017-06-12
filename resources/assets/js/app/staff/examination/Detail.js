@@ -6,6 +6,7 @@ import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ContentCreate from 'material-ui/svg-icons/content/create';
 import Subheader from 'material-ui/Subheader';
 import IconButton from 'material-ui/IconButton';
+import {Link} from 'react-router';
 
 class Detail extends React.Component{
 	constructor(props){
@@ -64,7 +65,7 @@ class Detail extends React.Component{
 										key={record.id}
 										primaryText={'Bệnh án mã '+record.id+' tạo vào '+record.created_at}
 										leftIcon={<ActionAssignment />}
-										rightIconButton={<IconButton><ContentCreate/></IconButton>}
+										rightIconButton={<IconButton><Link style={{ textDecoration: 'none' }} to={"/staff/examination/"+record.id}><ContentCreate/></Link></IconButton>}
 									/>
 								))
 							}

@@ -7,7 +7,8 @@ import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ImageDehaze from 'material-ui/svg-icons/image/dehaze';
 import SocialPeople from 'material-ui/svg-icons/social/people';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
-import ActionInvertColors from 'material-ui/svg-icons/action/invert-colors'
+import ActionInvertColors from 'material-ui/svg-icons/action/invert-colors';
+import MapsLocalHospital from 'material-ui/svg-icons/maps/local-hospital';
 const style = {
   icon: {
     position: 'relative',
@@ -78,7 +79,12 @@ export default class Menu extends React.Component {
           </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/examination"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              <ActionInvertColors style={style.icon}/> Khám bệnh
+              <MapsLocalHospital style={style.icon}/> Khám bệnh
+            </MenuItem>
+          </Link>
+          <Link style={style.link} activeStyle={style.active} to={"/staff/PageA"}>
+            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+              Page A
             </MenuItem>
           </Link>
         </Drawer>
