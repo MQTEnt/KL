@@ -76,6 +76,11 @@ export default class Menu extends React.Component {
               <ActionInvertColors style={style.icon}/> Chỉ số xét nghiệm
             </MenuItem>
           </Link>
+          <Link style={style.link} activeStyle={style.active} to={"/staff/examination"}>
+            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+              <ActionInvertColors style={style.icon}/> Khám bệnh
+            </MenuItem>
+          </Link>
         </Drawer>
       </div>
     );

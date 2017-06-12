@@ -9,6 +9,7 @@ import PatientDetail from './patients/Detail';
 import Records from './records/App';
 import Indexes from './indexes/App';
 import IndexesDetail from './indexes/IndexesDetail';
+import Examination from './examination/App';
 class App extends Component{
 	constructor(props){
 		super(props);
@@ -23,6 +24,7 @@ class App extends Component{
                     <Route path={"/staff/record"} component={Records} />
                     <Route path={"/staff/index"} component={Indexes} />
                     <Route path={"/staff/index/:record_id"} component={IndexesDetail} />
+                    <Route path={"/staff/examination"} component={Examination} />
                     <Route path={"/staff/pageA"} component={PageA} />
                     <Route path={"/staff/pageB"} component={PageB} />
                 </Route>
