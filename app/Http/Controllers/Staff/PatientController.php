@@ -66,7 +66,7 @@ class PatientController extends Controller
 	public function getSearch(Request $request)
 	{
 		$query = $request->q;
-		if(preg_match("/\\d/", $query) > 0)
+		if(ctype_digit($query))
 		{
 			//Search by ID
 			$patient = Patient::find($query);
