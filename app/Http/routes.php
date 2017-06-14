@@ -171,6 +171,7 @@ Route::group(['middleware' => ['auth']], function(){
 	/*
 	 * Index
 	 */
+
 	Route::get('index/{record_id}', function($record_id){
 		$indexes = DB::table('indexes')
 		            ->leftJoin(DB::raw("(SELECT * FROM record_index WHERE record_id = $record_id) AS temp_tbl"), 'indexes.id', '=', 'temp_tbl.index_id')
@@ -178,9 +179,23 @@ Route::group(['middleware' => ['auth']], function(){
 		            ->orderBy('index_id')
 		            ->get();
         return $indexes;
-	});
+	}); //Move to RecordIndexController
 	Route::post('index/{record_id}', 'Staff\RecordIndexController@update');
 	
+	/*
+	 * Examination
+	 */
+	Route::get('examination/{record_id}', function($record_id){
+		$symptoms = DB::table('symptoms')
+		            ->leftJoin(DB::raw("(SELECT * FROM record_symptom WHERE record_id = $record_id) AS temp_tbl"), 'symptoms.id', '=', 'temp_tbl.symptom_id')
+		            ->select('symptoms.id AS index_id', 'symptoms.name', 'temp_tbl.id AS id')
+		            ->orderBy('index_id')
+		            ->get();
+        return ['symptoms' => $symptoms];
+	});
+	Route::post('symptom/{record_id}', 'Staff\RecordSymptomController@update');
+
+
 
 	/////////////////////////
 	Route::get('user/staff', function(Illuminate\Http\Request $request){

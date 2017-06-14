@@ -74714,6 +74714,8 @@
 	  value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
@@ -74776,6 +74778,9 @@
 	    var _this = _possibleConstructorReturn(this, (ExaminationDetail.__proto__ || Object.getPrototypeOf(ExaminationDetail)).call(this, props));
 
 	    _this.state = {
+	      list: {
+	        symptoms: []
+	      },
 	      value: 0,
 	      maxValue: 1,
 	      openAlert: false,
@@ -74788,6 +74793,44 @@
 	  }
 
 	  _createClass(ExaminationDetail, [{
+	    key: 'setSymptomData',
+	    value: function setSymptomData(obj) {
+	      var oldList = this.state.list;
+	      var newList = _extends({}, oldList, { 'symptoms': obj });
+	      this.setState({
+	        list: newList
+	      });
+	    }
+	  }, {
+	    key: 'getList',
+	    value: function getList(url) {
+	      setTimeout(function () {
+	        //Get data
+	        fetch(url, {
+	          credentials: 'same-origin'
+	        }).then(function (response) {
+	          return response.json();
+	        }).then(function (obj) {
+	          //Data Response
+	          //console.log('Data Response: ', obj);
+
+	          this.setState({
+	            isLoading: false,
+	            list: obj
+	          });
+	        }.bind(this)).catch(function (ex) {
+	          //Log Error
+	          console.log('parsing failed', ex);
+	        });
+	      }.bind(this), 1500);
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      var record_id = this.props.params.record_id;
+	      this.getList('/examination/' + record_id);
+	    }
+	  }, {
 	    key: 'handleClickNext',
 	    value: function handleClickNext() {
 	      var currentValue = this.state.value;
@@ -74818,6 +74861,8 @@
 	      });
 	      setTimeout(function () {
 	        //Request Success
+	        if (this.state.value === 0) this.symptomsComponent.submit();
+
 	        this.setState({
 	          openSnackBar: true,
 	          openProgress: false
@@ -74848,7 +74893,14 @@
 	          _react2.default.createElement(
 	            _Tabs.Tab,
 	            { value: 0 },
-	            _react2.default.createElement(_Symptom2.default, null)
+	            _react2.default.createElement(_Symptom2.default, {
+	              symptoms: this.state.list.symptoms,
+	              ref: function ref(_ref) {
+	                return _this2.symptomsComponent = _ref;
+	              },
+	              api: '/symptom/' + this.props.params.record_id,
+	              setList: this.setSymptomData
+	            })
 	          ),
 	          _react2.default.createElement(
 	            _Tabs.Tab,
@@ -74940,12 +74992,22 @@
 		function Symptom(props) {
 			_classCallCheck(this, Symptom);
 
-			return _possibleConstructorReturn(this, (Symptom.__proto__ || Object.getPrototypeOf(Symptom)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Symptom.__proto__ || Object.getPrototypeOf(Symptom)).call(this, props));
+
+			_this.submit = _this.submit.bind(_this);
+			return _this;
 		}
 
 		_createClass(Symptom, [{
+			key: 'submit',
+			value: function submit() {
+				this.radioInputsComponent.submit();
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -74959,7 +75021,14 @@
 						null,
 						'Ch\u1ECDn c\xE1c tri\u1EC7u ch\u1EE9ng c\u01A1 n\u0103ng ph\xEDa d\u01B0\u1EDBi'
 					),
-					_react2.default.createElement(_RadioInputs2.default, null)
+					_react2.default.createElement(_RadioInputs2.default, {
+						items: this.props.symptoms,
+						ref: function ref(_ref) {
+							return _this2.radioInputsComponent = _ref;
+						},
+						api: this.props.api,
+						setList: this.props.setList
+					})
 				);
 			}
 		}]);
@@ -74976,7 +75045,7 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-			value: true
+		value: true
 	});
 
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -75000,45 +75069,126 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var styles = {
-			block: {
-					maxWidth: 250
-			},
-			checkbox: {
-					marginBottom: 16
-			}
+		block: {
+			maxWidth: 250
+		},
+		checkbox: {
+			marginBottom: 16
+		}
 	};
 
 	var RadioInputs = function (_React$Component) {
-			_inherits(RadioInputs, _React$Component);
+		_inherits(RadioInputs, _React$Component);
 
-			function RadioInputs(props) {
-					_classCallCheck(this, RadioInputs);
+		function RadioInputs(props) {
+			_classCallCheck(this, RadioInputs);
 
-					return _possibleConstructorReturn(this, (RadioInputs.__proto__ || Object.getPrototypeOf(RadioInputs)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (RadioInputs.__proto__ || Object.getPrototypeOf(RadioInputs)).call(this, props));
+
+			_this.inputs = [];
+			_this.onClick = _this.onClick.bind(_this);
+			_this.submit = _this.submit.bind(_this);
+			return _this;
+		}
+
+		_createClass(RadioInputs, [{
+			key: 'onClick',
+			value: function onClick(value, item) {
+				var inputs = this.inputs;
+				if (item.id !== null) {
+					var i = inputs.findIndex(function (obj) {
+						return obj.id === item.id;
+					});
+					if (i === -1) this.inputs.push({ id: item.id, value: value, index_id: item.index_id });else this.inputs[i].value = value;
+				} else {
+					var _i = inputs.findIndex(function (obj) {
+						return obj.index_id === item.index_id;
+					});
+					if (_i === -1) this.inputs.push({ id: item.id, value: value, index_id: item.index_id });else this.inputs[_i].value = value;
+				}
 			}
-
-			_createClass(RadioInputs, [{
-					key: 'render',
-					value: function render() {
-							var _React$createElement, _React$createElement2, _React$createElement3;
-
-							return _react2.default.createElement(
-									'div',
-									{ style: styles.block },
-									_react2.default.createElement(_Checkbox2.default, (_React$createElement = {
-											label: 'Simple'
-									}, _defineProperty(_React$createElement, 'label', 'Tri\u1EC7u ch\u1EE9ng'), _defineProperty(_React$createElement, 'style', styles.checkbox), _React$createElement)),
-									_react2.default.createElement(_Checkbox2.default, (_React$createElement2 = {
-											label: 'Simple'
-									}, _defineProperty(_React$createElement2, 'label', 'Tri\u1EC7u ch\u1EE9ng'), _defineProperty(_React$createElement2, 'style', styles.checkbox), _React$createElement2)),
-									_react2.default.createElement(_Checkbox2.default, (_React$createElement3 = {
-											label: 'Simple'
-									}, _defineProperty(_React$createElement3, 'label', 'Tri\u1EC7u ch\u1EE9ng'), _defineProperty(_React$createElement3, 'style', styles.checkbox), _React$createElement3))
-							);
+		}, {
+			key: 'submit',
+			value: function submit() {
+				var addArr = [];
+				var deleteArr = [];
+				///console.log(this.inputs);
+				this.inputs.forEach(function (item, index) {
+					if (item.id === null && item.value) {
+						addArr.push(item.index_id);
 					}
-			}]);
+					if (item.id !== null && !item.value) {
+						deleteArr.push(item.id);
+					}
+				});
+				console.log('Add Array', addArr);
+				console.log('Delete Array', deleteArr);
+				if (addArr.length === 0 & deleteArr.length === 0) {
+					console.log('Nothing updated');
+					return;
+				}
 
-			return RadioInputs;
+				var json_addArr = JSON.stringify(addArr);
+				var json_deleteArr = JSON.stringify(deleteArr);
+				/////Request
+				var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+				var formData = new FormData();
+				formData.append('addArr', json_addArr);
+				formData.append('deleteArr', json_deleteArr);
+				formData.append('_token', _token);
+
+				var api = this.props.api;
+				//POST (AJAX)
+				fetch(api, {
+					method: 'POST',
+					credentials: 'same-origin',
+					body: formData
+				}).then(function (response) {
+					return response.json();
+				}).then(function (obj) {
+					if (obj.state === 1) {
+						//console.log(obj.list);
+						this.props.setList(obj.list);
+					}
+				}.bind(this)).catch(function (ex) {
+					//Log Error
+					console.log('parsing failed', ex);
+				});
+				this.inputs = [];
+			}
+		}, {
+			key: 'renderItems',
+			value: function renderItems() {
+				var _this2 = this;
+
+				var items = this.props.items;
+				if (items.length > 0) return _react2.default.createElement(
+					'div',
+					{ style: styles.block },
+					items.map(function (item) {
+						var _React$createElement;
+
+						return _react2.default.createElement(_Checkbox2.default, (_React$createElement = {
+							key: item.index_id,
+							label: 'Simple'
+						}, _defineProperty(_React$createElement, 'label', item.name), _defineProperty(_React$createElement, 'style', styles.checkbox), _defineProperty(_React$createElement, 'defaultChecked', item.id !== null ? true : false), _defineProperty(_React$createElement, 'onClick', function onClick(e) {
+							_this2.onClick(e.target.checked, item);
+						}), _React$createElement));
+					})
+				);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					this.renderItems()
+				);
+			}
+		}]);
+
+		return RadioInputs;
 	}(_react2.default.Component);
 
 	exports.default = RadioInputs;

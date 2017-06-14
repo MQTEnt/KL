@@ -24,6 +24,9 @@ export default class ExaminationDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      list: {
+        symptoms: []
+      },
       value: 0,
       maxValue: 1,
       openAlert: false,
@@ -33,7 +36,40 @@ export default class ExaminationDetail extends React.Component {
 
     autoBind(this);
   }
+  setSymptomData(obj){
+    let oldList = this.state.list;
+    let newList = {...oldList, 'symptoms': obj};
+    this.setState({
+      list: newList
+    });
+  }
+  getList(url){
+    setTimeout(function(){
+        //Get data
+      fetch(url, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+        return response.json()
+      }).then(function(obj) {
+        //Data Response
+        //console.log('Data Response: ', obj);
 
+        this.setState({
+          isLoading: false,
+          list: obj
+        })
+      }.bind(this))
+      .catch(function(ex) {
+        //Log Error
+        console.log('parsing failed', ex)
+      });
+    }.bind(this), 1500);
+  }
+  componentDidMount(){
+    let record_id = this.props.params.record_id;
+    this.getList('/examination/'+record_id);
+  }
   handleClickNext(){
     let currentValue = this.state.value;
     this.setState({
@@ -58,6 +94,9 @@ export default class ExaminationDetail extends React.Component {
     })
     setTimeout(function(){
       //Request Success
+      if(this.state.value === 0)
+        this.symptomsComponent.submit();
+
       this.setState({
         openSnackBar: true,
         openProgress: false
@@ -74,7 +113,12 @@ export default class ExaminationDetail extends React.Component {
           tabItemContainerStyle={{display: 'none'}}
         >
           <Tab value={0}>
-            <Symptom />
+            <Symptom
+              symptoms={this.state.list.symptoms}
+              ref={(ref)=>this.symptomsComponent = ref}
+              api={'/symptom/'+this.props.params.record_id}
+              setList={this.setSymptomData}
+            />
           </Tab>
           <Tab value={1}>
             <div>
