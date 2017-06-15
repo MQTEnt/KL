@@ -2,6 +2,7 @@ import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import Symptom from './Symptom';
+import Sign from './Sign';
 import Alert from '../partials/Alert';
 import SnackBar from '../partials/SnackBar';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -25,7 +26,8 @@ export default class ExaminationDetail extends React.Component {
     super(props);
     this.state = {
       list: {
-        symptoms: []
+        symptoms: [],
+        signs: []
       },
       value: 0,
       maxValue: 1,
@@ -39,6 +41,13 @@ export default class ExaminationDetail extends React.Component {
   setSymptomData(obj){
     let oldList = this.state.list;
     let newList = {...oldList, 'symptoms': obj};
+    this.setState({
+      list: newList
+    });
+  }
+  setSignData(obj){
+    let oldList = this.state.list;
+    let newList = {...oldList, 'signs': obj};
     this.setState({
       list: newList
     });
@@ -95,7 +104,9 @@ export default class ExaminationDetail extends React.Component {
     setTimeout(function(){
       //Request Success
       if(this.state.value === 0)
-        this.symptomsComponent.submit();
+        this.symtomComponent.submit();
+      if(this.state.value === 1)
+        this.signComponent.submit();
 
       this.setState({
         openSnackBar: true,
@@ -115,20 +126,18 @@ export default class ExaminationDetail extends React.Component {
           <Tab value={0}>
             <Symptom
               symptoms={this.state.list.symptoms}
-              ref={(ref)=>this.symptomsComponent = ref}
+              ref={(ref)=>this.symtomComponent = ref}
               api={'/symptom/'+this.props.params.record_id}
               setList={this.setSymptomData}
             />
           </Tab>
           <Tab value={1}>
-            <div>
-              <h2 style={styles.headline}>Controllable Tab B</h2>
-              <p>
-                This is another example of a controllable tab. Remember, if you
-                use controllable Tabs, you need to give all of your tabs values or else
-                you wont be able to select them.
-              </p>
-            </div>
+            <Sign
+              signs={this.state.list.signs}
+              ref={(ref)=>this.signComponent = ref}
+              api={'/sign/'+this.props.params.record_id}
+              setList={this.setSignData}
+            />
           </Tab>
         </Tabs>
         <Alert

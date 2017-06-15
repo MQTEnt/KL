@@ -74732,6 +74732,10 @@
 
 	var _Symptom2 = _interopRequireDefault(_Symptom);
 
+	var _Sign = __webpack_require__(674);
+
+	var _Sign2 = _interopRequireDefault(_Sign);
+
 	var _Alert = __webpack_require__(524);
 
 	var _Alert2 = _interopRequireDefault(_Alert);
@@ -74779,7 +74783,8 @@
 
 	    _this.state = {
 	      list: {
-	        symptoms: []
+	        symptoms: [],
+	        signs: []
 	      },
 	      value: 0,
 	      maxValue: 1,
@@ -74797,6 +74802,15 @@
 	    value: function setSymptomData(obj) {
 	      var oldList = this.state.list;
 	      var newList = _extends({}, oldList, { 'symptoms': obj });
+	      this.setState({
+	        list: newList
+	      });
+	    }
+	  }, {
+	    key: 'setSignData',
+	    value: function setSignData(obj) {
+	      var oldList = this.state.list;
+	      var newList = _extends({}, oldList, { 'signs': obj });
 	      this.setState({
 	        list: newList
 	      });
@@ -74861,7 +74875,8 @@
 	      });
 	      setTimeout(function () {
 	        //Request Success
-	        if (this.state.value === 0) this.symptomsComponent.submit();
+	        if (this.state.value === 0) this.symtomComponent.submit();
+	        if (this.state.value === 1) this.signComponent.submit();
 
 	        this.setState({
 	          openSnackBar: true,
@@ -74896,7 +74911,7 @@
 	            _react2.default.createElement(_Symptom2.default, {
 	              symptoms: this.state.list.symptoms,
 	              ref: function ref(_ref) {
-	                return _this2.symptomsComponent = _ref;
+	                return _this2.symtomComponent = _ref;
 	              },
 	              api: '/symptom/' + this.props.params.record_id,
 	              setList: this.setSymptomData
@@ -74905,20 +74920,14 @@
 	          _react2.default.createElement(
 	            _Tabs.Tab,
 	            { value: 1 },
-	            _react2.default.createElement(
-	              'div',
-	              null,
-	              _react2.default.createElement(
-	                'h2',
-	                { style: styles.headline },
-	                'Controllable Tab B'
-	              ),
-	              _react2.default.createElement(
-	                'p',
-	                null,
-	                'This is another example of a controllable tab. Remember, if you use controllable Tabs, you need to give all of your tabs values or else you wont be able to select them.'
-	              )
-	            )
+	            _react2.default.createElement(_Sign2.default, {
+	              signs: this.state.list.signs,
+	              ref: function ref(_ref2) {
+	                return _this2.signComponent = _ref2;
+	              },
+	              api: '/sign/' + this.props.params.record_id,
+	              setList: this.setSignData
+	            })
 	          )
 	        ),
 	        _react2.default.createElement(_Alert2.default, {
@@ -75192,6 +75201,86 @@
 	}(_react2.default.Component);
 
 	exports.default = RadioInputs;
+
+/***/ }),
+/* 674 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _RadioInputs = __webpack_require__(673);
+
+	var _RadioInputs2 = _interopRequireDefault(_RadioInputs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Sign = function (_React$Component) {
+		_inherits(Sign, _React$Component);
+
+		function Sign(props) {
+			_classCallCheck(this, Sign);
+
+			var _this = _possibleConstructorReturn(this, (Sign.__proto__ || Object.getPrototypeOf(Sign)).call(this, props));
+
+			_this.submit = _this.submit.bind(_this);
+			return _this;
+		}
+
+		_createClass(Sign, [{
+			key: 'submit',
+			value: function submit() {
+				this.radioInputsComponent.submit();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h4',
+						null,
+						'Kh\xE1m c\u1EADn l\xE2m s\xE0ng/Tri\u1EC7u ch\u1EE9ng th\u1EF1c th\u1EC3'
+					),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Ch\u1ECDn c\xE1c tri\u1EC7u ch\u1EE9ng th\u1EF1c th\u1EC3 b\xEAn d\u01B0\u1EDBi'
+					),
+					_react2.default.createElement(_RadioInputs2.default, {
+						items: this.props.signs,
+						ref: function ref(_ref) {
+							return _this2.radioInputsComponent = _ref;
+						},
+						api: this.props.api,
+						setList: this.props.setList
+					})
+				);
+			}
+		}]);
+
+		return Sign;
+	}(_react2.default.Component);
+
+	exports.default = Sign;
 
 /***/ })
 /******/ ]);

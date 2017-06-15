@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecordSymptomTable extends Migration
+class CreateRecordSignTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,18 +12,17 @@ class CreateRecordSymptomTable extends Migration
      */
     public function up()
     {
-        Schema::create('record_symptom', function (Blueprint $table) {
+        Schema::create('record_sign', function (Blueprint $table) {
             $table->increments('id');
             //Bệnh án
             $table->integer('record_id')->nullable()->unsigned();
             $table->foreign('record_id')->references('id')->on('records')
                         ->onDelete('cascade');
 
-            //Triệu chứng cơ năng
-            $table->integer('symptom_id')->nullable()->unsigned();
-            $table->foreign('symptom_id')->references('id')->on('symptoms')
+            //Triệu chứng thực thể
+            $table->integer('sign_id')->nullable()->unsigned();
+            $table->foreign('sign_id')->references('id')->on('signs')
                         ->onDelete('cascade');
-
             $table->timestamps();
         });
     }
@@ -35,6 +34,6 @@ class CreateRecordSymptomTable extends Migration
      */
     public function down()
     {
-        Schema::drop('record_symptom');
+        Schema::drop('record_sign');
     }
 }
