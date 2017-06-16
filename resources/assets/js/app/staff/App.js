@@ -11,6 +11,8 @@ import Indexes from './indexes/App';
 import IndexesDetail from './indexes/IndexesDetail';
 import Examination from './examination/App';
 import ExaminationDetail from './examination/ExaminationDetail';
+import Plants from './plants/App';
+import CreatePlant from './plants/Create';
 class App extends Component{
 	constructor(props){
 		super(props);
@@ -27,6 +29,8 @@ class App extends Component{
                     <Route path={"/staff/index/:record_id"} component={IndexesDetail} />
                     <Route path={"/staff/examination"} component={Examination} />
                     <Route path={"/staff/examination/:record_id"} component={ExaminationDetail} />
+                    <Route path={"/staff/plant"} component={Plants} />
+                    <Route path={"/staff/plant/create/:patient_id"} component={CreatePlant} />
                     <Route path={"/staff/pageA"} component={PageA} />
                     <Route path={"/staff/pageB"} component={PageB} />
                 </Route>

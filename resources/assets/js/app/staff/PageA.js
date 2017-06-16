@@ -1,70 +1,61 @@
 import React from 'react';
-import {Tabs, Tab} from 'material-ui/Tabs';
-import FlatButton from 'material-ui/FlatButton';
+import TextField from 'material-ui/TextField';
+import Checkbox from 'material-ui/Checkbox';
 
 const styles = {
-  headline: {
-    fontSize: 24,
-    paddingTop: 16,
-    marginBottom: 12,
-    fontWeight: 400,
+  checkbox: {
+    marginBottom: 16,
   },
 };
 
-export default class TabsExampleControlled extends React.Component {
-
-  constructor(props) {
+export default class List extends React.Component{
+  constructor(props){
     super(props);
     this.state = {
-      value: 0,
-      maxValue: 1
+      list: [
+        {id: 1, name: 'A'},
+        {id: 2, name: 'Aa'},
+        {id: 3, name: 'Aaa'},
+        {id: 4, name: 'a'},
+        {id: 5, name: 'aA'},
+        {id: 6, name: 'B'},
+        {id: 7, name: 'c'},
+        {id: 8, name: 'd'},
+      ],
+      filterList: []
     };
-    this.handleChange = this.handleChange.bind(this);
+
+    this.handleOnBlur = this.handleOnBlur.bind(this);
   }
-
-  handleChange(){
-    let currentValue = this.state.value;
+  handleOnBlur(e){
+    let str = e.target.value;
+    let newList = this.state.list.filter(el => el.name.toLowerCase().indexOf(str.toLowerCase()) > -1);
     this.setState({
-      value: (this.state.value === this.state.maxValue)?0:currentValue+1
+      filterList: newList
     });
-  };
-
-  render() {
+  }
+  componentDidMount(){
+    this.setState({
+      filterList: this.state.list
+    });
+  }
+  render(){
     return (
-      <div>
-        <Tabs
-          value={this.state.value}
-          inkBarStyle={{display: 'none'}}
-          tabItemContainerStyle={{display: 'none'}}
-        >
-          <Tab value={0}>
-            <div>
-              <h2 style={styles.headline}>Controllable Tab A</h2>
-              <p>
-                Tabs are also controllable if you want to programmatically pass them their values.
-                This allows for more functionality in Tabs such as not
-                having any Tab selected or assigning them different values.
-              </p>
-            </div>
-          </Tab>
-          <Tab value={1}>
-            <div>
-              <h2 style={styles.headline}>Controllable Tab B</h2>
-              <p>
-                This is another example of a controllable tab. Remember, if you
-                use controllable Tabs, you need to give all of your tabs values or else
-                you wont be able to select them.
-              </p>
-            </div>
-          </Tab>
-        </Tabs>
-        <div>
-            <FlatButton 
-              onClick={this.handleChange} 
-              label="Tiếp tục" 
-              primary={true} 
+      <div style={{width: '80%', margin: '0 auto'}}>
+        <TextField
+          hintText="Full width"
+          fullWidth={true}
+          onChange={this.handleOnBlur}
+        />
+        {this.state.filterList.map((item)=>{
+          return(
+            <Checkbox
+              key={item.id}
+              label={item.name}
+              style={styles.checkbox}
             />
-        </div>
+          );
+        })}
       </div>
     );
   }
