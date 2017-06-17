@@ -201,12 +201,19 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('symptom/{record_id}', 'Staff\RecordSymptomController@update');
 	Route::post('sign/{record_id}', 'Staff\RecordSignController@update');
 
-
+	/*
+	 * Plant
+	 */
+	Route::post('plant/create/{patient_id}', 'Staff\PlantController@store');
 
 	/////////////////////////
 	Route::get('user/staff', function(Illuminate\Http\Request $request){
 		$user = Auth::user();
 		return $user;
+	});
+
+	Route::get('/activity', function(){
+		return App\Activity::all();
 	});
 
 	Route::get('/room', function(){

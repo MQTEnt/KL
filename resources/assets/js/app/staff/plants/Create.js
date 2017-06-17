@@ -3,52 +3,103 @@ import RaisedButton  from 'material-ui/RaisedButton';
 import SelectInputs from '../partials/SelectInputs';
 import ActionAutorenew from 'material-ui/svg-icons/action/autorenew';
 import DatePicker from 'material-ui/DatePicker';
+import SnackBar from '../partials/SnackBar';
 import autoBind from 'react-autobind';
+import { browserHistory } from 'react-router';
 
 export default class Create extends React.Component{
   constructor(props){
     super(props);
     this.state = {
         list: [
-          {id: 1, name: 'A'},
-          {id: 2, name: 'a'},
-          {id: 3, name: 'Aa'},
-          {id: 4, name: 'aA'},
-          {id: 5, name: 'AaA'},
-          {id: 6, name: 'aAaa'},
-          {id: 7, name: 'B'},
-          {id: 8, name: 'c'},
-          {id: 9, name: 'd'},
-          {id: 17, name: 'Ba'},
-          {id: 18, name: 'ca'},
-          {id: 19, name: 'da'},
-          {id: 27, name: 'Bb'},
-          {id: 28, name: 'cb'},
-          {id: 29, name: 'db'},
-          {id: 37, name: 'Bc'},
-          {id: 38, name: 'cc'},
-          {id: 39, name: 'dc'}
       ],
       selectedList: [
-        {id: 1, name: 'A'},
-        {id: 2, name: 'a'},
-        {id: 3, name: 'Aa'}
+        
       ],
 
       fromDate: new Date(),
-      toDate: new Date()
+      toDate: new Date(),
+      addedArr: [],
+      removedArr: [],
+      openSnackBar: false,
+      notiSnackBar: '',
     };
 
     autoBind(this);
   }
+  setUpdatedData(addedArr, removedArr){
+    this.setState({
+      addedArr: addedArr,
+      removedArr: removedArr
+    });
+  }
   handleOnClick(){
-    this.List.submit();
-    console.log(this.state.fromDate, this.state.toDate);
+    let result = this.List.submit();
+    if(result === 0){
+      this.setState({
+        openSnackBar: true,
+        notiSnackBar: 'Tạo thất bại, chọn hoạt động để lập kế hoạch'
+      });
+      return;
+    }
+    //else...
+    //Create plant
+    let fromDate = this.state.fromDate.getFullYear()+'/'+(this.state.fromDate.getMonth()+ 1)+'/'+this.state.fromDate.getDate();
+    let toDate = this.state.toDate.getFullYear()+'/'+(this.state.toDate.getMonth()+ 1)+'/'+this.state.toDate.getDate();
+    
+    var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+    var formData = new FormData();
+    formData.append('_token', _token);
+    formData.append('fromDate', fromDate);
+    formData.append('toDate', toDate);
+
+    let json_addArr = JSON.stringify(result[0]);
+    formData.append('addedArr', json_addArr);
+
+    fetch('/plant/create/'+this.props.params.patient_id, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: formData
+      })
+      .then(function(response) {
+        return response.json()
+      }).then(function(obj) {
+        //Conflict date
+        if(obj.stat === 0)
+        {
+          this.setState({
+            openSnackBar: true,
+            notiSnackBar: obj.noti
+          });
+        }
+        if(obj.stat === 1)
+        {
+          // this.setState({
+          //   openSnackBar: true,
+          //   notiSnackBar: obj.noti
+          // });
+          //Redirect
+          browserHistory.push('/staff/plant/list/'+this.props.params.patient_id);
+
+
+        }
+
+      }.bind(this))
+      .catch(function(ex) {
+        //Log Error
+        console.log('parsing failed', ex)
+      });
   }
   handleChangeFromDate(event, date){
-    this.setState({
-      fromDate: date,
-    });
+    if(date > this.state.toDate)
+      this.setState({
+        fromDate: date,
+        toDate: date
+      });
+    else
+      this.setState({
+        fromDate: date
+      });
   }
   handleChangeToDate(event, date){
   	if(date < this.state.fromDate){
@@ -61,6 +112,23 @@ export default class Create extends React.Component{
 	      toDate: date,
 	    });
   }
+  componentDidMount(){
+    fetch('/activity', {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+        return response.json()
+      }).then(function(obj) {
+        //Data Response
+        this.setState({
+          list: obj
+        });
+      }.bind(this))
+      .catch(function(ex) {
+        //Log Error
+        console.log('parsing failed', ex)
+      });
+  }
   render(){
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
@@ -68,27 +136,33 @@ export default class Create extends React.Component{
           list={this.state.list}
           selectedList = {this.state.selectedList}
           ref={(ref) => this.List = ref}
+          
         />
         <DatePicker
-			onChange={this.handleChangeFromDate}
-			autoOk={true}
-			floatingLabelText="Từ ngày"
-			value={this.state.fromDate}
-			disableYearSelection={true}
-		/>
-		<DatePicker
-			onChange={this.handleChangeToDate}
-			autoOk={true}
-			floatingLabelText="Đến ngày"
-			value={this.state.toDate}
-			disableYearSelection={true}
-		/>
+    			onChange={this.handleChangeFromDate}
+    			autoOk={true}
+    			floatingLabelText="Từ ngày"
+    			value={this.state.fromDate}
+    			disableYearSelection={true}
+    		/>
+    		<DatePicker
+    			onChange={this.handleChangeToDate}
+    			autoOk={true}
+    			floatingLabelText="Đến ngày"
+    			value={this.state.toDate}
+    			disableYearSelection={true}
+    		/>
         <RaisedButton
         	style={{marginTop: '3%'}}
-			onClick={this.handleOnClick} 
-			label="Cập nhật" 
-			primary={true}
-			icon={<ActionAutorenew />}
+    			onClick={this.handleOnClick} 
+    			label="Cập nhật" 
+    			primary={true}
+    			icon={<ActionAutorenew />}
+        />
+        <SnackBar
+          open={this.state.openSnackBar}
+          noti={this.state.notiSnackBar}
+          onRequestClose={()=>{this.setState({openSnackBar: false})}}
         />
       </div>
     );

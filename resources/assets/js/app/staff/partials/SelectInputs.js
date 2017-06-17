@@ -114,9 +114,17 @@ export default class SelectInputs extends React.Component{
     let addedArr = Array.from(added);
     let removedArr = Array.from(removed);
 
-
-    console.log('added', addedArr);
-    console.log('removed', removedArr);
+    if(addedArr.length === 0 && removedArr.length === 0)
+    {
+      console.log('Nothing updated');
+      return 0;
+    }
+    else
+    {
+      console.log('added', addedArr);
+      console.log('removed', removedArr);
+      return [addedArr, removedArr];
+    }
   }
   render(){
     return (
