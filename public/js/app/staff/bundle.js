@@ -75872,13 +75872,17 @@
 							icon: _react2.default.createElement(_dateRange2.default, null)
 						})
 					),
-					_react2.default.createElement(_RaisedButton2.default, {
-						fullWidth: true,
-						label: 'Danh s\xE1ch k\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB',
-						secondary: true,
-						style: styles.button,
-						icon: _react2.default.createElement(_contentCopy2.default, null)
-					})
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ style: { textDecoration: 'none' }, to: "/staff/plant/list/" + this.state.patient.id },
+						_react2.default.createElement(_RaisedButton2.default, {
+							fullWidth: true,
+							label: 'Danh s\xE1ch k\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB',
+							secondary: true,
+							style: styles.button,
+							icon: _react2.default.createElement(_contentCopy2.default, null)
+						})
+					)
 				);
 			}
 		}]);
@@ -76032,7 +76036,8 @@
 	        if (obj.stat === 0) {
 	          this.setState({
 	            openSnackBar: true,
-	            notiSnackBar: obj.noti
+	            notiSnackBar: obj.noti,
+	            openAlert: false
 	          });
 	        }
 	        if (obj.stat === 1) {
@@ -76453,6 +76458,14 @@
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
+	var _Plant = __webpack_require__(683);
+
+	var _Plant2 = _interopRequireDefault(_Plant);
+
+	var _CircularProgress = __webpack_require__(559);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -76470,13 +76483,34 @@
 			var _this = _possibleConstructorReturn(this, (ListPlant.__proto__ || Object.getPrototypeOf(ListPlant)).call(this, props));
 
 			_this.state = {
+				plants: [],
 				openSnackBar: false,
-				notiSnackBar: ''
+				notiSnackBar: '',
+				loadingProgress: true
 			};
 			return _this;
 		}
 
 		_createClass(ListPlant, [{
+			key: 'getList',
+			value: function getList() {
+				fetch('/plant/' + this.props.params.patient_id, {
+					credentials: 'same-origin'
+				}).then(function (response) {
+					return response.json();
+				}).then(function (obj) {
+					if (obj.stat === 1) {
+						this.setState({
+							plants: obj.plants,
+							loadingProgress: false
+						});
+					}
+				}.bind(this)).catch(function (ex) {
+					//Log Error
+					console.log('parsing failed', ex);
+				});
+			}
+		}, {
 			key: 'componentDidMount',
 			value: function componentDidMount() {
 				var urlParams = new URLSearchParams(this.props.location.search);
@@ -76486,6 +76520,33 @@
 						notiSnackBar: 'Thêm mới thành công kế hoạch điều trị'
 					});
 				}
+				setTimeout(function () {
+					this.getList();
+				}.bind(this), 1500);
+			}
+		}, {
+			key: 'renderPlantList',
+			value: function renderPlantList() {
+				if (this.state.plants.length > 0) return _react2.default.createElement(
+					'div',
+					null,
+					this.state.plants.map(function (plant) {
+						return _react2.default.createElement(_Plant2.default, {
+							key: plant.id,
+							id: plant.id,
+							date: [plant.fromDate, plant.toDate],
+							activityList: plant.plant_activity
+						});
+					})
+				);else return _react2.default.createElement(
+					'p',
+					null,
+					_react2.default.createElement(
+						'b',
+						null,
+						'Hi\u1EC7n ch\u01B0a c\xF3 k\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB cho b\u1EC7nh nh\xE2n n\xE0y'
+					)
+				);
 			}
 		}, {
 			key: 'render',
@@ -76507,7 +76568,13 @@
 						onRequestClose: function onRequestClose() {
 							return _this2.setState({ openSnackBar: false });
 						}
-					})
+					}),
+					!this.state.loadingProgress ? this.renderPlantList() : '',
+					this.state.loadingProgress ? _react2.default.createElement(
+						'div',
+						{ style: { 'margin': '0 auto', 'width': '0' } },
+						_react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+					) : ''
 				);
 			}
 		}]);
@@ -76516,6 +76583,61 @@
 	}(_react2.default.Component);
 
 	exports.default = ListPlant;
+
+/***/ }),
+/* 683 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Card = __webpack_require__(550);
+
+	var _FlatButton = __webpack_require__(532);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Plant = function Plant(_ref) {
+	  var id = _ref.id,
+	      date = _ref.date,
+	      activityList = _ref.activityList;
+	  return _react2.default.createElement(
+	    _Card.Card,
+	    null,
+	    _react2.default.createElement(_Card.CardHeader, {
+	      title: 'Kế hoạch từ ' + date[0] + ' tới ' + date[1],
+	      subtitle: '',
+	      actAsExpander: true,
+	      showExpandableButton: true
+	    }),
+	    _react2.default.createElement(
+	      _Card.CardText,
+	      { expandable: true },
+	      _react2.default.createElement(
+	        'ul',
+	        { style: { margin: 0 } },
+	        activityList.map(function (item) {
+	          return _react2.default.createElement(
+	            'li',
+	            { key: item.activity.id },
+	            item.activity.name
+	          );
+	        })
+	      )
+	    )
+	  );
+	};
+
+	exports.default = Plant;
 
 /***/ })
 /******/ ]);

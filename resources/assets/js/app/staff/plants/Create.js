@@ -86,7 +86,8 @@ export default class Create extends React.Component{
         {
           this.setState({
             openSnackBar: true,
-            notiSnackBar: obj.noti
+            notiSnackBar: obj.noti,
+            openAlert: false
           });
         }
         if(obj.stat === 1)

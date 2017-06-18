@@ -205,6 +205,7 @@ Route::group(['middleware' => ['auth']], function(){
 	 * Plant
 	 */
 	Route::post('plant/create/{patient_id}', 'Staff\PlantController@store');
+	Route::get('plant/{patient_id}', 'Staff\PlantController@getPlantsByPatientId');
 
 	/////////////////////////
 	Route::get('user/staff', function(Illuminate\Http\Request $request){

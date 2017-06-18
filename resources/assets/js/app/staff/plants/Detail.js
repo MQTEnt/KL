@@ -81,13 +81,15 @@ class Detail extends React.Component{
 							icon={<ActionDateRange/>}
 						/>
 					</Link>
-    				<RaisedButton 
-	    				fullWidth={true} 
-	    				label="Danh sách kế hoạch điều trị" 
-	    				secondary={true} 
-	    				style={styles.button}
-	    				icon={<ContentContentCopy/>} 
-    				/>
+					<Link style={{ textDecoration: 'none' }} to={"/staff/plant/list/"+this.state.patient.id}>
+	    				<RaisedButton 
+		    				fullWidth={true} 
+		    				label="Danh sách kế hoạch điều trị" 
+		    				secondary={true} 
+		    				style={styles.button}
+		    				icon={<ContentContentCopy/>} 
+	    				/>
+    				</Link>
 				</div>
 		);
 	}

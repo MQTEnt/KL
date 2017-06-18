@@ -11,6 +11,10 @@ use App\Plant_Activity;
 use Auth;
 class PlantController extends Controller
 {
+    public function getPlantsByPatientId($patient_id){
+        $plants = Plant::with(['plant_activity', 'plant_activity.activity'])->select('*')->where('patient_id', $patient_id)->orderBy('fromDate', 'DESC')->get();
+        return ['stat' => 1, 'plants' => $plants];
+    }
     public function store($patient_id, Request $request){
     	$plant = Plant::select('*')
     					->where([
@@ -27,7 +31,7 @@ class PlantController extends Controller
                         ])
     					->first();
         if(!is_null($plant))
-    	   return ['stat' => 0, 'noti' => 'Đã trùng với kế hoạch từ '.$plant->fromDate.' tới '.$plant->toDate];
+    	   return ['stat' => 0, 'noti' => 'Tạo thất bại, đã trùng với kế hoạch từ '.$plant->fromDate.' tới '.$plant->toDate];
         else
         {
             //Create plant
