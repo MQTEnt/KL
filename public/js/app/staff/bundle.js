@@ -75924,6 +75924,10 @@
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
+	var _Alert = __webpack_require__(531);
+
+	var _Alert2 = _interopRequireDefault(_Alert);
+
 	var _reactAutobind = __webpack_require__(646);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -75955,7 +75959,9 @@
 	      addedArr: [],
 	      removedArr: [],
 	      openSnackBar: false,
-	      notiSnackBar: ''
+	      notiSnackBar: '',
+	      openAlert: false,
+	      notiAlert: ''
 	    };
 
 	    (0, _reactAutobind2.default)(_this);
@@ -75963,6 +75969,18 @@
 	  }
 
 	  _createClass(Create, [{
+	    key: 'alertCancel',
+	    value: function alertCancel() {
+	      this.setState({
+	        openAlert: false
+	      });
+	    }
+	  }, {
+	    key: 'alertAccept',
+	    value: function alertAccept() {
+	      this.submit();
+	    }
+	  }, {
 	    key: 'setUpdatedData',
 	    value: function setUpdatedData(addedArr, removedArr) {
 	      this.setState({
@@ -75973,6 +75991,14 @@
 	  }, {
 	    key: 'handleOnClick',
 	    value: function handleOnClick() {
+	      this.setState({
+	        openAlert: true,
+	        notiAlert: 'Bạn có chắc muốn tạo kế hoạch'
+	      });
+	    }
+	  }, {
+	    key: 'submit',
+	    value: function submit() {
 	      var result = this.List.submit();
 	      if (result === 0) {
 	        this.setState({
@@ -76015,7 +76041,7 @@
 	          //   notiSnackBar: obj.noti
 	          // });
 	          //Redirect
-	          _reactRouter.browserHistory.push('/staff/plant/list/' + this.props.params.patient_id);
+	          _reactRouter.browserHistory.push('/staff/plant/list/' + this.props.params.patient_id + '?created=true');
 	        }
 	      }.bind(this)).catch(function (ex) {
 	        //Log Error
@@ -76103,6 +76129,12 @@
 	          onRequestClose: function onRequestClose() {
 	            _this2.setState({ openSnackBar: false });
 	          }
+	        }),
+	        _react2.default.createElement(_Alert2.default, {
+	          alertCancel: this.alertCancel,
+	          alertAccept: this.alertAccept,
+	          noti: this.state.notiAlert,
+	          open: this.state.openAlert
 	        })
 	      );
 	    }
@@ -76417,9 +76449,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _queryString = __webpack_require__(683);
+	var _SnackBar = __webpack_require__(658);
 
-	var _queryString2 = _interopRequireDefault(_queryString);
+	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -76435,17 +76467,47 @@
 		function ListPlant(props) {
 			_classCallCheck(this, ListPlant);
 
-			return _possibleConstructorReturn(this, (ListPlant.__proto__ || Object.getPrototypeOf(ListPlant)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (ListPlant.__proto__ || Object.getPrototypeOf(ListPlant)).call(this, props));
+
+			_this.state = {
+				openSnackBar: false,
+				notiSnackBar: ''
+			};
+			return _this;
 		}
 
 		_createClass(ListPlant, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var urlParams = new URLSearchParams(this.props.location.search);
+				if (urlParams.get('created')) {
+					this.setState({
+						openSnackBar: true,
+						notiSnackBar: 'Thêm mới thành công kế hoạch điều trị'
+					});
+				}
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
 				return _react2.default.createElement(
-					'p',
+					'div',
 					null,
-					'Trang danh s\xE1ch k\u1EBF ho\u1EA1ch c\u1EE7a b\u1EC7nh nh\xE2n m\xE3',
-					this.props.params.patient_id
+					_react2.default.createElement(
+						'p',
+						null,
+						'Trang danh s\xE1ch k\u1EBF ho\u1EA1ch c\u1EE7a b\u1EC7nh nh\xE2n m\xE3 ',
+						this.props.params.patient_id
+					),
+					_react2.default.createElement(_SnackBar2.default, {
+						open: this.state.openSnackBar,
+						noti: this.state.notiSnackBar,
+						onRequestClose: function onRequestClose() {
+							return _this2.setState({ openSnackBar: false });
+						}
+					})
 				);
 			}
 		}]);
@@ -76454,200 +76516,6 @@
 	}(_react2.default.Component);
 
 	exports.default = ListPlant;
-
-/***/ }),
-/* 683 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
-	var strictUriEncode = __webpack_require__(216);
-	var objectAssign = __webpack_require__(4);
-
-	function encoderForArrayFormat(opts) {
-		switch (opts.arrayFormat) {
-			case 'index':
-				return function (key, value, index) {
-					return value === null ? [encode(key, opts), '[', index, ']'].join('') : [encode(key, opts), '[', encode(index, opts), ']=', encode(value, opts)].join('');
-				};
-
-			case 'bracket':
-				return function (key, value) {
-					return value === null ? encode(key, opts) : [encode(key, opts), '[]=', encode(value, opts)].join('');
-				};
-
-			default:
-				return function (key, value) {
-					return value === null ? encode(key, opts) : [encode(key, opts), '=', encode(value, opts)].join('');
-				};
-		}
-	}
-
-	function parserForArrayFormat(opts) {
-		var result;
-
-		switch (opts.arrayFormat) {
-			case 'index':
-				return function (key, value, accumulator) {
-					result = /\[(\d*)\]$/.exec(key);
-
-					key = key.replace(/\[\d*\]$/, '');
-
-					if (!result) {
-						accumulator[key] = value;
-						return;
-					}
-
-					if (accumulator[key] === undefined) {
-						accumulator[key] = {};
-					}
-
-					accumulator[key][result[1]] = value;
-				};
-
-			case 'bracket':
-				return function (key, value, accumulator) {
-					result = /(\[\])$/.exec(key);
-					key = key.replace(/\[\]$/, '');
-
-					if (!result) {
-						accumulator[key] = value;
-						return;
-					} else if (accumulator[key] === undefined) {
-						accumulator[key] = [value];
-						return;
-					}
-
-					accumulator[key] = [].concat(accumulator[key], value);
-				};
-
-			default:
-				return function (key, value, accumulator) {
-					if (accumulator[key] === undefined) {
-						accumulator[key] = value;
-						return;
-					}
-
-					accumulator[key] = [].concat(accumulator[key], value);
-				};
-		}
-	}
-
-	function encode(value, opts) {
-		if (opts.encode) {
-			return opts.strict ? strictUriEncode(value) : encodeURIComponent(value);
-		}
-
-		return value;
-	}
-
-	function keysSorter(input) {
-		if (Array.isArray(input)) {
-			return input.sort();
-		} else if ((typeof input === 'undefined' ? 'undefined' : _typeof(input)) === 'object') {
-			return keysSorter(Object.keys(input)).sort(function (a, b) {
-				return Number(a) - Number(b);
-			}).map(function (key) {
-				return input[key];
-			});
-		}
-
-		return input;
-	}
-
-	exports.extract = function (str) {
-		return str.split('?')[1] || '';
-	};
-
-	exports.parse = function (str, opts) {
-		opts = objectAssign({ arrayFormat: 'none' }, opts);
-
-		var formatter = parserForArrayFormat(opts);
-
-		// Create an object with no prototype
-		// https://github.com/sindresorhus/query-string/issues/47
-		var ret = Object.create(null);
-
-		if (typeof str !== 'string') {
-			return ret;
-		}
-
-		str = str.trim().replace(/^(\?|#|&)/, '');
-
-		if (!str) {
-			return ret;
-		}
-
-		str.split('&').forEach(function (param) {
-			var parts = param.replace(/\+/g, ' ').split('=');
-			// Firefox (pre 40) decodes `%3D` to `=`
-			// https://github.com/sindresorhus/query-string/pull/37
-			var key = parts.shift();
-			var val = parts.length > 0 ? parts.join('=') : undefined;
-
-			// missing `=` should be `null`:
-			// http://w3.org/TR/2012/WD-url-20120524/#collect-url-parameters
-			val = val === undefined ? null : decodeURIComponent(val);
-
-			formatter(decodeURIComponent(key), val, ret);
-		});
-
-		return Object.keys(ret).sort().reduce(function (result, key) {
-			var val = ret[key];
-			if (Boolean(val) && (typeof val === 'undefined' ? 'undefined' : _typeof(val)) === 'object' && !Array.isArray(val)) {
-				// Sort object keys, not values
-				result[key] = keysSorter(val);
-			} else {
-				result[key] = val;
-			}
-
-			return result;
-		}, Object.create(null));
-	};
-
-	exports.stringify = function (obj, opts) {
-		var defaults = {
-			encode: true,
-			strict: true,
-			arrayFormat: 'none'
-		};
-
-		opts = objectAssign(defaults, opts);
-
-		var formatter = encoderForArrayFormat(opts);
-
-		return obj ? Object.keys(obj).sort().map(function (key) {
-			var val = obj[key];
-
-			if (val === undefined) {
-				return '';
-			}
-
-			if (val === null) {
-				return encode(key, opts);
-			}
-
-			if (Array.isArray(val)) {
-				var result = [];
-
-				val.slice().forEach(function (val2) {
-					if (val2 === undefined) {
-						return;
-					}
-
-					result.push(formatter(key, val2, result.length));
-				});
-
-				return result.join('&');
-			}
-
-			return encode(key, opts) + '=' + encode(val, opts);
-		}).filter(function (x) {
-			return x.length > 0;
-		}).join('&') : '';
-	};
 
 /***/ })
 /******/ ]);

@@ -4,6 +4,7 @@ import SelectInputs from '../partials/SelectInputs';
 import ActionAutorenew from 'material-ui/svg-icons/action/autorenew';
 import DatePicker from 'material-ui/DatePicker';
 import SnackBar from '../partials/SnackBar';
+import Alert from '../partials/Alert';
 import autoBind from 'react-autobind';
 import { browserHistory } from 'react-router';
 
@@ -23,9 +24,19 @@ export default class Create extends React.Component{
       removedArr: [],
       openSnackBar: false,
       notiSnackBar: '',
+      openAlert: false,
+      notiAlert: ''
     };
 
     autoBind(this);
+  }
+  alertCancel(){
+    this.setState({
+      openAlert: false
+    });
+  }
+  alertAccept(){
+    this.submit();
   }
   setUpdatedData(addedArr, removedArr){
     this.setState({
@@ -34,6 +45,12 @@ export default class Create extends React.Component{
     });
   }
   handleOnClick(){
+    this.setState({
+      openAlert: true,
+      notiAlert: 'Bạn có chắc muốn tạo kế hoạch'
+    });
+  }
+  submit(){
     let result = this.List.submit();
     if(result === 0){
       this.setState({
@@ -79,7 +96,7 @@ export default class Create extends React.Component{
           //   notiSnackBar: obj.noti
           // });
           //Redirect
-          browserHistory.push('/staff/plant/list/'+this.props.params.patient_id);
+          browserHistory.push('/staff/plant/list/'+this.props.params.patient_id+'?created=true');
 
 
         }
@@ -163,6 +180,12 @@ export default class Create extends React.Component{
           open={this.state.openSnackBar}
           noti={this.state.notiSnackBar}
           onRequestClose={()=>{this.setState({openSnackBar: false})}}
+        />
+        <Alert
+          alertCancel={this.alertCancel}
+          alertAccept={this.alertAccept}
+          noti={this.state.notiAlert}
+          open={this.state.openAlert}
         />
       </div>
     );
