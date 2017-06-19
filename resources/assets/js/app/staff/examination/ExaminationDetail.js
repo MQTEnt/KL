@@ -3,6 +3,7 @@ import {Tabs, Tab} from 'material-ui/Tabs';
 import FlatButton from 'material-ui/FlatButton';
 import Symptom from './Symptom';
 import Sign from './Sign';
+import Image from './Image';
 import Alert from '../partials/Alert';
 import SnackBar from '../partials/SnackBar';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -16,7 +17,8 @@ const styles = {
   },
   main: {
     width: '90%',
-    margin: '0 auto'
+    margin: '0 auto',
+    paddingLeft: '40px'
   }
 };
 
@@ -27,10 +29,11 @@ export default class ExaminationDetail extends React.Component {
     this.state = {
       list: {
         symptoms: [],
-        signs: []
+        signs: [],
+        images: []
       },
       value: 0,
-      maxValue: 1,
+      maxValue: 3,
       openAlert: false,
       openSnackBar: false,
       openProgress: false
@@ -107,6 +110,8 @@ export default class ExaminationDetail extends React.Component {
         this.symtomComponent.submit();
       if(this.state.value === 1)
         this.signComponent.submit();
+      if(this.state.value === 3)
+        this.imageComponent.submit();
 
       this.setState({
         openSnackBar: true,
@@ -137,6 +142,17 @@ export default class ExaminationDetail extends React.Component {
               ref={(ref)=>this.signComponent = ref}
               api={'/sign/'+this.props.params.record_id}
               setList={this.setSignData}
+            />
+          </Tab>
+          <Tab value={2}>
+            <p>
+              Chỉ số xét nghiệm
+            </p>
+          </Tab>
+          <Tab value={3}>
+            <Image
+              images={this.state.list.images}
+              ref={(ref)=>this.imageComponent = ref}
             />
           </Tab>
         </Tabs>

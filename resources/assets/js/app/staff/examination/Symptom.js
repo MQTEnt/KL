@@ -11,7 +11,7 @@ export default class Symptom extends React.Component{
 	render(){
 		return (
 			<div>
-				<h4>Khám cận lâm sàng/Triệu chứng cơ năng</h4>
+				<h4>Khám lâm sàng/Triệu chứng cơ năng</h4>
 				<p>Chọn các triệu chứng cơ năng phía dưới</p>
 				<RadioInputs 
 					items={this.props.symptoms}

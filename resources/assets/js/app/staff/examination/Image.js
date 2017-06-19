@@ -1,0 +1,23 @@
+import React from 'react';
+import ExaminationTextInputs from '../partials/ExaminationTextInputs';
+
+export default class Image extends React.Component{
+	constructor(props){
+		super(props);
+
+	}
+	submit(){
+		this.examinationTextInputsComponent.submit();
+	}
+	render(){
+		return (
+			<div>
+				<h4>Khám cận lâm sàng/Chẩn đoán hình ảnh</h4>
+				<ExaminationTextInputs
+					list={this.props.images}
+					ref={(ref) => {this.examinationTextInputsComponent = ref}}
+				/>
+			</div>
+		);
+	}
+}
