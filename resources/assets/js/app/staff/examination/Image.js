@@ -16,6 +16,8 @@ export default class Image extends React.Component{
 				<ExaminationTextInputs
 					list={this.props.images}
 					ref={(ref) => {this.examinationTextInputsComponent = ref}}
+					api={this.props.api}
+					setList={this.props.setList}
 				/>
 			</div>
 		);

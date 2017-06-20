@@ -55,6 +55,13 @@ export default class ExaminationDetail extends React.Component {
       list: newList
     });
   }
+  setImageData(obj){
+    let oldList = this.state.list;
+    let newList = {...oldList, 'images': obj};
+    this.setState({
+      list: newList
+    });
+  }
   getList(url){
     setTimeout(function(){
         //Get data
@@ -153,6 +160,8 @@ export default class ExaminationDetail extends React.Component {
             <Image
               images={this.state.list.images}
               ref={(ref)=>this.imageComponent = ref}
+              api={'/image/'+this.props.params.record_id}
+              setList={this.setImageData}
             />
           </Tab>
         </Tabs>

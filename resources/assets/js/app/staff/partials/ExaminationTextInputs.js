@@ -49,7 +49,6 @@ class ExaminationTextInputs extends React.Component{
 		let deleteArr = [];
 		///console.log(this.inputs);
 		this.inputs.forEach(function(item, index){
-			//AddArray
 			if(item.id === null){
 				if(item.value !== '')
 					addArr.push({
@@ -83,7 +82,6 @@ class ExaminationTextInputs extends React.Component{
 			return;
 		}
 
-		/*
 		let json_addArr = JSON.stringify(addArr);
 		let json_editArr = JSON.stringify(editArr);
 		let json_deleteArr = JSON.stringify(deleteArr);
@@ -108,8 +106,7 @@ class ExaminationTextInputs extends React.Component{
 		    }).then(function(obj) {
 		      	if(obj.state === 1)
 		      	{
-		      		//this.props.updateIndexes(obj.indexes);
-		      		
+		      		this.props.setList(obj.list);
 		      	}
 		    }.bind(this))
 		    .catch(function(ex) {
@@ -117,7 +114,6 @@ class ExaminationTextInputs extends React.Component{
 		      console.log('parsing failed', ex)
 		    });
 		}.bind(this), 1500);
-		*/
 	}
 	render(){
 		let indexes = this.props.list;

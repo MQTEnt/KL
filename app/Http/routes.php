@@ -205,6 +205,7 @@ Route::group(['middleware' => ['auth']], function(){
 	});
 	Route::post('symptom/{record_id}', 'Staff\RecordSymptomController@update');
 	Route::post('sign/{record_id}', 'Staff\RecordSignController@update');
+	Route::post('image/{record_id}', 'Staff\RecordImageController@update');
 
 	/*
 	 * Plant

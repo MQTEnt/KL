@@ -22418,15 +22418,15 @@
 
 	var _ExaminationDetail2 = _interopRequireDefault(_ExaminationDetail);
 
-	var _App9 = __webpack_require__(676);
+	var _App9 = __webpack_require__(678);
 
 	var _App10 = _interopRequireDefault(_App9);
 
-	var _Create = __webpack_require__(679);
+	var _Create = __webpack_require__(681);
 
 	var _Create2 = _interopRequireDefault(_Create);
 
-	var _ListPlant = __webpack_require__(682);
+	var _ListPlant = __webpack_require__(684);
 
 	var _ListPlant2 = _interopRequireDefault(_ListPlant);
 
@@ -74813,7 +74813,7 @@
 
 	var _Sign2 = _interopRequireDefault(_Sign);
 
-	var _Image = __webpack_require__(684);
+	var _Image = __webpack_require__(676);
 
 	var _Image2 = _interopRequireDefault(_Image);
 
@@ -74894,6 +74894,15 @@
 	    value: function setSignData(obj) {
 	      var oldList = this.state.list;
 	      var newList = _extends({}, oldList, { 'signs': obj });
+	      this.setState({
+	        list: newList
+	      });
+	    }
+	  }, {
+	    key: 'setImageData',
+	    value: function setImageData(obj) {
+	      var oldList = this.state.list;
+	      var newList = _extends({}, oldList, { 'images': obj });
 	      this.setState({
 	        list: newList
 	      });
@@ -75029,7 +75038,9 @@
 	              images: this.state.list.images,
 	              ref: function ref(_ref3) {
 	                return _this2.imageComponent = _ref3;
-	              }
+	              },
+	              api: '/image/' + this.props.params.record_id,
+	              setList: this.setImageData
 	            })
 	          )
 	        ),
@@ -75401,7 +75412,254 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _List = __webpack_require__(677);
+	var _ExaminationTextInputs = __webpack_require__(677);
+
+	var _ExaminationTextInputs2 = _interopRequireDefault(_ExaminationTextInputs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Image = function (_React$Component) {
+		_inherits(Image, _React$Component);
+
+		function Image(props) {
+			_classCallCheck(this, Image);
+
+			return _possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).call(this, props));
+		}
+
+		_createClass(Image, [{
+			key: 'submit',
+			value: function submit() {
+				this.examinationTextInputsComponent.submit();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h4',
+						null,
+						'Kh\xE1m c\u1EADn l\xE2m s\xE0ng/Ch\u1EA9n \u0111o\xE1n h\xECnh \u1EA3nh'
+					),
+					_react2.default.createElement(_ExaminationTextInputs2.default, {
+						list: this.props.images,
+						ref: function ref(_ref) {
+							_this2.examinationTextInputsComponent = _ref;
+						},
+						api: this.props.api,
+						setList: this.props.setList
+					})
+				);
+			}
+		}]);
+
+		return Image;
+	}(_react2.default.Component);
+
+	exports.default = Image;
+
+/***/ }),
+/* 677 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(495);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _reactAutobind = __webpack_require__(646);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ExaminationTextInputs = function (_React$Component) {
+		_inherits(ExaminationTextInputs, _React$Component);
+
+		function ExaminationTextInputs(props) {
+			_classCallCheck(this, ExaminationTextInputs);
+
+			var _this = _possibleConstructorReturn(this, (ExaminationTextInputs.__proto__ || Object.getPrototypeOf(ExaminationTextInputs)).call(this, props));
+
+			_this.state = {};
+			_this.inputs = [];
+			(0, _reactAutobind2.default)(_this);
+			return _this;
+		}
+
+		_createClass(ExaminationTextInputs, [{
+			key: 'handleOnBlurInput',
+			value: function handleOnBlurInput(value, index) {
+				/*Validate here*/
+				var regex = /^\s+$/;
+				if (regex.test(value)) value = '';
+				/////////////////////
+				if (index.id != null) {
+					var inputs = this.inputs;
+					var i = inputs.findIndex(function (obj) {
+						return obj.id === index.id;
+					});
+					if (i === -1) this.inputs.push({
+						id: index.id,
+						index_id: index.index_id,
+						value: value
+					});else inputs[i].value = value;
+				} else {
+					var _inputs = this.inputs;
+					var _i = _inputs.findIndex(function (obj) {
+						return obj.index_id === index.index_id;
+					});
+					if (_i === -1) this.inputs.push({
+						id: index.id,
+						index_id: index.index_id,
+						value: value
+					});else _inputs[_i].value = value;
+				}
+			}
+		}, {
+			key: 'submit',
+			value: function submit() {
+				var addArr = [];
+				var editArr = [];
+				var deleteArr = [];
+				///console.log(this.inputs);
+				this.inputs.forEach(function (item, index) {
+					if (item.id === null) {
+						if (item.value !== '') addArr.push({
+							'index_id': item.index_id,
+							'value': item.value
+						});
+					} else {
+						if (item.value === '') {
+							deleteArr.push(item.id);
+						} else {
+							var indexes = this.props.list;
+							var i = indexes.findIndex(function (obj) {
+								return obj.id === item.id;
+							});
+							if (indexes[i].value !== item.value) editArr.push({
+								'id': item.id,
+								'value': item.value
+							});
+						}
+					}
+				}.bind(this));
+				this.inputs = [];
+				console.log('Add Array', addArr);
+				console.log('Edit Array', editArr);
+				console.log('Delete Array', deleteArr);
+
+				if (addArr.length === 0 && editArr.length === 0 && deleteArr.length === 0) {
+					console.log('Nothing update!');
+					return;
+				}
+
+				var json_addArr = JSON.stringify(addArr);
+				var json_editArr = JSON.stringify(editArr);
+				var json_deleteArr = JSON.stringify(deleteArr);
+				/////Request
+				var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+				var formData = new FormData();
+				formData.append('addArr', json_addArr);
+				formData.append('editArr', json_editArr);
+				formData.append('deleteArr', json_deleteArr);
+				formData.append('_token', _token);
+
+				var api = this.props.api;
+				//POST (AJAX)
+				setTimeout(function () {
+					fetch(api, {
+						method: 'POST',
+						credentials: 'same-origin',
+						body: formData
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						if (obj.state === 1) {
+							this.props.setList(obj.list);
+						}
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 1500);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				var indexes = this.props.list;
+				return _react2.default.createElement(
+					'div',
+					null,
+					indexes.map(function (index) {
+						return _react2.default.createElement(
+							'div',
+							{ key: index.index_id },
+							_react2.default.createElement(_TextField2.default, {
+								onBlur: function onBlur(e) {
+									return _this2.handleOnBlurInput(e.target.value, index);
+								},
+								fullWidth: true,
+								defaultValue: index.value,
+								floatingLabelText: index.name
+							})
+						);
+					})
+				);
+			}
+		}]);
+
+		return ExaminationTextInputs;
+	}(_react2.default.Component);
+
+	exports.default = ExaminationTextInputs;
+
+/***/ }),
+/* 678 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _List = __webpack_require__(679);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -75501,7 +75759,7 @@
 	exports.default = Plants;
 
 /***/ }),
-/* 677 */
+/* 679 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75526,7 +75784,7 @@
 
 	var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
-	var _Detail = __webpack_require__(678);
+	var _Detail = __webpack_require__(680);
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
@@ -75708,7 +75966,7 @@
 	exports.default = List;
 
 /***/ }),
-/* 678 */
+/* 680 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75919,7 +76177,7 @@
 	exports.default = Detail;
 
 /***/ }),
-/* 679 */
+/* 681 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75938,11 +76196,11 @@
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
-	var _SelectInputs = __webpack_require__(680);
+	var _SelectInputs = __webpack_require__(682);
 
 	var _SelectInputs2 = _interopRequireDefault(_SelectInputs);
 
-	var _autorenew = __webpack_require__(681);
+	var _autorenew = __webpack_require__(683);
 
 	var _autorenew2 = _interopRequireDefault(_autorenew);
 
@@ -76177,7 +76435,7 @@
 	exports.default = Create;
 
 /***/ }),
-/* 680 */
+/* 682 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76430,7 +76688,7 @@
 	exports.default = SelectInputs;
 
 /***/ }),
-/* 681 */
+/* 683 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76465,7 +76723,7 @@
 	exports.default = ActionAutorenew;
 
 /***/ }),
-/* 682 */
+/* 684 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76484,7 +76742,7 @@
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
-	var _Plant = __webpack_require__(683);
+	var _Plant = __webpack_require__(685);
 
 	var _Plant2 = _interopRequireDefault(_Plant);
 
@@ -76611,7 +76869,7 @@
 	exports.default = ListPlant;
 
 /***/ }),
-/* 683 */
+/* 685 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76664,257 +76922,6 @@
 	};
 
 	exports.default = Plant;
-
-/***/ }),
-/* 684 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _ExaminationTextInputs = __webpack_require__(685);
-
-	var _ExaminationTextInputs2 = _interopRequireDefault(_ExaminationTextInputs);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Image = function (_React$Component) {
-		_inherits(Image, _React$Component);
-
-		function Image(props) {
-			_classCallCheck(this, Image);
-
-			return _possibleConstructorReturn(this, (Image.__proto__ || Object.getPrototypeOf(Image)).call(this, props));
-		}
-
-		_createClass(Image, [{
-			key: 'submit',
-			value: function submit() {
-				this.examinationTextInputsComponent.submit();
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this2 = this;
-
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h4',
-						null,
-						'Kh\xE1m c\u1EADn l\xE2m s\xE0ng/Ch\u1EA9n \u0111o\xE1n h\xECnh \u1EA3nh'
-					),
-					_react2.default.createElement(_ExaminationTextInputs2.default, {
-						list: this.props.images,
-						ref: function ref(_ref) {
-							_this2.examinationTextInputsComponent = _ref;
-						}
-					})
-				);
-			}
-		}]);
-
-		return Image;
-	}(_react2.default.Component);
-
-	exports.default = Image;
-
-/***/ }),
-/* 685 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _TextField = __webpack_require__(495);
-
-	var _TextField2 = _interopRequireDefault(_TextField);
-
-	var _reactAutobind = __webpack_require__(646);
-
-	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var ExaminationTextInputs = function (_React$Component) {
-		_inherits(ExaminationTextInputs, _React$Component);
-
-		function ExaminationTextInputs(props) {
-			_classCallCheck(this, ExaminationTextInputs);
-
-			var _this = _possibleConstructorReturn(this, (ExaminationTextInputs.__proto__ || Object.getPrototypeOf(ExaminationTextInputs)).call(this, props));
-
-			_this.state = {};
-			_this.inputs = [];
-			(0, _reactAutobind2.default)(_this);
-			return _this;
-		}
-
-		_createClass(ExaminationTextInputs, [{
-			key: 'handleOnBlurInput',
-			value: function handleOnBlurInput(value, index) {
-				/*Validate here*/
-				var regex = /^\s+$/;
-				if (regex.test(value)) value = '';
-				/////////////////////
-				if (index.id != null) {
-					var inputs = this.inputs;
-					var i = inputs.findIndex(function (obj) {
-						return obj.id === index.id;
-					});
-					if (i === -1) this.inputs.push({
-						id: index.id,
-						index_id: index.index_id,
-						value: value
-					});else inputs[i].value = value;
-				} else {
-					var _inputs = this.inputs;
-					var _i = _inputs.findIndex(function (obj) {
-						return obj.index_id === index.index_id;
-					});
-					if (_i === -1) this.inputs.push({
-						id: index.id,
-						index_id: index.index_id,
-						value: value
-					});else _inputs[_i].value = value;
-				}
-			}
-		}, {
-			key: 'submit',
-			value: function submit() {
-				var addArr = [];
-				var editArr = [];
-				var deleteArr = [];
-				///console.log(this.inputs);
-				this.inputs.forEach(function (item, index) {
-					//AddArray
-					if (item.id === null) {
-						if (item.value !== '') addArr.push({
-							'index_id': item.index_id,
-							'value': item.value
-						});
-					} else {
-						if (item.value === '') {
-							deleteArr.push(item.id);
-						} else {
-							var indexes = this.props.list;
-							var i = indexes.findIndex(function (obj) {
-								return obj.id === item.id;
-							});
-							if (indexes[i].value !== item.value) editArr.push({
-								'id': item.id,
-								'value': item.value
-							});
-						}
-					}
-				}.bind(this));
-				this.inputs = [];
-				console.log('Add Array', addArr);
-				console.log('Edit Array', editArr);
-				console.log('Delete Array', deleteArr);
-
-				if (addArr.length === 0 && editArr.length === 0 && deleteArr.length === 0) {
-					console.log('Nothing update!');
-					return;
-				}
-
-				/*
-	   let json_addArr = JSON.stringify(addArr);
-	   let json_editArr = JSON.stringify(editArr);
-	   let json_deleteArr = JSON.stringify(deleteArr);
-	   /////Request
-	   var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
-	   var formData = new FormData();
-	      formData.append('addArr', json_addArr);
-	      formData.append('editArr', json_editArr);
-	      formData.append('deleteArr', json_deleteArr);
-	   formData.append('_token', _token);
-	   		let api = this.props.api
-	      //POST (AJAX)
-	      setTimeout(function(){
-	       fetch(api, {
-	         method: 'POST',
-	         credentials: 'same-origin',
-	         body: formData
-	       })
-	       .then(function(response) {
-	         return response.json()
-	       }).then(function(obj) {
-	         	if(obj.state === 1)
-	         	{
-	         		//this.props.updateIndexes(obj.indexes);
-	         		
-	         	}
-	       }.bind(this))
-	       .catch(function(ex) {
-	         //Log Error
-	         console.log('parsing failed', ex)
-	       });
-	   }.bind(this), 1500);
-	   */
-			}
-		}, {
-			key: 'render',
-			value: function render() {
-				var _this2 = this;
-
-				var indexes = this.props.list;
-				return _react2.default.createElement(
-					'div',
-					null,
-					indexes.map(function (index) {
-						return _react2.default.createElement(
-							'div',
-							{ key: index.index_id },
-							_react2.default.createElement(_TextField2.default, {
-								onBlur: function onBlur(e) {
-									return _this2.handleOnBlurInput(e.target.value, index);
-								},
-								fullWidth: true,
-								defaultValue: index.value,
-								floatingLabelText: index.name
-							})
-						);
-					})
-				);
-			}
-		}]);
-
-		return ExaminationTextInputs;
-	}(_react2.default.Component);
-
-	exports.default = ExaminationTextInputs;
 
 /***/ })
 /******/ ]);
