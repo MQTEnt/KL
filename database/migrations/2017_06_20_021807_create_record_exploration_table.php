@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRecordImageTable extends Migration
+class CreateRecordExplorationTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,15 +12,15 @@ class CreateRecordImageTable extends Migration
      */
     public function up()
     {
-        Schema::create('record_image', function (Blueprint $table) {
+        Schema::create('record_exploration', function (Blueprint $table) {
             $table->increments('id');
             //Bệnh án
             $table->integer('record_id')->nullable()->unsigned();
             $table->foreign('record_id')->references('id')->on('records')
                         ->onDelete('cascade');
 
-            $table->integer('image_id')->nullable()->unsigned();
-            $table->foreign('image_id')->references('id')->on('images')
+            $table->integer('exploration_id')->nullable()->unsigned();
+            $table->foreign('exploration_id')->references('id')->on('explorations')
                         ->onDelete('cascade');
 
             $table->string('value');
@@ -35,6 +35,6 @@ class CreateRecordImageTable extends Migration
      */
     public function down()
     {
-        Schema::drop('record_image');
+        Schema::drop('record_exploration');
     }
 }

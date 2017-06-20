@@ -201,7 +201,12 @@ Route::group(['middleware' => ['auth']], function(){
 		            ->select('images.id AS index_id', 'images.name', 'temp_tbl.value', 'temp_tbl.id AS id')
 		            ->orderBy('index_id')
 		            ->get();
-        return ['symptoms' => $symptoms, 'signs' => $signs, 'images' => $images];
+		$explorations = DB::table('explorations')
+		            ->leftJoin(DB::raw("(SELECT * FROM record_exploration WHERE record_id = $record_id) AS temp_tbl"), 'explorations.id', '=', 'temp_tbl.exploration_id')
+		            ->select('explorations.id AS index_id', 'explorations.name', 'temp_tbl.value', 'temp_tbl.id AS id')
+		            ->orderBy('index_id')
+		            ->get();
+        return ['symptoms' => $symptoms, 'signs' => $signs, 'images' => $images, 'explorations' => $explorations];
 	});
 	Route::post('symptom/{record_id}', 'Staff\RecordSymptomController@update');
 	Route::post('sign/{record_id}', 'Staff\RecordSignController@update');

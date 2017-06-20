@@ -4,6 +4,7 @@ import FlatButton from 'material-ui/FlatButton';
 import Symptom from './Symptom';
 import Sign from './Sign';
 import Image from './Image';
+import Exploration from './Exploration';
 import Alert from '../partials/Alert';
 import SnackBar from '../partials/SnackBar';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -30,10 +31,11 @@ export default class ExaminationDetail extends React.Component {
       list: {
         symptoms: [],
         signs: [],
-        images: []
+        images: [],
+        explorations: []
       },
       value: 0,
-      maxValue: 3,
+      maxValue: 4,
       openAlert: false,
       openSnackBar: false,
       openProgress: false
@@ -162,6 +164,11 @@ export default class ExaminationDetail extends React.Component {
               ref={(ref)=>this.imageComponent = ref}
               api={'/image/'+this.props.params.record_id}
               setList={this.setImageData}
+            />
+          </Tab>
+          <Tab value={4}>
+            <Exploration
+              explorations={this.state.list.explorations}
             />
           </Tab>
         </Tabs>

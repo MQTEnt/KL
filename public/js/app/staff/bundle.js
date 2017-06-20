@@ -74817,6 +74817,10 @@
 
 	var _Image2 = _interopRequireDefault(_Image);
 
+	var _Exploration = __webpack_require__(686);
+
+	var _Exploration2 = _interopRequireDefault(_Exploration);
+
 	var _Alert = __webpack_require__(531);
 
 	var _Alert2 = _interopRequireDefault(_Alert);
@@ -74867,10 +74871,11 @@
 	      list: {
 	        symptoms: [],
 	        signs: [],
-	        images: []
+	        images: [],
+	        explorations: []
 	      },
 	      value: 0,
-	      maxValue: 3,
+	      maxValue: 4,
 	      openAlert: false,
 	      openSnackBar: false,
 	      openProgress: false
@@ -75041,6 +75046,13 @@
 	              },
 	              api: '/image/' + this.props.params.record_id,
 	              setList: this.setImageData
+	            })
+	          ),
+	          _react2.default.createElement(
+	            _Tabs.Tab,
+	            { value: 4 },
+	            _react2.default.createElement(_Exploration2.default, {
+	              explorations: this.state.list.explorations
 	            })
 	          )
 	        ),
@@ -76922,6 +76934,66 @@
 	};
 
 	exports.default = Plant;
+
+/***/ }),
+/* 686 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _ExaminationTextInputs = __webpack_require__(677);
+
+	var _ExaminationTextInputs2 = _interopRequireDefault(_ExaminationTextInputs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Exploration = function (_React$Component) {
+		_inherits(Exploration, _React$Component);
+
+		function Exploration(props) {
+			_classCallCheck(this, Exploration);
+
+			return _possibleConstructorReturn(this, (Exploration.__proto__ || Object.getPrototypeOf(Exploration)).call(this, props));
+		}
+
+		_createClass(Exploration, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'h4',
+						null,
+						'Kh\xE1m c\u1EADn l\xE2m s\xE0ng/Th\u0103m d\xF2 ch\u1EE9c n\u0103ng'
+					),
+					_react2.default.createElement(_ExaminationTextInputs2.default, {
+						list: this.props.explorations
+					})
+				);
+			}
+		}]);
+
+		return Exploration;
+	}(_react2.default.Component);
+
+	exports.default = Exploration;
 
 /***/ })
 /******/ ]);
