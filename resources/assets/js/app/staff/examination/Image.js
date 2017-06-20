@@ -11,7 +11,7 @@ export default class Image extends React.Component{
 	}
 	render(){
 		return (
-			<div>
+			<div style={{textAlign: 'center'}}>
 				<h4>Khám cận lâm sàng/Chẩn đoán hình ảnh</h4>
 				<ExaminationTextInputs
 					list={this.props.images}

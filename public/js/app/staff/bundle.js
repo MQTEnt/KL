@@ -22418,15 +22418,15 @@
 
 	var _ExaminationDetail2 = _interopRequireDefault(_ExaminationDetail);
 
-	var _App9 = __webpack_require__(678);
+	var _App9 = __webpack_require__(679);
 
 	var _App10 = _interopRequireDefault(_App9);
 
-	var _Create = __webpack_require__(681);
+	var _Create = __webpack_require__(682);
 
 	var _Create2 = _interopRequireDefault(_Create);
 
-	var _ListPlant = __webpack_require__(684);
+	var _ListPlant = __webpack_require__(685);
 
 	var _ListPlant2 = _interopRequireDefault(_ListPlant);
 
@@ -74801,9 +74801,17 @@
 
 	var _Tabs = __webpack_require__(512);
 
-	var _FlatButton = __webpack_require__(532);
+	var _RaisedButton = __webpack_require__(470);
 
-	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _forward = __webpack_require__(641);
+
+	var _forward2 = _interopRequireDefault(_forward);
+
+	var _cached = __webpack_require__(668);
+
+	var _cached2 = _interopRequireDefault(_cached);
 
 	var _Symptom = __webpack_require__(673);
 
@@ -74817,7 +74825,7 @@
 
 	var _Image2 = _interopRequireDefault(_Image);
 
-	var _Exploration = __webpack_require__(686);
+	var _Exploration = __webpack_require__(678);
 
 	var _Exploration2 = _interopRequireDefault(_Exploration);
 
@@ -74832,6 +74840,10 @@
 	var _LinearProgress = __webpack_require__(587);
 
 	var _LinearProgress2 = _interopRequireDefault(_LinearProgress);
+
+	var _CircularProgress = __webpack_require__(559);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
 
 	var _reactAutobind = __webpack_require__(646);
 
@@ -74855,7 +74867,8 @@
 	  main: {
 	    width: '90%',
 	    margin: '0 auto',
-	    paddingLeft: '40px'
+	    paddingLeft: '40px',
+	    textAlign: 'center'
 	  }
 	};
 
@@ -74878,7 +74891,8 @@
 	      maxValue: 4,
 	      openAlert: false,
 	      openSnackBar: false,
-	      openProgress: false
+	      openProgress: false,
+	      isLoading: true
 	    };
 
 	    (0, _reactAutobind2.default)(_this);
@@ -74908,6 +74922,15 @@
 	    value: function setImageData(obj) {
 	      var oldList = this.state.list;
 	      var newList = _extends({}, oldList, { 'images': obj });
+	      this.setState({
+	        list: newList
+	      });
+	    }
+	  }, {
+	    key: 'setExplorationData',
+	    value: function setExplorationData(obj) {
+	      var oldList = this.state.list;
+	      var newList = _extends({}, oldList, { 'explorations': obj });
 	      this.setState({
 	        list: newList
 	      });
@@ -74972,9 +74995,22 @@
 	      });
 	      setTimeout(function () {
 	        //Request Success
-	        if (this.state.value === 0) this.symtomComponent.submit();
-	        if (this.state.value === 1) this.signComponent.submit();
-	        if (this.state.value === 3) this.imageComponent.submit();
+	        switch (this.state.value) {
+	          case 0:
+	            this.symtomComponent.submit();
+	            break;
+	          case 1:
+	            this.signComponent.submit();
+	            break;
+	          case 2:
+	            return;
+	          case 3:
+	            this.imageComponent.submit();
+	            break;
+	          case 4:
+	            this.explorationComponent.submit();
+	            break;
+	        }
 
 	        this.setState({
 	          openSnackBar: true,
@@ -74996,7 +75032,11 @@
 	          'M\xE3 b\u1EC7nh \xE1n: ',
 	          this.props.params.record_id
 	        ),
-	        _react2.default.createElement(
+	        this.state.isLoading ? _react2.default.createElement(
+	          'div',
+	          { style: { 'margin': '50px auto', 'width': '0' } },
+	          _react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+	        ) : _react2.default.createElement(
 	          _Tabs.Tabs,
 	          {
 	            value: this.state.value,
@@ -75052,7 +75092,12 @@
 	            _Tabs.Tab,
 	            { value: 4 },
 	            _react2.default.createElement(_Exploration2.default, {
-	              explorations: this.state.list.explorations
+	              explorations: this.state.list.explorations,
+	              ref: function ref(_ref4) {
+	                return _this2.explorationComponent = _ref4;
+	              },
+	              api: '/exploration/' + this.props.params.record_id,
+	              setList: this.setExplorationData
 	            })
 	          )
 	        ),
@@ -75071,16 +75116,22 @@
 	        }),
 	        _react2.default.createElement(
 	          'div',
-	          null,
-	          _react2.default.createElement(_FlatButton2.default, {
+	          { style: { width: '50%', margin: '0 auto' } },
+	          _react2.default.createElement(_RaisedButton2.default, {
 	            onClick: this.handleClickUpdate,
 	            label: 'C\u1EADp nh\u1EADt',
-	            primary: true
+	            primary: true,
+	            icon: _react2.default.createElement(_cached2.default, null),
+	            fullWidth: true,
+	            style: { marginBottom: '10px' }
 	          }),
-	          _react2.default.createElement(_FlatButton2.default, {
+	          _react2.default.createElement(_RaisedButton2.default, {
 	            onClick: this.handleClickNext,
 	            label: 'Ti\u1EBFp t\u1EE5c',
-	            primary: true
+	            secondary: true,
+	            icon: _react2.default.createElement(_forward2.default, null),
+	            fullWidth: true,
+	            style: { marginBottom: '10px' }
 	          })
 	        ),
 	        this.state.openProgress ? _react2.default.createElement(_LinearProgress2.default, { mode: 'indeterminate' }) : ''
@@ -75145,7 +75196,7 @@
 
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ style: { textAlign: 'center' } },
 					_react2.default.createElement(
 						'h4',
 						null,
@@ -75205,7 +75256,7 @@
 
 	var styles = {
 		block: {
-			maxWidth: 250
+			textAlign: 'center'
 		},
 		checkbox: {
 			marginBottom: 16
@@ -75303,12 +75354,15 @@
 					items.map(function (item) {
 						var _React$createElement;
 
-						return _react2.default.createElement(_Checkbox2.default, (_React$createElement = {
-							key: item.index_id,
-							label: 'Simple'
-						}, _defineProperty(_React$createElement, 'label', item.name), _defineProperty(_React$createElement, 'style', styles.checkbox), _defineProperty(_React$createElement, 'defaultChecked', item.id !== null ? true : false), _defineProperty(_React$createElement, 'onClick', function onClick(e) {
-							_this2.onClick(e.target.checked, item);
-						}), _React$createElement));
+						return _react2.default.createElement(
+							'div',
+							{ key: item.index_id, style: { maxWidth: 250, margin: '0 auto' } },
+							_react2.default.createElement(_Checkbox2.default, (_React$createElement = {
+								label: 'Simple'
+							}, _defineProperty(_React$createElement, 'label', item.name), _defineProperty(_React$createElement, 'style', styles.checkbox), _defineProperty(_React$createElement, 'defaultChecked', item.id !== null ? true : false), _defineProperty(_React$createElement, 'onClick', function onClick(e) {
+								_this2.onClick(e.target.checked, item);
+							}), _React$createElement))
+						);
 					})
 				);
 			}
@@ -75380,7 +75434,7 @@
 
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ style: { textAlign: 'center' } },
 					_react2.default.createElement(
 						'h4',
 						null,
@@ -75457,7 +75511,7 @@
 
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ style: { textAlign: 'center' } },
 					_react2.default.createElement(
 						'h4',
 						null,
@@ -75671,7 +75725,79 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _List = __webpack_require__(679);
+	var _ExaminationTextInputs = __webpack_require__(677);
+
+	var _ExaminationTextInputs2 = _interopRequireDefault(_ExaminationTextInputs);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Exploration = function (_React$Component) {
+		_inherits(Exploration, _React$Component);
+
+		function Exploration(props) {
+			_classCallCheck(this, Exploration);
+
+			return _possibleConstructorReturn(this, (Exploration.__proto__ || Object.getPrototypeOf(Exploration)).call(this, props));
+		}
+
+		_createClass(Exploration, [{
+			key: 'submit',
+			value: function submit() {
+				this.examinationTextInputsComponent.submit();
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				return _react2.default.createElement(
+					'div',
+					{ style: { textAlign: 'center' } },
+					_react2.default.createElement(
+						'h4',
+						null,
+						'Kh\xE1m c\u1EADn l\xE2m s\xE0ng/Th\u0103m d\xF2 ch\u1EE9c n\u0103ng'
+					),
+					_react2.default.createElement(_ExaminationTextInputs2.default, {
+						list: this.props.explorations,
+						api: this.props.api,
+						setList: this.props.setList,
+						ref: function ref(_ref) {
+							_this2.examinationTextInputsComponent = _ref;
+						}
+					})
+				);
+			}
+		}]);
+
+		return Exploration;
+	}(_react2.default.Component);
+
+	exports.default = Exploration;
+
+/***/ }),
+/* 679 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _List = __webpack_require__(680);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -75771,7 +75897,7 @@
 	exports.default = Plants;
 
 /***/ }),
-/* 679 */
+/* 680 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75796,7 +75922,7 @@
 
 	var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
-	var _Detail = __webpack_require__(680);
+	var _Detail = __webpack_require__(681);
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
@@ -75978,7 +76104,7 @@
 	exports.default = List;
 
 /***/ }),
-/* 680 */
+/* 681 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76189,7 +76315,7 @@
 	exports.default = Detail;
 
 /***/ }),
-/* 681 */
+/* 682 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76208,11 +76334,11 @@
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
-	var _SelectInputs = __webpack_require__(682);
+	var _SelectInputs = __webpack_require__(683);
 
 	var _SelectInputs2 = _interopRequireDefault(_SelectInputs);
 
-	var _autorenew = __webpack_require__(683);
+	var _autorenew = __webpack_require__(684);
 
 	var _autorenew2 = _interopRequireDefault(_autorenew);
 
@@ -76447,7 +76573,7 @@
 	exports.default = Create;
 
 /***/ }),
-/* 682 */
+/* 683 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76700,7 +76826,7 @@
 	exports.default = SelectInputs;
 
 /***/ }),
-/* 683 */
+/* 684 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76735,7 +76861,7 @@
 	exports.default = ActionAutorenew;
 
 /***/ }),
-/* 684 */
+/* 685 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76754,7 +76880,7 @@
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
-	var _Plant = __webpack_require__(685);
+	var _Plant = __webpack_require__(686);
 
 	var _Plant2 = _interopRequireDefault(_Plant);
 
@@ -76881,7 +77007,7 @@
 	exports.default = ListPlant;
 
 /***/ }),
-/* 685 */
+/* 686 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76934,66 +77060,6 @@
 	};
 
 	exports.default = Plant;
-
-/***/ }),
-/* 686 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-		value: true
-	});
-
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _ExaminationTextInputs = __webpack_require__(677);
-
-	var _ExaminationTextInputs2 = _interopRequireDefault(_ExaminationTextInputs);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-
-	var Exploration = function (_React$Component) {
-		_inherits(Exploration, _React$Component);
-
-		function Exploration(props) {
-			_classCallCheck(this, Exploration);
-
-			return _possibleConstructorReturn(this, (Exploration.__proto__ || Object.getPrototypeOf(Exploration)).call(this, props));
-		}
-
-		_createClass(Exploration, [{
-			key: 'render',
-			value: function render() {
-				return _react2.default.createElement(
-					'div',
-					null,
-					_react2.default.createElement(
-						'h4',
-						null,
-						'Kh\xE1m c\u1EADn l\xE2m s\xE0ng/Th\u0103m d\xF2 ch\u1EE9c n\u0103ng'
-					),
-					_react2.default.createElement(_ExaminationTextInputs2.default, {
-						list: this.props.explorations
-					})
-				);
-			}
-		}]);
-
-		return Exploration;
-	}(_react2.default.Component);
-
-	exports.default = Exploration;
 
 /***/ })
 /******/ ]);

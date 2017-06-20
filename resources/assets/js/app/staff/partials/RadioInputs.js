@@ -3,7 +3,7 @@ import Checkbox from 'material-ui/Checkbox';
 
 const styles = {
   block: {
-    maxWidth: 250,
+    textAlign: 'center'
   },
   checkbox: {
     marginBottom: 16,
@@ -95,14 +95,15 @@ export default class RadioInputs extends React.Component{
 			return (
 				<div style={styles.block}>
 				{items.map( (item) => (
-	    				<Checkbox
-	    					key={item.index_id}
-							label="Simple"
-							label={item.name}
-							style={styles.checkbox}
-							defaultChecked={(item.id !== null)?true:false}
-							onClick={(e)=>{this.onClick(e.target.checked, item)}}
-					    />
+						<div key={item.index_id} style={{maxWidth: 250, margin: '0 auto'}}>
+		    				<Checkbox
+								label="Simple"
+								label={item.name}
+								style={styles.checkbox}
+								defaultChecked={(item.id !== null)?true:false}
+								onClick={(e)=>{this.onClick(e.target.checked, item)}}
+						    />
+						</div>
 					)
 				)}
 				</div>

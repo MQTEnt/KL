@@ -10,7 +10,7 @@ export default class Sign extends React.Component{
 	}
 	render(){
 		return (
-			<div>
+			<div style={{textAlign: 'center'}}>
 				<h4>Khám lâm sàng/Triệu chứng thực thể</h4>
 				<p>Chọn các triệu chứng thực thể bên dưới</p>
 				<RadioInputs 
