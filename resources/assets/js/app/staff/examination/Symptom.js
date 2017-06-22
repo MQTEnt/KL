@@ -18,6 +18,7 @@ export default class Symptom extends React.Component{
 					ref={(ref)=>this.radioInputsComponent = ref}
 					api={this.props.api}
 					setList={this.props.setList}
+					displayNoti={this.props.displayNoti}
 				/>
 			</div>
 		);

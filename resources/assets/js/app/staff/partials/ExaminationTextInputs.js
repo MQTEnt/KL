@@ -79,6 +79,7 @@ class ExaminationTextInputs extends React.Component{
 		if(addArr.length === 0 && editArr.length === 0 && deleteArr.length === 0)
 		{
 			console.log('Nothing update!');
+			this.props.displayNoti(false, false, '');
 			return;
 		}
 
@@ -107,6 +108,11 @@ class ExaminationTextInputs extends React.Component{
 		      	if(obj.state === 1)
 		      	{
 		      		this.props.setList(obj.list);
+		      		this.props.displayNoti(true, false, 'Cập nhật thành công');
+		      	}
+		      	else
+		      	{
+		      		this.props.displayNoti(true, false, 'Cập nhật thất bại');
 		      	}
 		    }.bind(this))
 		    .catch(function(ex) {

@@ -167,6 +167,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('record/search', 'Staff\RecordController@getSearch');
 	Route::post('record', 'Staff\RecordController@store');
 	Route::get('record', 'Staff\RecordController@index');
+	Route::post('record/{record_id}', 'Staff\RecordController@update');
 
 	/*
 	 * Index
@@ -206,7 +207,8 @@ Route::group(['middleware' => ['auth']], function(){
 		            ->select('explorations.id AS index_id', 'explorations.name', 'temp_tbl.value', 'temp_tbl.id AS id')
 		            ->orderBy('index_id')
 		            ->get();
-        return ['symptoms' => $symptoms, 'signs' => $signs, 'images' => $images, 'explorations' => $explorations];
+		$diagnosis = App\Record::find($record_id);
+        return ['symptoms' => $symptoms, 'signs' => $signs, 'images' => $images, 'explorations' => $explorations, 'diagnosis' => $diagnosis];
 	});
 	Route::post('symptom/{record_id}', 'Staff\RecordSymptomController@update');
 	Route::post('sign/{record_id}', 'Staff\RecordSignController@update');

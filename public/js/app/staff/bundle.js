@@ -22418,15 +22418,15 @@
 
 	var _ExaminationDetail2 = _interopRequireDefault(_ExaminationDetail);
 
-	var _App9 = __webpack_require__(679);
+	var _App9 = __webpack_require__(680);
 
 	var _App10 = _interopRequireDefault(_App9);
 
-	var _Create = __webpack_require__(682);
+	var _Create = __webpack_require__(683);
 
 	var _Create2 = _interopRequireDefault(_Create);
 
-	var _ListPlant = __webpack_require__(685);
+	var _ListPlant = __webpack_require__(686);
 
 	var _ListPlant2 = _interopRequireDefault(_ListPlant);
 
@@ -74829,6 +74829,10 @@
 
 	var _Exploration2 = _interopRequireDefault(_Exploration);
 
+	var _Diagnosis = __webpack_require__(679);
+
+	var _Diagnosis2 = _interopRequireDefault(_Diagnosis);
+
 	var _Alert = __webpack_require__(531);
 
 	var _Alert2 = _interopRequireDefault(_Alert);
@@ -74885,12 +74889,14 @@
 	        symptoms: [],
 	        signs: [],
 	        images: [],
-	        explorations: []
+	        explorations: [],
+	        diagnosis: []
 	      },
 	      value: 0,
-	      maxValue: 4,
+	      maxValue: 5,
 	      openAlert: false,
 	      openSnackBar: false,
+	      notiSnackBar: '',
 	      openProgress: false,
 	      isLoading: true
 	    };
@@ -75010,13 +75016,20 @@
 	          case 4:
 	            this.explorationComponent.submit();
 	            break;
+	          case 5:
+	            this.diagnosisComponent.submit();
+	            break;
 	        }
-
-	        this.setState({
-	          openSnackBar: true,
-	          openProgress: false
-	        });
 	      }.bind(this), 1500);
+	    }
+	  }, {
+	    key: 'displayNoti',
+	    value: function displayNoti(openSnackBar, openProgress, notiSnackBar) {
+	      this.setState({
+	        openSnackBar: openSnackBar,
+	        openProgress: openProgress,
+	        notiSnackBar: notiSnackBar
+	      });
 	    }
 	  }, {
 	    key: 'render',
@@ -75052,7 +75065,8 @@
 	                return _this2.symtomComponent = _ref;
 	              },
 	              api: '/symptom/' + this.props.params.record_id,
-	              setList: this.setSymptomData
+	              setList: this.setSymptomData,
+	              displayNoti: this.displayNoti
 	            })
 	          ),
 	          _react2.default.createElement(
@@ -75064,7 +75078,8 @@
 	                return _this2.signComponent = _ref2;
 	              },
 	              api: '/sign/' + this.props.params.record_id,
-	              setList: this.setSignData
+	              setList: this.setSignData,
+	              displayNoti: this.displayNoti
 	            })
 	          ),
 	          _react2.default.createElement(
@@ -75085,7 +75100,8 @@
 	                return _this2.imageComponent = _ref3;
 	              },
 	              api: '/image/' + this.props.params.record_id,
-	              setList: this.setImageData
+	              setList: this.setImageData,
+	              displayNoti: this.displayNoti
 	            })
 	          ),
 	          _react2.default.createElement(
@@ -75097,7 +75113,20 @@
 	                return _this2.explorationComponent = _ref4;
 	              },
 	              api: '/exploration/' + this.props.params.record_id,
-	              setList: this.setExplorationData
+	              setList: this.setExplorationData,
+	              displayNoti: this.displayNoti
+	            })
+	          ),
+	          _react2.default.createElement(
+	            _Tabs.Tab,
+	            { value: 5 },
+	            _react2.default.createElement(_Diagnosis2.default, {
+	              diagnosis: this.state.list.diagnosis,
+	              ref: function ref(_ref5) {
+	                return _this2.diagnosisComponent = _ref5;
+	              },
+	              api: '/record/' + this.props.params.record_id,
+	              displayNoti: this.displayNoti
 	            })
 	          )
 	        ),
@@ -75112,7 +75141,7 @@
 	          onRequestClose: function onRequestClose() {
 	            _this2.setState({ openSnackBar: false });
 	          },
-	          noti: '\u0110\xE3 c\u1EADp nh\u1EADt th\xE0nh c\xF4ng'
+	          noti: this.state.notiSnackBar
 	        }),
 	        _react2.default.createElement(
 	          'div',
@@ -75213,7 +75242,8 @@
 							return _this2.radioInputsComponent = _ref;
 						},
 						api: this.props.api,
-						setList: this.props.setList
+						setList: this.props.setList,
+						displayNoti: this.props.displayNoti
 					})
 				);
 			}
@@ -75311,6 +75341,7 @@
 				console.log('Delete Array', deleteArr);
 				if (addArr.length === 0 & deleteArr.length === 0) {
 					console.log('Nothing updated');
+					this.props.displayNoti(false, false, '');
 					return;
 				}
 
@@ -75335,6 +75366,10 @@
 					if (obj.state === 1) {
 						//console.log(obj.list);
 						this.props.setList(obj.list);
+						this.props.displayNoti(true, false, 'Cập nhật thành công');
+					} else {
+
+						this.props.displayNoti(true, false, 'Cập nhật thất bại');
 					}
 				}.bind(this)).catch(function (ex) {
 					//Log Error
@@ -75451,7 +75486,8 @@
 							return _this2.radioInputsComponent = _ref;
 						},
 						api: this.props.api,
-						setList: this.props.setList
+						setList: this.props.setList,
+						displayNoti: this.props.displayNoti
 					})
 				);
 			}
@@ -75523,7 +75559,8 @@
 							_this2.examinationTextInputsComponent = _ref;
 						},
 						api: this.props.api,
-						setList: this.props.setList
+						setList: this.props.setList,
+						displayNoti: this.props.displayNoti
 					})
 				);
 			}
@@ -75644,6 +75681,7 @@
 
 				if (addArr.length === 0 && editArr.length === 0 && deleteArr.length === 0) {
 					console.log('Nothing update!');
+					this.props.displayNoti(false, false, '');
 					return;
 				}
 
@@ -75670,6 +75708,9 @@
 					}).then(function (obj) {
 						if (obj.state === 1) {
 							this.props.setList(obj.list);
+							this.props.displayNoti(true, false, 'Cập nhật thành công');
+						} else {
+							this.props.displayNoti(true, false, 'Cập nhật thất bại');
 						}
 					}.bind(this)).catch(function (ex) {
 						//Log Error
@@ -75770,7 +75811,8 @@
 						setList: this.props.setList,
 						ref: function ref(_ref) {
 							_this2.examinationTextInputsComponent = _ref;
-						}
+						},
+						displayNoti: this.props.displayNoti
 					})
 				);
 			}
@@ -75791,13 +75833,246 @@
 		value: true
 	});
 
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _List = __webpack_require__(680);
+	var _TextField = __webpack_require__(495);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _SelectField = __webpack_require__(603);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(419);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _reactAutobind = __webpack_require__(646);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var items = [_react2.default.createElement(_MenuItem2.default, { key: 1, value: false, primaryText: 'Kh\xF4ng c\xF3 bi\u1EBFn ch\u1EE9ng' }), _react2.default.createElement(_MenuItem2.default, { key: 2, value: true, primaryText: 'C\xF3 bi\u1EBFn ch\u1EE9ng' })];
+
+	var Diagnosis = function (_React$Component) {
+		_inherits(Diagnosis, _React$Component);
+
+		function Diagnosis(props) {
+			_classCallCheck(this, Diagnosis);
+
+			var _this = _possibleConstructorReturn(this, (Diagnosis.__proto__ || Object.getPrototypeOf(Diagnosis)).call(this, props));
+
+			var diagnosis = _this.props.diagnosis;
+			_this.state = {
+				haveComplication: false,
+				diagnosis: diagnosis,
+				errorOutComeInput: diagnosis.outcome === '' ? 'Không được để trống' : '',
+				errorPeriodInput: diagnosis.period === '' ? 'Không được để trống' : ''
+			};
+			_this.onSubmit = false;
+			(0, _reactAutobind2.default)(_this);
+			return _this;
+		}
+
+		_createClass(Diagnosis, [{
+			key: 'handleChangeSelect',
+			value: function handleChangeSelect(event, index, value) {
+				if (value) this.setState({
+					haveComplication: value
+				});else this.setState({
+					haveComplication: value,
+					diagnosis: _extends({}, this.state.diagnosis, {
+						other: '',
+						kidney_complication: '',
+						vascular_complication: ''
+					})
+				});
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				var diagnosis = this.state.diagnosis;
+				if (diagnosis.kidney_complication !== '' || diagnosis.vascular_complication !== '' || diagnosis.other !== '') {
+					this.setState({
+						haveComplication: true
+					});
+				}
+			}
+		}, {
+			key: 'validateOutComeInput',
+			value: function validateOutComeInput(e) {
+				this.setState({ onChangeOutComeInput: true });
+				var str = e.target.value;
+				if (str === '') {
+					this.setState({ errorOutComeInput: 'Không được để trống' });
+					return;
+				} else {
+					this.setState({ errorOutComeInput: '' });
+				}
+			}
+		}, {
+			key: 'validatePeriodInput',
+			value: function validatePeriodInput(e) {
+				this.setState({ onChangePeriodInput: true });
+				var str = e.target.value;
+				if (str === '') {
+					this.setState({ errorOutComeInput: 'Không được để trống' });
+					return;
+				} else {
+					this.setState({ errorPeriodInput: '' });
+				}
+			}
+		}, {
+			key: 'submit',
+			value: function submit() {
+				this.onSubmit = true;
+				if (this.state.errorOutComeInput !== '' || this.state.errorPeriodInput !== '') {
+					this.props.displayNoti(false, false, '');
+					return;
+				}
+				var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+				var formData = new FormData();
+				formData.append('_token', _token);
+				formData.append('outcome', this.outcome.getValue());
+				formData.append('period', this.period.getValue());
+				formData.append('vascular_complication', this.vascular_complication ? this.vascular_complication.getValue() : '');
+				formData.append('kidney_complication', this.kidney_complication ? this.kidney_complication.getValue() : '');
+				formData.append('other', this.other ? this.other.getValue() : '');
+
+				var api = this.props.api;
+				//POST (AJAX)
+				setTimeout(function () {
+					fetch(api, {
+						method: 'POST',
+						credentials: 'same-origin',
+						body: formData
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						this.props.displayNoti(true, false, obj.message);
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 0);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				var diagnosis = this.state.diagnosis;
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_TextField2.default, {
+						fullWidth: true,
+						hintText: 'X\xE1c \u0111\u1ECBnh b\u1EC7nh',
+						floatingLabelText: 'X\xE1c \u0111\u1ECBnh b\u1EC7nh',
+						defaultValue: diagnosis.outcome ? diagnosis.outcome : '',
+						ref: function ref(input) {
+							_this2.outcome = input;
+						},
+						onBlur: this.validateOutComeInput,
+						errorText: this.state.onChangeOutComeInput || this.onSubmit ? this.state.errorOutComeInput : ''
+					}),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(_TextField2.default, {
+						fullWidth: true,
+						hintText: 'M\u1EE9c \u0111\u1ED9 (Giai \u0111o\u1EA1n)',
+						floatingLabelText: 'M\u1EE9c \u0111\u1ED9 (Giai \u0111o\u1EA1n)',
+						defaultValue: diagnosis.period ? diagnosis.period : '',
+						ref: function ref(input) {
+							_this2.period = input;
+						},
+						onBlur: this.validatePeriodInput,
+						errorText: this.state.onChangePeriodInput || this.onSubmit ? this.state.errorPeriodInput : ''
+					}),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						_SelectField2.default,
+						{
+							fullWidth: true,
+							value: this.state.haveComplication,
+							onChange: this.handleChangeSelect,
+							floatingLabelText: 'Bi\u1EBFn ch\u1EE9ng'
+						},
+						items
+					),
+					_react2.default.createElement('br', null),
+					this.state.haveComplication ? _react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_TextField2.default, {
+							fullWidth: true,
+							hintText: 'Bi\u1EBFn ch\u1EE9ng th\u1EADn',
+							floatingLabelText: 'Bi\u1EBFn ch\u1EE9ng th\u1EADn',
+							defaultValue: diagnosis.kidney_complication ? diagnosis.kidney_complication : '',
+							ref: function ref(input) {
+								_this2.kidney_complication = input;
+							}
+						}),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(_TextField2.default, {
+							fullWidth: true,
+							hintText: 'Bi\u1EBFn ch\u1EE9ng m\u1EA1ch m\xE1u',
+							floatingLabelText: 'Bi\u1EBFn ch\u1EE9ng m\u1EA1ch m\xE1u',
+							defaultValue: diagnosis.vascular_complication ? diagnosis.vascular_complication : '',
+							ref: function ref(input) {
+								_this2.vascular_complication = input;
+							}
+						}),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(_TextField2.default, {
+							fullWidth: true,
+							hintText: 'B\u1EC7nh kh\xE1c',
+							floatingLabelText: 'B\u1EC7nh kh\xE1c',
+							defaultValue: diagnosis.other ? diagnosis.other : '',
+							ref: function ref(input) {
+								_this2.other = input;
+							}
+						}),
+						_react2.default.createElement('br', null)
+					) : ''
+				);
+			}
+		}]);
+
+		return Diagnosis;
+	}(_react2.default.Component);
+
+	exports.default = Diagnosis;
+
+/***/ }),
+/* 680 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _List = __webpack_require__(681);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -75897,7 +76172,7 @@
 	exports.default = Plants;
 
 /***/ }),
-/* 680 */
+/* 681 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -75922,7 +76197,7 @@
 
 	var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
-	var _Detail = __webpack_require__(681);
+	var _Detail = __webpack_require__(682);
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
@@ -76104,7 +76379,7 @@
 	exports.default = List;
 
 /***/ }),
-/* 681 */
+/* 682 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76315,7 +76590,7 @@
 	exports.default = Detail;
 
 /***/ }),
-/* 682 */
+/* 683 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76334,11 +76609,11 @@
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
-	var _SelectInputs = __webpack_require__(683);
+	var _SelectInputs = __webpack_require__(684);
 
 	var _SelectInputs2 = _interopRequireDefault(_SelectInputs);
 
-	var _autorenew = __webpack_require__(684);
+	var _autorenew = __webpack_require__(685);
 
 	var _autorenew2 = _interopRequireDefault(_autorenew);
 
@@ -76573,7 +76848,7 @@
 	exports.default = Create;
 
 /***/ }),
-/* 683 */
+/* 684 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76826,7 +77101,7 @@
 	exports.default = SelectInputs;
 
 /***/ }),
-/* 684 */
+/* 685 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76861,7 +77136,7 @@
 	exports.default = ActionAutorenew;
 
 /***/ }),
-/* 685 */
+/* 686 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -76880,7 +77155,7 @@
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
-	var _Plant = __webpack_require__(686);
+	var _Plant = __webpack_require__(687);
 
 	var _Plant2 = _interopRequireDefault(_Plant);
 
@@ -77007,7 +77282,7 @@
 	exports.default = ListPlant;
 
 /***/ }),
-/* 686 */
+/* 687 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';

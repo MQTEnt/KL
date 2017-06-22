@@ -7,6 +7,7 @@ import Symptom from './Symptom';
 import Sign from './Sign';
 import Image from './Image';
 import Exploration from './Exploration';
+import Diagnosis from './Diagnosis';
 import Alert from '../partials/Alert';
 import SnackBar from '../partials/SnackBar';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -36,12 +37,14 @@ export default class ExaminationDetail extends React.Component {
         symptoms: [],
         signs: [],
         images: [],
-        explorations: []
+        explorations: [],
+        diagnosis: []
       },
       value: 0,
-      maxValue: 4,
+      maxValue: 5,
       openAlert: false,
       openSnackBar: false,
+      notiSnackBar: '',
       openProgress: false,
       isLoading: true
     };
@@ -142,13 +145,18 @@ export default class ExaminationDetail extends React.Component {
         case 4:
             this.explorationComponent.submit();
             break;
+        case 5:
+          this.diagnosisComponent.submit();
+          break;
       }
-      
-      this.setState({
-        openSnackBar: true,
-        openProgress: false
-      });
     }.bind(this), 1500);
+  }
+  displayNoti(openSnackBar, openProgress, notiSnackBar){
+    this.setState({
+        openSnackBar: openSnackBar,
+        openProgress: openProgress,
+        notiSnackBar: notiSnackBar
+      });
   }
   render() {
     return (
@@ -171,6 +179,7 @@ export default class ExaminationDetail extends React.Component {
                 ref={(ref)=>this.symtomComponent = ref}
                 api={'/symptom/'+this.props.params.record_id}
                 setList={this.setSymptomData}
+                displayNoti={this.displayNoti}
               />
             </Tab>
             <Tab value={1}>
@@ -179,6 +188,7 @@ export default class ExaminationDetail extends React.Component {
                 ref={(ref)=>this.signComponent = ref}
                 api={'/sign/'+this.props.params.record_id}
                 setList={this.setSignData}
+                displayNoti={this.displayNoti}
               />
             </Tab>
             <Tab value={2}>
@@ -192,6 +202,7 @@ export default class ExaminationDetail extends React.Component {
                 ref={(ref)=>this.imageComponent = ref}
                 api={'/image/'+this.props.params.record_id}
                 setList={this.setImageData}
+                displayNoti={this.displayNoti}
               />
             </Tab>
             <Tab value={4}>
@@ -200,6 +211,15 @@ export default class ExaminationDetail extends React.Component {
                 ref={(ref)=>this.explorationComponent = ref}
                 api={'/exploration/'+this.props.params.record_id}
                 setList={this.setExplorationData}
+                displayNoti={this.displayNoti}
+              />
+            </Tab>
+            <Tab value={5}>
+              <Diagnosis
+                diagnosis={this.state.list.diagnosis}
+                ref={(ref)=>this.diagnosisComponent = ref}
+                api={'/record/'+this.props.params.record_id}
+                displayNoti={this.displayNoti}
               />
             </Tab>
           </Tabs>
@@ -213,7 +233,7 @@ export default class ExaminationDetail extends React.Component {
         <SnackBar
           open={this.state.openSnackBar}
           onRequestClose={() => {this.setState({openSnackBar: false})}}
-          noti='Đã cập nhật thành công'
+          noti={this.state.notiSnackBar}
         />
         <div style={{width: '50%', margin: '0 auto'}}>
             <RaisedButton 

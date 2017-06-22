@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Record;
+use Auth;
 class RecordController extends Controller
 {
 	public function store(Request $request){
@@ -18,6 +19,25 @@ class RecordController extends Controller
 	public function index(){
 		$records = Record::with('patient')->orderBy('created_at', 'desc')->paginate(10);
 		return $records;
+	}
+	public function update($record_id, Request $request){
+		$record = Record::findOrFail($record_id);
+		if($record->state==0||($record->state==1&&$record->examiner==Auth::user()->id))
+		{
+			$record->outcome = $request->outcome;
+			$record->period = $request->period;
+			$record->vascular_complication = $request->vascular_complication;
+			$record->kidney_complication = $request->kidney_complication;
+			$record->other = $request->other;
+			$record->state = 1;
+			$record->examiner = Auth::user()->id;
+			$record->save();
+			return ['state' => 1, 'message' => 'Đã cập nhật thành công!'];
+		}
+		else
+		{
+			return ['state' => 0, 'message' => 'Bạn không đủ quyền để cập nhật bệnh án này'];
+		}
 	}
 	public function getSearch(Request $request)
 	{

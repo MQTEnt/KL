@@ -28,9 +28,10 @@ class CreateRecordsTable extends Migration
             $table->integer('examiner')->nullable()->unsigned();
             $table->foreign('examiner')->references('id')->on('users');
 
-            //Người lập kế hoạch
-            $table->integer('planner')->nullable()->unsigned();
-            $table->foreign('planner')->references('id')->on('users');
+            //Trạng thái bệnh án
+            //state: 0 - Bệnh án chưa được chẩn đoán
+            //state: 1 - Bệnh án đã được chẩn đoán
+            $table->unsignedSmallInteger('state')->default(0);
 
             $table->timestamps();
         });

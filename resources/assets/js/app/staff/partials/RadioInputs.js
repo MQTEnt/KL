@@ -53,7 +53,8 @@ export default class RadioInputs extends React.Component{
 		console.log('Delete Array', deleteArr);
 		if(addArr.length === 0 & deleteArr.length === 0)
 		{
-			console.log('Nothing updated')
+			console.log('Nothing updated');
+			this.props.displayNoti(false, false, '');
 			return;
 		}
 
@@ -81,6 +82,12 @@ export default class RadioInputs extends React.Component{
 	      	{
 	      		//console.log(obj.list);
 	      		this.props.setList(obj.list);
+	      		this.props.displayNoti(true, false, 'Cập nhật thành công');
+	      	}
+	      	else
+	      	{
+	      	
+	      		this.props.displayNoti(true, false, 'Cập nhật thất bại');
 	      	}
 	    }.bind(this))
 	    .catch(function(ex) {

@@ -17,6 +17,7 @@ export default class Exploration extends React.Component{
 					api={this.props.api}
 					setList={this.props.setList}
 					ref={(ref) => {this.examinationTextInputsComponent = ref}}
+					displayNoti={this.props.displayNoti}
 				/>
 			</div>
 		);
