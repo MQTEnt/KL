@@ -105,21 +105,14 @@ class ExaminationTextInputs extends React.Component{
 		    .then(function(response) {
 		      return response.json()
 		    }).then(function(obj) {
-		      	if(obj.state === 1)
-		      	{
-		      		this.props.setList(obj.list);
-		      		this.props.displayNoti(true, false, 'Cập nhật thành công');
-		      	}
-		      	else
-		      	{
-		      		this.props.displayNoti(true, false, 'Cập nhật thất bại');
-		      	}
+		      	this.props.setList(obj.list);
+		      	this.props.displayNoti(true, false, obj.message);
 		    }.bind(this))
 		    .catch(function(ex) {
 		      //Log Error
 		      console.log('parsing failed', ex)
 		    });
-		}.bind(this), 1500);
+		}.bind(this), 0);
 	}
 	render(){
 		let indexes = this.props.list;

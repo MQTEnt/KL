@@ -78,17 +78,9 @@ export default class RadioInputs extends React.Component{
 	    .then(function(response) {
 	      return response.json()
 	    }).then(function(obj) {
-	      	if(obj.state === 1)
-	      	{
-	      		//console.log(obj.list);
-	      		this.props.setList(obj.list);
-	      		this.props.displayNoti(true, false, 'Cập nhật thành công');
-	      	}
-	      	else
-	      	{
-	      	
-	      		this.props.displayNoti(true, false, 'Cập nhật thất bại');
-	      	}
+	      	//console.log(obj.list);
+      		this.props.setList(obj.list);
+      		this.props.displayNoti(true, false, obj.message);
 	    }.bind(this))
 	    .catch(function(ex) {
 	      //Log Error
