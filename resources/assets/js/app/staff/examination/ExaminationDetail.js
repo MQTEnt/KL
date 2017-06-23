@@ -8,6 +8,7 @@ import Sign from './Sign';
 import Image from './Image';
 import Exploration from './Exploration';
 import Diagnosis from './Diagnosis';
+import Index from './Index';
 import Alert from '../partials/Alert';
 import SnackBar from '../partials/SnackBar';
 import LinearProgress from 'material-ui/LinearProgress';
@@ -38,7 +39,8 @@ export default class ExaminationDetail extends React.Component {
         signs: [],
         images: [],
         explorations: [],
-        diagnosis: []
+        diagnosis: [],
+        indexes: []
       },
       value: 0,
       maxValue: 5,
@@ -192,9 +194,9 @@ export default class ExaminationDetail extends React.Component {
               />
             </Tab>
             <Tab value={2}>
-              <p>
-                Chỉ số xét nghiệm
-              </p>
+              <Index
+                indexes={this.state.list.indexes}
+              />
             </Tab>
             <Tab value={3}>
               <Image

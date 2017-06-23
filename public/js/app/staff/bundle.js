@@ -74833,6 +74833,10 @@
 
 	var _Diagnosis2 = _interopRequireDefault(_Diagnosis);
 
+	var _Index = __webpack_require__(688);
+
+	var _Index2 = _interopRequireDefault(_Index);
+
 	var _Alert = __webpack_require__(531);
 
 	var _Alert2 = _interopRequireDefault(_Alert);
@@ -74890,7 +74894,8 @@
 	        signs: [],
 	        images: [],
 	        explorations: [],
-	        diagnosis: []
+	        diagnosis: [],
+	        indexes: []
 	      },
 	      value: 0,
 	      maxValue: 5,
@@ -75085,11 +75090,9 @@
 	          _react2.default.createElement(
 	            _Tabs.Tab,
 	            { value: 2 },
-	            _react2.default.createElement(
-	              'p',
-	              null,
-	              'Ch\u1EC9 s\u1ED1 x\xE9t nghi\u1EC7m'
-	            )
+	            _react2.default.createElement(_Index2.default, {
+	              indexes: this.state.list.indexes
+	            })
 	          ),
 	          _react2.default.createElement(
 	            _Tabs.Tab,
@@ -77335,6 +77338,136 @@
 	};
 
 	exports.default = Plant;
+
+/***/ }),
+/* 688 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Table = __webpack_require__(518);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Index = function (_React$Component) {
+		_inherits(Index, _React$Component);
+
+		function Index(props) {
+			_classCallCheck(this, Index);
+
+			var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this, props));
+
+			_this.renderIndexes = _this.renderIndexes.bind(_this);
+			return _this;
+		}
+
+		_createClass(Index, [{
+			key: 'renderIndexes',
+			value: function renderIndexes() {
+				var indexes = this.props.indexes;
+				return _react2.default.createElement(
+					_Table.TableBody,
+					{ showRowHover: true, displayRowCheckbox: false },
+					indexes.map(function (index) {
+						return _react2.default.createElement(
+							_Table.TableRow,
+							{ key: index.id, style: { 'cursor': 'pointer' } },
+							_react2.default.createElement(
+								_Table.TableRowColumn,
+								null,
+								index.name
+							),
+							_react2.default.createElement(
+								_Table.TableRowColumn,
+								null,
+								index.value
+							),
+							_react2.default.createElement(
+								_Table.TableRowColumn,
+								null,
+								index.unit
+							),
+							_react2.default.createElement(
+								_Table.TableRowColumn,
+								null,
+								index.level
+							)
+						);
+					})
+				);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ style: { marginBottom: 20 } },
+					_react2.default.createElement(
+						'p',
+						null,
+						_react2.default.createElement(
+							'b',
+							null,
+							'K\u1EBFt qu\u1EA3 x\xE9t nghi\u1EC7m: '
+						)
+					),
+					_react2.default.createElement(
+						_Table.Table,
+						null,
+						_react2.default.createElement(
+							_Table.TableHeader,
+							{ displaySelectAll: false, adjustForCheckbox: false },
+							_react2.default.createElement(
+								_Table.TableRow,
+								null,
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'Ch\u1EC9 s\u1ED1'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'K\u1EBFt qu\u1EA3'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'\u0110\u01A1n v\u1ECB'
+								),
+								_react2.default.createElement(
+									_Table.TableHeaderColumn,
+									null,
+									'M\u1EE9c'
+								)
+							)
+						),
+						this.renderIndexes()
+					)
+				);
+			}
+		}]);
+
+		return Index;
+	}(_react2.default.Component);
+
+	exports.default = Index;
 
 /***/ })
 /******/ ]);

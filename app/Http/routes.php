@@ -208,7 +208,22 @@ Route::group(['middleware' => ['auth']], function(){
 		            ->orderBy('index_id')
 		            ->get();
 		$diagnosis = App\Record::find($record_id);
-        return ['symptoms' => $symptoms, 'signs' => $signs, 'images' => $images, 'explorations' => $explorations, 'diagnosis' => $diagnosis];
+		$indexes = DB::table('indexes')
+		            ->leftJoin(DB::raw("
+		            	(SELECT * FROM record_index WHERE record_id = $record_id) AS temp_tbl
+		            	LEFT JOIN 
+		            	(SELECT * FROM levels) AS temp_tbl2
+		            	ON 
+		            		(temp_tbl.value <= temp_tbl2.max)
+		            		AND
+		            		(temp_tbl.value >= temp_tbl2.min)
+		            		AND
+		            		(temp_tbl2.index_id = temp_tbl.index_id)
+		            	"), 'indexes.id', '=', 'temp_tbl.index_id')
+		            ->select('indexes.id AS index_id', 'indexes.name', 'temp_tbl.value', 'temp_tbl.id AS id', 'indexes.unit', 'temp_tbl2.name AS level')
+		            ->orderBy('index_id')
+		            ->get();
+        return ['symptoms' => $symptoms, 'signs' => $signs, 'images' => $images, 'explorations' => $explorations, 'diagnosis' => $diagnosis, 'indexes' => $indexes];
 	});
 	Route::post('symptom/{record_id}', 'Staff\RecordSymptomController@update');
 	Route::post('sign/{record_id}', 'Staff\RecordSignController@update');
@@ -238,6 +253,5 @@ Route::group(['middleware' => ['auth']], function(){
 
 //Test
 Route::get('/test', function(){
-	$record = App\Record::find(1);
-	return $record->patient;
+
 });
