@@ -110,6 +110,7 @@ export default class Diagnosis extends React.Component{
 		let diagnosis = this.state.diagnosis;
 		return (
 			<div>
+				<h4 style={{textAlign: 'center'}}>Chẩn đoán</h4>
 				<TextField
 					fullWidth={true}
 					hintText="Xác định bệnh"

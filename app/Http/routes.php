@@ -207,7 +207,8 @@ Route::group(['middleware' => ['auth']], function(){
 		            ->select('explorations.id AS index_id', 'explorations.name', 'temp_tbl.value', 'temp_tbl.id AS id')
 		            ->orderBy('index_id')
 		            ->get();
-		$diagnosis = App\Record::find($record_id);
+		//Get diagnosis that also combine patient object
+		$diagnosis = App\Record::with('patient')->select('*')->where('id', $record_id)->first();
 		$indexes = DB::table('indexes')
 		            ->leftJoin(DB::raw("
 		            	(SELECT * FROM record_index WHERE record_id = $record_id) AS temp_tbl

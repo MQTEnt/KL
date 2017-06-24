@@ -13,7 +13,7 @@ export default class Index extends React.Component{
 			<TableBody showRowHover={true} displayRowCheckbox={false}>
 	        {
 	          indexes.map( (index) => (
-	              <TableRow key={index.id} style={{'cursor': 'pointer'}}>
+	              <TableRow key={index.index_id} style={{'cursor': 'pointer'}}>
 	                  <TableRowColumn>{index.name}</TableRowColumn>
 	                  <TableRowColumn>{index.value}</TableRowColumn>
 	                  <TableRowColumn>{index.unit}</TableRowColumn>
@@ -28,7 +28,7 @@ export default class Index extends React.Component{
 	render(){
 		return (
 			<div style={{marginBottom: 20}}>
-				<p><b>Kết quả xét nghiệm: </b></p>
+				<h4 style={{textAlign: 'center'}}>Kết quả xét nghiệm</h4>
 				<Table>
 					<TableHeader displaySelectAll={false} adjustForCheckbox={false}>
 						<TableRow>

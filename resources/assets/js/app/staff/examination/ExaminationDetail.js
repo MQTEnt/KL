@@ -10,6 +10,7 @@ import Exploration from './Exploration';
 import Diagnosis from './Diagnosis';
 import Index from './Index';
 import Alert from '../partials/Alert';
+import Paper from 'material-ui/Paper';
 import SnackBar from '../partials/SnackBar';
 import LinearProgress from 'material-ui/LinearProgress';
 import CircularProgress from 'material-ui/CircularProgress';
@@ -42,6 +43,7 @@ export default class ExaminationDetail extends React.Component {
         diagnosis: [],
         indexes: []
       },
+      patient: {},
       value: 0,
       maxValue: 5,
       openAlert: false,
@@ -95,7 +97,8 @@ export default class ExaminationDetail extends React.Component {
 
         this.setState({
           isLoading: false,
-          list: obj
+          list: obj,
+          patient: obj.diagnosis.patient
         })
       }.bind(this))
       .catch(function(ex) {
@@ -160,71 +163,88 @@ export default class ExaminationDetail extends React.Component {
         notiSnackBar: notiSnackBar
       });
   }
+  displayTitleRecord(){
+    let recordTitle  = this.state.list.diagnosis.created_at;
+    return <h2 style={styles.headline}>Mã bệnh án: {this.props.params.record_id} <i style={{fontSize: '65%'}}>Tạo ngày: {recordTitle.split(" ")[0]}</i></h2>;
+  }
   render() {
+    let patient = this.state.patient
     return (
       <div style={styles.main}>
-        <h2 style={styles.headline}>Mã bệnh án: {this.props.params.record_id}</h2>
         {
           (this.state.isLoading)?
           <div style={{'margin': '50px auto', 'width': '0'}}>
             <CircularProgress size={80} thickness={5}/>
           </div>
           :
-          <Tabs
-            value={this.state.value}
-            inkBarStyle={{display: 'none'}}
-            tabItemContainerStyle={{display: 'none'}}
-          >
-            <Tab value={0}>
-              <Symptom
-                symptoms={this.state.list.symptoms}
-                ref={(ref)=>this.symtomComponent = ref}
-                api={'/symptom/'+this.props.params.record_id}
-                setList={this.setSymptomData}
-                displayNoti={this.displayNoti}
-              />
-            </Tab>
-            <Tab value={1}>
-              <Sign
-                signs={this.state.list.signs}
-                ref={(ref)=>this.signComponent = ref}
-                api={'/sign/'+this.props.params.record_id}
-                setList={this.setSignData}
-                displayNoti={this.displayNoti}
-              />
-            </Tab>
-            <Tab value={2}>
-              <Index
-                indexes={this.state.list.indexes}
-              />
-            </Tab>
-            <Tab value={3}>
-              <Image
-                images={this.state.list.images}
-                ref={(ref)=>this.imageComponent = ref}
-                api={'/image/'+this.props.params.record_id}
-                setList={this.setImageData}
-                displayNoti={this.displayNoti}
-              />
-            </Tab>
-            <Tab value={4}>
-              <Exploration
-                explorations={this.state.list.explorations}
-                ref={(ref)=>this.explorationComponent = ref}
-                api={'/exploration/'+this.props.params.record_id}
-                setList={this.setExplorationData}
-                displayNoti={this.displayNoti}
-              />
-            </Tab>
-            <Tab value={5}>
-              <Diagnosis
-                diagnosis={this.state.list.diagnosis}
-                ref={(ref)=>this.diagnosisComponent = ref}
-                api={'/record/'+this.props.params.record_id}
-                displayNoti={this.displayNoti}
-              />
-            </Tab>
-          </Tabs>
+          <div>
+            {this.displayTitleRecord()}
+            <Paper zDepth={2}>
+              <ul style={{margin: 20, padding: 10, textAlign: 'left'}}>
+                <li>Tên bệnh nhân: <b>{patient.name}</b></li>
+                <li>Ngày sinh: <b>{patient.dob}</b></li>
+                <li>Địa chỉ: <b>{patient.address}</b></li>
+                <li>Nghề nghiệp: <b>{patient.job}</b></li>
+              </ul>
+            </Paper>
+            <Paper style={{marginBottom: 30, padding: 10}} zDepth={2}>
+              <Tabs
+                value={this.state.value}
+                inkBarStyle={{display: 'none'}}
+                tabItemContainerStyle={{display: 'none'}}
+              >
+                <Tab value={0}>
+                  <Symptom
+                    symptoms={this.state.list.symptoms}
+                    ref={(ref)=>this.symtomComponent = ref}
+                    api={'/symptom/'+this.props.params.record_id}
+                    setList={this.setSymptomData}
+                    displayNoti={this.displayNoti}
+                  />
+                </Tab>
+                <Tab value={1}>
+                  <Sign
+                    signs={this.state.list.signs}
+                    ref={(ref)=>this.signComponent = ref}
+                    api={'/sign/'+this.props.params.record_id}
+                    setList={this.setSignData}
+                    displayNoti={this.displayNoti}
+                  />
+                </Tab>
+                <Tab value={2}>
+                  <Index
+                    indexes={this.state.list.indexes}
+                  />
+                </Tab>
+                <Tab value={3}>
+                  <Image
+                    images={this.state.list.images}
+                    ref={(ref)=>this.imageComponent = ref}
+                    api={'/image/'+this.props.params.record_id}
+                    setList={this.setImageData}
+                    displayNoti={this.displayNoti}
+                  />
+                </Tab>
+                <Tab value={4}>
+                  <Exploration
+                    explorations={this.state.list.explorations}
+                    ref={(ref)=>this.explorationComponent = ref}
+                    api={'/exploration/'+this.props.params.record_id}
+                    setList={this.setExplorationData}
+                    displayNoti={this.displayNoti}
+                  />
+                </Tab>
+                <Tab value={5}>
+                  <Diagnosis
+                    diagnosis={this.state.list.diagnosis}
+                    ref={(ref)=>this.diagnosisComponent = ref}
+                    api={'/record/'+this.props.params.record_id}
+                    displayNoti={this.displayNoti}
+                  />
+                </Tab>
+              </Tabs>
+            </Paper>
+          </div>
         }
         <Alert
           open={this.state.openAlert}

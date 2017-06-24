@@ -74841,6 +74841,10 @@
 
 	var _Alert2 = _interopRequireDefault(_Alert);
 
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _SnackBar = __webpack_require__(658);
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
@@ -74897,6 +74901,7 @@
 	        diagnosis: [],
 	        indexes: []
 	      },
+	      patient: {},
 	      value: 0,
 	      maxValue: 5,
 	      openAlert: false,
@@ -74961,7 +74966,8 @@
 
 	          this.setState({
 	            isLoading: false,
-	            list: obj
+	            list: obj,
+	            patient: obj.diagnosis.patient
 	          });
 	        }.bind(this)).catch(function (ex) {
 	          //Log Error
@@ -75037,100 +75043,170 @@
 	      });
 	    }
 	  }, {
+	    key: 'displayTitleRecord',
+	    value: function displayTitleRecord() {
+	      var recordTitle = this.state.list.diagnosis.created_at;
+	      return _react2.default.createElement(
+	        'h2',
+	        { style: styles.headline },
+	        'M\xE3 b\u1EC7nh \xE1n: ',
+	        this.props.params.record_id,
+	        ' ',
+	        _react2.default.createElement(
+	          'i',
+	          { style: { fontSize: '65%' } },
+	          'T\u1EA1o ng\xE0y: ',
+	          recordTitle.split(" ")[0]
+	        )
+	      );
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this2 = this;
 
+	      var patient = this.state.patient;
 	      return _react2.default.createElement(
 	        'div',
 	        { style: styles.main },
-	        _react2.default.createElement(
-	          'h2',
-	          { style: styles.headline },
-	          'M\xE3 b\u1EC7nh \xE1n: ',
-	          this.props.params.record_id
-	        ),
 	        this.state.isLoading ? _react2.default.createElement(
 	          'div',
 	          { style: { 'margin': '50px auto', 'width': '0' } },
 	          _react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
 	        ) : _react2.default.createElement(
-	          _Tabs.Tabs,
-	          {
-	            value: this.state.value,
-	            inkBarStyle: { display: 'none' },
-	            tabItemContainerStyle: { display: 'none' }
-	          },
+	          'div',
+	          null,
+	          this.displayTitleRecord(),
 	          _react2.default.createElement(
-	            _Tabs.Tab,
-	            { value: 0 },
-	            _react2.default.createElement(_Symptom2.default, {
-	              symptoms: this.state.list.symptoms,
-	              ref: function ref(_ref) {
-	                return _this2.symtomComponent = _ref;
-	              },
-	              api: '/symptom/' + this.props.params.record_id,
-	              setList: this.setSymptomData,
-	              displayNoti: this.displayNoti
-	            })
+	            _Paper2.default,
+	            { zDepth: 2 },
+	            _react2.default.createElement(
+	              'ul',
+	              { style: { margin: 20, padding: 10, textAlign: 'left' } },
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                'T\xEAn b\u1EC7nh nh\xE2n: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  patient.name
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                'Ng\xE0y sinh: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  patient.dob
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                '\u0110\u1ECBa ch\u1EC9: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  patient.address
+	                )
+	              ),
+	              _react2.default.createElement(
+	                'li',
+	                null,
+	                'Ngh\u1EC1 nghi\u1EC7p: ',
+	                _react2.default.createElement(
+	                  'b',
+	                  null,
+	                  patient.job
+	                )
+	              )
+	            )
 	          ),
 	          _react2.default.createElement(
-	            _Tabs.Tab,
-	            { value: 1 },
-	            _react2.default.createElement(_Sign2.default, {
-	              signs: this.state.list.signs,
-	              ref: function ref(_ref2) {
-	                return _this2.signComponent = _ref2;
+	            _Paper2.default,
+	            { style: { marginBottom: 30, padding: 10 }, zDepth: 2 },
+	            _react2.default.createElement(
+	              _Tabs.Tabs,
+	              {
+	                value: this.state.value,
+	                inkBarStyle: { display: 'none' },
+	                tabItemContainerStyle: { display: 'none' }
 	              },
-	              api: '/sign/' + this.props.params.record_id,
-	              setList: this.setSignData,
-	              displayNoti: this.displayNoti
-	            })
-	          ),
-	          _react2.default.createElement(
-	            _Tabs.Tab,
-	            { value: 2 },
-	            _react2.default.createElement(_Index2.default, {
-	              indexes: this.state.list.indexes
-	            })
-	          ),
-	          _react2.default.createElement(
-	            _Tabs.Tab,
-	            { value: 3 },
-	            _react2.default.createElement(_Image2.default, {
-	              images: this.state.list.images,
-	              ref: function ref(_ref3) {
-	                return _this2.imageComponent = _ref3;
-	              },
-	              api: '/image/' + this.props.params.record_id,
-	              setList: this.setImageData,
-	              displayNoti: this.displayNoti
-	            })
-	          ),
-	          _react2.default.createElement(
-	            _Tabs.Tab,
-	            { value: 4 },
-	            _react2.default.createElement(_Exploration2.default, {
-	              explorations: this.state.list.explorations,
-	              ref: function ref(_ref4) {
-	                return _this2.explorationComponent = _ref4;
-	              },
-	              api: '/exploration/' + this.props.params.record_id,
-	              setList: this.setExplorationData,
-	              displayNoti: this.displayNoti
-	            })
-	          ),
-	          _react2.default.createElement(
-	            _Tabs.Tab,
-	            { value: 5 },
-	            _react2.default.createElement(_Diagnosis2.default, {
-	              diagnosis: this.state.list.diagnosis,
-	              ref: function ref(_ref5) {
-	                return _this2.diagnosisComponent = _ref5;
-	              },
-	              api: '/record/' + this.props.params.record_id,
-	              displayNoti: this.displayNoti
-	            })
+	              _react2.default.createElement(
+	                _Tabs.Tab,
+	                { value: 0 },
+	                _react2.default.createElement(_Symptom2.default, {
+	                  symptoms: this.state.list.symptoms,
+	                  ref: function ref(_ref) {
+	                    return _this2.symtomComponent = _ref;
+	                  },
+	                  api: '/symptom/' + this.props.params.record_id,
+	                  setList: this.setSymptomData,
+	                  displayNoti: this.displayNoti
+	                })
+	              ),
+	              _react2.default.createElement(
+	                _Tabs.Tab,
+	                { value: 1 },
+	                _react2.default.createElement(_Sign2.default, {
+	                  signs: this.state.list.signs,
+	                  ref: function ref(_ref2) {
+	                    return _this2.signComponent = _ref2;
+	                  },
+	                  api: '/sign/' + this.props.params.record_id,
+	                  setList: this.setSignData,
+	                  displayNoti: this.displayNoti
+	                })
+	              ),
+	              _react2.default.createElement(
+	                _Tabs.Tab,
+	                { value: 2 },
+	                _react2.default.createElement(_Index2.default, {
+	                  indexes: this.state.list.indexes
+	                })
+	              ),
+	              _react2.default.createElement(
+	                _Tabs.Tab,
+	                { value: 3 },
+	                _react2.default.createElement(_Image2.default, {
+	                  images: this.state.list.images,
+	                  ref: function ref(_ref3) {
+	                    return _this2.imageComponent = _ref3;
+	                  },
+	                  api: '/image/' + this.props.params.record_id,
+	                  setList: this.setImageData,
+	                  displayNoti: this.displayNoti
+	                })
+	              ),
+	              _react2.default.createElement(
+	                _Tabs.Tab,
+	                { value: 4 },
+	                _react2.default.createElement(_Exploration2.default, {
+	                  explorations: this.state.list.explorations,
+	                  ref: function ref(_ref4) {
+	                    return _this2.explorationComponent = _ref4;
+	                  },
+	                  api: '/exploration/' + this.props.params.record_id,
+	                  setList: this.setExplorationData,
+	                  displayNoti: this.displayNoti
+	                })
+	              ),
+	              _react2.default.createElement(
+	                _Tabs.Tab,
+	                { value: 5 },
+	                _react2.default.createElement(_Diagnosis2.default, {
+	                  diagnosis: this.state.list.diagnosis,
+	                  ref: function ref(_ref5) {
+	                    return _this2.diagnosisComponent = _ref5;
+	                  },
+	                  api: '/record/' + this.props.params.record_id,
+	                  displayNoti: this.displayNoti
+	                })
+	              )
+	            )
 	          )
 	        ),
 	        _react2.default.createElement(_Alert2.default, {
@@ -75972,6 +76048,11 @@
 				return _react2.default.createElement(
 					'div',
 					null,
+					_react2.default.createElement(
+						'h4',
+						{ style: { textAlign: 'center' } },
+						'Ch\u1EA9n \u0111o\xE1n'
+					),
 					_react2.default.createElement(_TextField2.default, {
 						fullWidth: true,
 						hintText: 'X\xE1c \u0111\u1ECBnh b\u1EC7nh',
@@ -76098,7 +76179,7 @@
 					indexes.map(function (index) {
 						return _react2.default.createElement(
 							_Table.TableRow,
-							{ key: index.id, style: { 'cursor': 'pointer' } },
+							{ key: index.index_id, style: { 'cursor': 'pointer' } },
 							_react2.default.createElement(
 								_Table.TableRowColumn,
 								null,
@@ -76130,13 +76211,9 @@
 					'div',
 					{ style: { marginBottom: 20 } },
 					_react2.default.createElement(
-						'p',
-						null,
-						_react2.default.createElement(
-							'b',
-							null,
-							'K\u1EBFt qu\u1EA3 x\xE9t nghi\u1EC7m: '
-						)
+						'h4',
+						{ style: { textAlign: 'center' } },
+						'K\u1EBFt qu\u1EA3 x\xE9t nghi\u1EC7m'
 					),
 					_react2.default.createElement(
 						_Table.Table,
