@@ -264,7 +264,7 @@ export default class ExaminationDetail extends React.Component {
               primary={true}
               icon={<ActionCached/>}
               fullWidth={true}
-              style={{marginBottom: '10px'}} 
+              style={{marginBottom: '10px', display: (this.state.value===2)?'none':''}} 
             />
             <RaisedButton 
               onClick={this.handleClickNext} 

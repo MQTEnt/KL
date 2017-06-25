@@ -75231,7 +75231,7 @@
 	            primary: true,
 	            icon: _react2.default.createElement(_cached2.default, null),
 	            fullWidth: true,
-	            style: { marginBottom: '10px' }
+	            style: { marginBottom: '10px', display: this.state.value === 2 ? 'none' : '' }
 	          }),
 	          _react2.default.createElement(_RaisedButton2.default, {
 	            onClick: this.handleClickNext,
@@ -77360,6 +77360,10 @@
 
 	var _Plant2 = _interopRequireDefault(_Plant);
 
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _CircularProgress = __webpack_require__(559);
 
 	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
@@ -77382,6 +77386,7 @@
 
 			_this.state = {
 				plants: [],
+				patient: {},
 				openSnackBar: false,
 				notiSnackBar: '',
 				loadingProgress: true
@@ -77400,6 +77405,7 @@
 					if (obj.stat === 1) {
 						this.setState({
 							plants: obj.plants,
+							patient: obj.patient,
 							loadingProgress: false
 						});
 					}
@@ -77451,14 +77457,62 @@
 			value: function render() {
 				var _this2 = this;
 
+				var patient = this.state.patient;
 				return _react2.default.createElement(
 					'div',
 					null,
 					_react2.default.createElement(
-						'p',
-						null,
-						'Trang danh s\xE1ch k\u1EBF ho\u1EA1ch c\u1EE7a b\u1EC7nh nh\xE2n m\xE3 ',
-						this.props.params.patient_id
+						'h3',
+						{ style: { textAlign: 'center' } },
+						'Danh s\xE1ch k\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB'
+					),
+					_react2.default.createElement(
+						_Paper2.default,
+						{ zDepth: 2 },
+						_react2.default.createElement(
+							'ul',
+							{ style: { margin: 20, padding: 10, textAlign: 'left' } },
+							_react2.default.createElement(
+								'li',
+								null,
+								'T\xEAn b\u1EC7nh nh\xE2n: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.name
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'Ng\xE0y sinh: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.dob
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u0110\u1ECBa ch\u1EC9: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.address
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'Ngh\u1EC1 nghi\u1EC7p: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.job
+								)
+							)
+						)
 					),
 					_react2.default.createElement(_SnackBar2.default, {
 						open: this.state.openSnackBar,
@@ -77510,23 +77564,31 @@
 	      activityList = _ref.activityList;
 	  return _react2.default.createElement(
 	    _Card.Card,
-	    null,
+	    { style: { marginBottom: 10 } },
 	    _react2.default.createElement(_Card.CardHeader, {
-	      title: 'Kế hoạch từ ' + date[0] + ' tới ' + date[1],
+	      title: _react2.default.createElement(
+	        'span',
+	        null,
+	        _react2.default.createElement('i', { className: 'fa fa-thumb-tack' }),
+	        ' ',
+	        'Kế hoạch từ ' + date[0] + ' tới ' + date[1]
+	      ),
 	      subtitle: '',
 	      actAsExpander: true,
 	      showExpandableButton: true
 	    }),
 	    _react2.default.createElement(
 	      _Card.CardText,
-	      { expandable: true },
+	      { expandable: true, style: { padding: 0 } },
 	      _react2.default.createElement(
 	        'ul',
-	        { style: { margin: 0 } },
+	        { style: { margin: 0, listStyleType: 'none' } },
 	        activityList.map(function (item) {
 	          return _react2.default.createElement(
 	            'li',
 	            { key: item.activity.id },
+	            _react2.default.createElement('i', { className: 'fa fa-hand-o-right' }),
+	            ' ',
 	            item.activity.name
 	          );
 	        })

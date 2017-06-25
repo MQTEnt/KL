@@ -1,6 +1,7 @@
 import React from 'react';
 import SnackBar from '../partials/SnackBar';
 import Plant from './Plant';
+import Paper from 'material-ui/Paper';
 import CircularProgress from 'material-ui/CircularProgress';
 
 export default class ListPlant extends React.Component{
@@ -8,6 +9,7 @@ export default class ListPlant extends React.Component{
 		super(props);
 		this.state = {
 			plants: [],
+			patient: {},
 			openSnackBar: false,
 			notiSnackBar: '',
 			loadingProgress: true
@@ -24,6 +26,7 @@ export default class ListPlant extends React.Component{
 				{
 					this.setState({
 						plants: obj.plants,
+						patient: obj.patient,
 						loadingProgress: false
 					});
 				}
@@ -66,9 +69,18 @@ export default class ListPlant extends React.Component{
 			return (<p><b>Hiện chưa có kế hoạch điều trị cho bệnh nhân này</b></p>);
 	}
 	render(){
+		let patient = this.state.patient;
 		return (
 			<div>
-				<p>Trang danh sách kế hoạch của bệnh nhân mã {this.props.params.patient_id}</p>
+				<h3 style={{textAlign: 'center'}}>Danh sách kế hoạch điều trị</h3>
+				<Paper zDepth={2}>
+					<ul style={{margin: 20, padding: 10, textAlign: 'left'}}>
+		                <li>Tên bệnh nhân: <b>{patient.name}</b></li>
+		                <li>Ngày sinh: <b>{patient.dob}</b></li>
+		                <li>Địa chỉ: <b>{patient.address}</b></li>
+		                <li>Nghề nghiệp: <b>{patient.job}</b></li>
+		            </ul>
+				</Paper>
 				<SnackBar
 					open={this.state.openSnackBar}
 					noti={this.state.notiSnackBar}

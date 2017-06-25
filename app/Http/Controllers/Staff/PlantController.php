@@ -8,12 +8,14 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Plant;
 use App\Plant_Activity;
+use App\Patient;
 use Auth;
 class PlantController extends Controller
 {
     public function getPlantsByPatientId($patient_id){
         $plants = Plant::with(['plant_activity', 'plant_activity.activity'])->select('*')->where('patient_id', $patient_id)->orderBy('fromDate', 'DESC')->get();
-        return ['stat' => 1, 'plants' => $plants];
+        $patient = Patient::find($patient_id);
+        return ['stat' => 1, 'plants' => $plants, 'patient' => $patient];
     }
     public function store($patient_id, Request $request){
     	$plant = Plant::select('*')
