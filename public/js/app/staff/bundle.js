@@ -71050,7 +71050,7 @@
 				this.setState({ onChangeInputIdCard: true });
 				var value = event.target.value;
 
-				var pattern = /^(0|([1-9]\d*))$/;
+				var pattern = /^\d+$/;
 				if (!pattern.test(value)) {
 					this.setState({ errorInputIdCard: 'Số chứng minh nhân dân chỉ bao gôm chữ số' });
 					return;

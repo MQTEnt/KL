@@ -15,7 +15,8 @@ class CreateRecordsTable extends Migration
         Schema::create('records', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('patient_id')->nullable()->unsigned();
-            $table->foreign('patient_id')->references('id')->on('patients');
+            $table->foreign('patient_id')->references('id')->on('patients')
+                            ->onDelete('cascade');
 
             $table->string('outcome'); //Xác định bệnh
             $table->string('period'); //Giai đoạn bệnh

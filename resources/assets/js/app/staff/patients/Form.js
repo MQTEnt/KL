@@ -93,7 +93,7 @@ class Form extends React.Component{
 		this.setState({onChangeInputIdCard: true});
 		let value = event.target.value;
 
-		let pattern = /^(0|([1-9]\d*))$/;
+		let pattern = /^\d+$/;
 		if(!pattern.test(value))
 		{
 			this.setState({errorInputIdCard: 'Số chứng minh nhân dân chỉ bao gôm chữ số'});
