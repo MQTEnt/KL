@@ -1,5 +1,6 @@
 import React from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
+import Paper from 'material-ui/Paper';
 import {List, ListItem} from 'material-ui/List';
 import ActionEvent from 'material-ui/svg-icons/action/event';
 import ActionAssignment from 'material-ui/svg-icons/action/assignment';
@@ -68,6 +69,7 @@ class Detail extends React.Component{
 										key={record.id}
 										primaryText={'Bệnh án mã '+record.id+' tạo vào '+record.created_at}
 										leftIcon={<ActionAssignment />}
+										onClick={()=>{browserHistory.push('/staff/examination/'+record.id)}}
 									/>
 								))
 							}
@@ -98,21 +100,24 @@ class Detail extends React.Component{
 				      icon={<HardwareKeyboardArrowLeft/>}
 				      onClick={this.onNavigateList}
 				    />
-					<ul>
-						<li>Mã bệnh nhân: <b>{this.state.patient.id}</b></li>
-						<li>Tên bệnh nhân: <b>{this.state.patient.name}</b></li>
-						<li>Ngày sinh: <b>{this.state.patient.dob}</b></li>
-						<li>Giới tính: <b>{this.renderGender(parseInt(this.state.patient.gender))}</b></li>
-						<li>Địa chỉ: <b>{this.state.patient.address}</b></li>
-						<li>Số CMND: <b>{this.state.patient.id_card}</b></li>
-						<li>Số thẻ BHYT: <b>{this.state.patient.insurance_card}</b></li>
-						<li>Nghề nghiệp: <b>{this.state.patient.job}</b></li>
-						<li>Email: <b>{this.state.patient.email}</b></li>
-						<li>Số ĐT: <b>{this.state.patient.phone}</b></li>
-						<li>Ghi chú: <b>{this.state.patient.description}</b></li>
-					</ul>
-
-					{this.renderListRecord()}
+				    <Paper style={{padding: 10, marginBottom: 10}} zDepth={2}>
+						<ul>
+							<li>Mã bệnh nhân: <b>{this.state.patient.id}</b></li>
+							<li>Tên bệnh nhân: <b>{this.state.patient.name}</b></li>
+							<li>Ngày sinh: <b>{this.state.patient.dob}</b></li>
+							<li>Giới tính: <b>{this.renderGender(parseInt(this.state.patient.gender))}</b></li>
+							<li>Địa chỉ: <b>{this.state.patient.address}</b></li>
+							<li>Số CMND: <b>{this.state.patient.id_card}</b></li>
+							<li>Số thẻ BHYT: <b>{this.state.patient.insurance_card}</b></li>
+							<li>Nghề nghiệp: <b>{this.state.patient.job}</b></li>
+							<li>Email: <b>{this.state.patient.email}</b></li>
+							<li>Số ĐT: <b>{this.state.patient.phone}</b></li>
+							<li>Ghi chú: <b>{this.state.patient.description}</b></li>
+						</ul>
+					</Paper>
+					<Paper zDepth={2}>
+						{this.renderListRecord()}
+					</Paper>
 
 
 				</div>

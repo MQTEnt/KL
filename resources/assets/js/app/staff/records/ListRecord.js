@@ -1,4 +1,5 @@
 import React from 'react';
+import { browserHistory } from "react-router";
 import {Table, TableBody, TableHeader, TableHeaderColumn, TableRow, TableRowColumn} from 'material-ui/Table';
 import Search from '../partials/Search';
 import TableFooter from '../partials/TableFooter';
@@ -77,10 +78,11 @@ class List extends React.Component{
     let indexObj = records.findIndex((obj => obj.id === selectedRecordId));
     let selectedRecord = records[indexObj];
     
-    //console.log(selectedRecord);
-    this.setState({
-        'selectedRecord': selectedRecord
-    });
+    // console.log(selectedRecord);
+    browserHistory.push('/staff/examination/'+selectedRecord.id)
+    // this.setState({
+    //     'selectedRecord': selectedRecord
+    // });
   }
   handleClose(){
     this.setState({openDialog: false});

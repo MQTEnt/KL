@@ -22398,11 +22398,11 @@
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
-	var _App3 = __webpack_require__(653);
+	var _App3 = __webpack_require__(652);
 
 	var _App4 = _interopRequireDefault(_App3);
 
-	var _App5 = __webpack_require__(662);
+	var _App5 = __webpack_require__(661);
 
 	var _App6 = _interopRequireDefault(_App5);
 
@@ -71670,9 +71670,13 @@
 
 	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
 
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _List = __webpack_require__(589);
 
-	var _event = __webpack_require__(652);
+	var _event = __webpack_require__(664);
 
 	var _event2 = _interopRequireDefault(_event);
 
@@ -71776,7 +71780,10 @@
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
 									primaryText: 'Bệnh án mã ' + record.id + ' tạo vào ' + record.created_at,
-									leftIcon: _react2.default.createElement(_assignment2.default, null)
+									leftIcon: _react2.default.createElement(_assignment2.default, null),
+									onClick: function onClick() {
+										_reactRouter.browserHistory.push('/staff/examination/' + record.id);
+									}
 								});
 							})
 						});
@@ -71812,120 +71819,128 @@
 						onClick: this.onNavigateList
 					}),
 					_react2.default.createElement(
-						'ul',
-						null,
+						_Paper2.default,
+						{ style: { padding: 10, marginBottom: 10 }, zDepth: 2 },
 						_react2.default.createElement(
-							'li',
+							'ul',
 							null,
-							'M\xE3 b\u1EC7nh nh\xE2n: ',
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.id
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'T\xEAn b\u1EC7nh nh\xE2n: ',
+								'M\xE3 b\u1EC7nh nh\xE2n: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.id
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.name
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Ng\xE0y sinh: ',
+								'T\xEAn b\u1EC7nh nh\xE2n: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.name
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.dob
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Gi\u1EDBi t\xEDnh: ',
+								'Ng\xE0y sinh: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.dob
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.renderGender(parseInt(this.state.patient.gender))
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'\u0110\u1ECBa ch\u1EC9: ',
+								'Gi\u1EDBi t\xEDnh: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.renderGender(parseInt(this.state.patient.gender))
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.address
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'S\u1ED1 CMND: ',
+								'\u0110\u1ECBa ch\u1EC9: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.address
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.id_card
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'S\u1ED1 th\u1EBB BHYT: ',
+								'S\u1ED1 CMND: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.id_card
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.insurance_card
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Ngh\u1EC1 nghi\u1EC7p: ',
+								'S\u1ED1 th\u1EBB BHYT: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.insurance_card
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.job
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Email: ',
+								'Ngh\u1EC1 nghi\u1EC7p: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.job
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.email
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'S\u1ED1 \u0110T: ',
+								'Email: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.email
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.phone
-							)
-						),
-						_react2.default.createElement(
-							'li',
-							null,
-							'Ghi ch\xFA: ',
+								'S\u1ED1 \u0110T: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.phone
+								)
+							),
 							_react2.default.createElement(
-								'b',
+								'li',
 								null,
-								this.state.patient.description
+								'Ghi ch\xFA: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									this.state.patient.description
+								)
 							)
 						)
 					),
-					this.renderListRecord()
+					_react2.default.createElement(
+						_Paper2.default,
+						{ zDepth: 2 },
+						this.renderListRecord()
+					)
 				);
 			}
 		}]);
@@ -71942,41 +71957,6 @@
 	'use strict';
 
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-
-	var _react = __webpack_require__(1);
-
-	var _react2 = _interopRequireDefault(_react);
-
-	var _pure = __webpack_require__(429);
-
-	var _pure2 = _interopRequireDefault(_pure);
-
-	var _SvgIcon = __webpack_require__(439);
-
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-
-	function _interopRequireDefault(obj) {
-	  return obj && obj.__esModule ? obj : { default: obj };
-	}
-
-	var ActionEvent = function ActionEvent(props) {
-	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z' }));
-	};
-	ActionEvent = (0, _pure2.default)(ActionEvent);
-	ActionEvent.displayName = 'ActionEvent';
-	ActionEvent.muiName = 'SvgIcon';
-
-	exports.default = ActionEvent;
-
-/***/ }),
-/* 653 */
-/***/ (function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
 		value: true
 	});
 
@@ -71986,7 +71966,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _Main = __webpack_require__(654);
+	var _Main = __webpack_require__(653);
 
 	var _Main2 = _interopRequireDefault(_Main);
 
@@ -72086,7 +72066,7 @@
 	exports.default = Patient;
 
 /***/ }),
-/* 654 */
+/* 653 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72103,7 +72083,7 @@
 
 	var _Tabs = __webpack_require__(512);
 
-	var _List = __webpack_require__(655);
+	var _List = __webpack_require__(654);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -72115,7 +72095,7 @@
 
 	var _assignment2 = _interopRequireDefault(_assignment);
 
-	var _ListRecord = __webpack_require__(659);
+	var _ListRecord = __webpack_require__(658);
 
 	var _ListRecord2 = _interopRequireDefault(_ListRecord);
 
@@ -72214,7 +72194,7 @@
 	exports.default = Main;
 
 /***/ }),
-/* 655 */
+/* 654 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72239,7 +72219,7 @@
 
 	var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
-	var _Detail = __webpack_require__(656);
+	var _Detail = __webpack_require__(655);
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
@@ -72410,7 +72390,7 @@
 	exports.default = List;
 
 /***/ }),
-/* 656 */
+/* 655 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72443,7 +72423,7 @@
 
 	var _add2 = _interopRequireDefault(_add);
 
-	var _contentCopy = __webpack_require__(657);
+	var _contentCopy = __webpack_require__(656);
 
 	var _contentCopy2 = _interopRequireDefault(_contentCopy);
 
@@ -72453,7 +72433,7 @@
 
 	var _Alert2 = _interopRequireDefault(_Alert);
 
-	var _SnackBar = __webpack_require__(658);
+	var _SnackBar = __webpack_require__(657);
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
@@ -72678,7 +72658,7 @@
 	exports.default = Detail;
 
 /***/ }),
-/* 657 */
+/* 656 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72713,7 +72693,7 @@
 	exports.default = ContentContentCopy;
 
 /***/ }),
-/* 658 */
+/* 657 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72775,7 +72755,7 @@
 	exports.default = SnackBar;
 
 /***/ }),
-/* 659 */
+/* 658 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -72789,6 +72769,8 @@
 	var _react = __webpack_require__(1);
 
 	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(188);
 
 	var _Table = __webpack_require__(518);
 
@@ -72812,11 +72794,11 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
-	var _extension = __webpack_require__(660);
+	var _extension = __webpack_require__(659);
 
 	var _extension2 = _interopRequireDefault(_extension);
 
-	var _RangedDate = __webpack_require__(661);
+	var _RangedDate = __webpack_require__(660);
 
 	var _RangedDate2 = _interopRequireDefault(_RangedDate);
 
@@ -72914,10 +72896,11 @@
 	      });
 	      var selectedRecord = records[indexObj];
 
-	      //console.log(selectedRecord);
-	      this.setState({
-	        'selectedRecord': selectedRecord
-	      });
+	      // console.log(selectedRecord);
+	      _reactRouter.browserHistory.push('/staff/examination/' + selectedRecord.id);
+	      // this.setState({
+	      //     'selectedRecord': selectedRecord
+	      // });
 	    }
 	  }, {
 	    key: 'handleClose',
@@ -73057,7 +73040,7 @@
 	exports.default = List;
 
 /***/ }),
-/* 660 */
+/* 659 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73092,7 +73075,7 @@
 	exports.default = ActionExtension;
 
 /***/ }),
-/* 661 */
+/* 660 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73221,7 +73204,7 @@
 	exports.default = RangedDate;
 
 /***/ }),
-/* 662 */
+/* 661 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73236,7 +73219,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _List = __webpack_require__(663);
+	var _List = __webpack_require__(662);
 
 	var _List2 = _interopRequireDefault(_List);
 
@@ -73336,7 +73319,7 @@
 	exports.default = Index;
 
 /***/ }),
-/* 663 */
+/* 662 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73361,7 +73344,7 @@
 
 	var _TableFooter2 = _interopRequireDefault(_TableFooter);
 
-	var _Detail = __webpack_require__(664);
+	var _Detail = __webpack_require__(663);
 
 	var _Detail2 = _interopRequireDefault(_Detail);
 
@@ -73543,7 +73526,7 @@
 	exports.default = List;
 
 /***/ }),
-/* 664 */
+/* 663 */
 /***/ (function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -73564,7 +73547,7 @@
 
 	var _List = __webpack_require__(589);
 
-	var _event = __webpack_require__(652);
+	var _event = __webpack_require__(664);
 
 	var _event2 = _interopRequireDefault(_event);
 
@@ -73776,6 +73759,41 @@
 	exports.default = Detail;
 
 /***/ }),
+/* 664 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ActionEvent = function ActionEvent(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M17 12h-5v5h5v-5zM16 1v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2h-1V1h-2zm3 18H5V8h14v11z' }));
+	};
+	ActionEvent = (0, _pure2.default)(ActionEvent);
+	ActionEvent.displayName = 'ActionEvent';
+	ActionEvent.muiName = 'SvgIcon';
+
+	exports.default = ActionEvent;
+
+/***/ }),
 /* 665 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -73826,6 +73844,10 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _CircularProgress = __webpack_require__(559);
 
 	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
@@ -73852,7 +73874,9 @@
 
 			_this.state = {
 				isLoading: true,
-				indexes: []
+				indexes: [],
+				patient: {},
+				record: {}
 			};
 			_this.getIndexes = _this.getIndexes.bind(_this);
 			_this.updateIndexes = _this.updateIndexes.bind(_this);
@@ -73875,7 +73899,9 @@
 						//Do something ...
 						this.setState({
 							isLoading: false,
-							indexes: obj
+							indexes: obj.indexes,
+							patient: obj.patient,
+							record: obj.record
 						});
 					}.bind(this)).catch(function (ex) {
 						//Log Error
@@ -73899,29 +73925,88 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var patient = this.state.patient;
+				var record = this.state.record;
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ style: { marginBottom: 20 } },
 					_react2.default.createElement(
-						'p',
+						'h3',
 						{ style: { textAlign: 'center' } },
-						'K\u1EBFt qu\u1EA3 x\xE9t nghi\u1EC7m c\u1EE7a b\u1EC7nh \xE1n m\xE3 ',
-						_react2.default.createElement(
-							'b',
-							null,
-							this.props.params.record_id
-						)
+						'K\u1EBFt qu\u1EA3 x\xE9t nghi\u1EC7m'
+					),
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: { width: '80%', margin: '0 auto' }, zDepth: 2 },
+						!this.state.isLoading ? _react2.default.createElement(
+							'ul',
+							{ style: { margin: 20, padding: 10, textAlign: 'left' } },
+							_react2.default.createElement(
+								'li',
+								null,
+								'T\xEAn b\u1EC7nh nh\xE2n: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.name
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'Ng\xE0y sinh: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.dob
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u0110\u1ECBa ch\u1EC9: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.address
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'Ngh\u1EC1 nghi\u1EC7p: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.job
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'Ng\xE0y kh\xE1m: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									record.created_at.split(' ')[0]
+								)
+							)
+						) : ''
 					),
 					this.state.isLoading ? _react2.default.createElement(
 						'div',
 						{ style: { 'margin': '20% auto', 'width': '0' } },
 						_react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
-					) : _react2.default.createElement(_TextInputs2.default, {
-						indexes: this.state.indexes,
-						api: '/index/' + this.props.params.record_id,
-						recordId: this.props.params.record_id,
-						updateIndexes: this.updateIndexes
-					})
+					) : _react2.default.createElement(
+						_Paper2.default,
+						{ style: { width: '80%', margin: '0 auto' }, zDepth: 2 },
+						_react2.default.createElement(_TextInputs2.default, {
+							indexes: this.state.indexes,
+							api: '/index/' + this.props.params.record_id,
+							recordId: this.props.params.record_id,
+							updateIndexes: this.updateIndexes
+						})
+					)
 				);
 			}
 		}]);
@@ -73963,7 +74048,7 @@
 
 	var _Alert2 = _interopRequireDefault(_Alert);
 
-	var _SnackBar = __webpack_require__(658);
+	var _SnackBar = __webpack_require__(657);
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
@@ -74570,7 +74655,7 @@
 
 	var _List = __webpack_require__(589);
 
-	var _event = __webpack_require__(652);
+	var _event = __webpack_require__(664);
 
 	var _event2 = _interopRequireDefault(_event);
 
@@ -74845,7 +74930,7 @@
 
 	var _Paper2 = _interopRequireDefault(_Paper);
 
-	var _SnackBar = __webpack_require__(658);
+	var _SnackBar = __webpack_require__(657);
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
@@ -76609,7 +76694,7 @@
 
 	var _dateRange2 = _interopRequireDefault(_dateRange);
 
-	var _contentCopy = __webpack_require__(657);
+	var _contentCopy = __webpack_require__(656);
 
 	var _contentCopy2 = _interopRequireDefault(_contentCopy);
 
@@ -76822,7 +76907,7 @@
 
 	var _DatePicker2 = _interopRequireDefault(_DatePicker);
 
-	var _SnackBar = __webpack_require__(658);
+	var _SnackBar = __webpack_require__(657);
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
@@ -77352,7 +77437,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	var _SnackBar = __webpack_require__(658);
+	var _SnackBar = __webpack_require__(657);
 
 	var _SnackBar2 = _interopRequireDefault(_SnackBar);
 
