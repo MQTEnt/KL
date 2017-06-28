@@ -1,3 +1,6 @@
 body {
 	font-family: 'Lato';
 }
+.calendar{
+	position: static !important;
+}

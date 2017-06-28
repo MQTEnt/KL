@@ -14,6 +14,8 @@ import ExaminationDetail from './examination/ExaminationDetail';
 import Plants from './plants/App';
 import CreatePlant from './plants/Create';
 import ListPlant from './plants/ListPlant';
+import Daily from './daily/App';
+import Follow from './daily/Follow';
 class App extends Component{
 	constructor(props){
 		super(props);
@@ -33,6 +35,8 @@ class App extends Component{
                     <Route path={"/staff/plant"} component={Plants} />
                     <Route path={"/staff/plant/create/:patient_id"} component={CreatePlant} />
                     <Route path={"/staff/plant/list/:patient_id"} component={ListPlant} />
+                    <Route path={"/staff/daily"} component={Daily} />
+                    <Route path={"/staff/follow/:patient_id"} component={Follow} />
                     <Route path={"/staff/pageA"} component={PageA} />
                     <Route path={"/staff/pageB"} component={PageB} />
                 </Route>

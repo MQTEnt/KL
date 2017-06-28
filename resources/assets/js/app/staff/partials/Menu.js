@@ -10,6 +10,7 @@ import ActionAssignment from 'material-ui/svg-icons/action/assignment';
 import ActionInvertColors from 'material-ui/svg-icons/action/invert-colors';
 import MapsLocalHospital from 'material-ui/svg-icons/maps/local-hospital';
 import ActionDateRange from 'material-ui/svg-icons/action/date-range';
+import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
 const style = {
   icon: {
     position: 'relative',
@@ -86,6 +87,11 @@ export default class Menu extends React.Component {
           <Link style={style.link} activeStyle={style.active} to={"/staff/plant"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
               <ActionDateRange style={style.icon}/> Kế hoạch điều trị
+            </MenuItem>
+          </Link>
+          <Link style={style.link} activeStyle={style.active} to={"/staff/daily"}>
+            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+              <ActionDoneAll style={style.icon}/> Theo dõi hàng ngày
             </MenuItem>
           </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/PageA"}>
