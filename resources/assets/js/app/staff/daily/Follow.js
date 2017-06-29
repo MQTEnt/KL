@@ -6,6 +6,7 @@ import RadioInputs from '../partials/RadioInputs';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
+import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import SnackBar from '../partials/SnackBar';
@@ -34,6 +35,7 @@ export default class Follow extends React.Component{
   constructor(props){
     super(props);
     this.state = {
+      patient: {},
       openDrawer: false,
       isFollow: false,
       activities: [],
@@ -126,7 +128,7 @@ export default class Follow extends React.Component{
   onClickFollow(){
     let api = '/daily/setfollow/'+this.props.params.patient_id+'/'+this.state.dateStr;
     fetch(api, {
-      credentials: 'same-origin'
+        credentials: 'same-origin'
       })
       .then(function(response) {
       return response.json()
@@ -193,18 +195,49 @@ export default class Follow extends React.Component{
       </div>
     );
   }
+  componentDidMount(){
+    //Get patient
+    fetch('/patient/'+this.props.params.patient_id, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        this.setState({
+          patient: obj.patient
+        });
+      }.bind(this))
+      .catch(function(ex) {
+      //Log Error
+      console.log('parsing failed', ex)
+    });
+  }
   render(){
+    let patient = this.state.patient;
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
-        <h4 style={{textAlign: 'center'}}>Theo dõi chăm sóc bệnh nhân</h4>
-        <InfiniteCalendar
-          width={'100%'}
-          height={300}
-          selected={today}
-          theme={styles.calendarTheme}
-          onSelect={this.onSelectDate}
-          className={'calendar'}
-        />
+        <h3 style={{textAlign: 'center'}}>Theo dõi chăm sóc bệnh nhân</h3>
+        {(patient!==null)?
+          <Paper zDepth={2}>
+            <ul style={{margin: 20, padding: 10, textAlign: 'left'}}>
+              <li>Tên bệnh nhân: <b>{patient.name}</b></li>
+              <li>Ngày sinh: <b>{patient.dob}</b></li>
+              <li>Địa chỉ: <b>{patient.address}</b></li>
+              <li>Nghề nghiệp: <b>{patient.job}</b></li>
+            </ul>
+          </Paper>
+          :''
+        }
+        <Paper zDepth={2}>
+          <InfiniteCalendar
+            width={'100%'}
+            height={300}
+            selected={today}
+            theme={styles.calendarTheme}
+            onSelect={this.onSelectDate}
+            className={'calendar'}
+          />
+        </Paper>
         <Drawer
           openSecondary={true}
           docked={false}

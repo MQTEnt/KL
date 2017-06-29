@@ -36290,15 +36290,6 @@
 	              _react2.default.createElement(_doneAll2.default, { style: style.icon }),
 	              ' Theo d\xF5i h\xE0ng ng\xE0y'
 	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { style: style.link, activeStyle: style.active, to: "/staff/PageA" },
-	            _react2.default.createElement(
-	              _MenuItem2.default,
-	              { style: style.menuItem, onTouchTap: this.handleClose },
-	              'Page A'
-	            )
 	          )
 	        )
 	      );
@@ -78336,6 +78327,10 @@
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
 	var _TextField = __webpack_require__(496);
 
 	var _TextField2 = _interopRequireDefault(_TextField);
@@ -78389,6 +78384,7 @@
 	    var _this = _possibleConstructorReturn(this, (Follow.__proto__ || Object.getPrototypeOf(Follow)).call(this, props));
 
 	    _this.state = {
+	      patient: {},
 	      openDrawer: false,
 	      isFollow: false,
 	      activities: [],
@@ -78575,26 +78571,96 @@
 	      );
 	    }
 	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      //Get patient
+	      fetch('/patient/' + this.props.params.patient_id, {
+	        credentials: 'same-origin'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (obj) {
+	        this.setState({
+	          patient: obj.patient
+	        });
+	      }.bind(this)).catch(function (ex) {
+	        //Log Error
+	        console.log('parsing failed', ex);
+	      });
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
 	      var _this3 = this;
 
+	      var patient = this.state.patient;
 	      return _react2.default.createElement(
 	        'div',
 	        { style: { width: '80%', margin: '0 auto' } },
 	        _react2.default.createElement(
-	          'h4',
+	          'h3',
 	          { style: { textAlign: 'center' } },
 	          'Theo d\xF5i ch\u0103m s\xF3c b\u1EC7nh nh\xE2n'
 	        ),
-	        _react2.default.createElement(_reactInfiniteCalendar2.default, {
-	          width: '100%',
-	          height: 300,
-	          selected: today,
-	          theme: styles.calendarTheme,
-	          onSelect: this.onSelectDate,
-	          className: 'calendar'
-	        }),
+	        patient !== null ? _react2.default.createElement(
+	          _Paper2.default,
+	          { zDepth: 2 },
+	          _react2.default.createElement(
+	            'ul',
+	            { style: { margin: 20, padding: 10, textAlign: 'left' } },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'T\xEAn b\u1EC7nh nh\xE2n: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.name
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Ng\xE0y sinh: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.dob
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              '\u0110\u1ECBa ch\u1EC9: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.address
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Ngh\u1EC1 nghi\u1EC7p: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.job
+	              )
+	            )
+	          )
+	        ) : '',
+	        _react2.default.createElement(
+	          _Paper2.default,
+	          { zDepth: 2 },
+	          _react2.default.createElement(_reactInfiniteCalendar2.default, {
+	            width: '100%',
+	            height: 300,
+	            selected: today,
+	            theme: styles.calendarTheme,
+	            onSelect: this.onSelectDate,
+	            className: 'calendar'
+	          })
+	        ),
 	        _react2.default.createElement(
 	          _Drawer2.default,
 	          {
