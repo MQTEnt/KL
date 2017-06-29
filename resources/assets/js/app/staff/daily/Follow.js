@@ -2,9 +2,14 @@ import React from 'react';
 import InfiniteCalendar from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css'; // only needs to be imported once
 import Drawer from 'material-ui/Drawer';
+import RadioInputs from '../partials/RadioInputs';
 import MenuItem from 'material-ui/MenuItem';
 import RaisedButton from 'material-ui/RaisedButton';
+import Checkbox from 'material-ui/Checkbox';
+import TextField from 'material-ui/TextField';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
+import autoBind from 'react-autobind';
+
 
 const styles = {
   calendarTheme: { 
@@ -17,7 +22,10 @@ const styles = {
       chevron: '#FFA726',
       color: '#000',
     }
-  }
+  },
+  checkbox: {
+    marginBottom: 16,
+  },
 }
 // Render the Calendar
 const today = new Date();
@@ -25,15 +33,161 @@ export default class Follow extends React.Component{
   constructor(props){
     super(props);
     this.state = {
-      openDrawer: false
+      openDrawer: false,
+      isFollow: false,
+      activities: [],
+      followDay: {},
+      dateStr: '',
+      rate: ''
     }
 
-    this.onSelectDate = this.onSelectDate.bind(this);
+    autoBind(this);
+  }
+  onClickActivity(){
+
+  }
+  setList(list){
+    this.setState({
+      activities: list
+    });
+  }
+  displayNoti(){
+
+  }
+  onClickUpdate(){
+    let rate = this.textInput.getValue();
+    //Update rate firstly
+    let _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+    let formData = new FormData();
+    formData.append('rate', rate);
+    formData.append('_token', _token);
+
+    let api = '/daily/rate/'+this.props.params.patient_id+'/'+this.state.dateStr;
+      //POST (AJAX)
+      fetch(api, {
+        method: 'POST',
+        credentials: 'same-origin',
+        body: formData
+      })
+      .then(function(response) {
+        return response.json()
+      }).then(function(obj) {
+          //console.log(obj);
+          if(obj.state === 1){
+            //Update check activity
+            this.radioInputsComponent.submit();
+            console.log('Update Success');
+          }
+          else
+          {
+            console.log('Update Fail');
+            //this.displayNoti();
+          }
+      }.bind(this))
+      .catch(function(ex) {
+        //Log Error
+        console.log('parsing failed', ex)
+      });
   }
   onSelectDate(date){
+    let dateStr = date.getFullYear()+'-'+(date.getMonth()+ 1)+'-'+date.getDate();
+    let api = '/daily/'+this.props.params.patient_id+'/'+dateStr;
+    fetch(api, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        //Data Response
+        //console.log('Data Response: ', obj);
+        this.setState({
+          'isFollow': obj.isFollow,
+          'activities': (obj.isFollow)?obj.activities:[],
+          'followDay': (obj.isFollow)?obj.day:{},
+          'rate': (obj.isFollow)?obj.day.rate:'',
+          'dateStr': dateStr
+        });
+      }.bind(this))
+      .catch(function(ex) {
+      //Log Error
+      console.log('parsing failed', ex)
+    });
+
+
     this.setState({
       openDrawer: true
     });
+  }
+  onClickFollow(){
+    let api = '/daily/setfollow/'+this.props.params.patient_id+'/'+this.state.dateStr;
+    fetch(api, {
+      credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        //Data Response
+        //console.log('Data Response: ', obj);
+        this.setState({
+          'isFollow': obj.isFollow,
+          'activities': obj.activities,
+          'followDay': obj.day,
+          'rate': ''
+        });
+        //
+        // Display noti (update later...)
+        //
+      }.bind(this))
+      .catch(function(ex) {
+      //Log Error
+      console.log('parsing failed', ex)
+    });
+  }
+  renderIsFollow(){
+    let activities = this.state.activities;
+    return (
+      <div style={{padding: 10, fontFamily: 'Lato'}}>
+        <p>Tích chọn các hoạt động mà bệnh nhân đã thực hiện và điền đánh giá</p>
+        <RadioInputs
+          items={activities}
+          ref={(ref)=>this.radioInputsComponent = ref}
+          api={'/daily/check/'+this.props.params.patient_id+'/'+this.state.dateStr}
+          setList={this.setList}
+          displayNoti={this.displayNoti}
+        />
+        <TextField
+          key={this.state.followDay.id}
+          hintText="Điền đánh giá..."
+          floatingLabelText="Đánh giá"
+          multiLine={true}
+          rows={5}
+          ref={(input)=>this.textInput = input}
+          defaultValue={this.state.rate}
+        /><br />
+        <RaisedButton 
+          fullWidth={true} 
+          label="Cập nhật" 
+          primary={true} 
+          style={styles.button}
+          onClick={this.onClickUpdate}
+        />
+        </div>
+    );
+  }
+  renderIsNotFollow(){
+    return (
+      <div style={{padding: 10}}>
+        <p style={{fontFamily: 'Lato'}}>Chọn <b>'Theo dõi'</b> để xem và đánh giá các hoạt động của bệnh nhân trong ngày</p>
+        <RaisedButton 
+          fullWidth={true} 
+          label="Theo dõi" 
+          primary={true} 
+          style={styles.button} 
+          icon={<ActionVisibility/>}
+          onClick={this.onClickFollow}
+        />
+      </div>
+    );
   }
   render(){
     return (
@@ -54,16 +208,11 @@ export default class Follow extends React.Component{
           open={this.state.openDrawer}
           onRequestChange={() => this.setState({openDrawer: false})}
         >
-          <div style={{padding: 10}}>
-            <p style={{fontFamily: 'Lato'}}>Chọn <b>'Theo dõi'</b> để xem và đánh giá các hoạt động của bệnh nhân trong ngày</p>
-            <RaisedButton 
-              fullWidth={true} 
-              label="Theo dõi" 
-              primary={true} 
-              style={styles.button} 
-              icon={<ActionVisibility/>}
-            />
-          </div>
+          {(this.state.isFollow)?
+            this.renderIsFollow()
+            :
+            this.renderIsNotFollow()
+          }
         </Drawer>
       </div>
     );

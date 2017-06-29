@@ -17,7 +17,7 @@ class CreateDailyPlantTable extends Migration
             $table->string('rate');
             $table->date('date');
             
-            $table->integer('patient_id')->nullable()->unsigned();
+            $table->integer('patient_id')->unsigned();
             $table->foreign('patient_id')->references('id')->on('patients')
                         ->onDelete('cascade');
             $table->timestamps();

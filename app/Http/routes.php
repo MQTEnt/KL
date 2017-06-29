@@ -239,6 +239,14 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('plant/create/{patient_id}', 'Staff\PlantController@store');
 	Route::get('plant/{patient_id}', 'Staff\PlantController@getPlantsByPatientId');
 
+	/*
+	 * Daily
+	 */
+	Route::get('daily/{patient_id}/{date}', 'Staff\DailyController@getFollowingByDate');
+	Route::get('daily/setfollow/{patient_id}/{date}', 'Staff\DailyController@setFollow');
+	Route::post('daily/check/{patient_id}/{date}', 'Staff\DailyController@checkActivities');
+	Route::post('daily/rate/{patient_id}/{date}', 'Staff\DailyController@rate');
+
 	/////////////////////////
 	Route::get('user/staff', function(Illuminate\Http\Request $request){
 		$user = Auth::user();
