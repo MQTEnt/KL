@@ -8,6 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
 import TextField from 'material-ui/TextField';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
+import SnackBar from '../partials/SnackBar';
 import autoBind from 'react-autobind';
 
 
@@ -38,7 +39,9 @@ export default class Follow extends React.Component{
       activities: [],
       followDay: {},
       dateStr: '',
-      rate: ''
+      rate: '',
+      openSnackBar: false,
+      noti: ''
     }
 
     autoBind(this);
@@ -50,9 +53,6 @@ export default class Follow extends React.Component{
     this.setState({
       activities: list
     });
-  }
-  displayNoti(){
-
   }
   onClickUpdate(){
     let rate = this.textInput.getValue();
@@ -75,13 +75,18 @@ export default class Follow extends React.Component{
           //console.log(obj);
           if(obj.state === 1){
             //Update check activity
-            this.radioInputsComponent.submit();
-            console.log('Update Success');
+            this.radioInputsComponent.submit(); //What if submit error ???
+            this.setState({
+              openSnackBar: true,
+              noti: 'Đã cập nhật thành công!'
+            });
           }
           else
           {
-            console.log('Update Fail');
-            //this.displayNoti();
+            this.setState({
+              openSnackBar: true,
+              noti: 'Cập nhật thất bại, mời thử lại'
+            });
           }
       }.bind(this))
       .catch(function(ex) {
@@ -132,11 +137,10 @@ export default class Follow extends React.Component{
           'isFollow': obj.isFollow,
           'activities': obj.activities,
           'followDay': obj.day,
-          'rate': ''
+          'rate': '',
+          'openSnackBar': true,
+          'noti': 'Đang theo dõi hoạt động trong ngày '+this.state.dateStr
         });
-        //
-        // Display noti (update later...)
-        //
       }.bind(this))
       .catch(function(ex) {
       //Log Error
@@ -153,7 +157,7 @@ export default class Follow extends React.Component{
           ref={(ref)=>this.radioInputsComponent = ref}
           api={'/daily/check/'+this.props.params.patient_id+'/'+this.state.dateStr}
           setList={this.setList}
-          displayNoti={this.displayNoti}
+          displayNoti={()=>{}}
         />
         <TextField
           key={this.state.followDay.id}
@@ -214,6 +218,11 @@ export default class Follow extends React.Component{
             this.renderIsNotFollow()
           }
         </Drawer>
+        <SnackBar
+          open={this.state.openSnackBar}
+          noti={this.state.noti}
+          onRequestClose={()=>{this.setState({openSnackBar: false})}}
+        />
       </div>
     );
   }

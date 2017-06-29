@@ -78344,6 +78344,10 @@
 
 	var _visibility2 = _interopRequireDefault(_visibility);
 
+	var _SnackBar = __webpack_require__(659);
+
+	var _SnackBar2 = _interopRequireDefault(_SnackBar);
+
 	var _reactAutobind = __webpack_require__(647);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -78390,7 +78394,9 @@
 	      activities: [],
 	      followDay: {},
 	      dateStr: '',
-	      rate: ''
+	      rate: '',
+	      openSnackBar: false,
+	      noti: ''
 	    };
 
 	    (0, _reactAutobind2.default)(_this);
@@ -78407,9 +78413,6 @@
 	        activities: list
 	      });
 	    }
-	  }, {
-	    key: 'displayNoti',
-	    value: function displayNoti() {}
 	  }, {
 	    key: 'onClickUpdate',
 	    value: function onClickUpdate() {
@@ -78432,11 +78435,16 @@
 	        //console.log(obj);
 	        if (obj.state === 1) {
 	          //Update check activity
-	          this.radioInputsComponent.submit();
-	          console.log('Update Success');
+	          this.radioInputsComponent.submit(); //What if submit error ???
+	          this.setState({
+	            openSnackBar: true,
+	            noti: 'Đã cập nhật thành công!'
+	          });
 	        } else {
-	          console.log('Update Fail');
-	          //this.displayNoti();
+	          this.setState({
+	            openSnackBar: true,
+	            noti: 'Cập nhật thất bại, mời thử lại'
+	          });
 	        }
 	      }.bind(this)).catch(function (ex) {
 	        //Log Error
@@ -78486,11 +78494,10 @@
 	          'isFollow': obj.isFollow,
 	          'activities': obj.activities,
 	          'followDay': obj.day,
-	          'rate': ''
+	          'rate': '',
+	          'openSnackBar': true,
+	          'noti': 'Đang theo dõi hoạt động trong ngày ' + this.state.dateStr
 	        });
-	        //
-	        // Display noti (update later...)
-	        //
 	      }.bind(this)).catch(function (ex) {
 	        //Log Error
 	        console.log('parsing failed', ex);
@@ -78517,7 +78524,7 @@
 	          },
 	          api: '/daily/check/' + this.props.params.patient_id + '/' + this.state.dateStr,
 	          setList: this.setList,
-	          displayNoti: this.displayNoti
+	          displayNoti: function displayNoti() {}
 	        }),
 	        _react2.default.createElement(_TextField2.default, {
 	          key: this.state.followDay.id,
@@ -78600,7 +78607,14 @@
 	            }
 	          },
 	          this.state.isFollow ? this.renderIsFollow() : this.renderIsNotFollow()
-	        )
+	        ),
+	        _react2.default.createElement(_SnackBar2.default, {
+	          open: this.state.openSnackBar,
+	          noti: this.state.noti,
+	          onRequestClose: function onRequestClose() {
+	            _this3.setState({ openSnackBar: false });
+	          }
+	        })
 	      );
 	    }
 	  }]);

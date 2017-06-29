@@ -26,7 +26,11 @@ class DailyController extends Controller
                     ['toDate', '>=', $date]
                 ])
                 ->first();
-    		$activities = DB::table('activities')
+            if(is_null($plant)){
+                return ['isFollow' => true, 'day' => $day, 'activities' => []];
+            }
+            else{
+                $activities = DB::table('activities')
                     ->join(DB::raw("
                         (
                             (SELECT * FROM plant_activity WHERE plant_id = $plant->id) AS temp_tbl
@@ -38,7 +42,8 @@ class DailyController extends Controller
                     ->select('activities.id AS index_id', 'activities.name', 'temp_tbl2.id AS id')
                     ->orderBy('index_id')
                     ->get();
-        	return ['isFollow' => true, 'day' => $day, 'activities' => $activities];
+                return ['isFollow' => true, 'day' => $day, 'activities' => $activities];
+            }
     	}
     }
     public function setFollow($patient_id, $date){
