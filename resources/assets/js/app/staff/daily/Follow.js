@@ -216,7 +216,7 @@ export default class Follow extends React.Component{
     let patient = this.state.patient;
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
-        <h3 style={{textAlign: 'center'}}>Theo dõi chăm sóc bệnh nhân</h3>
+        <h3 style={{textAlign: 'center'}}>Theo dõi điều trị bệnh nhân</h3>
         {(patient!==null)?
           <Paper zDepth={2}>
             <ul style={{margin: 20, padding: 10, textAlign: 'left'}}>

@@ -2,7 +2,7 @@ import React from 'react';
 import List from './List';
 import autoBind from 'react-autobind';
 
-class Daily extends React.Component{
+class Care extends React.Component{
 	constructor(props){
 		super(props);
 
@@ -67,4 +67,4 @@ class Daily extends React.Component{
 		);
 	}
 }
-export default Daily;
+export default Care;

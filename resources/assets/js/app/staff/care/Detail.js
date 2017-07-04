@@ -69,10 +69,10 @@ class Detail extends React.Component{
 						<li>Địa chỉ: <b>{this.state.patient.address}</b></li>
 						<li>Số CMND: <b>{this.state.patient.id_card}</b></li>
 					</ul>
-					<Link style={{ textDecoration: 'none' }} to={"/staff/follow/"+this.state.patient.id}>
+					<Link style={{ textDecoration: 'none' }} to={"/staff/caring/"+this.state.patient.id}>
 						<RaisedButton 
 							fullWidth={true} 
-							label="Theo dõi điều trị" 
+							label="Theo dõi chăm sóc" 
 							primary={true} 
 							style={styles.button} 
 							icon={<ActionVisibility/>}

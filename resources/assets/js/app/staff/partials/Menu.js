@@ -91,7 +91,12 @@ export default class Menu extends React.Component {
           </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/daily"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              <ActionDoneAll style={style.icon}/> Theo dõi hàng ngày
+              <ActionDoneAll style={style.icon}/> Theo dõi điều trị
+            </MenuItem>
+          </Link>
+          <Link style={style.link} activeStyle={style.active} to={"/staff/care"}>
+            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+              <ActionDoneAll style={style.icon}/> Theo dõi chăm sóc
             </MenuItem>
           </Link>
         </Drawer>

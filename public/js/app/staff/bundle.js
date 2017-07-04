@@ -22438,6 +22438,14 @@
 
 	var _Follow2 = _interopRequireDefault(_Follow);
 
+	var _App13 = __webpack_require__(780);
+
+	var _App14 = _interopRequireDefault(_App13);
+
+	var _Caring = __webpack_require__(783);
+
+	var _Caring2 = _interopRequireDefault(_Caring);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22477,6 +22485,8 @@
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/plant/list/:patient_id", component: _ListPlant2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/daily", component: _App12.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/follow/:patient_id", component: _Follow2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/care", component: _App14.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/caring/:patient_id", component: _Caring2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageA", component: _PageA2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageB", component: _PageB2.default })
 	        )
@@ -36288,7 +36298,17 @@
 	              _MenuItem2.default,
 	              { style: style.menuItem, onTouchTap: this.handleClose },
 	              _react2.default.createElement(_doneAll2.default, { style: style.icon }),
-	              ' Theo d\xF5i h\xE0ng ng\xE0y'
+	              ' Theo d\xF5i \u0111i\u1EC1u tr\u1ECB'
+	            )
+	          ),
+	          _react2.default.createElement(
+	            _reactRouter.Link,
+	            { style: style.link, activeStyle: style.active, to: "/staff/care" },
+	            _react2.default.createElement(
+	              _MenuItem2.default,
+	              { style: style.menuItem, onTouchTap: this.handleClose },
+	              _react2.default.createElement(_doneAll2.default, { style: style.icon }),
+	              ' Theo d\xF5i ch\u0103m s\xF3c'
 	            )
 	          )
 	        )
@@ -77766,13 +77786,13 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
-	var Index = function (_React$Component) {
-		_inherits(Index, _React$Component);
+	var Daily = function (_React$Component) {
+		_inherits(Daily, _React$Component);
 
-		function Index(props) {
-			_classCallCheck(this, Index);
+		function Daily(props) {
+			_classCallCheck(this, Daily);
 
-			var _this = _possibleConstructorReturn(this, (Index.__proto__ || Object.getPrototypeOf(Index)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Daily.__proto__ || Object.getPrototypeOf(Daily)).call(this, props));
 
 			_this.state = {
 				patients: [],
@@ -77785,7 +77805,7 @@
 			return _this;
 		}
 
-		_createClass(Index, [{
+		_createClass(Daily, [{
 			key: 'getPatients',
 			value: function getPatients(url) {
 				//Reset data
@@ -77844,10 +77864,10 @@
 			}
 		}]);
 
-		return Index;
+		return Daily;
 	}(_react2.default.Component);
 
-	exports.default = Index;
+	exports.default = Daily;
 
 /***/ }),
 /* 691 */
@@ -78235,7 +78255,7 @@
 						{ style: { textDecoration: 'none' }, to: "/staff/follow/" + this.state.patient.id },
 						_react2.default.createElement(_RaisedButton2.default, {
 							fullWidth: true,
-							label: 'Theo d\xF5i ch\u0103m s\xF3c',
+							label: 'Theo d\xF5i \u0111i\u1EC1u tr\u1ECB',
 							primary: true,
 							style: styles.button,
 							icon: _react2.default.createElement(_visibility2.default, null)
@@ -78599,7 +78619,7 @@
 	        _react2.default.createElement(
 	          'h3',
 	          { style: { textAlign: 'center' } },
-	          'Theo d\xF5i ch\u0103m s\xF3c b\u1EC7nh nh\xE2n'
+	          'Theo d\xF5i \u0111i\u1EC1u tr\u1ECB b\u1EC7nh nh\xE2n'
 	        ),
 	        patient !== null ? _react2.default.createElement(
 	          _Paper2.default,
@@ -86216,6 +86236,1058 @@
 
 	// exports
 
+
+/***/ }),
+/* 780 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _List = __webpack_require__(781);
+
+	var _List2 = _interopRequireDefault(_List);
+
+	var _reactAutobind = __webpack_require__(647);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Care = function (_React$Component) {
+		_inherits(Care, _React$Component);
+
+		function Care(props) {
+			_classCallCheck(this, Care);
+
+			var _this = _possibleConstructorReturn(this, (Care.__proto__ || Object.getPrototypeOf(Care)).call(this, props));
+
+			_this.state = {
+				patients: [],
+				isLoading: true,
+				current_page: 0,
+				last_page: 0,
+				searchKey: ''
+			};
+			(0, _reactAutobind2.default)(_this);
+			return _this;
+		}
+
+		_createClass(Care, [{
+			key: 'getPatients',
+			value: function getPatients(url) {
+				//Reset data
+				this.setState({
+					patients: [],
+					isLoading: true
+				});
+				//Get data
+				setTimeout(function () {
+					//Get data
+					fetch(url, {
+						credentials: 'same-origin'
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						//Data Response
+						//console.log('Data Response: ', obj);
+						this.setState({
+							'patients': obj.data,
+							'last_page': obj.last_page,
+							'current_page': obj.current_page,
+							'isLoading': false
+						});
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 1500);
+			}
+		}, {
+			key: 'setSearchKey',
+			value: function setSearchKey(key) {
+				this.setState({ 'searchKey': key });
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.getPatients('/patient');
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(_List2.default, {
+						patients: this.state.patients,
+						getPatients: this.getPatients,
+						current_page: this.state.current_page,
+						last_page: this.state.last_page,
+						searchKey: this.state.searchKey,
+						setSearchKey: this.setSearchKey,
+						isLoadingPatients: this.state.isLoading
+					})
+				);
+			}
+		}]);
+
+		return Care;
+	}(_react2.default.Component);
+
+	exports.default = Care;
+
+/***/ }),
+/* 781 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Table = __webpack_require__(519);
+
+	var _Search = __webpack_require__(536);
+
+	var _Search2 = _interopRequireDefault(_Search);
+
+	var _TableFooter = __webpack_require__(541);
+
+	var _TableFooter2 = _interopRequireDefault(_TableFooter);
+
+	var _Detail = __webpack_require__(782);
+
+	var _Detail2 = _interopRequireDefault(_Detail);
+
+	var _CircularProgress = __webpack_require__(560);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
+	var _Dialog = __webpack_require__(530);
+
+	var _Dialog2 = _interopRequireDefault(_Dialog);
+
+	var _reactAutobind = __webpack_require__(647);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var List = function (_React$Component) {
+	  _inherits(List, _React$Component);
+
+	  function List(props) {
+	    _classCallCheck(this, List);
+
+	    var _this = _possibleConstructorReturn(this, (List.__proto__ || Object.getPrototypeOf(List)).call(this, props));
+
+	    _this.state = {
+	      openDialog: false,
+	      selectedPatient: null
+	    };
+
+	    //
+	    (0, _reactAutobind2.default)(_this);
+	    return _this;
+	  }
+
+	  _createClass(List, [{
+	    key: 'onCellClickHandle',
+	    value: function onCellClickHandle(rowNumber, columnNumber, evt) {
+	      this.setState({ 'openDialog': true });
+	      var selectedPatientId = parseInt(evt.target.dataset.id, 10); //get property data-id
+	      //console.log("activityId", selectedPatientId);
+
+	      var patients = this.props.patients;
+	      var indexObj = patients.findIndex(function (obj) {
+	        return obj.id === selectedPatientId;
+	      });
+	      var selectedPatient = patients[indexObj];
+	      //Convert dob to object
+	      //selectedPatient.dob = new Date(selectedPatient.dob);
+	      //console.log(selectedPatient);
+	      this.setState({
+	        'selectedPatient': selectedPatient
+	      });
+	    }
+	  }, {
+	    key: 'handleClose',
+	    value: function handleClose() {
+	      this.setState({ openDialog: false });
+	    }
+	  }, {
+	    key: 'displayRows',
+	    value: function displayRows() {
+	      return _react2.default.createElement(
+	        _Table.TableBody,
+	        { showRowHover: true, displayRowCheckbox: false },
+	        this.props.patients.map(function (patient) {
+	          return _react2.default.createElement(
+	            _Table.TableRow,
+	            { key: patient.id, style: { 'cursor': 'pointer' } },
+	            _react2.default.createElement(
+	              _Table.TableRowColumn,
+	              { 'data-id': patient.id },
+	              patient.id
+	            ),
+	            _react2.default.createElement(
+	              _Table.TableRowColumn,
+	              { 'data-id': patient.id },
+	              patient.name
+	            ),
+	            _react2.default.createElement(
+	              _Table.TableRowColumn,
+	              { 'data-id': patient.id },
+	              patient.address
+	            ),
+	            _react2.default.createElement(
+	              _Table.TableRowColumn,
+	              { 'data-id': patient.id },
+	              patient.id_card
+	            )
+	          );
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(_Search2.default, {
+	          getList: this.props.getPatients,
+	          setSearchKey: this.props.setSearchKey,
+	          hintText: 'Nh\u1EADp t\xEAn ho\u1EB7c m\xE3 b\u1EC7nh nh\xE2n',
+	          apiSearchGroup: '/patient/searchName',
+	          apiSearch: '/patient/search',
+	          autoComplete: true
+	        }),
+	        _react2.default.createElement(
+	          _Table.Table,
+	          {
+	            onCellClick: this.onCellClickHandle },
+	          _react2.default.createElement(
+	            _Table.TableHeader,
+	            { displaySelectAll: false, adjustForCheckbox: false },
+	            _react2.default.createElement(
+	              _Table.TableRow,
+	              null,
+	              _react2.default.createElement(
+	                _Table.TableHeaderColumn,
+	                null,
+	                'ID'
+	              ),
+	              _react2.default.createElement(
+	                _Table.TableHeaderColumn,
+	                null,
+	                'T\xEAn b\u1EC7nh nh\xE2n'
+	              ),
+	              _react2.default.createElement(
+	                _Table.TableHeaderColumn,
+	                null,
+	                '\u0110\u1ECBa ch\u1EC9'
+	              ),
+	              _react2.default.createElement(
+	                _Table.TableHeaderColumn,
+	                null,
+	                'Ch\u1EE9ng minh th\u01B0 nh\xE2n d\xE2n'
+	              )
+	            )
+	          ),
+	          this.displayRows(),
+	          _react2.default.createElement(_TableFooter2.default, {
+	            current_page: this.props.current_page,
+	            last_page: this.props.last_page,
+	            getList: this.props.getPatients,
+	            api: '/patient/search?q=' + this.props.searchKey
+	          })
+	        ),
+	        this.props.isLoadingPatients ? _react2.default.createElement(
+	          'div',
+	          { style: { 'margin': '0 auto', 'width': '0' } },
+	          _react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+	        ) : '',
+	        _react2.default.createElement(
+	          _Dialog2.default,
+	          {
+	            title: 'Th\xF4ng tin b\u1EC7nh nh\xE2n',
+	            modal: false,
+	            open: this.state.openDialog,
+	            onRequestClose: this.handleClose,
+	            autoScrollBodyContent: true
+	          },
+	          _react2.default.createElement(_Detail2.default, {
+	            patientId: this.state.selectedPatient != null ? this.state.selectedPatient.id : null
+	          })
+	        )
+	      );
+	    }
+	  }]);
+
+	  return List;
+	}(_react2.default.Component);
+
+	exports.default = List;
+
+/***/ }),
+/* 782 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _CircularProgress = __webpack_require__(560);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
+	var _RaisedButton = __webpack_require__(470);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _visibility = __webpack_require__(693);
+
+	var _visibility2 = _interopRequireDefault(_visibility);
+
+	var _reactRouter = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var styles = {
+		button: {
+			margin: 5
+		}
+	};
+
+	var Detail = function (_React$Component) {
+		_inherits(Detail, _React$Component);
+
+		function Detail(props) {
+			_classCallCheck(this, Detail);
+
+			var _this = _possibleConstructorReturn(this, (Detail.__proto__ || Object.getPrototypeOf(Detail)).call(this, props));
+
+			_this.state = {
+				patient: null,
+				isLoading: true
+			};
+			return _this;
+		}
+
+		_createClass(Detail, [{
+			key: 'getPatient',
+			value: function getPatient() {
+				this.setState({
+					isLoading: true
+				});
+				setTimeout(function () {
+					fetch('/patient/' + this.props.patientId, {
+						credentials: 'same-origin'
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						//Data Response
+						//console.log('Data Response: ', obj);
+						this.setState({
+							'patient': obj.patient,
+							isLoading: false
+						});
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 1500);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				this.getPatient();
+			}
+		}, {
+			key: 'renderGender',
+			value: function renderGender(gender) {
+				switch (gender) {
+					case 1:
+						return 'nam';
+					case 2:
+						return 'nữ';
+					case 3:
+						return 'khác';
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return this.state.isLoading ? _react2.default.createElement(
+					'div',
+					{ style: { 'margin': '20% auto', 'width': '0' } },
+					_react2.default.createElement(_CircularProgress2.default, { size: 50, thickness: 5 })
+				) : _react2.default.createElement(
+					'div',
+					{ style: { 'width': '100%' } },
+					_react2.default.createElement(
+						'ul',
+						null,
+						_react2.default.createElement(
+							'li',
+							null,
+							'M\xE3 b\u1EC7nh nh\xE2n: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								this.state.patient.id
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'T\xEAn b\u1EC7nh nh\xE2n: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								this.state.patient.name
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Ng\xE0y sinh: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								this.state.patient.dob
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Gi\u1EDBi t\xEDnh: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								this.renderGender(parseInt(this.state.patient.gender))
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'\u0110\u1ECBa ch\u1EC9: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								this.state.patient.address
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'S\u1ED1 CMND: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								this.state.patient.id_card
+							)
+						)
+					),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ style: { textDecoration: 'none' }, to: "/staff/caring/" + this.state.patient.id },
+						_react2.default.createElement(_RaisedButton2.default, {
+							fullWidth: true,
+							label: 'Theo d\xF5i ch\u0103m s\xF3c',
+							primary: true,
+							style: styles.button,
+							icon: _react2.default.createElement(_visibility2.default, null)
+						})
+					)
+				);
+			}
+		}]);
+
+		return Detail;
+	}(_react2.default.Component);
+
+	exports.default = Detail;
+
+/***/ }),
+/* 783 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactInfiniteCalendar = __webpack_require__(695);
+
+	var _reactInfiniteCalendar2 = _interopRequireDefault(_reactInfiniteCalendar);
+
+	__webpack_require__(778);
+
+	var _Drawer = __webpack_require__(399);
+
+	var _Drawer2 = _interopRequireDefault(_Drawer);
+
+	var _MenuItem = __webpack_require__(419);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _RaisedButton = __webpack_require__(470);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _visibility = __webpack_require__(693);
+
+	var _visibility2 = _interopRequireDefault(_visibility);
+
+	var _SnackBar = __webpack_require__(659);
+
+	var _SnackBar2 = _interopRequireDefault(_SnackBar);
+
+	var _FirstDayForm = __webpack_require__(784);
+
+	var _FirstDayForm2 = _interopRequireDefault(_FirstDayForm);
+
+	var _reactAutobind = __webpack_require__(647);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; } // only needs to be imported once
+
+
+	var styles = {
+	  calendarTheme: {
+	    headerColor: '#00bcd4',
+	    selectionColor: '#00bcd4',
+	    weekdayColor: '#0e94a5',
+	    accentColor: '#00bcd4',
+	    floatingNav: {
+	      background: 'rgb(255, 255, 255)',
+	      chevron: '#FFA726',
+	      color: '#000'
+	    }
+	  },
+	  checkbox: {
+	    marginBottom: 16
+	  },
+	  button: {
+	    marginBottom: 10
+	  }
+	};
+	// Render the Calendar
+	var today = new Date();
+
+	var Caring = function (_React$Component) {
+	  _inherits(Caring, _React$Component);
+
+	  function Caring(props) {
+	    _classCallCheck(this, Caring);
+
+	    var _this = _possibleConstructorReturn(this, (Caring.__proto__ || Object.getPrototypeOf(Caring)).call(this, props));
+
+	    _this.state = {
+	      patient: {},
+	      openDrawer: false,
+	      isFollow: false,
+	      isFirstDay: true,
+	      followDay: {},
+	      dateStr: '',
+	      openSnackBar: false,
+	      noti: ''
+	    };
+
+	    (0, _reactAutobind2.default)(_this);
+	    return _this;
+	  }
+
+	  _createClass(Caring, [{
+	    key: 'onClickActivity',
+	    value: function onClickActivity() {}
+	  }, {
+	    key: 'onSelectDate',
+	    value: function onSelectDate(date) {
+	      var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
+	      console.log(dateStr);
+
+	      this.setState({
+	        openDrawer: true
+	      });
+	    }
+	  }, {
+	    key: 'onClickFollowFirstDay',
+	    value: function onClickFollowFirstDay() {
+	      this.setState({ isFollow: true, isFirstDay: true });
+	    }
+	  }, {
+	    key: 'onClickFollowNextDay',
+	    value: function onClickFollowNextDay() {
+	      this.setState({ isFollow: true, isFirstDay: false });
+	    }
+	  }, {
+	    key: 'renderIsFollow',
+	    value: function renderIsFollow() {
+	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, null);else return _react2.default.createElement(
+	        'p',
+	        null,
+	        'Theo d\xF5i ng\xE0y ti\u1EBFp theo'
+	      );
+	    }
+	  }, {
+	    key: 'renderIsNotFollow',
+	    value: function renderIsNotFollow() {
+	      return _react2.default.createElement(
+	        'div',
+	        { style: { padding: 10, fontFamily: 'Lato' } },
+	        _react2.default.createElement(_RaisedButton2.default, {
+	          fullWidth: true,
+	          label: 'Theo d\xF5i ng\xE0y \u0111\u1EA7u',
+	          primary: true,
+	          style: styles.button,
+	          onClick: this.onClickFollowFirstDay
+	        }),
+	        _react2.default.createElement(_RaisedButton2.default, {
+	          fullWidth: true,
+	          label: 'Theo d\xF5i ng\xE0y ti\u1EBFp theo',
+	          primary: true,
+	          style: styles.button,
+	          onClick: this.onClickFollowNextDay
+	        })
+	      );
+	    }
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      //Get patient
+	      fetch('/patient/' + this.props.params.patient_id, {
+	        credentials: 'same-origin'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (obj) {
+	        this.setState({
+	          patient: obj.patient
+	        });
+	      }.bind(this)).catch(function (ex) {
+	        //Log Error
+	        console.log('parsing failed', ex);
+	      });
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      var patient = this.state.patient;
+	      return _react2.default.createElement(
+	        'div',
+	        { style: { width: '80%', margin: '0 auto' } },
+	        _react2.default.createElement(
+	          'h3',
+	          { style: { textAlign: 'center' } },
+	          'Theo d\xF5i ch\u0103m s\xF3c b\u1EC7nh nh\xE2n'
+	        ),
+	        patient !== null ? _react2.default.createElement(
+	          _Paper2.default,
+	          { zDepth: 2 },
+	          _react2.default.createElement(
+	            'ul',
+	            { style: { margin: 20, padding: 10, textAlign: 'left' } },
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'T\xEAn b\u1EC7nh nh\xE2n: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.name
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Ng\xE0y sinh: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.dob
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              '\u0110\u1ECBa ch\u1EC9: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.address
+	              )
+	            ),
+	            _react2.default.createElement(
+	              'li',
+	              null,
+	              'Ngh\u1EC1 nghi\u1EC7p: ',
+	              _react2.default.createElement(
+	                'b',
+	                null,
+	                patient.job
+	              )
+	            )
+	          )
+	        ) : '',
+	        _react2.default.createElement(
+	          _Paper2.default,
+	          { zDepth: 2 },
+	          _react2.default.createElement(_reactInfiniteCalendar2.default, {
+	            width: '100%',
+	            height: 300,
+	            selected: today,
+	            theme: styles.calendarTheme,
+	            onSelect: this.onSelectDate,
+	            className: 'calendar'
+	          })
+	        ),
+	        _react2.default.createElement(
+	          _Drawer2.default,
+	          {
+	            openSecondary: true,
+	            docked: false,
+	            width: 250,
+	            open: this.state.openDrawer,
+	            onRequestChange: function onRequestChange() {
+	              return _this2.setState({ openDrawer: false });
+	            }
+	          },
+	          this.state.isFollow ? this.renderIsFollow() : this.renderIsNotFollow()
+	        ),
+	        _react2.default.createElement(_SnackBar2.default, {
+	          open: this.state.openSnackBar,
+	          noti: this.state.noti,
+	          onRequestClose: function onRequestClose() {
+	            _this2.setState({ openSnackBar: false });
+	          }
+	        })
+	      );
+	    }
+	  }]);
+
+	  return Caring;
+	}(_react2.default.Component);
+
+	exports.default = Caring;
+
+/***/ }),
+/* 784 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(496);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _SelectField = __webpack_require__(604);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(419);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _Checkbox = __webpack_require__(502);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _reactAutobind = __webpack_require__(647);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var FirstDayForm = function (_React$Component) {
+		_inherits(FirstDayForm, _React$Component);
+
+		function FirstDayForm(props) {
+			_classCallCheck(this, FirstDayForm);
+
+			var _this = _possibleConstructorReturn(this, (FirstDayForm.__proto__ || Object.getPrototypeOf(FirstDayForm)).call(this, props));
+
+			_this.state = {
+				y_thuc: 1
+			};
+			(0, _reactAutobind2.default)(_this);
+			return _this;
+		}
+
+		_createClass(FirstDayForm, [{
+			key: 'handleChangeYThuc',
+			value: function handleChangeYThuc(event, index, value) {
+				this.setState({ y_thuc: value });
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						'p',
+						null,
+						_react2.default.createElement(
+							'b',
+							null,
+							'Di\u1EC5n bi\u1EBFn'
+						)
+					),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Ti\u1EC1n s\u1EED d\u1ECB \u1EE9ng',
+						floatingLabelText: 'Ti\u1EC1n s\u1EED d\u1ECB \u1EE9ng',
+						fullWidth: true
+					}),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Ti\u1EC1n s\u1EED b\u1EC7nh',
+						floatingLabelText: 'Ti\u1EC1n s\u1EED b\u1EC7nh',
+						fullWidth: true
+					}),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						_SelectField2.default,
+						{
+							floatingLabelText: '\xDD th\u1EE9c',
+							value: this.state.y_thuc,
+							onChange: this.handleChangeYThuc
+						},
+						_react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'T\u1EC9nh' }),
+						_react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'L\u01A1 m\u01A1' }),
+						_react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: 'H\xF4n m\xEA' }),
+						_react2.default.createElement(_MenuItem2.default, { value: 4, primaryText: 'Kh\xE1c' })
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'P',
+						floatingLabelText: 'P',
+						style: { width: '30%' }
+					}),
+					_react2.default.createElement(
+						'span',
+						null,
+						'kg'
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'H',
+						floatingLabelText: 'H',
+						style: { width: '30%' }
+					}),
+					_react2.default.createElement(
+						'span',
+						null,
+						'cm'
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'BMI',
+						floatingLabelText: 'BMI',
+						style: { width: '30%' }
+					}),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'div',
+						{ style: { display: 'flex', flexDirection: 'row' } },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Ch\xE1n \u0103n'
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: '\u0102n k\xE9m'
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Bu\u1ED3n n\xF4n'
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'N\xF4n'
+							})
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ style: { display: 'flex', flexDirection: 'row' } },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: '\u0110au b\u1EE5ng'
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Ti\xEAu ch\u1EA3y'
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'T\xE1o b\xF3n'
+							})
+						)
+					),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'M\xE0u s\u1EAFc',
+						floatingLabelText: 'N\u01B0\u1EDBc ti\u1EC3u',
+						style: { width: '50%' }
+					}),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'Ti\u1EC3u bu\u1ED1t/D\u1EAFt'
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'S\u1ED1 l\u01B0\u1EE3ng',
+						floatingLabelText: 'S\u1ED1 l\u01B0\u1EE3ng',
+						style: { width: '100%' }
+					}),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(
+						'div',
+						{ style: { marginBottom: 20 } },
+						_react2.default.createElement(_TextField2.default, {
+							hintText: 'V\u1EBFt th\u01B0\u01A1ng',
+							floatingLabelText: 'V\u1EBFt th\u01B0\u01A1ng',
+							style: { width: '50%' }
+						}),
+						_react2.default.createElement(_TextField2.default, {
+							hintText: 'V\u1ECB tr\xED',
+							floatingLabelText: 'V\u1ECB tr\xED',
+							style: { width: '50%' }
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						{ style: { display: 'flex', flexDirection: 'row' } },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Nhi\u1EC5m tr\xF9ng'
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Ho\u1EA1i t\u1EED'
+							})
+						)
+					),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'V\u1ECB tr\xED',
+						floatingLabelText: 'V\u1ECB tr\xED',
+						style: { width: '100%' }
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'D\u1EA5u hi\u1EC7u b\u1EA5t th\u01B0\u1EDDng kh\xE1c',
+						floatingLabelText: 'D\u1EA5u hi\u1EC7u b\u1EA5t th\u01B0\u1EDDng kh\xE1c',
+						style: { width: '100%' }
+					})
+				);
+			}
+		}]);
+
+		return FirstDayForm;
+	}(_react2.default.Component);
+
+	exports.default = FirstDayForm;
 
 /***/ })
 /******/ ]);
