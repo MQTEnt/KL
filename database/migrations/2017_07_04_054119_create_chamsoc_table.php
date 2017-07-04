@@ -3,7 +3,7 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateChamSocDienbienNgaydauTable extends Migration
+class CreateChamSocTable extends Migration
 {
     /**
      * Run the migrations.
@@ -12,10 +12,10 @@ class CreateChamSocDienbienNgaydauTable extends Migration
      */
     public function up()
     {
-        Schema::create('chamsoc_dienbien_ngaydau', function (Blueprint $table) {
+        Schema::create('chamsoc', function (Blueprint $table) {
             $table->increments('id');
             $table->string('tien_su_di_ung');
-            $table->string('tient_su_benh');
+            $table->string('tien_su_benh');
             $table->smallInteger('y_thuc');
             $table->float('p');
             $table->float('h');
@@ -39,7 +39,11 @@ class CreateChamSocDienbienNgaydauTable extends Migration
             $table->string('vi_tri_nhiem_trung');
             $table->string('dau_hieu_khac');
             
+            $table->boolean('isNgayDau');
             $table->date('ngay');
+            $table->integer('staff_id')->unsigned();
+            $table->foreign('staff_id')->references('id')->on('users')
+                        ->onDelete('cascade');
             $table->integer('patient_id')->unsigned();
             $table->foreign('patient_id')->references('id')->on('patients')
                         ->onDelete('cascade');

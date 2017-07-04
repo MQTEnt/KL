@@ -86851,7 +86851,7 @@
 	      openDrawer: false,
 	      isFollow: false,
 	      isFirstDay: true,
-	      followDay: {},
+	      care: {},
 	      dateStr: '',
 	      openSnackBar: false,
 	      noti: ''
@@ -86868,7 +86868,21 @@
 	    key: 'onSelectDate',
 	    value: function onSelectDate(date) {
 	      var dateStr = date.getFullYear() + '-' + (date.getMonth() + 1) + '-' + date.getDate();
-	      console.log(dateStr);
+	      fetch('/care/' + this.props.params.patient_id + '/' + dateStr, {
+	        credentials: 'same-origin'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (obj) {
+	        if (obj.care !== null) this.setState({
+	          care: obj.care,
+	          isFirstDay: obj.care.isNgayDau === 1 ? true : false,
+	          isFollow: true
+	        });else this.setState({
+	          isFollow: false
+	        });
+	      }.bind(this)).catch(function (ex) {
+	        console.log('parsing failed', ex);
+	      });
 
 	      this.setState({
 	        openDrawer: true
@@ -86887,7 +86901,7 @@
 	  }, {
 	    key: 'renderIsFollow',
 	    value: function renderIsFollow() {
-	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, null);else return _react2.default.createElement(
+	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, { care: this.state.care });else return _react2.default.createElement(
 	        'p',
 	        null,
 	        'Theo d\xF5i ng\xE0y ti\u1EBFp theo'
@@ -87011,7 +87025,7 @@
 	          {
 	            openSecondary: true,
 	            docked: false,
-	            width: 250,
+	            width: 300,
 	            open: this.state.openDrawer,
 	            onRequestChange: function onRequestChange() {
 	              return _this2.setState({ openDrawer: false });
@@ -87067,6 +87081,10 @@
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
+	var _RaisedButton = __webpack_require__(470);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
 	var _reactAutobind = __webpack_require__(647);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -87088,7 +87106,7 @@
 			var _this = _possibleConstructorReturn(this, (FirstDayForm.__proto__ || Object.getPrototypeOf(FirstDayForm)).call(this, props));
 
 			_this.state = {
-				y_thuc: 1
+				y_thuc: _this.props.care.y_thuc
 			};
 			(0, _reactAutobind2.default)(_this);
 			return _this;
@@ -87100,8 +87118,42 @@
 				this.setState({ y_thuc: value });
 			}
 		}, {
+			key: 'submit',
+			value: function submit() {
+				var care = {
+					'tien_su_di_ung': this.tien_su_di_ung.getValue(),
+					'tien_su_benh': this.tien_su_benh.getValue(),
+					'y_thuc': this.state.y_thuc,
+					'p': this.p.getValue(),
+					'h': this.h.getValue(),
+					'bmi': this.bmi.getValue(),
+					'da': this.da.getValue(),
+					'chan_an': this.chan_an.state.switched ? 1 : 0,
+					'an_kem': this.an_kem.state.switched ? 1 : 0,
+					'buon_non': this.buon_non.state.switched ? 1 : 0,
+					'non': this.non.state.switched ? 1 : 0,
+					'dau_bung': this.dau_bung.state.switched ? 1 : 0,
+					'tieu_chay': this.tieu_chay.state.switched ? 1 : 0,
+					'tao_bon': this.tao_bon.state.switched ? 1 : 0,
+					'tieu_hoa_khac': this.tieu_hoa_khac.getValue(),
+					'nuoc_tieu': this.nuoc_tieu.getValue(),
+					'tieu_buot': this.tieu_buot.state.switched ? 1 : 0,
+					'so_luong': this.so_luong.getValue(),
+					'vet_thuong': this.vet_thuong.getValue(),
+					'vi_tri_vet_thuong': this.vi_tri_vet_thuong.getValue(),
+					'nhiem_trung': this.nhiem_trung.state.switched ? 1 : 0,
+					'hoai_tu': this.hoai_tu.state.switched ? 1 : 0,
+					'vi_tri_nhiem_trung': this.vi_tri_nhiem_trung.getValue(),
+					'dau_hieu_khac': this.dau_hieu_khac.getValue()
+				};
+				console.log(care);
+			}
+		}, {
 			key: 'render',
 			value: function render() {
+				var _this2 = this;
+
+				var care = this.props.care;
 				return _react2.default.createElement(
 					'div',
 					null,
@@ -87117,13 +87169,21 @@
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'Ti\u1EC1n s\u1EED d\u1ECB \u1EE9ng',
 						floatingLabelText: 'Ti\u1EC1n s\u1EED d\u1ECB \u1EE9ng',
-						fullWidth: true
+						fullWidth: true,
+						defaultValue: care.tien_su_di_ung,
+						ref: function ref(input) {
+							_this2.tien_su_di_ung = input;
+						}
 					}),
 					_react2.default.createElement('br', null),
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'Ti\u1EC1n s\u1EED b\u1EC7nh',
 						floatingLabelText: 'Ti\u1EC1n s\u1EED b\u1EC7nh',
-						fullWidth: true
+						fullWidth: true,
+						defaultValue: care.tien_su_benh,
+						ref: function ref(input) {
+							_this2.tien_su_benh = input;
+						}
 					}),
 					_react2.default.createElement('br', null),
 					_react2.default.createElement(
@@ -87142,7 +87202,11 @@
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'P',
 						floatingLabelText: 'P',
-						style: { width: '30%' }
+						style: { width: '30%' },
+						defaultValue: care.p,
+						ref: function ref(input) {
+							_this2.p = input;
+						}
 					}),
 					_react2.default.createElement(
 						'span',
@@ -87153,7 +87217,11 @@
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'H',
 						floatingLabelText: 'H',
-						style: { width: '30%' }
+						style: { width: '30%' },
+						defaultValue: care.h,
+						ref: function ref(input) {
+							_this2.h = input;
+						}
 					}),
 					_react2.default.createElement(
 						'span',
@@ -87164,78 +87232,130 @@
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'BMI',
 						floatingLabelText: 'BMI',
-						style: { width: '30%' }
+						style: { width: '30%' },
+						defaultValue: care.bmi,
+						ref: function ref(input) {
+							_this2.bmi = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Da, ni\xEAm m\u1EA1c',
+						floatingLabelText: 'Da, ni\xEAm m\u1EA1c',
+						defaultValue: care.da,
+						ref: function ref(input) {
+							_this2.da = input;
+						}
 					}),
 					_react2.default.createElement('br', null),
 					_react2.default.createElement(
 						'div',
-						{ style: { display: 'flex', flexDirection: 'row' } },
-						_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(_Checkbox2.default, {
-								label: 'Ch\xE1n \u0103n'
-							})
-						),
-						_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(_Checkbox2.default, {
-								label: '\u0102n k\xE9m'
-							})
-						),
-						_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(_Checkbox2.default, {
-								label: 'Bu\u1ED3n n\xF4n'
-							})
-						),
-						_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(_Checkbox2.default, {
-								label: 'N\xF4n'
-							})
-						)
+						null,
+						_react2.default.createElement(_Checkbox2.default, {
+							label: 'Ch\xE1n \u0103n',
+							defaultChecked: care.chan_an ? true : false,
+							ref: function ref(input) {
+								_this2.chan_an = input;
+							}
+						})
 					),
 					_react2.default.createElement(
 						'div',
-						{ style: { display: 'flex', flexDirection: 'row' } },
-						_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(_Checkbox2.default, {
-								label: '\u0110au b\u1EE5ng'
-							})
-						),
-						_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(_Checkbox2.default, {
-								label: 'Ti\xEAu ch\u1EA3y'
-							})
-						),
-						_react2.default.createElement(
-							'div',
-							null,
-							_react2.default.createElement(_Checkbox2.default, {
-								label: 'T\xE1o b\xF3n'
-							})
-						)
+						null,
+						_react2.default.createElement(_Checkbox2.default, {
+							label: '\u0102n k\xE9m',
+							defaultChecked: care.an_kem ? true : false,
+							ref: function ref(input) {
+								_this2.an_kem = input;
+							}
+						})
 					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_Checkbox2.default, {
+							label: 'Bu\u1ED3n n\xF4n',
+							defaultChecked: care.buon_non ? true : false,
+							ref: function ref(input) {
+								_this2.buon_non = input;
+							}
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_Checkbox2.default, {
+							label: 'N\xF4n',
+							defaultChecked: care.non ? true : false,
+							ref: function ref(input) {
+								_this2.non = input;
+							}
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_Checkbox2.default, {
+							label: '\u0110au b\u1EE5ng',
+							defaultChecked: care.dau_bung ? true : false,
+							ref: function ref(input) {
+								_this2.dau_bung = input;
+							}
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_Checkbox2.default, {
+							label: 'Ti\xEAu ch\u1EA3y',
+							defaultChecked: care.tieu_chay ? true : false,
+							ref: function ref(input) {
+								_this2.tieu_chay = input;
+							}
+						})
+					),
+					_react2.default.createElement(
+						'div',
+						null,
+						_react2.default.createElement(_Checkbox2.default, {
+							label: 'T\xE1o b\xF3n',
+							defaultChecked: care.tao_bon ? true : false,
+							ref: function ref(input) {
+								_this2.tao_bon = input;
+							}
+						})
+					),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Kh\xE1c',
+						floatingLabelText: 'Kh\xE1c',
+						defaultValue: care.tieu_hoa_khac,
+						ref: function ref(input) {
+							_this2.tieu_hoa_khac = input;
+						}
+					}),
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'M\xE0u s\u1EAFc',
 						floatingLabelText: 'N\u01B0\u1EDBc ti\u1EC3u',
-						style: { width: '50%' }
+						style: { width: '50%' },
+						defaultValue: care.nuoc_tieu,
+						ref: function ref(input) {
+							_this2.nuoc_tieu = input;
+						}
 					}),
 					_react2.default.createElement(_Checkbox2.default, {
-						label: 'Ti\u1EC3u bu\u1ED1t/D\u1EAFt'
+						label: 'Ti\u1EC3u bu\u1ED1t/D\u1EAFt',
+						defaultChecked: care.tieu_buot ? true : false,
+						ref: function ref(input) {
+							_this2.tieu_buot = input;
+						}
 					}),
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'S\u1ED1 l\u01B0\u1EE3ng',
 						floatingLabelText: 'S\u1ED1 l\u01B0\u1EE3ng',
-						style: { width: '100%' }
+						style: { width: '100%' },
+						defaultValue: care.so_luong,
+						ref: function ref(input) {
+							_this2.so_luong = input;
+						}
 					}),
 					_react2.default.createElement('br', null),
 					_react2.default.createElement(
@@ -87244,12 +87364,20 @@
 						_react2.default.createElement(_TextField2.default, {
 							hintText: 'V\u1EBFt th\u01B0\u01A1ng',
 							floatingLabelText: 'V\u1EBFt th\u01B0\u01A1ng',
-							style: { width: '50%' }
+							style: { width: '50%' },
+							defaultValue: care.vet_thuong,
+							ref: function ref(input) {
+								_this2.vet_thuong = input;
+							}
 						}),
 						_react2.default.createElement(_TextField2.default, {
 							hintText: 'V\u1ECB tr\xED',
 							floatingLabelText: 'V\u1ECB tr\xED',
-							style: { width: '50%' }
+							style: { width: '50%' },
+							defaultValue: care.vi_tri_vet_thuong,
+							ref: function ref(input) {
+								_this2.vi_tri_vet_thuong = input;
+							}
 						})
 					),
 					_react2.default.createElement(
@@ -87259,26 +87387,48 @@
 							'div',
 							null,
 							_react2.default.createElement(_Checkbox2.default, {
-								label: 'Nhi\u1EC5m tr\xF9ng'
+								label: 'Nhi\u1EC5m tr\xF9ng',
+								defaultChecked: care.nhiem_trung ? true : false,
+								ref: function ref(input) {
+									_this2.nhiem_trung = input;
+								}
 							})
 						),
 						_react2.default.createElement(
 							'div',
 							null,
 							_react2.default.createElement(_Checkbox2.default, {
-								label: 'Ho\u1EA1i t\u1EED'
+								label: 'Ho\u1EA1i t\u1EED',
+								defaultChecked: care.hoai_tu ? true : false,
+								ref: function ref(input) {
+									_this2.hoai_tu = input;
+								}
 							})
 						)
 					),
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'V\u1ECB tr\xED',
 						floatingLabelText: 'V\u1ECB tr\xED',
-						style: { width: '100%' }
+						style: { width: '100%' },
+						defaultValue: care.vi_tri_nhiem_trung,
+						ref: function ref(input) {
+							_this2.vi_tri_nhiem_trung = input;
+						}
 					}),
 					_react2.default.createElement(_TextField2.default, {
 						hintText: 'D\u1EA5u hi\u1EC7u b\u1EA5t th\u01B0\u1EDDng kh\xE1c',
 						floatingLabelText: 'D\u1EA5u hi\u1EC7u b\u1EA5t th\u01B0\u1EDDng kh\xE1c',
-						style: { width: '100%' }
+						style: { width: '100%' },
+						defaultValue: care.dau_hieu_khac,
+						ref: function ref(input) {
+							_this2.dau_hieu_khac = input;
+						}
+					}),
+					_react2.default.createElement(_RaisedButton2.default, {
+						fullWidth: true,
+						label: 'C\u1EADp nh\u1EADt',
+						primary: true,
+						onClick: this.submit
 					})
 				);
 			}

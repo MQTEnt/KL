@@ -40,7 +40,7 @@ export default class Caring extends React.Component{
       openDrawer: false,
       isFollow: false,
       isFirstDay: true,
-      followDay: {},
+      care: {},
       dateStr: '',
       openSnackBar: false,
       noti: ''
@@ -53,7 +53,26 @@ export default class Caring extends React.Component{
   }
   onSelectDate(date){
     let dateStr = date.getFullYear()+'-'+(date.getMonth()+ 1)+'-'+date.getDate();
-    console.log(dateStr);
+    fetch('/care/'+this.props.params.patient_id+'/'+dateStr, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        if(obj.care !== null)
+          this.setState({
+            care: obj.care,
+            isFirstDay: (obj.care.isNgayDau===1)?true:false,
+            isFollow: true
+          });
+        else
+          this.setState({
+            isFollow: false
+          });
+      }.bind(this))
+      .catch(function(ex){
+      console.log('parsing failed', ex)
+    });
 
     this.setState({
       openDrawer: true
@@ -67,7 +86,7 @@ export default class Caring extends React.Component{
   }
   renderIsFollow(){
     if(this.state.isFirstDay)
-      return <FirstDayForm/>
+      return <FirstDayForm care={this.state.care}/>
     else
       return <p>Theo dõi ngày tiếp theo</p>
   }
@@ -137,7 +156,7 @@ export default class Caring extends React.Component{
         <Drawer
           openSecondary={true}
           docked={false}
-          width={250}
+          width={300}
           open={this.state.openDrawer}
           onRequestChange={() => this.setState({openDrawer: false})}
         >
