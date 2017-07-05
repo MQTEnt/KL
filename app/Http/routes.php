@@ -251,6 +251,10 @@ Route::group(['middleware' => ['auth']], function(){
 	 * Care
 	 */
 	Route::get('care/{patient_id}/{date}', 'Staff\CareController@getCaringByDate');
+	Route::get('care/create-first-day/{patient_id}/{date}', 'Staff\CareController@createFirstDay');
+	Route::get('care/create-next-day/{patient_id}/{date}', 'Staff\CareController@createNextDay');
+	Route::post('care/{id}', 'Staff\CareController@update');
+
 	/////////////////////////
 	Route::get('user/staff', function(Illuminate\Http\Request $request){
 		$user = Auth::user();

@@ -86803,6 +86803,10 @@
 
 	var _FirstDayForm2 = _interopRequireDefault(_FirstDayForm);
 
+	var _NextDay = __webpack_require__(785);
+
+	var _NextDay2 = _interopRequireDefault(_NextDay);
+
 	var _reactAutobind = __webpack_require__(647);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -86875,10 +86879,12 @@
 	      }).then(function (obj) {
 	        if (obj.care !== null) this.setState({
 	          care: obj.care,
-	          isFirstDay: obj.care.isNgayDau === 1 ? true : false,
-	          isFollow: true
+	          isFollow: true,
+	          dateStr: dateStr,
+	          isFirstDay: obj.care.isNgayDau ? true : false
 	        });else this.setState({
-	          isFollow: false
+	          isFollow: false,
+	          dateStr: dateStr
 	        });
 	      }.bind(this)).catch(function (ex) {
 	        console.log('parsing failed', ex);
@@ -86892,20 +86898,48 @@
 	    key: 'onClickFollowFirstDay',
 	    value: function onClickFollowFirstDay() {
 	      this.setState({ isFollow: true, isFirstDay: true });
+
+	      //Create first day
+	      fetch('/care/create-first-day/' + this.props.params.patient_id + '/' + this.state.dateStr, {
+	        credentials: 'same-origin'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (obj) {
+	        if (obj.state === 1) this.setState({
+	          care: obj.care,
+	          isFollow: true
+	        });else this.setState({
+	          isFollow: false
+	        });
+	      }.bind(this)).catch(function (ex) {
+	        console.log('parsing failed', ex);
+	      });
 	    }
 	  }, {
 	    key: 'onClickFollowNextDay',
 	    value: function onClickFollowNextDay() {
 	      this.setState({ isFollow: true, isFirstDay: false });
+
+	      //Create next day
+	      fetch('/care/create-next-day/' + this.props.params.patient_id + '/' + this.state.dateStr, {
+	        credentials: 'same-origin'
+	      }).then(function (response) {
+	        return response.json();
+	      }).then(function (obj) {
+	        if (obj.state === 1) this.setState({
+	          care: obj.care,
+	          isFollow: true
+	        });else this.setState({
+	          isFollow: false
+	        });
+	      }.bind(this)).catch(function (ex) {
+	        console.log('parsing failed', ex);
+	      });
 	    }
 	  }, {
 	    key: 'renderIsFollow',
 	    value: function renderIsFollow() {
-	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, { care: this.state.care });else return _react2.default.createElement(
-	        'p',
-	        null,
-	        'Theo d\xF5i ng\xE0y ti\u1EBFp theo'
-	      );
+	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, { care: this.state.care });else return _react2.default.createElement(_NextDay2.default, { care: this.state.care });
 	    }
 	  }, {
 	    key: 'renderIsNotFollow',
@@ -87146,7 +87180,35 @@
 					'vi_tri_nhiem_trung': this.vi_tri_nhiem_trung.getValue(),
 					'dau_hieu_khac': this.dau_hieu_khac.getValue()
 				};
-				console.log(care);
+				//Request
+				var json_care = JSON.stringify(care);
+				/////Request
+				var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+				var formData = new FormData();
+				formData.append('care', json_care);
+				formData.append('_token', _token);
+
+				fetch('/care/' + this.props.care.id, {
+					method: 'POST',
+					credentials: 'same-origin',
+					body: formData
+				}).then(function (response) {
+					return response.json();
+				}).then(function (obj) {
+					if (obj.state === 1) {
+						console.log('Cập nhật thành công');
+						//Noti ...
+					} else console.log('Cập nhật thất bại');
+				}.bind(this)).catch(function (ex) {
+					console.log('parsing failed', ex);
+				});
+			}
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate(prevProps, prevState) {
+				if (prevProps.care.y_thuc !== this.props.care.y_thuc) {
+					this.setState({ y_thuc: this.props.care.y_thuc });
+				}
 			}
 		}, {
 			key: 'render',
@@ -87156,7 +87218,7 @@
 				var care = this.props.care;
 				return _react2.default.createElement(
 					'div',
-					null,
+					{ key: care.id },
 					_react2.default.createElement(
 						'p',
 						null,
@@ -87193,6 +87255,7 @@
 							value: this.state.y_thuc,
 							onChange: this.handleChangeYThuc
 						},
+						_react2.default.createElement(_MenuItem2.default, { value: 0 }),
 						_react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'T\u1EC9nh' }),
 						_react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'L\u01A1 m\u01A1' }),
 						_react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: 'H\xF4n m\xEA' }),
@@ -87438,6 +87501,167 @@
 	}(_react2.default.Component);
 
 	exports.default = FirstDayForm;
+
+/***/ }),
+/* 785 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _TextField = __webpack_require__(496);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _SelectField = __webpack_require__(604);
+
+	var _SelectField2 = _interopRequireDefault(_SelectField);
+
+	var _MenuItem = __webpack_require__(419);
+
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+
+	var _Checkbox = __webpack_require__(502);
+
+	var _Checkbox2 = _interopRequireDefault(_Checkbox);
+
+	var _RaisedButton = __webpack_require__(470);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _reactAutobind = __webpack_require__(647);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var NextDay = function (_React$Component) {
+		_inherits(NextDay, _React$Component);
+
+		function NextDay(props) {
+			_classCallCheck(this, NextDay);
+
+			var _this = _possibleConstructorReturn(this, (NextDay.__proto__ || Object.getPrototypeOf(NextDay)).call(this, props));
+
+			_this.state = {
+				y_thuc: _this.props.care.y_thuc
+			};
+			(0, _reactAutobind2.default)(_this);
+			return _this;
+		}
+
+		_createClass(NextDay, [{
+			key: 'handleChangeYThuc',
+			value: function handleChangeYThuc(event, index, value) {
+				this.setState({ y_thuc: value });
+			}
+		}, {
+			key: 'submit',
+			value: function submit() {
+				var care = {
+					'y_thuc': this.state.y_thuc,
+					'dau_hieu_khac': this.dau_hieu_khac.getValue()
+				};
+				//Request
+				var json_care = JSON.stringify(care);
+				/////Request
+				var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+				var formData = new FormData();
+				formData.append('care', json_care);
+				formData.append('_token', _token);
+
+				fetch('/care/' + this.props.care.id, {
+					method: 'POST',
+					credentials: 'same-origin',
+					body: formData
+				}).then(function (response) {
+					return response.json();
+				}).then(function (obj) {
+					if (obj.state === 1) {
+						console.log('Cập nhật thành công');
+						//Noti ...
+					} else console.log('Cập nhật thất bại');
+				}.bind(this)).catch(function (ex) {
+					console.log('parsing failed', ex);
+				});
+			}
+		}, {
+			key: 'componentDidUpdate',
+			value: function componentDidUpdate(prevProps, prevState) {
+				if (prevProps.care.y_thuc !== this.props.care.y_thuc) {
+					this.setState({ y_thuc: this.props.care.y_thuc });
+				}
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var _this2 = this;
+
+				var care = this.props.care;
+				return _react2.default.createElement(
+					'div',
+					{ key: care.id },
+					_react2.default.createElement(
+						'p',
+						null,
+						_react2.default.createElement(
+							'b',
+							null,
+							'Di\u1EC5n bi\u1EBFn'
+						)
+					),
+					_react2.default.createElement(
+						_SelectField2.default,
+						{
+							floatingLabelText: '\xDD th\u1EE9c',
+							value: this.state.y_thuc,
+							onChange: this.handleChangeYThuc
+						},
+						_react2.default.createElement(_MenuItem2.default, { value: 0 }),
+						_react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'T\u1EC9nh' }),
+						_react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'L\u01A1 m\u01A1' }),
+						_react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: 'H\xF4n m\xEA' }),
+						_react2.default.createElement(_MenuItem2.default, { value: 4, primaryText: 'Kh\xE1c' })
+					),
+					_react2.default.createElement('br', null),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'D\u1EA5u hi\u1EC7u b\u1EA5t th\u01B0\u1EDDng kh\xE1c',
+						floatingLabelText: 'D\u1EA5u hi\u1EC7u b\u1EA5t th\u01B0\u1EDDng kh\xE1c',
+						style: { width: '100%' },
+						defaultValue: care.dau_hieu_khac,
+						ref: function ref(input) {
+							_this2.dau_hieu_khac = input;
+						}
+					}),
+					_react2.default.createElement(_RaisedButton2.default, {
+						fullWidth: true,
+						label: 'C\u1EADp nh\u1EADt',
+						primary: true,
+						onClick: this.submit
+					})
+				);
+			}
+		}]);
+
+		return NextDay;
+	}(_react2.default.Component);
+
+	exports.default = NextDay;
 
 /***/ })
 /******/ ]);

@@ -8,6 +8,7 @@ import Paper from 'material-ui/Paper';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import SnackBar from '../partials/SnackBar';
 import FirstDayForm from './FirstDayForm';
+import NextDay from './NextDay';
 import autoBind from 'react-autobind';
 
 
@@ -62,12 +63,14 @@ export default class Caring extends React.Component{
         if(obj.care !== null)
           this.setState({
             care: obj.care,
-            isFirstDay: (obj.care.isNgayDau===1)?true:false,
-            isFollow: true
+            isFollow: true,
+            dateStr: dateStr,
+            isFirstDay: (obj.care.isNgayDau)?true:false
           });
         else
           this.setState({
-            isFollow: false
+            isFollow: false,
+            dateStr: dateStr
           });
       }.bind(this))
       .catch(function(ex){
@@ -79,16 +82,58 @@ export default class Caring extends React.Component{
     });
   }
   onClickFollowFirstDay(){
-    this.setState({isFollow: true, isFirstDay: true})
+    this.setState({isFollow: true, isFirstDay: true});
+
+    //Create first day
+    fetch('/care/create-first-day/'+this.props.params.patient_id+'/'+this.state.dateStr, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        if(obj.state === 1)
+          this.setState({
+            care: obj.care,
+            isFollow: true
+          });
+        else
+          this.setState({
+            isFollow: false
+          });
+      }.bind(this))
+      .catch(function(ex){
+      console.log('parsing failed', ex)
+    });
   }
   onClickFollowNextDay(){
-    this.setState({isFollow: true, isFirstDay: false})
+    this.setState({isFollow: true, isFirstDay: false});
+
+    //Create next day
+    fetch('/care/create-next-day/'+this.props.params.patient_id+'/'+this.state.dateStr, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        if(obj.state === 1)
+          this.setState({
+            care: obj.care,
+            isFollow: true
+          });
+        else
+          this.setState({
+            isFollow: false
+          });
+      }.bind(this))
+      .catch(function(ex){
+      console.log('parsing failed', ex)
+    });
   }
   renderIsFollow(){
     if(this.state.isFirstDay)
       return <FirstDayForm care={this.state.care}/>
     else
-      return <p>Theo dõi ngày tiếp theo</p>
+      return <NextDay care={this.state.care}/>
   }
   renderIsNotFollow(){
     return (

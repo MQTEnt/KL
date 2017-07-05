@@ -44,12 +44,42 @@ export default class FirstDayForm extends React.Component{
 			'vi_tri_nhiem_trung': this.vi_tri_nhiem_trung.getValue(),
 			'dau_hieu_khac': this.dau_hieu_khac.getValue(),
 		}
-		console.log(care);
+		//Request
+		let json_care = JSON.stringify(care);
+		/////Request
+		var _token = document.getElementsByName("csrf-token")[0].getAttribute("content");
+		var formData = new FormData();
+	    formData.append('care', json_care);
+		formData.append('_token', _token);
+
+	    fetch('/care/'+this.props.care.id, {
+	      method: 'POST',
+	      credentials: 'same-origin',
+	      body: formData
+	    })
+	    .then(function(response) {
+	      return response.json()
+	    }).then(function(obj) {
+	      	if(obj.state === 1){
+	      		console.log('Cập nhật thành công');
+	      		//Noti ...
+	      	}
+	      	else
+	      		console.log('Cập nhật thất bại');
+	    }.bind(this))
+	    .catch(function(ex) {
+	      console.log('parsing failed', ex)
+	    });
+	}
+	componentDidUpdate(prevProps, prevState){
+		if(prevProps.care.y_thuc !== this.props.care.y_thuc){
+			this.setState({y_thuc: this.props.care.y_thuc});
+		}
 	}
 	render(){
 		let care = this.props.care;
 		return(
-			<div>
+			<div key={care.id}>
 				<p><b>Diễn biến</b></p>
 				<TextField
 					hintText="Tiền sử dị ứng"
@@ -70,6 +100,7 @@ export default class FirstDayForm extends React.Component{
 					value={this.state.y_thuc}
 					onChange={this.handleChangeYThuc}
 		        >
+		        	<MenuItem value={0} />
 					<MenuItem value={1} primaryText="Tỉnh" />
 					<MenuItem value={2} primaryText="Lơ mơ" />
 					<MenuItem value={3} primaryText="Hôn mê" />

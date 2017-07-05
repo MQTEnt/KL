@@ -8,7 +8,7 @@ class Care extends Model
 {
 	protected $table = 'chamsoc';
 	protected $fillable = [	'tien_su_di_ung',
-							'tient_su_benh',
+							'tien_su_benh',
 							'y_thuc',
 							'p',
 							'h',
@@ -33,6 +33,7 @@ class Care extends Model
 							'dau_hieu_khac',
 							'isNgayDau',
 							'ngay',
+							'staff_id',
 							'patient_id'
 						];
 	public $timestamps = true;
