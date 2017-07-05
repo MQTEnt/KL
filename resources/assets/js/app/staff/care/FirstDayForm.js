@@ -60,12 +60,7 @@ export default class FirstDayForm extends React.Component{
 	    .then(function(response) {
 	      return response.json()
 	    }).then(function(obj) {
-	      	if(obj.state === 1){
-	      		console.log('Cập nhật thành công');
-	      		//Noti ...
-	      	}
-	      	else
-	      		console.log('Cập nhật thất bại');
+	      	this.props.showNoti(obj.message);
 	    }.bind(this))
 	    .catch(function(ex) {
 	      console.log('parsing failed', ex)

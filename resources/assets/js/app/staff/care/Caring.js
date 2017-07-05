@@ -49,8 +49,11 @@ export default class Caring extends React.Component{
 
     autoBind(this);
   }
-  onClickActivity(){
-
+  showNoti(message){
+    this.setState({
+      noti: message,
+      openSnackBar: true
+    });
   }
   onSelectDate(date){
     let dateStr = date.getFullYear()+'-'+(date.getMonth()+ 1)+'-'+date.getDate();
@@ -131,9 +134,15 @@ export default class Caring extends React.Component{
   }
   renderIsFollow(){
     if(this.state.isFirstDay)
-      return <FirstDayForm care={this.state.care}/>
+      return <FirstDayForm 
+                care={this.state.care}
+                showNoti={this.showNoti}
+              />
     else
-      return <NextDay care={this.state.care}/>
+      return <NextDay 
+                care={this.state.care}
+                showNoti={this.showNoti}
+              />
   }
   renderIsNotFollow(){
     return (

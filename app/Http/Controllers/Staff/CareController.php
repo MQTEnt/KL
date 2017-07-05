@@ -81,6 +81,6 @@ class CareController extends Controller
 			$care->vi_tri_nhiem_trung = $data['vi_tri_nhiem_trung'];
 		}
 		$care->save();
-		return ['state' => 1, 'care' => $care];
+		return ['state' => 1, 'care' => $care, 'message' => 'Đã cập nhật thành công!'];
 	}
 }

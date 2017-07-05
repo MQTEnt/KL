@@ -86866,8 +86866,13 @@
 	  }
 
 	  _createClass(Caring, [{
-	    key: 'onClickActivity',
-	    value: function onClickActivity() {}
+	    key: 'showNoti',
+	    value: function showNoti(message) {
+	      this.setState({
+	        noti: message,
+	        openSnackBar: true
+	      });
+	    }
 	  }, {
 	    key: 'onSelectDate',
 	    value: function onSelectDate(date) {
@@ -86939,7 +86944,13 @@
 	  }, {
 	    key: 'renderIsFollow',
 	    value: function renderIsFollow() {
-	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, { care: this.state.care });else return _react2.default.createElement(_NextDay2.default, { care: this.state.care });
+	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, {
+	        care: this.state.care,
+	        showNoti: this.showNoti
+	      });else return _react2.default.createElement(_NextDay2.default, {
+	        care: this.state.care,
+	        showNoti: this.showNoti
+	      });
 	    }
 	  }, {
 	    key: 'renderIsNotFollow',
@@ -87195,10 +87206,7 @@
 				}).then(function (response) {
 					return response.json();
 				}).then(function (obj) {
-					if (obj.state === 1) {
-						console.log('Cập nhật thành công');
-						//Noti ...
-					} else console.log('Cập nhật thất bại');
+					this.props.showNoti(obj.message);
 				}.bind(this)).catch(function (ex) {
 					console.log('parsing failed', ex);
 				});
@@ -87592,10 +87600,7 @@
 				}).then(function (response) {
 					return response.json();
 				}).then(function (obj) {
-					if (obj.state === 1) {
-						console.log('Cập nhật thành công');
-						//Noti ...
-					} else console.log('Cập nhật thất bại');
+					this.props.showNoti(obj.message);
 				}.bind(this)).catch(function (ex) {
 					console.log('parsing failed', ex);
 				});
