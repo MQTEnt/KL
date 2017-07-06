@@ -133,16 +133,22 @@ export default class Caring extends React.Component{
     });
   }
   renderIsFollow(){
-    if(this.state.isFirstDay)
-      return <FirstDayForm 
-                care={this.state.care}
-                showNoti={this.showNoti}
-              />
-    else
-      return <NextDay 
-                care={this.state.care}
-                showNoti={this.showNoti}
-              />
+    return (
+      <div style={{margin: 5}}>
+        {
+          (this.state.isFirstDay)?
+          <FirstDayForm 
+            care={this.state.care}
+            showNoti={this.showNoti}
+          />
+          :
+          <NextDay 
+            care={this.state.care}
+            showNoti={this.showNoti}
+          />
+        }
+      </div>
+    );
   }
   renderIsNotFollow(){
     return (

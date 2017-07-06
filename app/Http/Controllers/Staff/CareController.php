@@ -55,6 +55,25 @@ class CareController extends Controller
 		//Common
 		$care->y_thuc = $data['y_thuc'];
 		$care->dau_hieu_khac = $data['dau_hieu_khac'];
+
+		$care->noi_quy = $data['noi_quy'];
+		$care->thuoc_uong = $data['thuoc_uong'];
+		$care->thuoc_tiem = $data['thuoc_tiem'];
+		$care->bd_truyen_dich = $data['bd_truyen_dich'];
+		$care->kt_truyen_dich = $data['kt_truyen_dich'];
+		$care->truyen_dich_an_toan = $data['truyen_dich_an_toan'];
+		$care->truyen_dich_khac = $data['truyen_dich_khac'];
+		$care->thay_bang = $data['thay_bang'];
+		$care->dinh_duong = $data['dinh_duong'];
+		$care->hh = $data['hh'];
+		$care->hs = $data['hs'];
+		$care->vs = $data['vs'];
+		$care->xet_nghiem_khac = $data['xet_nghiem_khac'];
+		$care->ve_sinh_ca_nhan = $data['ve_sinh_ca_nhan'];
+		$care->cham_soc_khac = $data['cham_soc_khac'];
+		$care->huyet_ap = $data['huyet_ap'];
+		$care->nhip_tho = $data['nhip_tho'];
+		
 		//Difference
 		if($care->isNgayDau == 1){
 			$care->tien_su_di_ung = $data['tien_su_di_ung'];

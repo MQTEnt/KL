@@ -86944,13 +86944,17 @@
 	  }, {
 	    key: 'renderIsFollow',
 	    value: function renderIsFollow() {
-	      if (this.state.isFirstDay) return _react2.default.createElement(_FirstDayForm2.default, {
-	        care: this.state.care,
-	        showNoti: this.showNoti
-	      });else return _react2.default.createElement(_NextDay2.default, {
-	        care: this.state.care,
-	        showNoti: this.showNoti
-	      });
+	      return _react2.default.createElement(
+	        'div',
+	        { style: { margin: 5 } },
+	        this.state.isFirstDay ? _react2.default.createElement(_FirstDayForm2.default, {
+	          care: this.state.care,
+	          showNoti: this.showNoti
+	        }) : _react2.default.createElement(_NextDay2.default, {
+	          care: this.state.care,
+	          showNoti: this.showNoti
+	        })
+	      );
 	    }
 	  }, {
 	    key: 'renderIsNotFollow',
@@ -87130,6 +87134,10 @@
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
+	var _TimePicker = __webpack_require__(622);
+
+	var _TimePicker2 = _interopRequireDefault(_TimePicker);
+
 	var _reactAutobind = __webpack_require__(647);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -87150,9 +87158,15 @@
 
 			var _this = _possibleConstructorReturn(this, (FirstDayForm.__proto__ || Object.getPrototypeOf(FirstDayForm)).call(this, props));
 
+			var care = _this.props.care;
 			_this.state = {
-				y_thuc: _this.props.care.y_thuc
+				y_thuc: care.y_thuc
 			};
+
+			var bd_time = care.bd_truyen_dich.split(':');
+			var kt_time = care.kt_truyen_dich.split(':');
+			_this.bd_truyen_dich = bd_time[0] + ':' + bd_time[1];
+			_this.kt_truyen_dich = kt_time[0] + ':' + kt_time[1];
 			(0, _reactAutobind2.default)(_this);
 			return _this;
 		}
@@ -87189,8 +87203,29 @@
 					'nhiem_trung': this.nhiem_trung.state.switched ? 1 : 0,
 					'hoai_tu': this.hoai_tu.state.switched ? 1 : 0,
 					'vi_tri_nhiem_trung': this.vi_tri_nhiem_trung.getValue(),
-					'dau_hieu_khac': this.dau_hieu_khac.getValue()
+					'dau_hieu_khac': this.dau_hieu_khac.getValue(),
+
+					'noi_quy': this.noi_quy.state.switched ? 1 : 0,
+					'thuoc_uong': this.thuoc_uong.state.switched ? 1 : 0,
+					'thuoc_tiem': this.thuoc_tiem.state.switched ? 1 : 0,
+					'bd_truyen_dich': this.bd_truyen_dich,
+					'kt_truyen_dich': this.kt_truyen_dich,
+					'truyen_dich_an_toan': this.truyen_dich_an_toan.state.switched ? 1 : 0,
+					'truyen_dich_khac': this.truyen_dich_khac.getValue(),
+					'thay_bang': this.thay_bang.getValue(),
+					'dinh_duong': this.dinh_duong.getValue(),
+					'hh': this.hh.state.switched ? 1 : 0,
+					'hs': this.hs.state.switched ? 1 : 0,
+					'vs': this.vs.state.switched ? 1 : 0,
+					'xet_nghiem_khac': this.xet_nghiem_khac.getValue(),
+					've_sinh_ca_nhan': this.ve_sinh_ca_nhan.getValue(),
+					'cham_soc_khac': this.cham_soc_khac.getValue(),
+
+					'huyet_ap': this.huyet_ap.getValue(),
+					'nhip_tho': this.nhip_tho.getValue()
 				};
+				// console.log(care);
+				// return;
 				//Request
 				var json_care = JSON.stringify(care);
 				/////Request
@@ -87212,6 +87247,14 @@
 				});
 			}
 		}, {
+			key: 'changeTime',
+			value: function changeTime(time, type) {
+				var hours = time.getHours();
+				var minutes = time.getMinutes();
+				if (type === 'bd_truyen_dich') this.bd_truyen_dich = hours + ':' + minutes;
+				if (type === 'kt_truyen_dich') this.kt_truyen_dich = hours + ':' + minutes;
+			}
+		}, {
 			key: 'componentDidUpdate',
 			value: function componentDidUpdate(prevProps, prevState) {
 				if (prevProps.care.y_thuc !== this.props.care.y_thuc) {
@@ -87224,6 +87267,10 @@
 				var _this2 = this;
 
 				var care = this.props.care;
+				var bd_hours = care.bd_truyen_dich.split(':')[0];
+				var bd_mins = care.bd_truyen_dich.split(':')[1];
+				var kt_hours = care.kt_truyen_dich.split(':')[0];
+				var kt_mins = care.kt_truyen_dich.split(':')[1];
 				return _react2.default.createElement(
 					'div',
 					{ key: care.id },
@@ -87495,6 +87542,168 @@
 							_this2.dau_hieu_khac = input;
 						}
 					}),
+					_react2.default.createElement(
+						'p',
+						null,
+						_react2.default.createElement(
+							'b',
+							null,
+							'Th\u1EF1c hi\u1EC7n ch\u0103m s\xF3c'
+						)
+					),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'Th\xF4ng b\xE1o n\u1ED9i quy',
+						defaultChecked: care.noi_quy ? true : false,
+						ref: function ref(input) {
+							_this2.noi_quy = input;
+						}
+					}),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Th\u1EF1c hi\u1EC7n y l\u1EC7nh:'
+					),
+					_react2.default.createElement(
+						'div',
+						{ style: { display: 'flex', flexDirection: 'row' } },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Thu\u1ED1c u\u1ED1ng',
+								defaultChecked: care.thuoc_uong ? true : false,
+								ref: function ref(input) {
+									_this2.thuoc_uong = input;
+								}
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Thu\u1ED1c ti\xEAm',
+								defaultChecked: care.thuoc_tiem ? true : false,
+								ref: function ref(input) {
+									_this2.thuoc_tiem = input;
+								}
+							})
+						)
+					),
+					_react2.default.createElement(_TimePicker2.default, {
+						format: '24hr',
+						hintText: 'Gi\u1EDD truy\u1EC1n d\u1ECBch',
+						floatingLabelText: 'Gi\u1EDD truy\u1EC1n d\u1ECBch',
+						defaultTime: new Date(2000, 1, 1, bd_hours, bd_mins, 0),
+						onChange: function onChange(e, time) {
+							return _this2.changeTime(time, 'bd_truyen_dich');
+						}
+					}),
+					_react2.default.createElement(_TimePicker2.default, {
+						format: '24hr',
+						hintText: 'Gi\u1EDD k\u1EBFt th\xFAc truy\u1EC1n d\u1ECBch',
+						floatingLabelText: 'Gi\u1EDD k\u1EBFt th\xFAc truy\u1EC1n d\u1ECBch',
+						defaultTime: new Date(2000, 1, 1, kt_hours, kt_mins, 0),
+						onChange: function onChange(e, time) {
+							return _this2.changeTime(time, 'kt_truyen_dich');
+						}
+					}),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'Truy\u1EC1n d\u1ECBch an to\xE0n',
+						defaultChecked: care.truyen_dich_an_toan ? true : false,
+						ref: function ref(input) {
+							_this2.truyen_dich_an_toan = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Kh\xE1c',
+						floatingLabelText: 'Kh\xE1c',
+						defaultValue: care.truyen_dich_khac,
+						ref: function ref(input) {
+							_this2.truyen_dich_khac = input;
+						}
+					}),
+					_react2.default.createElement(
+						'p',
+						null,
+						'X\xE9t nghi\u1EC7m:'
+					),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'HH',
+						defaultChecked: care.hh ? true : false,
+						ref: function ref(input) {
+							_this2.hh = input;
+						}
+					}),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'HS',
+						defaultChecked: care.hs ? true : false,
+						ref: function ref(input) {
+							_this2.hs = input;
+						}
+					}),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'VS',
+						defaultChecked: care.vs ? true : false,
+						ref: function ref(input) {
+							_this2.vs = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'X\xE9t nghi\u1EC7m kh\xE1c',
+						floatingLabelText: 'X\xE9t nghi\u1EC7m kh\xE1c',
+						defaultValue: care.xet_nghiem_khac,
+						ref: function ref(input) {
+							_this2.xet_nghiem_khac = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Thay b\u0103ng',
+						floatingLabelText: 'Thay b\u0103ng',
+						defaultValue: care.thay_bang,
+						ref: function ref(input) {
+							_this2.thay_bang = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Dinh d\u01B0\u1EE1ng',
+						floatingLabelText: 'Dinh d\u01B0\u1EE1ng',
+						defaultValue: care.dinh_duong,
+						ref: function ref(input) {
+							_this2.dinh_duong = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'V\u1EC7 sinh c\xE1 nh\xE2n',
+						floatingLabelText: 'V\u1EC7 sinh c\xE1 nh\xE2n',
+						defaultValue: care.ve_sinh_ca_nhan,
+						ref: function ref(input) {
+							_this2.ve_sinh_ca_nhan = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Ch\u0103m s\xF3c kh\xE1c',
+						floatingLabelText: 'Ch\u0103m s\xF3c kh\xE1c',
+						defaultValue: care.cham_soc_khac,
+						ref: function ref(input) {
+							_this2.cham_soc_khac = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Huy\u1EBFt \xE1p',
+						floatingLabelText: 'Huy\u1EBFt \xE1p',
+						defaultValue: care.huyet_ap,
+						ref: function ref(input) {
+							_this2.huyet_ap = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Nh\u1ECBp th\u1EDF',
+						floatingLabelText: 'Nh\u1ECBp th\u1EDF',
+						defaultValue: care.nhip_tho,
+						ref: function ref(input) {
+							_this2.nhip_tho = input;
+						}
+					}),
 					_react2.default.createElement(_RaisedButton2.default, {
 						fullWidth: true,
 						label: 'C\u1EADp nh\u1EADt',
@@ -87546,6 +87755,10 @@
 
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 
+	var _TimePicker = __webpack_require__(622);
+
+	var _TimePicker2 = _interopRequireDefault(_TimePicker);
+
 	var _reactAutobind = __webpack_require__(647);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -87566,9 +87779,15 @@
 
 			var _this = _possibleConstructorReturn(this, (NextDay.__proto__ || Object.getPrototypeOf(NextDay)).call(this, props));
 
+			var care = _this.props.care;
 			_this.state = {
-				y_thuc: _this.props.care.y_thuc
+				y_thuc: care.y_thuc
 			};
+
+			var bd_time = care.bd_truyen_dich.split(':');
+			var kt_time = care.kt_truyen_dich.split(':');
+			_this.bd_truyen_dich = bd_time[0] + ':' + bd_time[1];
+			_this.kt_truyen_dich = kt_time[0] + ':' + kt_time[1];
 			(0, _reactAutobind2.default)(_this);
 			return _this;
 		}
@@ -87583,7 +87802,26 @@
 			value: function submit() {
 				var care = {
 					'y_thuc': this.state.y_thuc,
-					'dau_hieu_khac': this.dau_hieu_khac.getValue()
+					'dau_hieu_khac': this.dau_hieu_khac.getValue(),
+
+					'noi_quy': this.noi_quy.state.switched ? 1 : 0,
+					'thuoc_uong': this.thuoc_uong.state.switched ? 1 : 0,
+					'thuoc_tiem': this.thuoc_tiem.state.switched ? 1 : 0,
+					'bd_truyen_dich': this.bd_truyen_dich,
+					'kt_truyen_dich': this.kt_truyen_dich,
+					'truyen_dich_an_toan': this.truyen_dich_an_toan.state.switched ? 1 : 0,
+					'truyen_dich_khac': this.truyen_dich_khac.getValue(),
+					'thay_bang': this.thay_bang.getValue(),
+					'dinh_duong': this.dinh_duong.getValue(),
+					'hh': this.hh.state.switched ? 1 : 0,
+					'hs': this.hs.state.switched ? 1 : 0,
+					'vs': this.vs.state.switched ? 1 : 0,
+					'xet_nghiem_khac': this.xet_nghiem_khac.getValue(),
+					've_sinh_ca_nhan': this.ve_sinh_ca_nhan.getValue(),
+					'cham_soc_khac': this.cham_soc_khac.getValue(),
+
+					'huyet_ap': this.huyet_ap.getValue(),
+					'nhip_tho': this.nhip_tho.getValue()
 				};
 				//Request
 				var json_care = JSON.stringify(care);
@@ -87606,6 +87844,14 @@
 				});
 			}
 		}, {
+			key: 'changeTime',
+			value: function changeTime(time, type) {
+				var hours = time.getHours();
+				var minutes = time.getMinutes();
+				if (type === 'bd_truyen_dich') this.bd_truyen_dich = hours + ':' + minutes;
+				if (type === 'kt_truyen_dich') this.kt_truyen_dich = hours + ':' + minutes;
+			}
+		}, {
 			key: 'componentDidUpdate',
 			value: function componentDidUpdate(prevProps, prevState) {
 				if (prevProps.care.y_thuc !== this.props.care.y_thuc) {
@@ -87618,6 +87864,10 @@
 				var _this2 = this;
 
 				var care = this.props.care;
+				var bd_hours = care.bd_truyen_dich.split(':')[0];
+				var bd_mins = care.bd_truyen_dich.split(':')[1];
+				var kt_hours = care.kt_truyen_dich.split(':')[0];
+				var kt_mins = care.kt_truyen_dich.split(':')[1];
 				return _react2.default.createElement(
 					'div',
 					{ key: care.id },
@@ -87651,6 +87901,168 @@
 						defaultValue: care.dau_hieu_khac,
 						ref: function ref(input) {
 							_this2.dau_hieu_khac = input;
+						}
+					}),
+					_react2.default.createElement(
+						'p',
+						null,
+						_react2.default.createElement(
+							'b',
+							null,
+							'Th\u1EF1c hi\u1EC7n ch\u0103m s\xF3c'
+						)
+					),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'Th\xF4ng b\xE1o n\u1ED9i quy',
+						defaultChecked: care.noi_quy ? true : false,
+						ref: function ref(input) {
+							_this2.noi_quy = input;
+						}
+					}),
+					_react2.default.createElement(
+						'p',
+						null,
+						'Th\u1EF1c hi\u1EC7n y l\u1EC7nh:'
+					),
+					_react2.default.createElement(
+						'div',
+						{ style: { display: 'flex', flexDirection: 'row' } },
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Thu\u1ED1c u\u1ED1ng',
+								defaultChecked: care.thuoc_uong ? true : false,
+								ref: function ref(input) {
+									_this2.thuoc_uong = input;
+								}
+							})
+						),
+						_react2.default.createElement(
+							'div',
+							null,
+							_react2.default.createElement(_Checkbox2.default, {
+								label: 'Thu\u1ED1c ti\xEAm',
+								defaultChecked: care.thuoc_tiem ? true : false,
+								ref: function ref(input) {
+									_this2.thuoc_tiem = input;
+								}
+							})
+						)
+					),
+					_react2.default.createElement(_TimePicker2.default, {
+						format: '24hr',
+						hintText: 'Gi\u1EDD truy\u1EC1n d\u1ECBch',
+						floatingLabelText: 'Gi\u1EDD truy\u1EC1n d\u1ECBch',
+						defaultTime: new Date(2000, 1, 1, bd_hours, bd_mins, 0),
+						onChange: function onChange(e, time) {
+							return _this2.changeTime(time, 'bd_truyen_dich');
+						}
+					}),
+					_react2.default.createElement(_TimePicker2.default, {
+						format: '24hr',
+						hintText: 'Gi\u1EDD k\u1EBFt th\xFAc truy\u1EC1n d\u1ECBch',
+						floatingLabelText: 'Gi\u1EDD k\u1EBFt th\xFAc truy\u1EC1n d\u1ECBch',
+						defaultTime: new Date(2000, 1, 1, kt_hours, kt_mins, 0),
+						onChange: function onChange(e, time) {
+							return _this2.changeTime(time, 'kt_truyen_dich');
+						}
+					}),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'Truy\u1EC1n d\u1ECBch an to\xE0n',
+						defaultChecked: care.truyen_dich_an_toan ? true : false,
+						ref: function ref(input) {
+							_this2.truyen_dich_an_toan = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Kh\xE1c',
+						floatingLabelText: 'Kh\xE1c',
+						defaultValue: care.truyen_dich_khac,
+						ref: function ref(input) {
+							_this2.truyen_dich_khac = input;
+						}
+					}),
+					_react2.default.createElement(
+						'p',
+						null,
+						'X\xE9t nghi\u1EC7m:'
+					),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'HH',
+						defaultChecked: care.hh ? true : false,
+						ref: function ref(input) {
+							_this2.hh = input;
+						}
+					}),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'HS',
+						defaultChecked: care.hs ? true : false,
+						ref: function ref(input) {
+							_this2.hs = input;
+						}
+					}),
+					_react2.default.createElement(_Checkbox2.default, {
+						label: 'VS',
+						defaultChecked: care.vs ? true : false,
+						ref: function ref(input) {
+							_this2.vs = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'X\xE9t nghi\u1EC7m kh\xE1c',
+						floatingLabelText: 'X\xE9t nghi\u1EC7m kh\xE1c',
+						defaultValue: care.xet_nghiem_khac,
+						ref: function ref(input) {
+							_this2.xet_nghiem_khac = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Thay b\u0103ng',
+						floatingLabelText: 'Thay b\u0103ng',
+						defaultValue: care.thay_bang,
+						ref: function ref(input) {
+							_this2.thay_bang = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Dinh d\u01B0\u1EE1ng',
+						floatingLabelText: 'Dinh d\u01B0\u1EE1ng',
+						defaultValue: care.dinh_duong,
+						ref: function ref(input) {
+							_this2.dinh_duong = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'V\u1EC7 sinh c\xE1 nh\xE2n',
+						floatingLabelText: 'V\u1EC7 sinh c\xE1 nh\xE2n',
+						defaultValue: care.ve_sinh_ca_nhan,
+						ref: function ref(input) {
+							_this2.ve_sinh_ca_nhan = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Ch\u0103m s\xF3c kh\xE1c',
+						floatingLabelText: 'Ch\u0103m s\xF3c kh\xE1c',
+						defaultValue: care.cham_soc_khac,
+						ref: function ref(input) {
+							_this2.cham_soc_khac = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Huy\u1EBFt \xE1p',
+						floatingLabelText: 'Huy\u1EBFt \xE1p',
+						defaultValue: care.huyet_ap,
+						ref: function ref(input) {
+							_this2.huyet_ap = input;
+						}
+					}),
+					_react2.default.createElement(_TextField2.default, {
+						hintText: 'Nh\u1ECBp th\u1EDF',
+						floatingLabelText: 'Nh\u1ECBp th\u1EDF',
+						defaultValue: care.nhip_tho,
+						ref: function ref(input) {
+							_this2.nhip_tho = input;
 						}
 					}),
 					_react2.default.createElement(_RaisedButton2.default, {
