@@ -15,6 +15,7 @@ import Plants from './plants/App';
 import CreatePlant from './plants/Create';
 import ListPlant from './plants/ListPlant';
 import Daily from './daily/App';
+import DailyArchive from './daily/Archive';
 import Follow from './daily/Follow';
 import Care from './care/App';
 import Caring from './care/Caring';
@@ -38,6 +39,7 @@ class App extends Component{
                     <Route path={"/staff/plant/create/:patient_id"} component={CreatePlant} />
                     <Route path={"/staff/plant/list/:patient_id"} component={ListPlant} />
                     <Route path={"/staff/daily"} component={Daily} />
+                    <Route path={"/staff/daily/:patient_id"} component={DailyArchive} />
                     <Route path={"/staff/follow/:patient_id"} component={Follow} />
                     <Route path={"/staff/care"} component={Care} />
                     <Route path={"/staff/caring/:patient_id"} component={Caring} />

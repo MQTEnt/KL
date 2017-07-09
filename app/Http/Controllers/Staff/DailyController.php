@@ -10,8 +10,14 @@ use App\Daily_Plant;
 use App\Daily_Activity;
 use DB;
 use App\Plant;
+use App\Patient;
 class DailyController extends Controller
 {
+    public function getAll($patient_id){
+        $days = Daily_Plant::with(['activities', 'activities.activity'])->where('patient_id', '=', $patient_id)->get();
+        $patient = Patient::find($patient_id);
+        return ['days' => $days, 'patient' => $patient];
+    }
     public function getFollowingByDate($patient_id, $date){
     	$day = Daily_Plant::select('*')->where([
 					    			['patient_id', '=', $patient_id],

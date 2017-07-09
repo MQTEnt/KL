@@ -21884,7 +21884,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\r\n\tfont-family: 'Lato';\r\n}\r\n.calendar{\r\n\tposition: static !important;\r\n}", ""]);
+	exports.push([module.id, "body {\r\n\tfont-family: 'Lato';\r\n}\r\n\r\n/*Calendar Component*/\r\n.calendar{\r\n\tposition: static !important;\r\n}\r\n\r\n/*Timeline Component*/\r\n.main-timeline{\r\n    position: relative;\r\n    transition: all 0.4s ease 0s;\r\n}\r\n.main-timeline:before{\r\n    content: \"\";\r\n    width: 3px;\r\n    height: 100%;\r\n    background: #bfbfbf;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 50%;\r\n}\r\n.main-timeline .timeline{\r\n    position: relative;\r\n}\r\n.main-timeline .timeline:before,\r\n.main-timeline .timeline:after{\r\n    content: \"\";\r\n    display: block;\r\n    width: 100%;\r\n    clear: both;\r\n}\r\n.main-timeline .timeline-icon{\r\n    width: 20px;\r\n    height: 20px;\r\n    border-radius: 50%;\r\n    background: #fff;\r\n    border: 2px solid #0a90d7;\r\n    position: absolute;\r\n    top: 0;\r\n    left: 3px;\r\n    right: 0;\r\n    margin: 0 auto;\r\n    overflow: hidden;\r\n}\r\n.main-timeline .timeline-content{\r\n    width: 45%;\r\n    padding: 20px;\r\n    border-radius: 5px;\r\n    text-align: right;\r\n    -webkit-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);\r\n    -moz-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);\r\n    -ms-box-shadow: 0 3px 0 rgba(0, 0, 0, 0.1);\r\n    transition: all 0.3s ease 0s;\r\n}\r\n.main-timeline .date{\r\n    display: inline-block;\r\n    font-size: 16px;\r\n    font-weight: 300;\r\n    color: #fff;\r\n    padding: 5px 33px;\r\n    background: #0a90d7;\r\n    border-radius: 30px;\r\n}\r\n.main-timeline .title{\r\n    font-size: 24px;\r\n    font-weight: 500;\r\n    color: #5c5151;\r\n    margin-top: 30px;\r\n}\r\n.main-timeline .description{\r\n    font-size: 14px;\r\n    color: #606060;\r\n    line-height: 2;\r\n}\r\n.main-timeline .timeline-content.right{\r\n    float: right;\r\n    text-align: left;\r\n}\r\n@media only screen and (max-width: 767px){\r\n    .main-timeline:before{\r\n        left: 0;\r\n    }\r\n    .main-timeline .timeline-icon{\r\n        left: -8px;\r\n        margin: 0;\r\n    }\r\n    .main-timeline .timeline-content{\r\n        width: 90%;\r\n        float: right;\r\n    }\r\n}", ""]);
 
 	// exports
 
@@ -22434,6 +22434,10 @@
 
 	var _App12 = _interopRequireDefault(_App11);
 
+	var _Archive = __webpack_require__(786);
+
+	var _Archive2 = _interopRequireDefault(_Archive);
+
 	var _Follow = __webpack_require__(694);
 
 	var _Follow2 = _interopRequireDefault(_Follow);
@@ -22484,6 +22488,7 @@
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/plant/create/:patient_id", component: _Create2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/plant/list/:patient_id", component: _ListPlant2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/daily", component: _App12.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/daily/:patient_id", component: _Archive2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/follow/:patient_id", component: _Follow2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/care", component: _App14.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/caring/:patient_id", component: _Caring2.default }),
@@ -78104,6 +78109,10 @@
 
 	var _visibility2 = _interopRequireDefault(_visibility);
 
+	var _schedule = __webpack_require__(788);
+
+	var _schedule2 = _interopRequireDefault(_schedule);
+
 	var _reactRouter = __webpack_require__(188);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -78259,6 +78268,17 @@
 							primary: true,
 							style: styles.button,
 							icon: _react2.default.createElement(_visibility2.default, null)
+						})
+					),
+					_react2.default.createElement(
+						_reactRouter.Link,
+						{ style: { textDecoration: 'none' }, to: "/staff/daily/" + this.state.patient.id },
+						_react2.default.createElement(_RaisedButton2.default, {
+							fullWidth: true,
+							label: 'L\u1ECBch s\u1EED theo d\xF5i \u0111i\u1EC1u tr\u1ECB',
+							secondary: true,
+							style: styles.button,
+							icon: _react2.default.createElement(_schedule2.default, null)
 						})
 					)
 				);
@@ -88079,6 +88099,269 @@
 	}(_react2.default.Component);
 
 	exports.default = NextDay;
+
+/***/ }),
+/* 786 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _CircularProgress = __webpack_require__(560);
+
+	var _CircularProgress2 = _interopRequireDefault(_CircularProgress);
+
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Archive = function (_React$Component) {
+		_inherits(Archive, _React$Component);
+
+		function Archive(props) {
+			_classCallCheck(this, Archive);
+
+			var _this = _possibleConstructorReturn(this, (Archive.__proto__ || Object.getPrototypeOf(Archive)).call(this, props));
+
+			_this.state = {
+				patient: {},
+				days: [],
+				isLoading: true
+			};
+			return _this;
+		}
+
+		_createClass(Archive, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				setTimeout(function () {
+					//Get data
+					fetch('/daily/' + this.props.params.patient_id, {
+						credentials: 'same-origin'
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						//Data Response
+						//console.log('Data Response: ', obj);
+						this.setState({
+							patient: obj.patient,
+							days: obj.days,
+							isLoading: false
+						});
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 1500);
+			}
+		}, {
+			key: 'renderDate',
+			value: function renderDate(date) {
+				var dateStr = date.split('-');
+				var str = 'Ngày ' + dateStr[2] + ' tháng ' + dateStr[1] + ' năm ' + dateStr[0];
+				return _react2.default.createElement(
+					'span',
+					{ className: 'date' },
+					str
+				);
+			}
+		}, {
+			key: 'renderTimeline',
+			value: function renderTimeline() {
+				var _this2 = this;
+
+				var days = this.state.days;
+				var i = 0;
+				return _react2.default.createElement(
+					'div',
+					{ className: 'main-timeline' },
+					days.map(function (day) {
+						return _react2.default.createElement(
+							'div',
+							{ key: day.id, className: 'timeline' },
+							_react2.default.createElement('div', { className: 'timeline-icon' }),
+							_react2.default.createElement(
+								'div',
+								{ className: i++ % 2 === 0 ? 'timeline-content' : 'timeline-content right' },
+								_react2.default.createElement(
+									'span',
+									{ className: 'date' },
+									_react2.default.createElement('i', { className: 'fa fa-calendar-check-o' }),
+									' ',
+									_this2.renderDate(day.date)
+								),
+								day.activities.length > 0 ? _react2.default.createElement(
+									'p',
+									null,
+									_react2.default.createElement(
+										'b',
+										null,
+										_react2.default.createElement('i', { className: 'fa fa-check' }),
+										' Nh\u1EEFng ho\u1EA1t \u0111\u1ED9ng \u0111\xE3 th\u1EF1c hi\u1EC7n:'
+									)
+								) : '',
+								_react2.default.createElement(
+									'ul',
+									{ style: { listStyleType: 'none' } },
+									day.activities.map(function (item) {
+										return _react2.default.createElement(
+											'li',
+											{ key: item.activity.id },
+											item.activity.name
+										);
+									})
+								),
+								_react2.default.createElement(
+									'p',
+									null,
+									_react2.default.createElement(
+										'b',
+										null,
+										_react2.default.createElement('i', { className: 'fa fa-star' }),
+										' \u0110\xE1nh gi\xE1:'
+									)
+								),
+								_react2.default.createElement(
+									'p',
+									{ className: 'description' },
+									day.rate
+								)
+							)
+						);
+					})
+				);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var patient = this.state.patient;
+				return _react2.default.createElement(
+					'div',
+					null,
+					_react2.default.createElement(
+						_Paper2.default,
+						{ zDepth: 2 },
+						_react2.default.createElement(
+							'ul',
+							{ style: { margin: 20, padding: 10, textAlign: 'left' } },
+							_react2.default.createElement(
+								'li',
+								null,
+								'T\xEAn b\u1EC7nh nh\xE2n: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.name
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'Ng\xE0y sinh: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.dob
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'\u0110\u1ECBa ch\u1EC9: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.address
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'Ngh\u1EC1 nghi\u1EC7p: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient.job
+								)
+							)
+						)
+					),
+					this.state.isLoading ? _react2.default.createElement(
+						'div',
+						{ style: { 'margin': '20% auto', 'width': '0' } },
+						_react2.default.createElement(_CircularProgress2.default, { size: 80, thickness: 5 })
+					) : _react2.default.createElement(
+						_Paper2.default,
+						{ zDepth: 2 },
+						_react2.default.createElement(
+							'h3',
+							{ style: { textAlign: 'center' } },
+							_react2.default.createElement('i', { className: 'fa fa-history' }),
+							' L\u1ECBch s\u1EED theo d\xF5i \u0111i\u1EC1u tr\u1ECB'
+						),
+						this.renderTimeline()
+					)
+				);
+			}
+		}]);
+
+		return Archive;
+	}(_react2.default.Component);
+
+	exports.default = Archive;
+
+/***/ }),
+/* 787 */,
+/* 788 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ActionSchedule = function ActionSchedule(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M11.99 2C6.47 2 2 6.48 2 12s4.47 10 9.99 10C17.52 22 22 17.52 22 12S17.52 2 11.99 2zM12 20c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm.5-13H11v6l5.25 3.15.75-1.23-4.5-2.67z' }));
+	};
+	ActionSchedule = (0, _pure2.default)(ActionSchedule);
+	ActionSchedule.displayName = 'ActionSchedule';
+	ActionSchedule.muiName = 'SvgIcon';
+
+	exports.default = ActionSchedule;
 
 /***/ })
 /******/ ]);

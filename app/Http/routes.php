@@ -242,6 +242,7 @@ Route::group(['middleware' => ['auth']], function(){
 	/*
 	 * Daily
 	 */
+	Route::get('daily/{patient_id}', 'Staff\DailyController@getAll');
 	Route::get('daily/{patient_id}/{date}', 'Staff\DailyController@getFollowingByDate');
 	Route::get('daily/setfollow/{patient_id}/{date}', 'Staff\DailyController@setFollow');
 	Route::post('daily/check/{patient_id}/{date}', 'Staff\DailyController@checkActivities');
