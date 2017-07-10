@@ -38,7 +38,7 @@ export default class Archive extends React.Component{
 	renderDate(date){
 	    let dateStr = date.split('-');
 	    let str = 'Ngày '+dateStr[2]+' tháng '+dateStr[1]+' năm '+dateStr[0];
-	    return <span className="date">{str}</span>
+	    return str;
 	}
 	renderTimeline(){
 	let days = this.state.days;

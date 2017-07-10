@@ -2,6 +2,7 @@ import React from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
+import ActionSchedule from 'material-ui/svg-icons/action/schedule';
 import {Link} from "react-router";
 
 const styles = {
@@ -76,6 +77,15 @@ class Detail extends React.Component{
 							primary={true} 
 							style={styles.button} 
 							icon={<ActionVisibility/>}
+						/>
+					</Link>
+					<Link style={{ textDecoration: 'none' }} to={"/staff/care/"+this.state.patient.id}>
+						<RaisedButton 
+							fullWidth={true} 
+							label="Lịch sử theo dõi chăm sóc" 
+							secondary={true} 
+							style={styles.button} 
+							icon={<ActionSchedule/>}
 						/>
 					</Link>
 				</div>

@@ -19,6 +19,7 @@ import DailyArchive from './daily/Archive';
 import Follow from './daily/Follow';
 import Care from './care/App';
 import Caring from './care/Caring';
+import CareArchive from './care/Archive';
 class App extends Component{
 	constructor(props){
 		super(props);
@@ -43,6 +44,7 @@ class App extends Component{
                     <Route path={"/staff/follow/:patient_id"} component={Follow} />
                     <Route path={"/staff/care"} component={Care} />
                     <Route path={"/staff/caring/:patient_id"} component={Caring} />
+                    <Route path={"/staff/care/:patient_id"} component={CareArchive} />
                     <Route path={"/staff/pageA"} component={PageA} />
                     <Route path={"/staff/pageB"} component={PageB} />
                 </Route>

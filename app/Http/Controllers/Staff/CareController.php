@@ -7,9 +7,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Care;
+use App\Patient;
 use Auth;
 class CareController extends Controller
 {
+	public function getAllById($patient_id){
+		$patient = Patient::findOrFail($patient_id);
+		$days = Care::with('staff')->select('*')->where('patient_id', '=', $patient_id)->orderBy('ngay', 'DESC')->get();
+		return ['patient' => $patient, 'days' => $days];
+	}
 	public function getCaringByDate($patient_id, $date){
 		$care = Care::select('*')->where([
 									['patient_id', '=', $patient_id],

@@ -14,7 +14,7 @@ use App\Patient;
 class DailyController extends Controller
 {
     public function getAll($patient_id){
-        $days = Daily_Plant::with(['activities', 'activities.activity'])->where('patient_id', '=', $patient_id)->get();
+        $days = Daily_Plant::with(['activities', 'activities.activity'])->where('patient_id', '=', $patient_id)->orderBy('date', 'DESC')->get();
         $patient = Patient::find($patient_id);
         return ['days' => $days, 'patient' => $patient];
     }
