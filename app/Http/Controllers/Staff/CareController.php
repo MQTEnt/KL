@@ -13,7 +13,7 @@ class CareController extends Controller
 {
 	public function getAllById($patient_id){
 		$patient = Patient::findOrFail($patient_id);
-		$days = Care::with('staff')->select('*')->where('patient_id', '=', $patient_id)->orderBy('ngay', 'DESC')->get();
+		$days = Care::with('staff')->select('*')->where('patient_id', '=', $patient_id)->orderBy('ngay', 'DESC')->paginate(2);
 		return ['patient' => $patient, 'days' => $days];
 	}
 	public function getCaringByDate($patient_id, $date){

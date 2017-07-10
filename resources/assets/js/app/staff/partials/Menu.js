@@ -11,6 +11,7 @@ import ActionInvertColors from 'material-ui/svg-icons/action/invert-colors';
 import MapsLocalHospital from 'material-ui/svg-icons/maps/local-hospital';
 import ActionDateRange from 'material-ui/svg-icons/action/date-range';
 import ActionDoneAll from 'material-ui/svg-icons/action/done-all';
+import PlacesSpa from 'material-ui/svg-icons/places/spa'
 const style = {
   icon: {
     position: 'relative',
@@ -96,7 +97,7 @@ export default class Menu extends React.Component {
           </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/care"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              <ActionDoneAll style={style.icon}/> Theo dõi chăm sóc
+              <PlacesSpa style={style.icon}/> Theo dõi chăm sóc
             </MenuItem>
           </Link>
         </Drawer>
