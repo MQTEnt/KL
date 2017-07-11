@@ -46,6 +46,10 @@ class Detail extends React.Component{
 	componentDidMount(){
 		this.getPatient();
 	}
+	renderDate(date){
+		let dateStr = date.split(' ')[0].split('-');
+		return dateStr[2]+'/'+dateStr[1]+'/'+dateStr[0];
+	}
 	renderListRecord(){
 		let records = this.state.records;
 		return (
@@ -63,7 +67,7 @@ class Detail extends React.Component{
 								records[key].map(record => (
 									<ListItem
 										key={record.id}
-										primaryText={'Bệnh án mã '+record.id+' tạo vào '+record.created_at}
+										primaryText={'Bệnh án ngày '+this.renderDate(record.created_at)}
 										leftIcon={<ActionAssignment />}
 										rightIconButton={<IconButton><Link style={{ textDecoration: 'none' }} to={"/staff/examination/"+record.id}><ContentCreate/></Link></IconButton>}
 									/>

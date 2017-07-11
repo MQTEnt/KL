@@ -71817,6 +71817,18 @@
 
 	var _FlatButton2 = _interopRequireDefault(_FlatButton);
 
+	var _RaisedButton = __webpack_require__(470);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	var _Drawer = __webpack_require__(399);
+
+	var _Drawer2 = _interopRequireDefault(_Drawer);
+
+	var _reactAutobind = __webpack_require__(648);
+
+	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -71836,8 +71848,11 @@
 			_this.state = {
 				patient: null,
 				records: null,
-				isLoading: true
+				isLoading: true,
+				openDrawer: false,
+				selectedRecord: {}
 			};
+
 			return _this;
 		}
 
@@ -71877,8 +71892,26 @@
 				this.getPatient();
 			}
 		}, {
+			key: 'openDetail',
+			value: function openDetail(record) {
+				this.setState({
+					openDrawer: true,
+					selectedRecord: record
+				});
+			}
+		}, {
+			key: 'renderDate',
+			value: function renderDate(date) {
+				if (typeof date === 'undefined') return '';
+				var dateStr = date.split(' ')[0];
+				dateStr = dateStr.split('-');
+				return dateStr[2] + '/' + dateStr[1] + '/' + dateStr[0];
+			}
+		}, {
 			key: 'renderListRecord',
 			value: function renderListRecord() {
+				var _this2 = this;
+
 				var records = this.state.records;
 				return _react2.default.createElement(
 					_List.List,
@@ -71898,10 +71931,10 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Bệnh án mã ' + record.id + ' tạo vào ' + record.created_at,
+									primaryText: 'Bệnh án ngày ' + _this2.renderDate(record.created_at),
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									onClick: function onClick() {
-										_reactRouter.browserHistory.push('/staff/examination/' + record.id);
+										_this2.openDetail(record);
 									}
 								});
 							})
@@ -71924,6 +71957,9 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var _this3 = this;
+
+				var selectedRecord = this.state.selectedRecord;
 				return this.state.isLoading ? _react2.default.createElement(
 					'div',
 					{ style: { 'margin': '20% auto', 'width': '0' } },
@@ -72059,6 +72095,110 @@
 						_Paper2.default,
 						{ zDepth: 2 },
 						this.renderListRecord()
+					),
+					_react2.default.createElement(
+						_Drawer2.default,
+						{
+							open: this.state.openDrawer,
+							docked: false,
+							openSecondary: true,
+							onRequestChange: function onRequestChange() {
+								_this3.setState({ openDrawer: false });
+							}
+						},
+						selectedRecord !== {} ? _react2.default.createElement(
+							'div',
+							{ style: { padding: 10 } },
+							_react2.default.createElement(
+								'p',
+								null,
+								_react2.default.createElement(
+									'i',
+									null,
+									'Ng\xE0y ',
+									this.renderDate(selectedRecord.created_at)
+								)
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								'Ch\u1EA9n \u0111o\xE1n:'
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'X\xE1c \u0111\u1ECBnh b\u1EC7nh: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									selectedRecord.outcome !== '' ? selectedRecord.outcome : _react2.default.createElement('i', null)
+								),
+								' '
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Giai \u0111o\u1EA1n: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									selectedRecord.period !== '' ? selectedRecord.period : _react2.default.createElement('i', null)
+								),
+								' '
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Bi\u1EBFn ch\u1EE9ng th\u1EADn: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									selectedRecord.kidney_complication !== '' ? selectedRecord.kidney_complication : _react2.default.createElement('i', null)
+								),
+								' '
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Bi\u1EBFn ch\u1EE9ng m\u1EA1ch m\xE1u: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									selectedRecord.vascular_complication !== '' ? selectedRecord.vascular_complication : _react2.default.createElement('i', null)
+								),
+								' '
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Bi\u1EBFn ch\u1EE9ng kh\xE1c: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									selectedRecord.other !== '' ? selectedRecord.other : _react2.default.createElement('i', null)
+								),
+								' '
+							),
+							_react2.default.createElement(
+								'p',
+								null,
+								'Ghi ch\xFA: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									selectedRecord.description !== '' ? selectedRecord.description : _react2.default.createElement('i', null)
+								),
+								' '
+							),
+							_react2.default.createElement(_RaisedButton2.default, {
+								fullWidth: true,
+								label: 'Chi ti\u1EBFt',
+								primary: true,
+								onClick: function onClick() {
+									_reactRouter.browserHistory.push("/staff/examination/" + selectedRecord.id);
+								}
+							})
+						) : ''
 					)
 				);
 			}
@@ -73778,8 +73918,16 @@
 				this.getPatient();
 			}
 		}, {
+			key: 'renderDate',
+			value: function renderDate(date) {
+				var dateStr = date.split(' ')[0].split('-');
+				return dateStr[2] + '/' + dateStr[1] + '/' + dateStr[0];
+			}
+		}, {
 			key: 'renderListRecord',
 			value: function renderListRecord() {
+				var _this2 = this;
+
 				var records = this.state.records;
 				return _react2.default.createElement(
 					_List.List,
@@ -73799,7 +73947,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Bệnh án mã ' + record.id + ' tạo vào ' + record.created_at,
+									primaryText: 'Bệnh án ngày ' + _this2.renderDate(record.created_at),
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									rightIconButton: _react2.default.createElement(
 										_IconButton2.default,
@@ -74851,8 +74999,16 @@
 				this.getPatient();
 			}
 		}, {
+			key: 'renderDate',
+			value: function renderDate(date) {
+				var dateStr = date.split(' ')[0].split('-');
+				return dateStr[2] + '/' + dateStr[1] + '/' + dateStr[0];
+			}
+		}, {
 			key: 'renderListRecord',
 			value: function renderListRecord() {
+				var _this2 = this;
+
 				var records = this.state.records;
 				return _react2.default.createElement(
 					_List.List,
@@ -74872,7 +75028,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Bệnh án mã ' + record.id + ' tạo vào ' + record.created_at,
+									primaryText: 'Bệnh án ngày ' + _this2.renderDate(record.created_at),
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									rightIconButton: _react2.default.createElement(
 										_IconButton2.default,

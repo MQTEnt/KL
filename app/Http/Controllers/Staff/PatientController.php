@@ -93,7 +93,7 @@ class PatientController extends Controller
 	}
 	public function getPatient($id){
 		$patient = Patient::findOrFail($id);
-		$records = Record::select('id', 'created_at')->where('patient_id', $id)->get()
+		$records = Record::select('*')->where('patient_id', $id)->get()
 					->groupBy(function($val) {
             			return Carbon::parse($val->created_at)->format('Y-m');
      				});

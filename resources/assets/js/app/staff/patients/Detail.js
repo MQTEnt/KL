@@ -8,7 +8,9 @@ import Subheader from 'material-ui/Subheader';
 import { browserHistory } from "react-router";
 import HardwareKeyboardArrowLeft from 'material-ui/svg-icons/hardware/keyboard-arrow-left';
 import FlatButton from 'material-ui/FlatButton';
-
+import RaisedButton from 'material-ui/RaisedButton';
+import Drawer from 'material-ui/Drawer';
+import autoBind from 'react-autobind';
 class Detail extends React.Component{
 	constructor(props){
 		super(props);
@@ -16,8 +18,12 @@ class Detail extends React.Component{
 		this.state = {
 			patient: null,
 			records: null,
-			isLoading: true
+			isLoading: true,
+			openDrawer: false,
+			selectedRecord: {}
 		};
+
+
 	}
 	onNavigateList() {
         browserHistory.push("/staff/record");
@@ -50,6 +56,19 @@ class Detail extends React.Component{
 	componentDidMount(){
 		this.getPatient();
 	}
+	openDetail(record){
+		this.setState({
+			openDrawer: true,
+			selectedRecord: record
+		});
+	}
+	renderDate(date){
+		if(typeof date === 'undefined')
+			return '';
+		let dateStr = date.split(' ')[0];
+		dateStr = dateStr.split('-');
+		return dateStr[2]+'/'+dateStr[1]+'/'+dateStr[0];
+	}
 	renderListRecord(){
 		let records = this.state.records;
 		return (
@@ -67,9 +86,9 @@ class Detail extends React.Component{
 								records[key].map(record => (
 									<ListItem
 										key={record.id}
-										primaryText={'Bệnh án mã '+record.id+' tạo vào '+record.created_at}
+										primaryText={'Bệnh án ngày '+this.renderDate(record.created_at)}
 										leftIcon={<ActionAssignment />}
-										onClick={()=>{browserHistory.push('/staff/examination/'+record.id)}}
+										onClick={()=>{this.openDetail(record)}}
 									/>
 								))
 							}
@@ -87,6 +106,7 @@ class Detail extends React.Component{
 		}
 	}
 	render(){
+		let selectedRecord = this.state.selectedRecord;
 		return (
 			(this.state.isLoading)?
 				<div style={{'margin': '20% auto', 'width': '0'}}>
@@ -119,7 +139,32 @@ class Detail extends React.Component{
 						{this.renderListRecord()}
 					</Paper>
 
-
+					<Drawer 
+					 	open={this.state.openDrawer}
+					 	docked={false}
+					 	openSecondary={true}
+					 	onRequestChange={()=>{this.setState({openDrawer: false})}}
+					>
+						{(selectedRecord !== {})?
+							<div style={{padding: 10}}>
+								<p><i>Ngày {this.renderDate(selectedRecord.created_at)}</i></p>
+								<h4>Chẩn đoán:</h4>
+								<p>Xác định bệnh: <b>{(selectedRecord.outcome!=='')?selectedRecord.outcome:<i></i>}</b> </p>
+								<p>Giai đoạn: <b>{(selectedRecord.period!=='')?selectedRecord.period:<i></i>}</b> </p>
+								<p>Biến chứng thận: <b>{(selectedRecord.kidney_complication!=='')?selectedRecord.kidney_complication:<i></i>}</b> </p>
+								<p>Biến chứng mạch máu: <b>{(selectedRecord.vascular_complication!=='')?selectedRecord.vascular_complication:<i></i>}</b> </p>
+								<p>Biến chứng khác: <b>{(selectedRecord.other!=='')?selectedRecord.other:<i></i>}</b> </p>
+								<p>Ghi chú: <b>{(selectedRecord.description!=='')?selectedRecord.description:<i></i>}</b> </p>
+								<RaisedButton 
+									fullWidth={true} 
+									label="Chi tiết" 
+									primary={true} 
+									onClick={()=>{browserHistory.push("/staff/examination/"+selectedRecord.id);}}
+						        />
+							</div>
+							:''
+						}
+			        </Drawer>
 				</div>
 		);
 	}
