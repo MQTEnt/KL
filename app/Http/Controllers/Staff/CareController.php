@@ -36,6 +36,9 @@ class CareController extends Controller
 		$care->staff_id = Auth::user()->id;
 		$care->ngay = $date;
 		$care->isNgayDau = 1;
+		$care->bd_truyen_dich = '00:00:00';
+		$care->kt_truyen_dich = '00:00:00';
+		$care->y_thuc = 0;
 		$care->save();
 		return ['state' => 1, 'care' => $care];
 	}
@@ -52,6 +55,9 @@ class CareController extends Controller
 		$care->staff_id = Auth::user()->id;
 		$care->ngay = $date;
 		$care->isNgayDau = 0;
+		$care->bd_truyen_dich = '00:00:00';
+		$care->kt_truyen_dich = '00:00:00';
+		$care->y_thuc = 0;
 		$care->save();
 		return ['state' => 1, 'care' => $care];
 	}

@@ -85,8 +85,6 @@ export default class Caring extends React.Component{
     });
   }
   onClickFollowFirstDay(){
-    this.setState({isFollow: true, isFirstDay: true});
-
     //Create first day
     fetch('/care/create-first-day/'+this.props.params.patient_id+'/'+this.state.dateStr, {
         credentials: 'same-origin'
@@ -97,7 +95,8 @@ export default class Caring extends React.Component{
         if(obj.state === 1)
           this.setState({
             care: obj.care,
-            isFollow: true
+            isFollow: true,
+            isFirstDay: true
           });
         else
           this.setState({
@@ -109,8 +108,6 @@ export default class Caring extends React.Component{
     });
   }
   onClickFollowNextDay(){
-    this.setState({isFollow: true, isFirstDay: false});
-
     //Create next day
     fetch('/care/create-next-day/'+this.props.params.patient_id+'/'+this.state.dateStr, {
         credentials: 'same-origin'
@@ -121,7 +118,8 @@ export default class Caring extends React.Component{
         if(obj.state === 1)
           this.setState({
             care: obj.care,
-            isFollow: true
+            isFollow: true,
+            isFirstDay: false
           });
         else
           this.setState({

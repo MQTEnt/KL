@@ -87395,8 +87395,6 @@
 	  }, {
 	    key: 'onClickFollowFirstDay',
 	    value: function onClickFollowFirstDay() {
-	      this.setState({ isFollow: true, isFirstDay: true });
-
 	      //Create first day
 	      fetch('/care/create-first-day/' + this.props.params.patient_id + '/' + this.state.dateStr, {
 	        credentials: 'same-origin'
@@ -87405,7 +87403,8 @@
 	      }).then(function (obj) {
 	        if (obj.state === 1) this.setState({
 	          care: obj.care,
-	          isFollow: true
+	          isFollow: true,
+	          isFirstDay: true
 	        });else this.setState({
 	          isFollow: false
 	        });
@@ -87416,8 +87415,6 @@
 	  }, {
 	    key: 'onClickFollowNextDay',
 	    value: function onClickFollowNextDay() {
-	      this.setState({ isFollow: true, isFirstDay: false });
-
 	      //Create next day
 	      fetch('/care/create-next-day/' + this.props.params.patient_id + '/' + this.state.dateStr, {
 	        credentials: 'same-origin'
@@ -87426,7 +87423,8 @@
 	      }).then(function (obj) {
 	        if (obj.state === 1) this.setState({
 	          care: obj.care,
-	          isFollow: true
+	          isFollow: true,
+	          isFirstDay: false
 	        });else this.setState({
 	          isFollow: false
 	        });
