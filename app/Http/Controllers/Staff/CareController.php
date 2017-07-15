@@ -11,6 +11,10 @@ use App\Patient;
 use Auth;
 class CareController extends Controller
 {
+	public function getLineChart($patient_id){
+		$care = Care::select('huyet_ap', 'nhip_tho', 'ngay')->where('patient_id', '=', $patient_id)->get();
+		return $care;
+	}
 	public function getAllById($patient_id){
 		$patient = Patient::findOrFail($patient_id);
 		$days = Care::with('staff')->select('*')->where('patient_id', '=', $patient_id)->orderBy('ngay', 'DESC')->paginate(2);

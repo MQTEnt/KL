@@ -3,6 +3,7 @@ import CircularProgress from 'material-ui/CircularProgress';
 import Paper from 'material-ui/Paper';
 import Timeline from './Timeline';
 import InfiniteScroll from 'react-infinite-scroll-component';
+import LineChart from './LineChart';
 export default class Archive extends React.Component{
 	constructor(props){
 		super(props);
@@ -90,6 +91,9 @@ export default class Archive extends React.Component{
 	                <li>Nghề nghiệp: <b>{patient.job}</b></li>
 	              </ul>
 	            </Paper>
+	            <Paper zDepth={2}>
+	            	<LineChart patient_id={this.props.params.patient_id}/>
+				</Paper>
 				{(this.state.isLoading)?
 					<div style={{'margin': '20% auto', 'width': '0'}}>
 		            	<CircularProgress size={80} thickness={5}/>
