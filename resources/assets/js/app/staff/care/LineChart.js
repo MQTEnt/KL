@@ -7,8 +7,8 @@ export default class LineChar extends React.Component{
 
     this.state = {
       ngay: [],
-      huyet_ap : [],
-      nhip_tho : []
+      mach : [],
+      nhiet_do : []
     }
   }
   componentDidMount(){
@@ -20,20 +20,20 @@ export default class LineChar extends React.Component{
       }).then(function(obj) {
         //Data Response
         //console.log('Data Response: ', obj);
-        let huyet_ap = [];
-        let nhip_tho = [];
+        let mach = [];
+        let nhiet_do = [];
         let ngay = [];
         obj.map(item => {
           let dateStr = item.ngay.split('-');
-          let huyet_ap_i = (item.huyet_ap === '')?null:item.huyet_ap;
-          let nhip_tho_i = (item.nhip_tho === '')?null:item.nhip_tho;
-          huyet_ap.push(huyet_ap_i);
-          nhip_tho.push(nhip_tho_i);
+          let mach_i = (item.mach === '')?null:item.mach;
+          let nhiet_do_i = (item.nhiet_do === '')?null:item.nhiet_do;
+          mach.push(mach_i);
+          nhiet_do.push(nhiet_do_i);
           ngay.push(dateStr[2]+'/'+dateStr[1]+'/'+dateStr[0]);
         });
         this.setState({
-          huyet_ap: huyet_ap,
-          nhip_tho: nhip_tho,
+          mach: mach,
+          nhiet_do: nhiet_do,
           ngay: ngay
         });
       }.bind(this))
@@ -46,9 +46,9 @@ export default class LineChar extends React.Component{
     let data = {
       labels: this.state.ngay,
       datasets: [{
-          label: 'Nhiệt độ',
+          label: 'Mạch',
           type:'line',
-          data: this.state.huyet_ap,
+          data: this.state.mach,
           fill: false,
           borderColor: '#EC932F',
           backgroundColor: '#EC932F',
@@ -59,8 +59,8 @@ export default class LineChar extends React.Component{
           yAxisID: 'y-axis-2'
         },{
           type: 'line',
-          label: 'Mạch',
-          data: this.state.nhip_tho,
+          label: 'Nhiệt độ',
+          data: this.state.nhiet_do,
           fill: false,
           backgroundColor: '#71B37C',
           borderColor: '#71B37C',
@@ -122,7 +122,7 @@ export default class LineChar extends React.Component{
     };
     return (
       <div style={{width: '50%', margin: '0 auto'}}>
-        <h3 style={{textAlign: 'center'}}>Bảng theo dõi mạch, nhiệt độ</h3>
+        <h3 style={{textAlign: 'center'}}><i className="fa fa-line-chart"></i> Bảng theo dõi mạch, nhiệt độ</h3>
         <Bar
           data={data}
           options={options}

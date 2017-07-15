@@ -87712,8 +87712,8 @@
 					've_sinh_ca_nhan': this.ve_sinh_ca_nhan.getValue(),
 					'cham_soc_khac': this.cham_soc_khac.getValue(),
 
-					'huyet_ap': this.huyet_ap.getValue(),
-					'nhip_tho': this.nhip_tho.getValue()
+					'mach': this.mach.getValue(),
+					'nhiet_do': this.nhiet_do.getValue()
 				};
 				// console.log(care);
 				// return;
@@ -88180,19 +88180,19 @@
 						}
 					}),
 					_react2.default.createElement(_TextField2.default, {
-						hintText: 'Huy\u1EBFt \xE1p',
-						floatingLabelText: 'Huy\u1EBFt \xE1p',
-						defaultValue: care.huyet_ap,
+						hintText: 'M\u1EA1ch',
+						floatingLabelText: 'M\u1EA1ch',
+						defaultValue: care.mach,
 						ref: function ref(input) {
-							_this2.huyet_ap = input;
+							_this2.mach = input;
 						}
 					}),
 					_react2.default.createElement(_TextField2.default, {
-						hintText: 'Nh\u1ECBp th\u1EDF',
-						floatingLabelText: 'Nh\u1ECBp th\u1EDF',
-						defaultValue: care.nhip_tho,
+						hintText: 'Nhi\u1EC7t \u0111\u1ED9',
+						floatingLabelText: 'Nhi\u1EC7t \u0111\u1ED9',
+						defaultValue: care.nhiet_do,
 						ref: function ref(input) {
-							_this2.nhip_tho = input;
+							_this2.nhiet_do = input;
 						}
 					}),
 					_react2.default.createElement(_RaisedButton2.default, {
@@ -88311,8 +88311,8 @@
 					've_sinh_ca_nhan': this.ve_sinh_ca_nhan.getValue(),
 					'cham_soc_khac': this.cham_soc_khac.getValue(),
 
-					'huyet_ap': this.huyet_ap.getValue(),
-					'nhip_tho': this.nhip_tho.getValue()
+					'mach': this.mach.getValue(),
+					'nhiet_do': this.nhiet_do.getValue()
 				};
 				//Request
 				var json_care = JSON.stringify(care);
@@ -88541,19 +88541,19 @@
 						}
 					}),
 					_react2.default.createElement(_TextField2.default, {
-						hintText: 'Huy\u1EBFt \xE1p',
-						floatingLabelText: 'Huy\u1EBFt \xE1p',
-						defaultValue: care.huyet_ap,
+						hintText: 'M\u1EA1ch',
+						floatingLabelText: 'M\u1EA1ch',
+						defaultValue: care.mach,
 						ref: function ref(input) {
-							_this2.huyet_ap = input;
+							_this2.mach = input;
 						}
 					}),
 					_react2.default.createElement(_TextField2.default, {
-						hintText: 'Nh\u1ECBp th\u1EDF',
-						floatingLabelText: 'Nh\u1ECBp th\u1EDF',
-						defaultValue: care.nhip_tho,
+						hintText: 'Nhi\u1EC7t \u0111\u1ED9',
+						floatingLabelText: 'Nhi\u1EC7t \u0111\u1ED9',
+						defaultValue: care.nhiet_do,
 						ref: function ref(input) {
-							_this2.nhip_tho = input;
+							_this2.nhiet_do = input;
 						}
 					}),
 					_react2.default.createElement(_RaisedButton2.default, {
@@ -88875,22 +88875,22 @@
 						_react2.default.createElement(
 							'p',
 							null,
-							'Huy\u1EBFt \xE1p: ',
+							'M\u1EA1ch: ',
 							_react2.default.createElement(
 								'b',
 								null,
-								day.huyet_ap !== '' ? day.huyet_ap : _react2.default.createElement('i', null)
+								day.mach !== '' ? day.mach : _react2.default.createElement('i', null)
 							),
 							' '
 						),
 						_react2.default.createElement(
 							'p',
 							null,
-							'Nh\u1ECBp th\u1EDF: ',
+							'Nhi\u1EC7t \u0111\u1ED9: ',
 							_react2.default.createElement(
 								'b',
 								null,
-								day.nhip_tho !== '' ? day.nhip_tho : _react2.default.createElement('i', null)
+								day.nhiet_do !== '' ? day.nhiet_do : _react2.default.createElement('i', null)
 							),
 							' '
 						),
@@ -90182,8 +90182,8 @@
 
 	    _this.state = {
 	      ngay: [],
-	      huyet_ap: [],
-	      nhip_tho: []
+	      mach: [],
+	      nhiet_do: []
 	    };
 	    return _this;
 	  }
@@ -90198,20 +90198,20 @@
 	      }).then(function (obj) {
 	        //Data Response
 	        //console.log('Data Response: ', obj);
-	        var huyet_ap = [];
-	        var nhip_tho = [];
+	        var mach = [];
+	        var nhiet_do = [];
 	        var ngay = [];
 	        obj.map(function (item) {
 	          var dateStr = item.ngay.split('-');
-	          var huyet_ap_i = item.huyet_ap === '' ? null : item.huyet_ap;
-	          var nhip_tho_i = item.nhip_tho === '' ? null : item.nhip_tho;
-	          huyet_ap.push(huyet_ap_i);
-	          nhip_tho.push(nhip_tho_i);
+	          var mach_i = item.mach === '' ? null : item.mach;
+	          var nhiet_do_i = item.nhiet_do === '' ? null : item.nhiet_do;
+	          mach.push(mach_i);
+	          nhiet_do.push(nhiet_do_i);
 	          ngay.push(dateStr[2] + '/' + dateStr[1] + '/' + dateStr[0]);
 	        });
 	        this.setState({
-	          huyet_ap: huyet_ap,
-	          nhip_tho: nhip_tho,
+	          mach: mach,
+	          nhiet_do: nhiet_do,
 	          ngay: ngay
 	        });
 	      }.bind(this)).catch(function (ex) {
@@ -90225,9 +90225,9 @@
 	      var data = {
 	        labels: this.state.ngay,
 	        datasets: [{
-	          label: 'Nhiệt độ',
+	          label: 'Mạch',
 	          type: 'line',
-	          data: this.state.huyet_ap,
+	          data: this.state.mach,
 	          fill: false,
 	          borderColor: '#EC932F',
 	          backgroundColor: '#EC932F',
@@ -90238,8 +90238,8 @@
 	          yAxisID: 'y-axis-2'
 	        }, {
 	          type: 'line',
-	          label: 'Mạch',
-	          data: this.state.nhip_tho,
+	          label: 'Nhiệt độ',
+	          data: this.state.nhiet_do,
 	          fill: false,
 	          backgroundColor: '#71B37C',
 	          borderColor: '#71B37C',
@@ -90300,7 +90300,8 @@
 	        _react2.default.createElement(
 	          'h3',
 	          { style: { textAlign: 'center' } },
-	          'B\u1EA3ng theo d\xF5i m\u1EA1ch, nhi\u1EC7t \u0111\u1ED9'
+	          _react2.default.createElement('i', { className: 'fa fa-line-chart' }),
+	          ' B\u1EA3ng theo d\xF5i m\u1EA1ch, nhi\u1EC7t \u0111\u1ED9'
 	        ),
 	        _react2.default.createElement(_reactChartjs.Bar, {
 	          data: data,

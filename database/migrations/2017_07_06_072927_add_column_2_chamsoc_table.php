@@ -13,8 +13,8 @@ class AddColumn2ChamsocTable extends Migration
     public function up()
     {
         Schema::table('chamsoc', function (Blueprint $table) {
-            $table->string('huyet_ap');
-            $table->string('nhip_tho');
+            $table->string('mach');
+            $table->string('nhiet_do');
         });
     }
 

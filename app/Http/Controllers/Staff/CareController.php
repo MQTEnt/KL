@@ -12,7 +12,7 @@ use Auth;
 class CareController extends Controller
 {
 	public function getLineChart($patient_id){
-		$care = Care::select('huyet_ap', 'nhip_tho', 'ngay')->where('patient_id', '=', $patient_id)->get();
+		$care = Care::select('mach', 'nhiet_do', 'ngay')->where('patient_id', '=', $patient_id)->get();
 		return $care;
 	}
 	public function getAllById($patient_id){
@@ -87,8 +87,8 @@ class CareController extends Controller
 		$care->xet_nghiem_khac = $data['xet_nghiem_khac'];
 		$care->ve_sinh_ca_nhan = $data['ve_sinh_ca_nhan'];
 		$care->cham_soc_khac = $data['cham_soc_khac'];
-		$care->huyet_ap = $data['huyet_ap'];
-		$care->nhip_tho = $data['nhip_tho'];
+		$care->mach = $data['mach'];
+		$care->nhiet_do = $data['nhiet_do'];
 		
 		//Difference
 		if($care->isNgayDau == 1){

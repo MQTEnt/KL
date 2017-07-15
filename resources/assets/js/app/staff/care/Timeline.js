@@ -27,8 +27,8 @@ export default class Timeline extends React.Component{
 	            <div className="timeline-icon"></div>
 	            <div style={{fontSize: '85%'}} className={(index%2===0)?'timeline-content':'timeline-content right'}>
 	                <span className="date"><i className="fa fa-calendar-check-o"></i> {this.renderDate(day.ngay)}</span>
-	                <p>Huyết áp: <b>{(day.huyet_ap!=='')?day.huyet_ap:<i></i>}</b> </p>
-	                <p>Nhịp thở: <b>{(day.nhip_tho!=='')?day.nhip_tho:<i></i>}</b> </p>
+	                <p>Mạch: <b>{(day.mach!=='')?day.mach:<i></i>}</b> </p>
+	                <p>Nhiệt độ: <b>{(day.nhiet_do!=='')?day.nhiet_do:<i></i>}</b> </p>
 	                <p><b><i className="fa fa-stethoscope"></i> DIỄN BIẾN: </b></p>
 	                {(day.isNgayDau === 1)?
 	                	<div>

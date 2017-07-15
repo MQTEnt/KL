@@ -45,8 +45,8 @@ export default class NextDay extends React.Component{
 			've_sinh_ca_nhan': this.ve_sinh_ca_nhan.getValue(),
 			'cham_soc_khac': this.cham_soc_khac.getValue(),
 
-			'huyet_ap': this.huyet_ap.getValue(),
-			'nhip_tho': this.nhip_tho.getValue()
+			'mach': this.mach.getValue(),
+			'nhiet_do': this.nhiet_do.getValue()
 		}
 		//Request
 		let json_care = JSON.stringify(care);
@@ -206,16 +206,16 @@ export default class NextDay extends React.Component{
 					ref={(input) => {this.cham_soc_khac = input}}
 		    	/>
 		    	<TextField
-					hintText="Huyết áp"
-					floatingLabelText="Huyết áp"
-					defaultValue={care.huyet_ap}
-					ref={(input) => {this.huyet_ap = input}}
+					hintText="Mạch"
+					floatingLabelText="Mạch"
+					defaultValue={care.mach}
+					ref={(input) => {this.mach = input}}
 		    	/>
 		    	<TextField
-					hintText="Nhịp thở"
-					floatingLabelText="Nhịp thở"
-					defaultValue={care.nhip_tho}
-					ref={(input) => {this.nhip_tho = input}}
+					hintText="Nhiệt độ"
+					floatingLabelText="Nhiệt độ"
+					defaultValue={care.nhiet_do}
+					ref={(input) => {this.nhiet_do = input}}
 		    	/>
 		    	<RaisedButton 
 		          fullWidth={true} 
