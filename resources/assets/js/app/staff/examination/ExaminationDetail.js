@@ -2,6 +2,7 @@ import React from 'react';
 import {Tabs, Tab} from 'material-ui/Tabs';
 import RaisedButton from 'material-ui/RaisedButton';
 import ContentForward from 'material-ui/svg-icons/content/forward';
+import ContentUndo from 'material-ui/svg-icons/content/undo';
 import ActionCached from 'material-ui/svg-icons/action/cached';
 import Symptom from './Symptom';
 import Sign from './Sign';
@@ -114,10 +115,16 @@ export default class ExaminationDetail extends React.Component {
   handleClickNext(){
     let currentValue = this.state.value;
     this.setState({
-      value: (this.state.value === this.state.maxValue)?0:currentValue+1
+      value: (this.state.value === this.state.maxValue)?currentValue:currentValue+1
     });
 
-  };
+  }
+  handleClickPre(){
+    let currentValue = this.state.value;
+    this.setState({
+      value: (this.state.value === 0)?currentValue:currentValue-1
+    });
+  }
   handleClickUpdate(){
     this.setState({
       openAlert: true
@@ -239,6 +246,7 @@ export default class ExaminationDetail extends React.Component {
                     diagnosis={this.state.list.diagnosis}
                     ref={(ref)=>this.diagnosisComponent = ref}
                     api={'/record/'+this.props.params.record_id}
+                    patient_state={this.state.patient.state}
                     displayNoti={this.displayNoti}
                   />
                 </Tab>
@@ -266,14 +274,30 @@ export default class ExaminationDetail extends React.Component {
               fullWidth={true}
               style={{marginBottom: '10px', display: (this.state.value===2)?'none':''}} 
             />
-            <RaisedButton 
-              onClick={this.handleClickNext} 
-              label="Tiếp tục" 
-              secondary={true}
-              icon={<ContentForward/>}
-              fullWidth={true}
-              style={{marginBottom: '10px'}} 
-            />
+            {(this.state.value === this.state.maxValue)?
+              ''
+              :
+              <RaisedButton 
+                onClick={this.handleClickNext} 
+                label="Tiếp tục" 
+                secondary={true}
+                icon={<ContentForward/>}
+                fullWidth={true}
+                style={{marginBottom: '10px'}} 
+              />
+            }
+            {(this.state.value === 0)?
+              ''
+              :
+              <RaisedButton 
+                onClick={this.handleClickPre} 
+                label="Quay lại" 
+                secondary={true}
+                icon={<ContentUndo/>}
+                fullWidth={true}
+                style={{marginBottom: '10px'}} 
+              />
+            }
         </div>
         {(this.state.openProgress)?
           <LinearProgress mode="indeterminate" />

@@ -20,6 +20,7 @@ class Patient extends Authenticatable
 				'description',
 				'email',
 				'password',
+				'state'
 			];
     protected $hidden = [
         'password', 'remember_token',

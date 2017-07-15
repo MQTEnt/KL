@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Record;
+use App\Patient;
 use Auth;
 class RecordController extends Controller
 {
@@ -30,6 +31,11 @@ class RecordController extends Controller
 			$record->kidney_complication = $request->kidney_complication;
 			$record->other = $request->other;
 			$record->state = 1;
+
+			$patient = Patient::find($record->patient_id);
+			$patient->state = $request->state;
+			$patient->save();
+			
 			$record->examiner = Auth::user()->id;
 			$record->save();
 			return ['state' => 1, 'message' => 'Đã cập nhật thành công!'];

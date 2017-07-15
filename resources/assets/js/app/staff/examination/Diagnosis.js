@@ -8,6 +8,13 @@ const items = [
 	<MenuItem key={1} value={false} primaryText="Không có biến chứng" />,
 	<MenuItem key={2} value={true} primaryText="Có biến chứng" />,
 ];
+const states = [
+	<MenuItem key={0} value={0} primaryText="" />,
+	<MenuItem key={1} value={1} primaryText="Không tiến triển" />,
+	<MenuItem key={2} value={2} primaryText="Tốt lên" />,
+	<MenuItem key={3} value={3} primaryText="Khỏi" />,
+	<MenuItem key={4} value={4} primaryText="Ra viện" />,
+];
 export default class Diagnosis extends React.Component{
 	constructor(props){
 		super(props)
@@ -16,7 +23,8 @@ export default class Diagnosis extends React.Component{
 			haveComplication: false,
 			diagnosis: diagnosis,
 			errorOutComeInput: (diagnosis.outcome==='')?'Không được để trống':'',
-			errorPeriodInput: (diagnosis.period==='')?'Không được để trống':''
+			errorPeriodInput: (diagnosis.period==='')?'Không được để trống':'',
+			state: this.props.patient_state
 		}
 		this.onSubmit = false;
 		autoBind(this);
@@ -36,6 +44,11 @@ export default class Diagnosis extends React.Component{
 					vascular_complication: ''
 				}
 			});
+	}
+	handleChangeSelectState(event, index, value){
+		this.setState({
+			state: value
+		});
 	}
 	componentDidMount(){
 		let diagnosis = this.state.diagnosis;
@@ -64,7 +77,7 @@ export default class Diagnosis extends React.Component{
 		let str = e.target.value;
 		if(str === '')
 		{
-			this.setState({errorOutComeInput: 'Không được để trống'});
+			this.setState({errorPeriodInput: 'Không được để trống'});
 			return;
 		}
 		else
@@ -86,7 +99,8 @@ export default class Diagnosis extends React.Component{
 		formData.append('vascular_complication', (this.vascular_complication)?this.vascular_complication.getValue():'');
 		formData.append('kidney_complication', (this.kidney_complication)?this.kidney_complication.getValue():'');
 		formData.append('other', (this.other)?this.other.getValue():'');
-
+		formData.append('state', this.state.state);
+		
 		let api = this.props.api
 	    //POST (AJAX)
 	    setTimeout(function(){
@@ -169,6 +183,14 @@ export default class Diagnosis extends React.Component{
 				    </div>
 				    :''
 		        }
+		        <SelectField
+			    	fullWidth={true}
+					value={this.state.state}
+					onChange={this.handleChangeSelectState}
+					floatingLabelText="Đánh giá"
+		        >
+		        	{states}
+		        </SelectField>
 			</div>
 		);
 	}

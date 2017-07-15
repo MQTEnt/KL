@@ -75169,6 +75169,10 @@
 
 	var _forward2 = _interopRequireDefault(_forward);
 
+	var _undo = __webpack_require__(960);
+
+	var _undo2 = _interopRequireDefault(_undo);
+
 	var _cached = __webpack_require__(670);
 
 	var _cached2 = _interopRequireDefault(_cached);
@@ -75346,7 +75350,15 @@
 	    value: function handleClickNext() {
 	      var currentValue = this.state.value;
 	      this.setState({
-	        value: this.state.value === this.state.maxValue ? 0 : currentValue + 1
+	        value: this.state.value === this.state.maxValue ? currentValue : currentValue + 1
+	      });
+	    }
+	  }, {
+	    key: 'handleClickPre',
+	    value: function handleClickPre() {
+	      var currentValue = this.state.value;
+	      this.setState({
+	        value: this.state.value === 0 ? currentValue : currentValue - 1
 	      });
 	    }
 	  }, {
@@ -75563,6 +75575,7 @@
 	                    return _this2.diagnosisComponent = _ref5;
 	                  },
 	                  api: '/record/' + this.props.params.record_id,
+	                  patient_state: this.state.patient.state,
 	                  displayNoti: this.displayNoti
 	                })
 	              )
@@ -75593,11 +75606,19 @@
 	            fullWidth: true,
 	            style: { marginBottom: '10px', display: this.state.value === 2 ? 'none' : '' }
 	          }),
-	          _react2.default.createElement(_RaisedButton2.default, {
+	          this.state.value === this.state.maxValue ? '' : _react2.default.createElement(_RaisedButton2.default, {
 	            onClick: this.handleClickNext,
 	            label: 'Ti\u1EBFp t\u1EE5c',
 	            secondary: true,
 	            icon: _react2.default.createElement(_forward2.default, null),
+	            fullWidth: true,
+	            style: { marginBottom: '10px' }
+	          }),
+	          this.state.value === 0 ? '' : _react2.default.createElement(_RaisedButton2.default, {
+	            onClick: this.handleClickPre,
+	            label: 'Quay l\u1EA1i',
+	            secondary: true,
+	            icon: _react2.default.createElement(_undo2.default, null),
 	            fullWidth: true,
 	            style: { marginBottom: '10px' }
 	          })
@@ -76296,6 +76317,7 @@
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
 	var items = [_react2.default.createElement(_MenuItem2.default, { key: 1, value: false, primaryText: 'Kh\xF4ng c\xF3 bi\u1EBFn ch\u1EE9ng' }), _react2.default.createElement(_MenuItem2.default, { key: 2, value: true, primaryText: 'C\xF3 bi\u1EBFn ch\u1EE9ng' })];
+	var states = [_react2.default.createElement(_MenuItem2.default, { key: 0, value: 0, primaryText: '' }), _react2.default.createElement(_MenuItem2.default, { key: 1, value: 1, primaryText: 'Kh\xF4ng ti\u1EBFn tri\u1EC3n' }), _react2.default.createElement(_MenuItem2.default, { key: 2, value: 2, primaryText: 'T\u1ED1t l\xEAn' }), _react2.default.createElement(_MenuItem2.default, { key: 3, value: 3, primaryText: 'Kh\u1ECFi' }), _react2.default.createElement(_MenuItem2.default, { key: 4, value: 4, primaryText: 'Ra vi\u1EC7n' })];
 
 	var Diagnosis = function (_React$Component) {
 		_inherits(Diagnosis, _React$Component);
@@ -76310,7 +76332,8 @@
 				haveComplication: false,
 				diagnosis: diagnosis,
 				errorOutComeInput: diagnosis.outcome === '' ? 'Không được để trống' : '',
-				errorPeriodInput: diagnosis.period === '' ? 'Không được để trống' : ''
+				errorPeriodInput: diagnosis.period === '' ? 'Không được để trống' : '',
+				state: _this.props.patient_state
 			};
 			_this.onSubmit = false;
 			(0, _reactAutobind2.default)(_this);
@@ -76329,6 +76352,13 @@
 						kidney_complication: '',
 						vascular_complication: ''
 					})
+				});
+			}
+		}, {
+			key: 'handleChangeSelectState',
+			value: function handleChangeSelectState(event, index, value) {
+				this.setState({
+					state: value
 				});
 			}
 		}, {
@@ -76359,7 +76389,7 @@
 				this.setState({ onChangePeriodInput: true });
 				var str = e.target.value;
 				if (str === '') {
-					this.setState({ errorOutComeInput: 'Không được để trống' });
+					this.setState({ errorPeriodInput: 'Không được để trống' });
 					return;
 				} else {
 					this.setState({ errorPeriodInput: '' });
@@ -76381,6 +76411,7 @@
 				formData.append('vascular_complication', this.vascular_complication ? this.vascular_complication.getValue() : '');
 				formData.append('kidney_complication', this.kidney_complication ? this.kidney_complication.getValue() : '');
 				formData.append('other', this.other ? this.other.getValue() : '');
+				formData.append('state', this.state.state);
 
 				var api = this.props.api;
 				//POST (AJAX)
@@ -76481,7 +76512,17 @@
 							}
 						}),
 						_react2.default.createElement('br', null)
-					) : ''
+					) : '',
+					_react2.default.createElement(
+						_SelectField2.default,
+						{
+							fullWidth: true,
+							value: this.state.state,
+							onChange: this.handleChangeSelectState,
+							floatingLabelText: '\u0110\xE1nh gi\xE1'
+						},
+						states
+					)
 				);
 			}
 		}]);
@@ -121057,6 +121098,41 @@
 
 	module.exports = isEqual;
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }()), __webpack_require__(353)(module)))
+
+/***/ }),
+/* 960 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ContentUndo = function ContentUndo(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M12.5 8c-2.65 0-5.05.99-6.9 2.6L2 7v9h9l-3.62-3.62c1.39-1.16 3.16-1.88 5.12-1.88 3.54 0 6.55 2.31 7.6 5.5l2.37-.78C21.08 11.03 17.15 8 12.5 8z' }));
+	};
+	ContentUndo = (0, _pure2.default)(ContentUndo);
+	ContentUndo.displayName = 'ContentUndo';
+	ContentUndo.muiName = 'SvgIcon';
+
+	exports.default = ContentUndo;
 
 /***/ })
 /******/ ]);
