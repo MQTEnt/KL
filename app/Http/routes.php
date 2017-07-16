@@ -258,6 +258,10 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('care/create-next-day/{patient_id}/{date}', 'Staff\CareController@createNextDay');
 	Route::post('care/{id}', 'Staff\CareController@update');
 
+	/*
+	 * Export file .pdf
+	 */
+	Route::get('export/caring/{patient_id}', 'Staff\ExportController@exportCaring');
 	/////////////////////////
 	Route::get('user/staff', function(Illuminate\Http\Request $request){
 		$user = Auth::user();

@@ -4,6 +4,8 @@ import Paper from 'material-ui/Paper';
 import Timeline from './Timeline';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import LineChart from './LineChart';
+import RaisedButton from 'material-ui/RaisedButton';
+import ActionPrint from 'material-ui/svg-icons/action/print';
 export default class Archive extends React.Component{
 	constructor(props){
 		super(props);
@@ -84,12 +86,12 @@ export default class Archive extends React.Component{
 		return (
 			<div>
 				<Paper zDepth={2}>
-	              <ul style={{margin: 20, padding: 10, textAlign: 'left'}}>
-	                <li>Tên bệnh nhân: <b>{patient.name}</b></li>
-	                <li>Ngày sinh: <b>{patient.dob}</b></li>
-	                <li>Địa chỉ: <b>{patient.address}</b></li>
-	                <li>Nghề nghiệp: <b>{patient.job}</b></li>
-	              </ul>
+					<ul style={{margin: 20, padding: 10, textAlign: 'left'}}>
+						<li>Tên bệnh nhân: <b>{patient.name}</b></li>
+						<li>Ngày sinh: <b>{patient.dob}</b></li>
+						<li>Địa chỉ: <b>{patient.address}</b></li>
+						<li>Nghề nghiệp: <b>{patient.job}</b></li>
+					</ul>
 	            </Paper>
 	            <Paper zDepth={2}>
 	            	<LineChart patient_id={this.props.params.patient_id}/>
@@ -101,6 +103,15 @@ export default class Archive extends React.Component{
 		          	:
 		          	<Paper zDepth={2}>
 		          		<h3 style={{textAlign: 'center'}}><i className="fa fa-history"></i> Lịch sử theo dõi chăm sóc</h3>
+						<div style={{display: 'block', textAlign: 'right', paddingRight: 10}}>
+							<RaisedButton
+								href={"/export/caring/"+this.props.params.patient_id}
+								target="_blank"
+								label="Tải file .pdf"
+								secondary={true}
+								icon={<ActionPrint/>}
+							/>
+						</div>
 						<div className="main-timeline">
 					        <InfiniteScroll
 					          next={this.next}

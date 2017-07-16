@@ -7,7 +7,7 @@ export default class Timeline extends React.Component{
 	}
 	renderDate(date){
 	    let dateStr = date.split('-');
-	    let str = 'Ngày '+dateStr[2]+' tháng '+dateStr[1]+' năm '+dateStr[0];
+	    let str = 'Ngày '+dateStr[2]+'/'+dateStr[1]+'/'+dateStr[0];
 	    return str;
 	}
 	renderYThuc(num){
