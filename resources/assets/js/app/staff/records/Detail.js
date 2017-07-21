@@ -84,7 +84,7 @@ class Detail extends React.Component{
 			<FlatButton
 				style={style.button}
 				fullWidth={true}
-				label="Thêm mới bệnh án"
+				label="Thêm mới lần khám"
 				backgroundColor="#00bcd4"
 				hoverColor="#00bcd4"
 				icon={<ContentAdd color={fullWhite} />}
@@ -94,7 +94,7 @@ class Detail extends React.Component{
 				<FlatButton
 			      	style={style.button}
 			      	fullWidth={true}
-			      	label="Danh sách bệnh án"
+			      	label="Danh sách khám bệnh"
 				    backgroundColor="#2be277"
 				    hoverColor="#2be277"
 				    icon={<ContentContentCopy color={fullWhite} />}
@@ -127,7 +127,7 @@ class Detail extends React.Component{
 					open={this.state.openAlert}
 					alertCancel={this.onClickAlertCancel}
 					alertAccept={this.onClickAlertAccept}
-					noti='Bạn muốn thêm mới bệnh án cho bệnh nhân này?'
+					noti='Bạn muốn thêm lần khám mới cho bệnh nhân này?'
 				/>
 			</Dialog>
 		);
@@ -143,7 +143,7 @@ class Detail extends React.Component{
 				}
 				<SnackBar
 					open={this.state.openSnackBar}
-					noti={"Đã thêm thành công, bệnh án mới thêm có mã là "+this.state.newRecordId}
+					noti={"Đã thêm thành công, mã khám bệnh mới là "+this.state.newRecordId}
 					onRequestClose={this.onRequestCloseSnackBar}
 				/>
 			</div>

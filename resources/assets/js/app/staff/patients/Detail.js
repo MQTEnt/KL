@@ -73,7 +73,7 @@ class Detail extends React.Component{
 		let records = this.state.records;
 		return (
 			<List style={{'margin': '0 auto', 'width': '90%'}}>
-				<Subheader style={{fontSize: '120%'}}>Danh sách bệnh án của bệnh nhân:</Subheader>
+				<Subheader style={{fontSize: '120%'}}>Danh sách khám bệnh của bệnh nhân:</Subheader>
 				{
 					Object.keys(records).map(key => (
 						<ListItem
@@ -86,7 +86,7 @@ class Detail extends React.Component{
 								records[key].map(record => (
 									<ListItem
 										key={record.id}
-										primaryText={'Bệnh án ngày '+this.renderDate(record.created_at)}
+										primaryText={'Ngày khám '+this.renderDate(record.created_at)}
 										leftIcon={<ActionAssignment />}
 										onClick={()=>{this.openDetail(record)}}
 									/>

@@ -52,7 +52,7 @@ class Main extends React.Component {
           />
         </Tab>
         <Tab 
-          label="Danh sách bệnh án" 
+          label="Danh sách khám bệnh chung" 
           value={1}
           icon={<ActionAssignment/>}
         >

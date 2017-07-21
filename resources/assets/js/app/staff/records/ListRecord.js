@@ -131,7 +131,7 @@ class List extends React.Component{
             onChange={this.onClickRangedDateSearch}
           >
             <MenuItem value={true} primaryText="Tìm kiếm theo ngày" />
-            <MenuItem value={false} primaryText="Tìm kiếm theo mã bệnh án" />
+            <MenuItem value={false} primaryText="Tìm kiếm theo mã khám bệnh" />
           </SelectField>
           <div style={{display: 'inline-block', width: '48px'}}></div>
         </div>
@@ -154,7 +154,7 @@ class List extends React.Component{
           onCellClick={this.onCellClickHandle}>
           <TableHeader displaySelectAll={false} adjustForCheckbox={false}>
             <TableRow>
-              <TableHeaderColumn>Mã bệnh án</TableHeaderColumn>
+              <TableHeaderColumn>Mã khám bệnh</TableHeaderColumn>
               <TableHeaderColumn>Tên bệnh nhân</TableHeaderColumn>
               <TableHeaderColumn>Ngày tạo</TableHeaderColumn>
             </TableRow>

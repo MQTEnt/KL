@@ -36272,7 +36272,7 @@
 	              _MenuItem2.default,
 	              { style: style.menuItem, onTouchTap: this.handleClose },
 	              _react2.default.createElement(_assignment2.default, { style: style.icon }),
-	              ' Qu\u1EA3n l\xFD b\u1EC7nh \xE1n'
+	              ' Qu\u1EA3n l\xFD kh\xE1m b\u1EC7nh'
 	            )
 	          ),
 	          _react2.default.createElement(
@@ -71919,7 +71919,7 @@
 					_react2.default.createElement(
 						_Subheader2.default,
 						{ style: { fontSize: '120%' } },
-						'Danh s\xE1ch b\u1EC7nh \xE1n c\u1EE7a b\u1EC7nh nh\xE2n:'
+						'Danh s\xE1ch kh\xE1m b\u1EC7nh c\u1EE7a b\u1EC7nh nh\xE2n:'
 					),
 					Object.keys(records).map(function (key) {
 						return _react2.default.createElement(_List.ListItem, {
@@ -71931,7 +71931,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Bệnh án ngày ' + _this2.renderDate(record.created_at),
+									primaryText: 'Ngày khám ' + _this2.renderDate(record.created_at),
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									onClick: function onClick() {
 										_this2.openDetail(record);
@@ -72468,7 +72468,7 @@
 	        _react2.default.createElement(
 	          _Tabs.Tab,
 	          {
-	            label: 'Danh s\xE1ch b\u1EC7nh \xE1n',
+	            label: 'Danh s\xE1ch kh\xE1m b\u1EC7nh chung',
 	            value: 1,
 	            icon: _react2.default.createElement(_assignment2.default, null)
 	          },
@@ -72830,7 +72830,7 @@
 				var actions = [_react2.default.createElement(_FlatButton2.default, {
 					style: style.button,
 					fullWidth: true,
-					label: 'Th\xEAm m\u1EDBi b\u1EC7nh \xE1n',
+					label: 'Th\xEAm m\u1EDBi l\u1EA7n kh\xE1m',
 					backgroundColor: '#00bcd4',
 					hoverColor: '#00bcd4',
 					icon: _react2.default.createElement(_add2.default, { color: _colors.fullWhite }),
@@ -72841,7 +72841,7 @@
 					_react2.default.createElement(_FlatButton2.default, {
 						style: style.button,
 						fullWidth: true,
-						label: 'Danh s\xE1ch b\u1EC7nh \xE1n',
+						label: 'Danh s\xE1ch kh\xE1m b\u1EC7nh',
 						backgroundColor: '#2be277',
 						hoverColor: '#2be277',
 						icon: _react2.default.createElement(_contentCopy2.default, { color: _colors.fullWhite })
@@ -72925,7 +72925,7 @@
 						open: this.state.openAlert,
 						alertCancel: this.onClickAlertCancel,
 						alertAccept: this.onClickAlertAccept,
-						noti: 'B\u1EA1n mu\u1ED1n th\xEAm m\u1EDBi b\u1EC7nh \xE1n cho b\u1EC7nh nh\xE2n n\xE0y?'
+						noti: 'B\u1EA1n mu\u1ED1n th\xEAm l\u1EA7n kh\xE1m m\u1EDBi cho b\u1EC7nh nh\xE2n n\xE0y?'
 					})
 				);
 			}
@@ -72939,7 +72939,7 @@
 					patient != null ? this.renderDialog(patient) : '',
 					_react2.default.createElement(_SnackBar2.default, {
 						open: this.state.openSnackBar,
-						noti: "Đã thêm thành công, bệnh án mới thêm có mã là " + this.state.newRecordId,
+						noti: "Đã thêm thành công, mã khám bệnh mới là " + this.state.newRecordId,
 						onRequestClose: this.onRequestCloseSnackBar
 					})
 				);
@@ -73269,7 +73269,7 @@
 	              onChange: this.onClickRangedDateSearch
 	            },
 	            _react2.default.createElement(_MenuItem2.default, { value: true, primaryText: 'T\xECm ki\u1EBFm theo ng\xE0y' }),
-	            _react2.default.createElement(_MenuItem2.default, { value: false, primaryText: 'T\xECm ki\u1EBFm theo m\xE3 b\u1EC7nh \xE1n' })
+	            _react2.default.createElement(_MenuItem2.default, { value: false, primaryText: 'T\xECm ki\u1EBFm theo m\xE3 kh\xE1m b\u1EC7nh' })
 	          ),
 	          _react2.default.createElement('div', { style: { display: 'inline-block', width: '48px' } })
 	        ),
@@ -73297,7 +73297,7 @@
 	              _react2.default.createElement(
 	                _Table.TableHeaderColumn,
 	                null,
-	                'M\xE3 b\u1EC7nh \xE1n'
+	                'M\xE3 kh\xE1m b\u1EC7nh'
 	              ),
 	              _react2.default.createElement(
 	                _Table.TableHeaderColumn,
@@ -73935,7 +73935,7 @@
 					_react2.default.createElement(
 						_Subheader2.default,
 						{ style: { fontSize: '80%', 'fontWeight': 'bold' } },
-						'Danh s\xE1ch b\u1EC7nh \xE1n c\u1EE7a b\u1EC7nh nh\xE2n:'
+						'Danh s\xE1ch kh\xE1m b\u1EC7nh c\u1EE7a b\u1EC7nh nh\xE2n:'
 					),
 					Object.keys(records).map(function (key) {
 						return _react2.default.createElement(_List.ListItem, {
@@ -73947,7 +73947,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Bệnh án ngày ' + _this2.renderDate(record.created_at),
+									primaryText: 'Lần khám ngày ' + _this2.renderDate(record.created_at),
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									rightIconButton: _react2.default.createElement(
 										_IconButton2.default,
@@ -75016,7 +75016,7 @@
 					_react2.default.createElement(
 						_Subheader2.default,
 						{ style: { fontSize: '80%', 'fontWeight': 'bold' } },
-						'Danh s\xE1ch b\u1EC7nh \xE1n c\u1EE7a b\u1EC7nh nh\xE2n:'
+						'Danh s\xE1ch c\xE1c l\u1EA7n kh\xE1m c\u1EE7a b\u1EC7nh nh\xE2n:'
 					),
 					Object.keys(records).map(function (key) {
 						return _react2.default.createElement(_List.ListItem, {
@@ -75028,7 +75028,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Bệnh án ngày ' + _this2.renderDate(record.created_at),
+									primaryText: 'Lần khám ngày ' + _this2.renderDate(record.created_at),
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									rightIconButton: _react2.default.createElement(
 										_IconButton2.default,
@@ -75415,20 +75415,27 @@
 	      });
 	    }
 	  }, {
+	    key: 'displayDate',
+	    value: function displayDate(time) {
+	      var date = time.split(' ')[0];
+	      var dateStr = date.split('-');
+	      return dateStr[2] + '/' + dateStr[1] + '/' + dateStr[0];
+	    }
+	  }, {
 	    key: 'displayTitleRecord',
 	    value: function displayTitleRecord() {
-	      var recordTitle = this.state.list.diagnosis.created_at;
+	      var record_created_at = this.state.list.diagnosis.created_at;
 	      return _react2.default.createElement(
 	        'h2',
 	        { style: styles.headline },
-	        'M\xE3 b\u1EC7nh \xE1n: ',
+	        'M\xE3 kh\xE1m b\u1EC7nh: ',
 	        this.props.params.record_id,
 	        ' ',
 	        _react2.default.createElement(
 	          'i',
 	          { style: { fontSize: '65%' } },
 	          'T\u1EA1o ng\xE0y: ',
-	          recordTitle.split(" ")[0]
+	          this.displayDate(record_created_at)
 	        )
 	      );
 	    }

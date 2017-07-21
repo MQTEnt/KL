@@ -170,9 +170,14 @@ export default class ExaminationDetail extends React.Component {
         notiSnackBar: notiSnackBar
       });
   }
+  displayDate(time){
+    let date = time.split(' ')[0];
+    let dateStr = date.split('-');
+    return dateStr[2]+'/'+dateStr[1]+'/'+dateStr[0];
+  }
   displayTitleRecord(){
-    let recordTitle  = this.state.list.diagnosis.created_at;
-    return <h2 style={styles.headline}>Mã bệnh án: {this.props.params.record_id} <i style={{fontSize: '65%'}}>Tạo ngày: {recordTitle.split(" ")[0]}</i></h2>;
+    let record_created_at  = this.state.list.diagnosis.created_at;
+    return <h2 style={styles.headline}>Mã khám bệnh: {this.props.params.record_id} <i style={{fontSize: '65%'}}>Tạo ngày: {this.displayDate(record_created_at)}</i></h2>;
   }
   render() {
     let patient = this.state.patient
