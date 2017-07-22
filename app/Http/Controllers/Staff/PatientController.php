@@ -99,4 +99,8 @@ class PatientController extends Controller
      				});
 		return ['patient' => $patient, 'records' => $records];
 	}
+	public function getPatientById($id){
+		$patient = Patient::findOrFail($id);
+		return ['patient' => $patient];
+	}
 }

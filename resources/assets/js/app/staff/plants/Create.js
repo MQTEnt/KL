@@ -5,7 +5,9 @@ import ActionAutorenew from 'material-ui/svg-icons/action/autorenew';
 import DatePicker from 'material-ui/DatePicker';
 import SnackBar from '../partials/SnackBar';
 import Alert from '../partials/Alert';
+import PatientInfo from '../partials/PatientInfo';
 import autoBind from 'react-autobind';
+import Paper from 'material-ui/Paper';
 import { browserHistory } from 'react-router';
 
 export default class Create extends React.Component{
@@ -150,44 +152,48 @@ export default class Create extends React.Component{
   render(){
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
-        <SelectInputs
-          list={this.state.list}
-          selectedList = {this.state.selectedList}
-          ref={(ref) => this.List = ref}
-          
-        />
-        <DatePicker
-    			onChange={this.handleChangeFromDate}
-    			autoOk={true}
-    			floatingLabelText="Từ ngày"
-    			value={this.state.fromDate}
-    			disableYearSelection={true}
-    		/>
-    		<DatePicker
-    			onChange={this.handleChangeToDate}
-    			autoOk={true}
-    			floatingLabelText="Đến ngày"
-    			value={this.state.toDate}
-    			disableYearSelection={true}
-    		/>
-        <RaisedButton
-        	style={{marginTop: '3%'}}
-    			onClick={this.handleOnClick} 
-    			label="Cập nhật" 
-    			primary={true}
-    			icon={<ActionAutorenew />}
-        />
-        <SnackBar
-          open={this.state.openSnackBar}
-          noti={this.state.notiSnackBar}
-          onRequestClose={()=>{this.setState({openSnackBar: false})}}
-        />
-        <Alert
-          alertCancel={this.alertCancel}
-          alertAccept={this.alertAccept}
-          noti={this.state.notiAlert}
-          open={this.state.openAlert}
-        />
+        <h3 style={{textAlign: 'center'}}>Lập kế hoạch điều trị</h3>
+        <PatientInfo patient_id = {this.props.params.patient_id} />
+        <Paper zDepth={2} style={{textAlign: 'center', padding: 10}}>
+          <SelectInputs
+            list={this.state.list}
+            selectedList = {this.state.selectedList}
+            ref={(ref) => this.List = ref}
+            
+          />
+          <DatePicker
+            onChange={this.handleChangeFromDate}
+            autoOk={true}
+            floatingLabelText="Từ ngày"
+            value={this.state.fromDate}
+            disableYearSelection={true}
+          />
+          <DatePicker
+            onChange={this.handleChangeToDate}
+            autoOk={true}
+            floatingLabelText="Đến ngày"
+            value={this.state.toDate}
+            disableYearSelection={true}
+          />
+          <RaisedButton
+            style={{marginTop: '3%'}}
+            onClick={this.handleOnClick} 
+            label="Cập nhật" 
+            primary={true}
+            icon={<ActionAutorenew />}
+          />
+          <SnackBar
+            open={this.state.openSnackBar}
+            noti={this.state.notiSnackBar}
+            onRequestClose={()=>{this.setState({openSnackBar: false})}}
+          />
+          <Alert
+            alertCancel={this.alertCancel}
+            alertAccept={this.alertAccept}
+            noti={this.state.notiAlert}
+            open={this.state.openAlert}
+          />
+        </Paper>
       </div>
     );
   }

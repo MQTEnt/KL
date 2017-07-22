@@ -77273,9 +77273,17 @@
 
 	var _Alert2 = _interopRequireDefault(_Alert);
 
+	var _PatientInfo = __webpack_require__(962);
+
+	var _PatientInfo2 = _interopRequireDefault(_PatientInfo);
+
 	var _reactAutobind = __webpack_require__(648);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
+
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
 
 	var _reactRouter = __webpack_require__(188);
 
@@ -77440,48 +77448,58 @@
 	      return _react2.default.createElement(
 	        'div',
 	        { style: { width: '80%', margin: '0 auto' } },
-	        _react2.default.createElement(_SelectInputs2.default, {
-	          list: this.state.list,
-	          selectedList: this.state.selectedList,
-	          ref: function ref(_ref) {
-	            return _this2.List = _ref;
-	          }
+	        _react2.default.createElement(
+	          'h3',
+	          { style: { textAlign: 'center' } },
+	          'L\u1EADp k\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB'
+	        ),
+	        _react2.default.createElement(_PatientInfo2.default, { patient_id: this.props.params.patient_id }),
+	        _react2.default.createElement(
+	          _Paper2.default,
+	          { zDepth: 2, style: { textAlign: 'center', padding: 10 } },
+	          _react2.default.createElement(_SelectInputs2.default, {
+	            list: this.state.list,
+	            selectedList: this.state.selectedList,
+	            ref: function ref(_ref) {
+	              return _this2.List = _ref;
+	            }
 
-	        }),
-	        _react2.default.createElement(_DatePicker2.default, {
-	          onChange: this.handleChangeFromDate,
-	          autoOk: true,
-	          floatingLabelText: 'T\u1EEB ng\xE0y',
-	          value: this.state.fromDate,
-	          disableYearSelection: true
-	        }),
-	        _react2.default.createElement(_DatePicker2.default, {
-	          onChange: this.handleChangeToDate,
-	          autoOk: true,
-	          floatingLabelText: '\u0110\u1EBFn ng\xE0y',
-	          value: this.state.toDate,
-	          disableYearSelection: true
-	        }),
-	        _react2.default.createElement(_RaisedButton2.default, {
-	          style: { marginTop: '3%' },
-	          onClick: this.handleOnClick,
-	          label: 'C\u1EADp nh\u1EADt',
-	          primary: true,
-	          icon: _react2.default.createElement(_autorenew2.default, null)
-	        }),
-	        _react2.default.createElement(_SnackBar2.default, {
-	          open: this.state.openSnackBar,
-	          noti: this.state.notiSnackBar,
-	          onRequestClose: function onRequestClose() {
-	            _this2.setState({ openSnackBar: false });
-	          }
-	        }),
-	        _react2.default.createElement(_Alert2.default, {
-	          alertCancel: this.alertCancel,
-	          alertAccept: this.alertAccept,
-	          noti: this.state.notiAlert,
-	          open: this.state.openAlert
-	        })
+	          }),
+	          _react2.default.createElement(_DatePicker2.default, {
+	            onChange: this.handleChangeFromDate,
+	            autoOk: true,
+	            floatingLabelText: 'T\u1EEB ng\xE0y',
+	            value: this.state.fromDate,
+	            disableYearSelection: true
+	          }),
+	          _react2.default.createElement(_DatePicker2.default, {
+	            onChange: this.handleChangeToDate,
+	            autoOk: true,
+	            floatingLabelText: '\u0110\u1EBFn ng\xE0y',
+	            value: this.state.toDate,
+	            disableYearSelection: true
+	          }),
+	          _react2.default.createElement(_RaisedButton2.default, {
+	            style: { marginTop: '3%' },
+	            onClick: this.handleOnClick,
+	            label: 'C\u1EADp nh\u1EADt',
+	            primary: true,
+	            icon: _react2.default.createElement(_autorenew2.default, null)
+	          }),
+	          _react2.default.createElement(_SnackBar2.default, {
+	            open: this.state.openSnackBar,
+	            noti: this.state.notiSnackBar,
+	            onRequestClose: function onRequestClose() {
+	              _this2.setState({ openSnackBar: false });
+	            }
+	          }),
+	          _react2.default.createElement(_Alert2.default, {
+	            alertCancel: this.alertCancel,
+	            alertAccept: this.alertAccept,
+	            noti: this.state.notiAlert,
+	            open: this.state.openAlert
+	          })
+	        )
 	      );
 	    }
 	  }]);
@@ -121194,6 +121212,129 @@
 	ActionPrint.muiName = 'SvgIcon';
 
 	exports.default = ActionPrint;
+
+/***/ }),
+/* 962 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var PatientInfo = function (_React$Component) {
+		_inherits(PatientInfo, _React$Component);
+
+		function PatientInfo(props) {
+			_classCallCheck(this, PatientInfo);
+
+			var _this = _possibleConstructorReturn(this, (PatientInfo.__proto__ || Object.getPrototypeOf(PatientInfo)).call(this, props));
+
+			_this.state = {
+				patient: {}
+			};
+			return _this;
+		}
+
+		_createClass(PatientInfo, [{
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				setTimeout(function () {
+					//Get data
+					fetch('/patient/id/' + this.props.patient_id, {
+						credentials: 'same-origin'
+					}).then(function (response) {
+						return response.json();
+					}).then(function (obj) {
+						//Data Response
+						//console.log('Data Response: ', obj);
+						this.setState({
+							patient: obj.patient
+						});
+					}.bind(this)).catch(function (ex) {
+						//Log Error
+						console.log('parsing failed', ex);
+					});
+				}.bind(this), 0);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				var patient = this.state.patient;
+				return _react2.default.createElement(
+					_Paper2.default,
+					{ zDepth: 2 },
+					_react2.default.createElement(
+						'ul',
+						{ style: { margin: 20, padding: 10, textAlign: 'left' } },
+						_react2.default.createElement(
+							'li',
+							null,
+							'T\xEAn b\u1EC7nh nh\xE2n: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient.name
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Ng\xE0y sinh: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient.dob
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'\u0110\u1ECBa ch\u1EC9: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient.address
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'Ngh\u1EC1 nghi\u1EC7p: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient.job
+							)
+						)
+					)
+				);
+			}
+		}]);
+
+		return PatientInfo;
+	}(_react2.default.Component);
+
+	exports.default = PatientInfo;
 
 /***/ })
 /******/ ]);

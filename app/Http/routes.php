@@ -157,6 +157,7 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('patient', ['as' => 'patient.store', 'uses' => 'Staff\PatientController@store']);
 	// Route::get('patient/{id}', ['as' => 'patient.show', 'uses' => 'Staff\PatientController@show']);
 	Route::get('patient/{id}', 'Staff\PatientController@getPatient');
+	Route::get('patient/id/{id}', 'Staff\PatientController@getPatientById');
 	Route::put('patient/{id}', ['as' => 'patient.update', 'uses' => 'Staff\PatientController@update']);
 	Route::delete('patient/{id}', ['as' => 'patient.destroy', 'uses' => 'Staff\PatientController@destroy']);
 
