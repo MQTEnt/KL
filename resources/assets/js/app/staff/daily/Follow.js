@@ -10,6 +10,7 @@ import Paper from 'material-ui/Paper';
 import TextField from 'material-ui/TextField';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import SnackBar from '../partials/SnackBar';
+import MiniNav from '../partials/MiniNav';
 import autoBind from 'react-autobind';
 
 
@@ -213,9 +214,14 @@ export default class Follow extends React.Component{
     });
   }
   render(){
+    let nav = [
+      {name: 'Danh sách bệnh nhân', url: '/staff/daily'},
+      {name: 'Lịch sử theo dõi điều trị', url: '/staff/daily/'+this.props.params.patient_id}
+    ];
     let patient = this.state.patient;
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
+        <MiniNav nav={nav} />
         <h3 style={{textAlign: 'center'}}>Theo dõi điều trị bệnh nhân</h3>
         {(patient!==null)?
           <Paper zDepth={2}>

@@ -9,6 +9,7 @@ import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import SnackBar from '../partials/SnackBar';
 import FirstDayForm from './FirstDayForm';
 import NextDay from './NextDay';
+import MiniNav from '../partials/MiniNav';
 import autoBind from 'react-autobind';
 
 
@@ -187,8 +188,13 @@ export default class Caring extends React.Component{
   }
   render(){
     let patient = this.state.patient;
+    let nav = [
+      {name: 'Danh sách bệnh nhân', url: '/staff/care'},
+      {name: 'Lịch sử theo dõi chăm sóc', url: '/staff/care/'+this.props.params.patient_id}
+    ];
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
+        <MiniNav nav={nav} />
         <h3 style={{textAlign: 'center'}}>Theo dõi chăm sóc bệnh nhân</h3>
         {(patient!==null)?
           <Paper zDepth={2}>

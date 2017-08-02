@@ -2,6 +2,7 @@ import React from 'react';
 import SnackBar from '../partials/SnackBar';
 import Plant from './Plant';
 import Paper from 'material-ui/Paper';
+import MiniNav from '../partials/MiniNav';
 import CircularProgress from 'material-ui/CircularProgress';
 
 export default class ListPlant extends React.Component{
@@ -70,8 +71,13 @@ export default class ListPlant extends React.Component{
 	}
 	render(){
 		let patient = this.state.patient;
+		let nav = [
+			{name: 'Danh sách bệnh nhân', url: '/staff/plant'},
+			{name: 'Lập kế hoạch điều trị', url: '/staff/plant/create/'+this.props.params.patient_id}
+		];
 		return (
-			<div>
+			<div style={{width: '80%', margin: '0 auto'}}>
+				<MiniNav nav={nav} />
 				<h3 style={{textAlign: 'center'}}>Danh sách kế hoạch điều trị</h3>
 				<Paper zDepth={2}>
 					<ul style={{margin: 20, padding: 10, textAlign: 'left'}}>

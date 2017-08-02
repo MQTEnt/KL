@@ -1,5 +1,6 @@
 import React from 'react';
 import CircularProgress from 'material-ui/CircularProgress';
+import MiniNav from '../partials/MiniNav';
 import Paper from 'material-ui/Paper';
 
 export default class Archive extends React.Component{
@@ -73,9 +74,14 @@ export default class Archive extends React.Component{
 	    )
 	}
 	render(){
+		let nav = [
+	      {name: 'Danh sách bệnh nhân', url: '/staff/daily'},
+	      {name: 'Theo dõi điều trị', url: '/staff/follow/'+this.props.params.patient_id}
+	    ];
 		let patient = this.state.patient;
 		return (
 			<div>
+				<MiniNav nav={nav} />
 				<Paper zDepth={2}>
 	              <ul style={{margin: 20, padding: 10, textAlign: 'left'}}>
 	                <li>Tên bệnh nhân: <b>{patient.name}</b></li>

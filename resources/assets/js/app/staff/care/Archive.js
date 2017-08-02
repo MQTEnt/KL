@@ -6,6 +6,7 @@ import InfiniteScroll from 'react-infinite-scroll-component';
 import LineChart from './LineChart';
 import RaisedButton from 'material-ui/RaisedButton';
 import ActionPrint from 'material-ui/svg-icons/action/print';
+import MiniNav from '../partials/MiniNav';
 export default class Archive extends React.Component{
 	constructor(props){
 		super(props);
@@ -82,9 +83,14 @@ export default class Archive extends React.Component{
 			return '';
 	}
 	render(){
+		let nav = [
+	      {name: 'Danh sách bệnh nhân', url: '/staff/plant'},
+	      {name: 'Theo dõi chăm sóc', url: '/staff/caring/'+this.props.params.patient_id}
+	    ];
 		let patient = this.state.patient;
 		return (
 			<div>
+				<MiniNav nav={nav} />
 				<Paper zDepth={2}>
 					<ul style={{margin: 20, padding: 10, textAlign: 'left'}}>
 						<li>Tên bệnh nhân: <b>{patient.name}</b></li>

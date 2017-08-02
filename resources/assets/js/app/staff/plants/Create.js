@@ -8,6 +8,7 @@ import Alert from '../partials/Alert';
 import PatientInfo from '../partials/PatientInfo';
 import autoBind from 'react-autobind';
 import Paper from 'material-ui/Paper';
+import MiniNav from '../partials/MiniNav';
 import { browserHistory } from 'react-router';
 
 export default class Create extends React.Component{
@@ -150,8 +151,13 @@ export default class Create extends React.Component{
       });
   }
   render(){
+    let nav = [
+      {name: 'Danh sách bệnh nhân', url: '/staff/plant'},
+      {name: 'Danh sách kế hoạch của bệnh nhân', url: '/staff/plant/list/'+this.props.params.patient_id}
+    ];
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
+        <MiniNav nav={nav} />
         <h3 style={{textAlign: 'center'}}>Lập kế hoạch điều trị</h3>
         <PatientInfo patient_id = {this.props.params.patient_id} />
         <Paper zDepth={2} style={{textAlign: 'center', padding: 10}}>
