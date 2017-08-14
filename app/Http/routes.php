@@ -150,6 +150,7 @@ Route::group(['middleware' => ['auth']], function(){
 	/*
 	 * Patient
 	 */
+	Route::get('patient/checkIdCard/{id_card}', 'Staff\PatientController@checkIdCard');
 	Route::get('patient/searchName', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearchName']);
 	Route::get('patient/search', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearch']);
 	Route::get('patient', ['as' => 'patient.index', 'uses' => 'Staff\PatientController@index']);

@@ -113,6 +113,28 @@ class Form extends React.Component{
 		{
 			this.setState({errorInputIdCard: ''});
 		}
+		//Check exist id_card
+		fetch('/patient/checkIdCard/'+value, {
+			credentials: 'same-origin'
+		})
+		.then(function(response) {
+			return response.json()
+		}).then(function(obj) {
+			if(obj.stat === 0)
+			{
+				this.setState({errorInputIdCard: obj.message});
+				return;
+			}
+			else
+			{
+				this.setState({errorInputIdCard: ''});
+			}
+		}.bind(this))
+		.catch(function(ex) {
+			//Log Error
+			console.log('parsing failed', ex)
+		});
+
 	}
 	validateInputEmail(event){
 		let value = event.target.value;

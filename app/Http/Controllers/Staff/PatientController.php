@@ -17,6 +17,13 @@ class PatientController extends Controller
 		$patients = Patient::paginate(10);
 		return $patients;
 	}
+	public function checkIdCard($id_card){
+		$patient = Patient::select('*')->where('id_card', '=', $id_card)->first();
+		if(!is_null($patient))
+			return ['stat' => 0, 'message' => 'Số chứng mình thư đã có người dùng'];
+		else
+			return ['stat' => 1];
+	}
 	public function store(PatientFormRequest $request){
 		$patient = new Patient();
 		$patient->name = $request->name;
@@ -93,6 +100,8 @@ class PatientController extends Controller
 	}
 	public function getPatient($id){
 		$patient = Patient::findOrFail($id);
+		$dobArr = explode("-",$patient->dob);
+		$patient->dob = $dobArr[2].'-'.$dobArr[1].'-'.$dobArr[0]; 
 		$records = Record::select('*')->where('patient_id', $id)->get()
 					->groupBy(function($val) {
             			return Carbon::parse($val->created_at)->format('Y-m');
@@ -101,6 +110,8 @@ class PatientController extends Controller
 	}
 	public function getPatientById($id){
 		$patient = Patient::findOrFail($id);
+		$dobArr = explode("-",$patient->dob);
+		$patient->dob = $dobArr[2].'-'.$dobArr[1].'-'.$dobArr[0];
 		return ['patient' => $patient];
 	}
 }

@@ -16,6 +16,8 @@ class DailyController extends Controller
     public function getAll($patient_id){
         $days = Daily_Plant::with(['activities', 'activities.activity'])->where('patient_id', '=', $patient_id)->orderBy('date', 'DESC')->get();
         $patient = Patient::find($patient_id);
+        $dobArr = explode("-",$patient->dob);
+        $patient->dob = $dobArr[2].'-'.$dobArr[1].'-'.$dobArr[0];
         return ['days' => $days, 'patient' => $patient];
     }
     public function getFollowingByDate($patient_id, $date){

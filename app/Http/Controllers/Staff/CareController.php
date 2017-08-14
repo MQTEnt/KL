@@ -17,6 +17,8 @@ class CareController extends Controller
 	}
 	public function getAllById($patient_id){
 		$patient = Patient::findOrFail($patient_id);
+		$dobArr = explode("-",$patient->dob);
+		$patient->dob = $dobArr[2].'-'.$dobArr[1].'-'.$dobArr[0];
 		$days = Care::with('staff')->select('*')->where('patient_id', '=', $patient_id)->orderBy('ngay', 'DESC')->paginate(2);
 		return ['patient' => $patient, 'days' => $days];
 	}
