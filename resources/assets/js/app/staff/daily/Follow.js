@@ -1,5 +1,5 @@
 import React from 'react';
-import InfiniteCalendar from 'react-infinite-calendar';
+import InfiniteCalendar, {Calendar, withDateSelection} from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css'; // only needs to be imported once
 import Drawer from 'material-ui/Drawer';
 import RadioInputs from '../partials/RadioInputs';
@@ -11,8 +11,8 @@ import TextField from 'material-ui/TextField';
 import ActionVisibility from 'material-ui/svg-icons/action/visibility';
 import SnackBar from '../partials/SnackBar';
 import MiniNav from '../partials/MiniNav';
+import HighLightedDate from '../partials/HighLightedDate';
 import autoBind from 'react-autobind';
-
 
 const styles = {
   calendarTheme: { 
@@ -44,7 +44,8 @@ export default class Follow extends React.Component{
       dateStr: '',
       rate: '',
       openSnackBar: false,
-      noti: ''
+      noti: '',
+      days: []
     }
 
     autoBind(this);
@@ -98,7 +99,9 @@ export default class Follow extends React.Component{
       });
   }
   onSelectDate(date){
-    let dateStr = date.getFullYear()+'-'+(date.getMonth()+ 1)+'-'+date.getDate();
+    let monthStr = (date.getMonth()+ 1 < 10)?('0'+(date.getMonth()+ 1)):(date.getMonth()+ 1)
+    let dayStr = (date.getDate() < 10)?('0'+date.getDate()):date.getDate();
+    let dateStr = date.getFullYear()+'-'+monthStr+'-'+dayStr;
     let api = '/daily/'+this.props.params.patient_id+'/'+dateStr;
     fetch(api, {
         credentials: 'same-origin'
@@ -136,13 +139,16 @@ export default class Follow extends React.Component{
       }).then(function(obj) {
         //Data Response
         //console.log('Data Response: ', obj);
+        let newDaysArr = this.state.days;
+        newDaysArr.push(this.state.dateStr);
         this.setState({
           'isFollow': obj.isFollow,
           'activities': obj.activities,
           'followDay': obj.day,
           'rate': '',
           'openSnackBar': true,
-          'noti': 'Đang theo dõi hoạt động trong ngày '+this.state.dateStr
+          'noti': 'Đang theo dõi hoạt động trong ngày '+this.state.dateStr,
+          'days': newDaysArr
         });
       }.bind(this))
       .catch(function(ex) {
@@ -212,6 +218,22 @@ export default class Follow extends React.Component{
       //Log Error
       console.log('parsing failed', ex)
     });
+
+    //Get all following days
+    fetch('/daily/all-following-days/'+this.props.params.patient_id, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        this.setState({
+          days: obj.days
+        });
+      }.bind(this))
+      .catch(function(ex) {
+      //Log Error
+      console.log('parsing failed', ex)
+    });
   }
   render(){
     let nav = [
@@ -219,6 +241,7 @@ export default class Follow extends React.Component{
       {name: 'Lịch sử theo dõi điều trị', url: '/staff/daily/'+this.props.params.patient_id}
     ];
     let patient = this.state.patient;
+    let dates = [new Date()];
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
         <MiniNav nav={nav} />
@@ -236,6 +259,8 @@ export default class Follow extends React.Component{
         }
         <Paper zDepth={2}>
           <InfiniteCalendar
+            Component={withDateSelection(HighLightedDate(Calendar))}
+            highlighted={this.state.days}
             width={'100%'}
             height={300}
             selected={today}

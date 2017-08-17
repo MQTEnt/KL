@@ -105,7 +105,13 @@ export default class FirstDayForm extends React.Component{
 	componentDidUpdate(prevProps, prevState){
 		if(prevProps.care.y_thuc !== this.props.care.y_thuc){
 			this.setState({y_thuc: this.props.care.y_thuc});
+			return;
 		}
+		if(prevState.y_thuc !== this.props.care.y_thuc){
+			this.setState({y_thuc: this.props.care.y_thuc});
+			return;
+		}
+
 	}
 	render(){
 		let care = this.props.care;

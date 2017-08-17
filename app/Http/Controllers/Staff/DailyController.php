@@ -132,4 +132,11 @@ class DailyController extends Controller
         else
             return ['state' => 0];
     }
+    public function allFollowingDays($patient_id){
+        $days = Daily_Plant::select('date')
+                ->where('patient_id', '=', $patient_id)
+                ->groupBy('date')
+                ->pluck('date');
+        return ['days' => $days];
+    }
 }

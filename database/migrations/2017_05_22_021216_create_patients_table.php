@@ -20,7 +20,7 @@ class CreatePatientsTable extends Migration
             $table->string('city');
             $table->smallInteger('gender');
             $table->string('id_card')->unique();
-            $table->string('insurance_card')->unique();
+            $table->string('insurance_card');
             $table->string('job');
             $table->string('number');
             $table->integer('room_id')->unsigned();

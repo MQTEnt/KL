@@ -6,7 +6,9 @@ body {
 .calendar{
 	position: static !important;
 }
-
+.Cal__Day__root.Cal__Day__enabled.Cal__Day__highlighted:before {
+    background-color: #bddafd !important;
+}
 /*Timeline Component*/
 .main-timeline{
     position: relative;

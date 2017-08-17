@@ -244,6 +244,7 @@ Route::group(['middleware' => ['auth']], function(){
 	/*
 	 * Daily
 	 */
+	Route::get('daily/all-following-days/{patient_id}', 'Staff\DailyController@allFollowingDays');
 	Route::get('daily/{patient_id}', 'Staff\DailyController@getAll');
 	Route::get('daily/{patient_id}/{date}', 'Staff\DailyController@getFollowingByDate');
 	Route::get('daily/setfollow/{patient_id}/{date}', 'Staff\DailyController@setFollow');
@@ -253,6 +254,7 @@ Route::group(['middleware' => ['auth']], function(){
 	/*
 	 * Care
 	 */
+	Route::get('care/all-following-days/{patient_id}', 'Staff\CareController@allFollowingDays');
 	Route::get('care/line-chart/{patient_id}', 'Staff\CareController@getLineChart');
 	Route::get('care/{patient_id}', 'Staff\CareController@getAllById');
 	Route::get('care/{patient_id}/{date}', 'Staff\CareController@getCaringByDate');

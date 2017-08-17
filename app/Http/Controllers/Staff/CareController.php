@@ -120,4 +120,11 @@ class CareController extends Controller
 		$care->save();
 		return ['state' => 1, 'care' => $care, 'message' => 'Đã cập nhật thành công!'];
 	}
+	public function allFollowingDays($patient_id)
+	{
+		$days = Care::select('ngay')->where('patient_id', '=', $patient_id)
+									->groupBy('ngay')
+									->pluck('ngay');
+		return ['days' => $days];
+	}
 }

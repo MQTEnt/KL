@@ -1,5 +1,5 @@
 import React from 'react';
-import InfiniteCalendar from 'react-infinite-calendar';
+import InfiniteCalendar, {Calendar, withDateSelection} from 'react-infinite-calendar';
 import 'react-infinite-calendar/styles.css'; // only needs to be imported once
 import Drawer from 'material-ui/Drawer';
 import MenuItem from 'material-ui/MenuItem';
@@ -10,6 +10,7 @@ import SnackBar from '../partials/SnackBar';
 import FirstDayForm from './FirstDayForm';
 import NextDay from './NextDay';
 import MiniNav from '../partials/MiniNav';
+import HighLightedDate from '../partials/HighLightedDate';
 import autoBind from 'react-autobind';
 
 
@@ -45,7 +46,8 @@ export default class Caring extends React.Component{
       care: {},
       dateStr: '',
       openSnackBar: false,
-      noti: ''
+      noti: '',
+      days: []
     }
 
     autoBind(this);
@@ -57,7 +59,9 @@ export default class Caring extends React.Component{
     });
   }
   onSelectDate(date){
-    let dateStr = date.getFullYear()+'-'+(date.getMonth()+ 1)+'-'+date.getDate();
+    let monthStr = (date.getMonth()+ 1 < 10)?('0'+(date.getMonth()+ 1)):(date.getMonth()+ 1)
+    let dayStr = (date.getDate() < 10)?('0'+date.getDate()):date.getDate();
+    let dateStr = date.getFullYear()+'-'+monthStr+'-'+dayStr;
     fetch('/care/'+this.props.params.patient_id+'/'+dateStr, {
         credentials: 'same-origin'
       })
@@ -86,6 +90,8 @@ export default class Caring extends React.Component{
     });
   }
   onClickFollowFirstDay(){
+    let newDaysArr = this.state.days;
+    newDaysArr.push(this.state.dateStr);
     //Create first day
     fetch('/care/create-first-day/'+this.props.params.patient_id+'/'+this.state.dateStr, {
         credentials: 'same-origin'
@@ -97,7 +103,8 @@ export default class Caring extends React.Component{
           this.setState({
             care: obj.care,
             isFollow: true,
-            isFirstDay: true
+            isFirstDay: true,
+            days: newDaysArr
           });
         else
           this.setState({
@@ -109,6 +116,8 @@ export default class Caring extends React.Component{
     });
   }
   onClickFollowNextDay(){
+    let newDaysArr = this.state.days;
+    newDaysArr.push(this.state.dateStr);
     //Create next day
     fetch('/care/create-next-day/'+this.props.params.patient_id+'/'+this.state.dateStr, {
         credentials: 'same-origin'
@@ -120,7 +129,8 @@ export default class Caring extends React.Component{
           this.setState({
             care: obj.care,
             isFollow: true,
-            isFirstDay: false
+            isFirstDay: false,
+            days: newDaysArr
           });
         else
           this.setState({
@@ -185,6 +195,22 @@ export default class Caring extends React.Component{
       //Log Error
       console.log('parsing failed', ex)
     });
+
+    //Get all following days
+    fetch('/care/all-following-days/'+this.props.params.patient_id, {
+        credentials: 'same-origin'
+      })
+      .then(function(response) {
+      return response.json()
+      }).then(function(obj) {
+        this.setState({
+          days: obj.days
+        });
+      }.bind(this))
+      .catch(function(ex) {
+      //Log Error
+      console.log('parsing failed', ex)
+    });
   }
   render(){
     let patient = this.state.patient;
@@ -209,6 +235,8 @@ export default class Caring extends React.Component{
         }
         <Paper zDepth={2}>
           <InfiniteCalendar
+            Component={withDateSelection(HighLightedDate(Calendar))}
+            highlighted={this.state.days}
             width={'100%'}
             height={300}
             selected={today}
