@@ -241,7 +241,6 @@ export default class Follow extends React.Component{
       {name: 'Lịch sử theo dõi điều trị', url: '/staff/daily/'+this.props.params.patient_id}
     ];
     let patient = this.state.patient;
-    let dates = [new Date()];
     return (
       <div style={{width: '80%', margin: '0 auto'}}>
         <MiniNav nav={nav} />

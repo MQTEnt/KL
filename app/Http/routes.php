@@ -23,6 +23,9 @@ Route::group(['prefix' => 'admin'], function () {
 	Route::get('login','Admin\AuthController@getLogin');
 	Route::post('login','Admin\AuthController@postLogin');
 	Route::get('logout','AdminController@getLogout');
+	//Chart
+	Route::get('chart', 'Admin\ChartController@index');
+	Route::get('chart/get-data','Admin\ChartController@getData');
 	//Dashboard
 	Route::get('dashboard', ['as' => 'admin.dashboard.index', 'uses' => 'AdminController@getIndex']);
 	//Doctor
