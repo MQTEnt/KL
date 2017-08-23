@@ -22,7 +22,15 @@ class LevelController extends Controller
                                                     ['index_id', '=', $index_id],
                                                     ['id', '<>', $id]
                                                 ])->get();
-        //Exted Validators
+        //Extend Validators
+        Validator::extend('greater', function($attribute, $value, $parameters, $validator)
+        {
+            $value2 = array_get($validator->getData(), $parameters[0], null);
+            if($value <= $value2)
+                return false;
+            return true;
+        });
+
   		Validator::extend('between_existed', function($attribute, $value, $parameters) use ($levels)
 		{
             foreach($levels as $level)
@@ -32,6 +40,17 @@ class LevelController extends Controller
             }
             return true;
 		});
+
+        Validator::extend('out_existed', function($attribute, $value, $parameters, $validator) use ($levels)
+        {
+            $value2 = array_get($validator->getData(), $parameters[0], null);
+            foreach($levels as $level)
+            {
+                if($level->min >= $value2 && $level->max <= $value)
+                    return false;
+            }
+            return true;
+        });
 
         Validator::extend('name_in_group', function($attribute, $value, $parameters) use ($levels)
         {

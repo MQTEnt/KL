@@ -58,7 +58,7 @@
 						{{ csrf_field() }}
 						<input name="_method" type="hidden" value="PUT">
 						<div class="form-group">
-							<label for="id">Mã triệu chứng</label>
+							<label for="id">Mã chỉ số</label>
 							<input type="text" 
 							class="form-control" 
 							name="id" 

@@ -22,6 +22,7 @@ class RecordIndexController extends Controller
 			foreach ($addArr as &$item){
 				$item['submitter'] = $user->id;
 				$item['record_id'] = $record_id;
+				$item['value'] = number_format($item['value'], 2);
 			}
 			Record_Index::insert($addArr);
 		}
@@ -33,8 +34,9 @@ class RecordIndexController extends Controller
 			$str2 = '';
 			$str3 = '';
 			foreach ($editArr as $key => $item){
+				$value = number_format($item['value'], 2);
 				//$item['submitter'] = $user->id;
-				$str1 = $str1.'WHEN id = '.$item['id'].' THEN "'.$item['value'].'" ';
+				$str1 = $str1.'WHEN id = '.$item['id'].' THEN "'.$value.'" ';
 				$str2 = $str2.'WHEN id = '.$item['id'].' THEN '.$user->id.' ';
 				if($key == 0)
 					$str3 = $str3.$item['id'];
