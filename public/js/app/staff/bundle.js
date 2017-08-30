@@ -71089,7 +71089,7 @@
 			_this.state = {
 				id: _this.props.editing ? _this.props.selectedPatient.id : null,
 				inputGender: _this.props.editing ? _this.props.selectedPatient.gender : 3,
-				inputRoom: _this.props.editing ? _this.props.selectedPatient.room_id : 1,
+				inputRoom: _this.props.editing ? _this.props.selectedPatient.room_id : 0,
 				inputDob: _this.props.editing ? _this.props.selectedPatient.dob : '1990-01-01',
 				errorInputName: _this.props.editing ? '' : 'Không được để trống',
 				errorInputAddress: _this.props.editing ? '' : 'Không được để trống',
@@ -71281,7 +71281,7 @@
 			value: function clearForm() {
 				this.setState({
 					inputGender: 3,
-					inputRoom: 1,
+					inputRoom: 0,
 					errorInputName: 'Không được để trống',
 					errorInputAddress: 'Không được để trống',
 					errorInputCity: 'Không được để trống',
@@ -79502,7 +79502,6 @@
 
 	      var nav = [{ name: 'Danh sách bệnh nhân', url: '/staff/daily' }, { name: 'Lịch sử theo dõi điều trị', url: '/staff/daily/' + this.props.params.patient_id }];
 	      var patient = this.state.patient;
-	      var dates = [new Date()];
 	      return _react2.default.createElement(
 	        'div',
 	        { style: { width: '80%', margin: '0 auto' } },

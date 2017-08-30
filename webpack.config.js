@@ -1,11 +1,11 @@
 var path = require('path');
 // var webpack = require('webpack');
 module.exports = {
-  entry: './resources/assets/js/app/admin/index.js',
+  entry: './resources/assets/js/app/staff/index.js',
 
   output: {
     filename: 'bundle.js',
-    path: path.join('public/js/app/admin/charts')
+    path: path.join('public/js/app/staff')
   },
 
   module: {

@@ -11,7 +11,7 @@ class Form extends React.Component{
 		this.state = {
 			id: (this.props.editing)?this.props.selectedPatient.id:null,
       		inputGender: (this.props.editing)?this.props.selectedPatient.gender:3,
-      		inputRoom: (this.props.editing)?this.props.selectedPatient.room_id:1,
+      		inputRoom: (this.props.editing)?this.props.selectedPatient.room_id:0,
       		inputDob: (this.props.editing)?this.props.selectedPatient.dob:'1990-01-01',
       		errorInputName: (this.props.editing)?'':'Không được để trống',
       		errorInputAddress: (this.props.editing)?'':'Không được để trống',
@@ -213,7 +213,7 @@ class Form extends React.Component{
 	clearForm(){
 		this.setState({
 			inputGender: 3,
-      		inputRoom: 1,
+      		inputRoom: 0,
       		errorInputName: 'Không được để trống',
       		errorInputAddress: 'Không được để trống',
       		errorInputCity: 'Không được để trống',

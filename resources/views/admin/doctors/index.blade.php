@@ -9,7 +9,7 @@
 </div>
 @if(Session::has('alert'))
 	<div id="alert" class="box">
-		<div class="callout callout-success" style="margin-bottom: 0!important;">
+		<div class="callout {{Session::get('type')}}" style="margin-bottom: 0!important;">
 			<h4><i class="fa fa-info"></i> Thông báo:</h4>
 			{{Session::get('alert')}}
 		</div>

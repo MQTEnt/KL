@@ -23,8 +23,8 @@ class CreatePatientsTable extends Migration
             $table->string('insurance_card');
             $table->string('job');
             $table->string('number');
-            $table->integer('room_id')->unsigned();
-            $table->foreign('room_id')->references('id')->on('rooms');
+            $table->integer('room_id')->unsigned()->nullable();
+            // $table->foreign('room_id')->references('id')->on('rooms');
             $table->string('description');
             $table->string('email')->nullable();
             $table->string('password');

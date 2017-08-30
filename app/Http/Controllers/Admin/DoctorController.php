@@ -8,6 +8,10 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\Http\Requests\UserFormRequest;
+use App\Record;
+use App\Care;
+use App\Plant;
+
 class DoctorController extends Controller
 {
 	public function __construct() {
@@ -31,7 +35,7 @@ class DoctorController extends Controller
             'description' => $request->description,
             'role' => 1
         ]);
-        return redirect()->route('doctor.index')->with(['alert' => 'Đã thêm thành công!']);
+        return redirect()->route('doctor.index')->with(['alert' => 'Đã thêm thành công!', 'type' => 'callout-success']);
     }
     public function show($id){
         $doctor = User::findOrFail($id);
@@ -48,12 +52,28 @@ class DoctorController extends Controller
             'address' => $request->address,
             'password' => ($doctor->password == $request->password)? $doctor->password : bcrypt($request->password),
         ]);
-        return redirect()->route('doctor.index')->with(['alert' => 'Đã cập nhật thành công!']);
+        return redirect()->route('doctor.index')->with(['alert' => 'Đã cập nhật thành công!', 'type' => 'callout-success']);
     }
     public function destroy($id){
         $doctor = User::findOrFail($id);
+        $alert = [
+                    'alert' => 'Không thể xóa vì bác sĩ này có liên quan tới một hoạt động khám hoặc điều trị!',
+                    'type' => 'callout-danger'
+                ];
+        $record = Record::select('*')->where('examiner', '=', $id)->first();
+        if(!is_null($record)){
+            return redirect()->route('doctor.index')->with($alert);
+        }
+        $plan = Plant::select('*')->where('user_id', '=', $id)->first();
+        if(!is_null($plan)){
+            return redirect()->route('doctor.index')->with($alert);
+        }
+        $care = Care::select('*')->where('staff_id', '=', $id)->first();
+        if(!is_null($care)){
+            return redirect()->route('doctor.index')->with($alert);
+        }
         $doctor->delete();
-        return redirect()->route('doctor.index')->with(['alert' => 'Đã xóa thành công!']);
+        return redirect()->route('doctor.index')->with(['alert' => 'Đã xóa thành công!', 'type' => 'callout-success']);
     }
     public function getSearch(Request $request){
         $query = $request->q;
