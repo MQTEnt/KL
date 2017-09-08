@@ -11,6 +11,7 @@ use App\Record;
 use DB;
 use Carbon\Carbon;
 use App\Http\Requests\PatientFormRequest;
+use Auth;
 class PatientController extends Controller
 {
 	public function index(){
@@ -113,5 +114,31 @@ class PatientController extends Controller
 		$dobArr = explode("-",$patient->dob);
 		$patient->dob = $dobArr[2].'-'.$dobArr[1].'-'.$dobArr[0];
 		return ['patient' => $patient];
+	}
+	public function getPatientByStaff(){
+		$staff = Auth::user();
+		if($staff->role == 1){
+			$patients = DB::table('patients')
+		         ->join(DB::raw(
+		         	"(SELECT patient_id, examiner 
+					FROM records WHERE records.examiner = ".$staff->id." ) AS temp_tbl"),
+		         	'patients.id', '=', 'temp_tbl.patient_id')
+		         ->select(DB::raw('patients.id, patients.name, temp_tbl.examiner AS staff_id'))
+		    	 ->groupBy(['patients.id', 'patients.name'])
+		    	 ->get();
+		    return $patients;
+		}
+		else
+			if($staff->role == 2){
+				$patients = DB::table('patients')
+			         ->join(DB::raw(
+			         	"(SELECT patient_id, staff_id 
+						FROM chamsoc WHERE chamsoc.staff_id = ".$staff->id." ) AS temp_tbl"),
+			         	'patients.id', '=', 'temp_tbl.patient_id')
+			         ->select(DB::raw('patients.id, patients.name, temp_tbl.staff_id AS staff_id'))
+			    	 ->groupBy(['patients.id', 'patients.name'])
+			    	 ->get();
+			    return $patients;
+			}
 	}
 }

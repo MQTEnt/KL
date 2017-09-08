@@ -84,7 +84,7 @@ export default class Archive extends React.Component{
 	}
 	render(){
 		let nav = [
-	      {name: 'Danh sách bệnh nhân', url: '/staff/plant'},
+	      {name: 'Danh sách bệnh nhân', url: '/staff/care'},
 	      {name: 'Theo dõi chăm sóc', url: '/staff/caring/'+this.props.params.patient_id}
 	    ];
 		let patient = this.state.patient;

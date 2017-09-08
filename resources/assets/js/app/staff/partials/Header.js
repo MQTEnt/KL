@@ -5,6 +5,7 @@ import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import HardwareKeyboardArrowDown from 'material-ui/svg-icons/hardware/keyboard-arrow-down';
 import Divider from 'material-ui/Divider';
+import { browserHistory } from "react-router";
 const style = {
 	avatar: {
 		margin: 5
@@ -32,9 +33,13 @@ class Header extends React.Component{
 		}
 
 		this.handleOnClickLogOut = this.handleOnClickLogOut.bind(this);
+		this.handleOnClickProfile = this.handleOnClickProfile.bind(this);
 	}
 	handleOnClickLogOut(){
 		window.location = "/logout";
+	}
+	handleOnClickProfile(){
+		browserHistory.push('/staff/profile');
 	}
 	componentDidMount(){
 		fetch('/user/staff',{
@@ -84,7 +89,7 @@ class Header extends React.Component{
 			      targetOrigin={{horizontal: 'left', vertical: 'top'}}
 			      style={style.button}
 			    >
-			      <MenuItem primaryText="Thông tin cá nhân"/>
+			      <MenuItem primaryText="Thông tin cá nhân" onClick={this.handleOnClickProfile}/>
 			      <MenuItem primaryText="Đăng xuất" onClick={this.handleOnClickLogOut}/>
 			    </IconMenu>
 			    <Divider/>

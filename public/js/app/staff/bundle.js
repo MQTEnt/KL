@@ -22454,6 +22454,10 @@
 
 	var _Archive4 = _interopRequireDefault(_Archive3);
 
+	var _App15 = __webpack_require__(971);
+
+	var _App16 = _interopRequireDefault(_App15);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22497,6 +22501,7 @@
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/care", component: _App14.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/caring/:patient_id", component: _Caring2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/care/:patient_id", component: _Archive4.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/profile", component: _App16.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageA", component: _PageA2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageB", component: _PageB2.default })
 	        )
@@ -46544,6 +46549,8 @@
 
 	var _Divider2 = _interopRequireDefault(_Divider);
 
+	var _reactRouter = __webpack_require__(188);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -46583,6 +46590,7 @@
 			};
 
 			_this.handleOnClickLogOut = _this.handleOnClickLogOut.bind(_this);
+			_this.handleOnClickProfile = _this.handleOnClickProfile.bind(_this);
 			return _this;
 		}
 
@@ -46590,6 +46598,11 @@
 			key: 'handleOnClickLogOut',
 			value: function handleOnClickLogOut() {
 				window.location = "/logout";
+			}
+		}, {
+			key: 'handleOnClickProfile',
+			value: function handleOnClickProfile() {
+				_reactRouter.browserHistory.push('/staff/profile');
 			}
 		}, {
 			key: 'componentDidMount',
@@ -46648,7 +46661,7 @@
 							targetOrigin: { horizontal: 'left', vertical: 'top' },
 							style: style.button
 						},
-						_react2.default.createElement(_MenuItem2.default, { primaryText: 'Th\xF4ng tin c\xE1 nh\xE2n' }),
+						_react2.default.createElement(_MenuItem2.default, { primaryText: 'Th\xF4ng tin c\xE1 nh\xE2n', onClick: this.handleOnClickProfile }),
 						_react2.default.createElement(_MenuItem2.default, { primaryText: '\u0110\u0103ng xu\u1EA5t', onClick: this.handleOnClickLogOut })
 					),
 					_react2.default.createElement(_Divider2.default, null)
@@ -90432,7 +90445,7 @@
 		}, {
 			key: 'render',
 			value: function render() {
-				var nav = [{ name: 'Danh sách bệnh nhân', url: '/staff/plant' }, { name: 'Theo dõi chăm sóc', url: '/staff/caring/' + this.props.params.patient_id }];
+				var nav = [{ name: 'Danh sách bệnh nhân', url: '/staff/care' }, { name: 'Theo dõi chăm sóc', url: '/staff/caring/' + this.props.params.patient_id }];
 				var patient = this.state.patient;
 				return _react2.default.createElement(
 					'div',
@@ -122832,6 +122845,230 @@
 	ActionPrint.muiName = 'SvgIcon';
 
 	exports.default = ActionPrint;
+
+/***/ }),
+/* 971 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _accountCircle = __webpack_require__(972);
+
+	var _accountCircle2 = _interopRequireDefault(_accountCircle);
+
+	var _lock = __webpack_require__(973);
+
+	var _lock2 = _interopRequireDefault(_lock);
+
+	var _TextField = __webpack_require__(497);
+
+	var _TextField2 = _interopRequireDefault(_TextField);
+
+	var _RaisedButton = __webpack_require__(470);
+
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Profile = function (_React$Component) {
+		_inherits(Profile, _React$Component);
+
+		function Profile(props) {
+			_classCallCheck(this, Profile);
+
+			return _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+		}
+
+		_createClass(Profile, [{
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ style: { width: '80%', margin: '0 auto', padding: 20 } },
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: { padding: 10, paddingLeft: 50, marginBottom: 20 }, zDepth: 2 },
+						_react2.default.createElement(
+							'h3',
+							null,
+							_react2.default.createElement(_accountCircle2.default, { style: { top: 5, position: 'relative' } }),
+							' Th\xF4ng tin c\xE1 nh\xE2n'
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'H\u1ECD v\xE0 t\xEAn: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								'Nguy\u1EC5n V\u0103n A'
+							)
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'Ng\xE0y sinh: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								'01/01/1960'
+							)
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'\u0110\u1ECBa ch\u1EC9: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								'H\xE0 N\u1ED9i'
+							)
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'S\u0110T: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								'0123456789'
+							)
+						),
+						_react2.default.createElement(
+							'p',
+							null,
+							'E-mail: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								'nva@gmail.com'
+							)
+						)
+					),
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: { padding: 10, paddingLeft: 50 }, zDepth: 2 },
+						_react2.default.createElement(
+							'h3',
+							null,
+							_react2.default.createElement(_lock2.default, { style: { top: 5, position: 'relative' } }),
+							' \u0110\u1ED5i m\u1EADt kh\u1EA9u'
+						),
+						_react2.default.createElement(_TextField2.default, {
+							hintText: 'Nh\u1EADp m\u1EADt kh\u1EA9u c\u0169',
+							floatingLabelText: 'M\u1EADt kh\u1EA9u c\u0169'
+						}),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(_TextField2.default, {
+							hintText: 'Nh\u1EADp m\u1EADt kh\u1EA9u m\u1EDBi',
+							floatingLabelText: 'M\u1EADt kh\u1EA9u m\u1EDBi'
+						}),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(_TextField2.default, {
+							hintText: 'Nh\u1EADp l\u1EA1i m\u1EADt kh\u1EA9u c\u0169',
+							floatingLabelText: 'X\xE1c nh\u1EADn m\u1EADt kh\u1EA9u m\u1EDBi'
+						}),
+						_react2.default.createElement('br', null),
+						_react2.default.createElement(_RaisedButton2.default, { label: 'X\xE1c nh\u1EADn', primary: true })
+					)
+				);
+			}
+		}]);
+
+		return Profile;
+	}(_react2.default.Component);
+
+	exports.default = Profile;
+
+/***/ }),
+/* 972 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ActionAccountCircle = function ActionAccountCircle(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z' }));
+	};
+	ActionAccountCircle = (0, _pure2.default)(ActionAccountCircle);
+	ActionAccountCircle.displayName = 'ActionAccountCircle';
+	ActionAccountCircle.muiName = 'SvgIcon';
+
+	exports.default = ActionAccountCircle;
+
+/***/ }),
+/* 973 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ActionLock = function ActionLock(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M18 8h-1V6c0-2.76-2.24-5-5-5S7 3.24 7 6v2H6c-1.1 0-2 .9-2 2v10c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V10c0-1.1-.9-2-2-2zm-6 9c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm3.1-9H8.9V6c0-1.71 1.39-3.1 3.1-3.1 1.71 0 3.1 1.39 3.1 3.1v2z' }));
+	};
+	ActionLock = (0, _pure2.default)(ActionLock);
+	ActionLock.displayName = 'ActionLock';
+	ActionLock.muiName = 'SvgIcon';
+
+	exports.default = ActionLock;
 
 /***/ })
 /******/ ]);
