@@ -126,7 +126,7 @@ class PatientController extends Controller
 		         ->select(DB::raw('patients.id, patients.name, temp_tbl.examiner AS staff_id'))
 		    	 ->groupBy(['patients.id', 'patients.name'])
 		    	 ->get();
-		    return $patients;
+		    return ['patients' => $patients, 'role' => $staff->role];
 		}
 		else
 			if($staff->role == 2){
@@ -138,7 +138,7 @@ class PatientController extends Controller
 			         ->select(DB::raw('patients.id, patients.name, temp_tbl.staff_id AS staff_id'))
 			    	 ->groupBy(['patients.id', 'patients.name'])
 			    	 ->get();
-			    return $patients;
+			    return ['patients' => $patients, 'role' => $staff->role];
 			}
 	}
 }

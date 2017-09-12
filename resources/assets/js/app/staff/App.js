@@ -21,6 +21,7 @@ import Care from './care/App';
 import Caring from './care/Caring';
 import CareArchive from './care/Archive';
 import Profile from './profile/App';
+import RelaPatients from './profile/RelaPatients';
 class App extends Component{
 	constructor(props){
 		super(props);
@@ -47,6 +48,7 @@ class App extends Component{
                     <Route path={"/staff/caring/:patient_id"} component={Caring} />
                     <Route path={"/staff/care/:patient_id"} component={CareArchive} />
                     <Route path={"/staff/profile"} component={Profile} />
+                    <Route path={"/staff/rela-patients"} component={RelaPatients} />
                     <Route path={"/staff/pageA"} component={PageA} />
                     <Route path={"/staff/pageB"} component={PageB} />
                 </Route>

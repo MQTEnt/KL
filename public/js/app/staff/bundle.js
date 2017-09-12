@@ -22458,6 +22458,10 @@
 
 	var _App16 = _interopRequireDefault(_App15);
 
+	var _RelaPatients = __webpack_require__(974);
+
+	var _RelaPatients2 = _interopRequireDefault(_RelaPatients);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -22502,6 +22506,7 @@
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/caring/:patient_id", component: _Caring2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/care/:patient_id", component: _Archive4.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/profile", component: _App16.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/rela-patients", component: _RelaPatients2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageA", component: _PageA2.default }),
 	          _react2.default.createElement(_reactRouter.Route, { path: "/staff/pageB", component: _PageB2.default })
 	        )
@@ -46591,6 +46596,7 @@
 
 			_this.handleOnClickLogOut = _this.handleOnClickLogOut.bind(_this);
 			_this.handleOnClickProfile = _this.handleOnClickProfile.bind(_this);
+			_this.handleOnClickRelapatients = _this.handleOnClickRelapatients.bind(_this);
 			return _this;
 		}
 
@@ -46603,6 +46609,11 @@
 			key: 'handleOnClickProfile',
 			value: function handleOnClickProfile() {
 				_reactRouter.browserHistory.push('/staff/profile');
+			}
+		}, {
+			key: 'handleOnClickRelapatients',
+			value: function handleOnClickRelapatients() {
+				_reactRouter.browserHistory.push('/staff/rela-patients');
 			}
 		}, {
 			key: 'componentDidMount',
@@ -46662,6 +46673,7 @@
 							style: style.button
 						},
 						_react2.default.createElement(_MenuItem2.default, { primaryText: 'Th\xF4ng tin c\xE1 nh\xE2n', onClick: this.handleOnClickProfile }),
+						_react2.default.createElement(_MenuItem2.default, { primaryText: 'Danh s\xE1ch b\u1EC7nh nh\xE2n', onClick: this.handleOnClickRelapatients }),
 						_react2.default.createElement(_MenuItem2.default, { primaryText: '\u0110\u0103ng xu\u1EA5t', onClick: this.handleOnClickLogOut })
 					),
 					_react2.default.createElement(_Divider2.default, null)
@@ -123069,6 +123081,129 @@
 	ActionLock.muiName = 'SvgIcon';
 
 	exports.default = ActionLock;
+
+/***/ }),
+/* 974 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+		value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _Paper = __webpack_require__(416);
+
+	var _Paper2 = _interopRequireDefault(_Paper);
+
+	var _List = __webpack_require__(591);
+
+	var _accountCircle = __webpack_require__(972);
+
+	var _accountCircle2 = _interopRequireDefault(_accountCircle);
+
+	var _reactRouter = __webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var Profile = function (_React$Component) {
+		_inherits(Profile, _React$Component);
+
+		function Profile(props) {
+			_classCallCheck(this, Profile);
+
+			var _this = _possibleConstructorReturn(this, (Profile.__proto__ || Object.getPrototypeOf(Profile)).call(this, props));
+
+			_this.state = {
+				patients: [],
+				role: 0
+			};
+
+			_this.onClickPatient = _this.onClickPatient.bind(_this);
+			return _this;
+		}
+
+		_createClass(Profile, [{
+			key: 'onClickPatient',
+			value: function onClickPatient(patient_id) {
+				if (this.state.role === 1) _reactRouter.browserHistory.push('/staff/patient/' + patient_id);else if (this.state.role === 2) _reactRouter.browserHistory.push('/staff/caring/' + patient_id);
+			}
+		}, {
+			key: 'componentDidMount',
+			value: function componentDidMount() {
+				fetch('/patient/byStaff', {
+					credentials: 'same-origin'
+				}).then(function (response) {
+					return response.json();
+				}).then(function (obj) {
+					//Data Response
+					//console.log('Data Response: ', obj);
+					this.setState({
+						patients: obj.patients,
+						role: obj.role
+					});
+				}.bind(this)).catch(function (ex) {
+					//Log Error
+					console.log('parsing failed', ex);
+				});
+			}
+		}, {
+			key: 'renderPatientList',
+			value: function renderPatientList() {
+				var _this2 = this;
+
+				var patients = this.state.patients;
+				return _react2.default.createElement(
+					_List.List,
+					{ style: { 'width': '100%' } },
+					patients.map(function (patient) {
+						return _react2.default.createElement(_List.ListItem, {
+							key: patient.id,
+							primaryText: patient.name,
+							onClick: function onClick() {
+								return _this2.onClickPatient(patient.id);
+							},
+							leftIcon: _react2.default.createElement(_accountCircle2.default, null)
+						});
+					})
+				);
+			}
+		}, {
+			key: 'render',
+			value: function render() {
+				return _react2.default.createElement(
+					'div',
+					{ style: { width: '80%', margin: '0 auto', padding: 20 } },
+					_react2.default.createElement(
+						_Paper2.default,
+						{ style: { padding: 10, paddingLeft: 50, marginBottom: 20 }, zDepth: 2 },
+						_react2.default.createElement(
+							'h3',
+							null,
+							'Danh s\xE1ch b\u1EC7nh nh\xE2n'
+						),
+						this.renderPatientList()
+					)
+				);
+			}
+		}]);
+
+		return Profile;
+	}(_react2.default.Component);
+
+	exports.default = Profile;
 
 /***/ })
 /******/ ]);

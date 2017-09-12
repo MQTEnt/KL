@@ -34,12 +34,16 @@ class Header extends React.Component{
 
 		this.handleOnClickLogOut = this.handleOnClickLogOut.bind(this);
 		this.handleOnClickProfile = this.handleOnClickProfile.bind(this);
+		this.handleOnClickRelapatients = this.handleOnClickRelapatients.bind(this);
 	}
 	handleOnClickLogOut(){
 		window.location = "/logout";
 	}
 	handleOnClickProfile(){
 		browserHistory.push('/staff/profile');
+	}
+	handleOnClickRelapatients(){
+		browserHistory.push('/staff/rela-patients');
 	}
 	componentDidMount(){
 		fetch('/user/staff',{
@@ -90,6 +94,7 @@ class Header extends React.Component{
 			      style={style.button}
 			    >
 			      <MenuItem primaryText="Thông tin cá nhân" onClick={this.handleOnClickProfile}/>
+			      <MenuItem primaryText="Danh sách bệnh nhân" onClick={this.handleOnClickRelapatients}/>
 			      <MenuItem primaryText="Đăng xuất" onClick={this.handleOnClickLogOut}/>
 			    </IconMenu>
 			    <Divider/>
