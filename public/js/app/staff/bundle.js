@@ -71960,7 +71960,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Ngày khám ' + _this2.renderDate(record.created_at),
+									primaryText: 'Ngày khám ' + _this2.renderDate(record.created_at) + ' (Mã khám ' + record.id + ')',
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									onClick: function onClick() {
 										_this2.openDetail(record);
@@ -73976,7 +73976,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Lần khám ngày ' + _this2.renderDate(record.created_at),
+									primaryText: 'Lần khám ngày ' + _this2.renderDate(record.created_at) + ' (Mã khám ' + record.id + ')',
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									rightIconButton: _react2.default.createElement(
 										_IconButton2.default,
@@ -75057,7 +75057,7 @@
 							nestedItems: records[key].map(function (record) {
 								return _react2.default.createElement(_List.ListItem, {
 									key: record.id,
-									primaryText: 'Lần khám ngày ' + _this2.renderDate(record.created_at),
+									primaryText: 'Lần khám ngày ' + _this2.renderDate(record.created_at) + ' (Mã khám ' + record.id + ')',
 									leftIcon: _react2.default.createElement(_assignment2.default, null),
 									rightIconButton: _react2.default.createElement(
 										_IconButton2.default,

@@ -67,7 +67,7 @@ class Detail extends React.Component{
 								records[key].map(record => (
 									<ListItem
 										key={record.id}
-										primaryText={'Lần khám ngày '+this.renderDate(record.created_at)}
+										primaryText={'Lần khám ngày '+this.renderDate(record.created_at)+' (Mã khám '+record.id+')'}
 										leftIcon={<ActionAssignment />}
 										rightIconButton={<IconButton><Link style={{ textDecoration: 'none' }} to={"/staff/index/"+record.id}><ContentCreate/></Link></IconButton>}
 									/>

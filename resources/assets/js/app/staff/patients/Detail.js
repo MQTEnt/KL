@@ -86,7 +86,7 @@ class Detail extends React.Component{
 								records[key].map(record => (
 									<ListItem
 										key={record.id}
-										primaryText={'Ngày khám '+this.renderDate(record.created_at)}
+										primaryText={'Ngày khám '+this.renderDate(record.created_at)+' (Mã khám '+record.id+')'}
 										leftIcon={<ActionAssignment />}
 										onClick={()=>{this.openDetail(record)}}
 									/>
