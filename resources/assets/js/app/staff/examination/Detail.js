@@ -87,6 +87,7 @@ class Detail extends React.Component{
 		}
 	}
 	render(){
+		let patient_state = [' ', 'Không tiến triển', 'Tốt lên', 'Khỏi', 'Ra viện'];
 		return (
 			(this.state.isLoading)?
 				<div style={{'margin': '20% auto', 'width': '0'}}>
@@ -101,6 +102,7 @@ class Detail extends React.Component{
 						<li>Giới tính: <b>{this.renderGender(parseInt(this.state.patient.gender))}</b></li>
 						<li>Địa chỉ: <b>{this.state.patient.address}</b></li>
 						<li>Số CMND: <b>{this.state.patient.id_card}</b></li>
+						<li>Tình trạng: <b>{patient_state[this.state.patient.state]}</b></li>
 					</ul>
 					{this.renderListRecord()}
 				</div>

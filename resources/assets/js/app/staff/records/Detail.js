@@ -80,6 +80,7 @@ class Detail extends React.Component{
 		});
 	}
 	renderDialog(patient){
+		let patient_state = [' ', 'Không tiến triển', 'Tốt lên', 'Khỏi', 'Ra viện'];
 		let actions = [
 			<FlatButton
 				style={style.button}
@@ -122,6 +123,7 @@ class Detail extends React.Component{
 					<li>Địa chỉ: <b>{patient.address}</b></li>
 					<li>Số chứng minh nhân dân: <b>{patient.id_card}</b></li>
 					<li>Số điện thoại: <b>{patient.phone}</b></li>
+					<li>Tình trạng: <b>{patient_state[patient.state]}</b></li>
 				</ul>
 				<Alert 
 					open={this.state.openAlert}

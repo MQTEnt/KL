@@ -72001,6 +72001,7 @@
 				var _this3 = this;
 
 				var selectedRecord = this.state.selectedRecord;
+				var patient_state = [' ', 'Không tiến triển', 'Tốt lên', 'Khỏi', 'Ra viện'];
 				return this.state.isLoading ? _react2.default.createElement(
 					'div',
 					{ style: { 'margin': '20% auto', 'width': '0' } },
@@ -72128,6 +72129,16 @@
 									'b',
 									null,
 									this.state.patient.description
+								)
+							),
+							_react2.default.createElement(
+								'li',
+								null,
+								'T\xECnh tr\u1EA1ng: ',
+								_react2.default.createElement(
+									'b',
+									null,
+									patient_state[this.state.patient.state]
 								)
 							)
 						)
@@ -72868,6 +72879,7 @@
 		}, {
 			key: 'renderDialog',
 			value: function renderDialog(patient) {
+				var patient_state = [' ', 'Không tiến triển', 'Tốt lên', 'Khỏi', 'Ra viện'];
 				var actions = [_react2.default.createElement(_FlatButton2.default, {
 					style: style.button,
 					fullWidth: true,
@@ -72959,6 +72971,16 @@
 								'b',
 								null,
 								patient.phone
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'T\xECnh tr\u1EA1ng: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient_state[patient.state]
 							)
 						)
 					),
@@ -75101,6 +75123,7 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var patient_state = [' ', 'Không tiến triển', 'Tốt lên', 'Khỏi', 'Ra viện'];
 				return this.state.isLoading ? _react2.default.createElement(
 					'div',
 					{ style: { 'margin': '20% auto', 'width': '0' } },
@@ -75169,6 +75192,16 @@
 								'b',
 								null,
 								this.state.patient.id_card
+							)
+						),
+						_react2.default.createElement(
+							'li',
+							null,
+							'T\xECnh tr\u1EA1ng: ',
+							_react2.default.createElement(
+								'b',
+								null,
+								patient_state[this.state.patient.state]
 							)
 						)
 					),

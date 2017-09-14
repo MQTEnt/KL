@@ -107,6 +107,7 @@ class Detail extends React.Component{
 	}
 	render(){
 		let selectedRecord = this.state.selectedRecord;
+		let patient_state = [' ', 'Không tiến triển', 'Tốt lên', 'Khỏi', 'Ra viện'];
 		return (
 			(this.state.isLoading)?
 				<div style={{'margin': '20% auto', 'width': '0'}}>
@@ -133,6 +134,7 @@ class Detail extends React.Component{
 							<li>Email: <b>{this.state.patient.email}</b></li>
 							<li>Số ĐT: <b>{this.state.patient.phone}</b></li>
 							<li>Ghi chú: <b>{this.state.patient.description}</b></li>
+							<li>Tình trạng: <b>{patient_state[this.state.patient.state]}</b></li>
 						</ul>
 					</Paper>
 					<Paper zDepth={2}>
