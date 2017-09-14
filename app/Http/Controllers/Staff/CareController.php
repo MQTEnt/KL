@@ -12,7 +12,7 @@ use Auth;
 class CareController extends Controller
 {
 	public function getLineChart($patient_id){
-		$care = Care::select('mach', 'nhiet_do', 'ngay')->where('patient_id', '=', $patient_id)->get();
+		$care = Care::select('mach', 'nhiet_do', 'ngay')->where('patient_id', '=', $patient_id)->orderBy('ngay', 'ASC')->get();
 		return $care;
 	}
 	public function getAllById($patient_id){
