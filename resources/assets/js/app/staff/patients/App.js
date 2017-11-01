@@ -49,10 +49,10 @@ class Patient extends React.Component{
 		}.bind(this), 1500);
 	}
 	handleAdd(newPatient){
-		let newMovieList = this.state.patients;
-		newMovieList.push(newPatient);
+		let newPatientList = this.state.patients;
+		newPatientList.push(newPatient);
 		this.setState({
-			'patients': newMovieList
+			'patients': newPatientList
 		});
 	}
 	handleUpdate(updatedPatient){
@@ -64,9 +64,9 @@ class Patient extends React.Component{
 		//Update object's property.
 		patients[objIndex] = updatedPatient;
 
-		this.setState({
-			'movies': patients
-		});
+		// this.setState({
+		// 	'movies': patients
+		// });
 	}
 	handleDelete(patientId){
 		let patients = this.state.patients;
