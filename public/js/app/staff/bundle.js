@@ -28489,10 +28489,24 @@
 		function Master(props) {
 			_classCallCheck(this, Master);
 
-			return _possibleConstructorReturn(this, (Master.__proto__ || Object.getPrototypeOf(Master)).call(this, props));
+			var _this = _possibleConstructorReturn(this, (Master.__proto__ || Object.getPrototypeOf(Master)).call(this, props));
+
+			_this.state = {
+				staffRole: 0
+			};
+
+			_this.setStaffRole = _this.setStaffRole.bind(_this);
+			return _this;
 		}
 
 		_createClass(Master, [{
+			key: 'setStaffRole',
+			value: function setStaffRole(role) {
+				this.setState({
+					staffRole: role
+				});
+			}
+		}, {
 			key: 'render',
 			value: function render() {
 				return _react2.default.createElement(
@@ -28501,7 +28515,7 @@
 					_react2.default.createElement(
 						_MuiThemeProvider2.default,
 						null,
-						_react2.default.createElement(_Header2.default, null)
+						_react2.default.createElement(_Header2.default, { setStaffRole: this.setStaffRole })
 					),
 					_react2.default.createElement(
 						_MuiThemeProvider2.default,
@@ -28511,7 +28525,7 @@
 					_react2.default.createElement(
 						_MuiThemeProvider2.default,
 						null,
-						_react2.default.createElement(_Menu2.default, null)
+						_react2.default.createElement(_Menu2.default, { staffRole: this.state.staffRole })
 					)
 				);
 			}
@@ -36243,28 +36257,13 @@
 	      this.setState({ open: false });
 	    }
 	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          _FloatingActionButton2.default,
-	          { style: style.floatButton, onTouchTap: this.handleToggle },
-	          _react2.default.createElement(_dehaze2.default, null)
-	        ),
-	        _react2.default.createElement(
-	          _Drawer2.default,
-	          {
-	            docked: false,
-	            width: 200,
-	            open: this.state.open,
-	            onRequestChange: function onRequestChange(open) {
-	              return _this2.setState({ open: open });
-	            }
-	          },
+	    key: 'renderItemMenu',
+	    value: function renderItemMenu() {
+	      var staffRole = this.props.staffRole;
+	      if (staffRole === 2) {
+	        return _react2.default.createElement(
+	          'div',
+	          null,
 	          _react2.default.createElement(
 	            _reactRouter.Link,
 	            { style: style.link, activeStyle: style.active, to: "/staff/patient" },
@@ -36297,36 +36296,6 @@
 	          ),
 	          _react2.default.createElement(
 	            _reactRouter.Link,
-	            { style: style.link, activeStyle: style.active, to: "/staff/examination" },
-	            _react2.default.createElement(
-	              _MenuItem2.default,
-	              { style: style.menuItem, onTouchTap: this.handleClose },
-	              _react2.default.createElement(_localHospital2.default, { style: style.icon }),
-	              ' Kh\xE1m b\u1EC7nh'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { style: style.link, activeStyle: style.active, to: "/staff/plant" },
-	            _react2.default.createElement(
-	              _MenuItem2.default,
-	              { style: style.menuItem, onTouchTap: this.handleClose },
-	              _react2.default.createElement(_dateRange2.default, { style: style.icon }),
-	              ' K\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { style: style.link, activeStyle: style.active, to: "/staff/daily" },
-	            _react2.default.createElement(
-	              _MenuItem2.default,
-	              { style: style.menuItem, onTouchTap: this.handleClose },
-	              _react2.default.createElement(_doneAll2.default, { style: style.icon }),
-	              ' Theo d\xF5i \u0111i\u1EC1u tr\u1ECB'
-	            )
-	          ),
-	          _react2.default.createElement(
-	            _reactRouter.Link,
 	            { style: style.link, activeStyle: style.active, to: "/staff/care" },
 	            _react2.default.createElement(
 	              _MenuItem2.default,
@@ -36335,6 +36304,72 @@
 	              ' Theo d\xF5i ch\u0103m s\xF3c'
 	            )
 	          )
+	        );
+	      } else {
+	        if (staffRole === 1) {
+	          return _react2.default.createElement(
+	            'div',
+	            null,
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { style: style.link, activeStyle: style.active, to: "/staff/examination" },
+	              _react2.default.createElement(
+	                _MenuItem2.default,
+	                { style: style.menuItem, onTouchTap: this.handleClose },
+	                _react2.default.createElement(_localHospital2.default, { style: style.icon }),
+	                ' Kh\xE1m b\u1EC7nh'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { style: style.link, activeStyle: style.active, to: "/staff/plant" },
+	              _react2.default.createElement(
+	                _MenuItem2.default,
+	                { style: style.menuItem, onTouchTap: this.handleClose },
+	                _react2.default.createElement(_dateRange2.default, { style: style.icon }),
+	                ' K\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB'
+	              )
+	            ),
+	            _react2.default.createElement(
+	              _reactRouter.Link,
+	              { style: style.link, activeStyle: style.active, to: "/staff/daily" },
+	              _react2.default.createElement(
+	                _MenuItem2.default,
+	                { style: style.menuItem, onTouchTap: this.handleClose },
+	                _react2.default.createElement(_doneAll2.default, { style: style.icon }),
+	                ' Theo d\xF5i \u0111i\u1EC1u tr\u1ECB'
+	              )
+	            )
+	          );
+	        } else {
+	          return _react2.default.createElement('div', null);
+	        }
+	      }
+	    }
+	  }, {
+	    key: 'render',
+	    value: function render() {
+	      var _this2 = this;
+
+	      return _react2.default.createElement(
+	        'div',
+	        null,
+	        _react2.default.createElement(
+	          _FloatingActionButton2.default,
+	          { style: style.floatButton, onTouchTap: this.handleToggle },
+	          _react2.default.createElement(_dehaze2.default, null)
+	        ),
+	        _react2.default.createElement(
+	          _Drawer2.default,
+	          {
+	            docked: false,
+	            width: 200,
+	            open: this.state.open,
+	            onRequestChange: function onRequestChange(open) {
+	              return _this2.setState({ open: open });
+	            }
+	          },
+	          this.renderItemMenu()
 	        )
 	      );
 	    }
@@ -46629,6 +46664,7 @@
 						'name': obj.name,
 						'role': obj.role
 					});
+					this.props.setStaffRole(obj.role);
 				}.bind(this)).catch(function (ex) {
 					//Log Error
 					console.log('parsing failed', ex);
@@ -50509,10 +50545,10 @@
 		}, {
 			key: 'handleAdd',
 			value: function handleAdd(newPatient) {
-				var newMovieList = this.state.patients;
-				newMovieList.push(newPatient);
+				var newPatientList = this.state.patients;
+				newPatientList.push(newPatient);
 				this.setState({
-					'patients': newMovieList
+					'patients': newPatientList
 				});
 			}
 		}, {
@@ -50528,9 +50564,9 @@
 				//Update object's property.
 				patients[objIndex] = updatedPatient;
 
-				this.setState({
-					'movies': patients
-				});
+				// this.setState({
+				// 	'movies': patients
+				// });
 			}
 		}, {
 			key: 'handleDelete',

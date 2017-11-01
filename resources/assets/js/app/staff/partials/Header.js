@@ -58,6 +58,7 @@ class Header extends React.Component{
 			  		'name': obj.name,
 			  		'role': obj.role
 			});
+			this.props.setStaffRole(obj.role);
 		}.bind(this))
 		.catch(function(ex) {
 			//Log Error

@@ -9,18 +9,28 @@ injectTapEventPlugin();
 class Master extends Component{
 	constructor(props) {
 		super(props);
+		this.state = {
+			staffRole: 0
+		}
+
+		this.setStaffRole = this.setStaffRole.bind(this);
+	}
+	setStaffRole(role){
+		this.setState({
+			staffRole: role
+		});
 	}
 	render() {
 		return (
 			<div>
 				<MuiThemeProvider>
-					<Header/>
+					<Header setStaffRole={this.setStaffRole}/>
 				</MuiThemeProvider>
 				<MuiThemeProvider>
 					{this.props.children}
 				</MuiThemeProvider>
 				<MuiThemeProvider>
-					<Menu/>
+					<Menu staffRole={this.state.staffRole}/>
 				</MuiThemeProvider>
 			</div>
 		);

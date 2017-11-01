@@ -53,18 +53,11 @@ export default class Menu extends React.Component {
     this.setState({open: false});
   }
 
-  render() {
-    return (
-      <div>
-        <FloatingActionButton style={style.floatButton} onTouchTap={this.handleToggle}>
-          <ImageDehaze />
-        </FloatingActionButton>
-        <Drawer
-          docked={false}
-          width={200}
-          open={this.state.open}
-          onRequestChange={(open) => this.setState({open})}
-        >
+  renderItemMenu(){
+    let staffRole = this.props.staffRole;
+    if(staffRole === 2){
+      return (
+        <div>
           <Link style={style.link} activeStyle={style.active} to={"/staff/patient"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
               <SocialPeople style={style.icon}/> Quản lý bệnh nhân
@@ -80,26 +73,56 @@ export default class Menu extends React.Component {
               <ActionInvertColors style={style.icon}/> Chỉ số xét nghiệm
             </MenuItem>
           </Link>
-          <Link style={style.link} activeStyle={style.active} to={"/staff/examination"}>
-            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              <MapsLocalHospital style={style.icon}/> Khám bệnh
-            </MenuItem>
-          </Link>
-          <Link style={style.link} activeStyle={style.active} to={"/staff/plant"}>
-            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              <ActionDateRange style={style.icon}/> Kế hoạch điều trị
-            </MenuItem>
-          </Link>
-          <Link style={style.link} activeStyle={style.active} to={"/staff/daily"}>
-            <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
-              <ActionDoneAll style={style.icon}/> Theo dõi điều trị
-            </MenuItem>
-          </Link>
           <Link style={style.link} activeStyle={style.active} to={"/staff/care"}>
             <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
               <PlacesSpa style={style.icon}/> Theo dõi chăm sóc
             </MenuItem>
           </Link>
+        </div>
+      );
+    }
+    else{
+      if(staffRole === 1)
+      {
+        return (
+          <div>
+            <Link style={style.link} activeStyle={style.active} to={"/staff/examination"}>
+              <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+                <MapsLocalHospital style={style.icon}/> Khám bệnh
+              </MenuItem>
+            </Link>
+            <Link style={style.link} activeStyle={style.active} to={"/staff/plant"}>
+              <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+                <ActionDateRange style={style.icon}/> Kế hoạch điều trị
+              </MenuItem>
+            </Link>
+            <Link style={style.link} activeStyle={style.active} to={"/staff/daily"}>
+              <MenuItem style={style.menuItem} onTouchTap={this.handleClose}>
+                <ActionDoneAll style={style.icon}/> Theo dõi điều trị
+              </MenuItem>
+            </Link>
+          </div>
+        );
+      }
+      else
+      {
+        return <div></div>
+      }
+    }
+  }
+  render() {
+    return (
+      <div>
+        <FloatingActionButton style={style.floatButton} onTouchTap={this.handleToggle}>
+          <ImageDehaze />
+        </FloatingActionButton>
+        <Drawer
+          docked={false}
+          width={200}
+          open={this.state.open}
+          onRequestChange={(open) => this.setState({open})}
+        >
+          {this.renderItemMenu()}
         </Drawer>
       </div>
     );
