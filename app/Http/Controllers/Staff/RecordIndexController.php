@@ -9,8 +9,20 @@ use App\Http\Controllers\Controller;
 use App\Record_Index;
 use DB;
 use Auth;
+use App\Record;
+use App\Patient;
 class RecordIndexController extends Controller
 {
+	public function index($record_id){
+		$record = Record::findOrFail($record_id);
+		$patient = Patient::find($record->patient_id);
+		$indexes = DB::table('indexes')
+		            ->leftJoin(DB::raw("(SELECT * FROM record_index WHERE record_id = $record_id) AS temp_tbl"), 'indexes.id', '=', 'temp_tbl.index_id')
+		            ->select('indexes.id AS index_id', 'indexes.name', 'temp_tbl.value', 'temp_tbl.id AS id')
+		            ->orderBy('index_id')
+		            ->get();
+        return ['indexes' => $indexes, 'patient' => $patient, 'record' => $record];
+	}
 	public function update($record_id, Request $request){
 		$user = Auth::user();
 		$addArr = json_decode($request->addArr, true);

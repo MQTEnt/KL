@@ -12,6 +12,9 @@ use App\Patient;
 use Auth;
 class PlantController extends Controller
 {
+    public function __construct() {
+        $this->middleware('doctor_middleware');
+    }
     public function getPlantsByPatientId($patient_id){
         $plants = Plant::with(['plant_activity', 'plant_activity.activity'])->select('*')->where('patient_id', $patient_id)->orderBy('fromDate', 'DESC')->get();
         $patient = Patient::find($patient_id);

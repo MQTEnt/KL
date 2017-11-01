@@ -13,6 +13,9 @@ use App\Plant;
 use App\Patient;
 class DailyController extends Controller
 {
+    public function __construct() {
+        $this->middleware('doctor_middleware');
+    }
     public function getAll($patient_id){
         $days = Daily_Plant::with(['activities', 'activities.activity'])->where('patient_id', '=', $patient_id)->orderBy('date', 'DESC')->get();
         $patient = Patient::find($patient_id);

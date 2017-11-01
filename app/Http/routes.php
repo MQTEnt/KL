@@ -159,19 +159,19 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('patient/search', ['as' => 'patient.search', 'uses' => 'Staff\PatientController@getSearch']);
 	Route::get('patient', ['as' => 'patient.index', 'uses' => 'Staff\PatientController@index']);
 	// Route::get('patient/create', ['as' => 'patient.create', 'uses' => 'Staff\PatientController@create']);
-	Route::post('patient', ['as' => 'patient.store', 'uses' => 'Staff\PatientController@store']);
+	Route::post('patient', ['as' => 'patient.store', 'uses' => 'Staff\PatientController@store'])->middleware(['nurse_middleware']);
 	// Route::get('patient/{id}', ['as' => 'patient.show', 'uses' => 'Staff\PatientController@show']);
 	Route::get('patient/{id}', 'Staff\PatientController@getPatient');
 	Route::get('patient/id/{id}', 'Staff\PatientController@getPatientById');
-	Route::put('patient/{id}', ['as' => 'patient.update', 'uses' => 'Staff\PatientController@update']);
-	Route::delete('patient/{id}', ['as' => 'patient.destroy', 'uses' => 'Staff\PatientController@destroy']);
+	Route::put('patient/{id}', ['as' => 'patient.update', 'uses' => 'Staff\PatientController@update'])->middleware(['nurse_middleware']);
+	Route::delete('patient/{id}', ['as' => 'patient.destroy', 'uses' => 'Staff\PatientController@destroy'])->middleware(['nurse_middleware']);
 
 	/*
 	 * Record 
 	 */
 	Route::get('record/searchByDate', 'Staff\RecordController@getSearchByDate');
 	Route::get('record/search', 'Staff\RecordController@getSearch');
-	Route::post('record', 'Staff\RecordController@store');
+	Route::post('record', 'Staff\RecordController@store')->middleware(['nurse_middleware']);
 	Route::get('record', 'Staff\RecordController@index');
 	Route::post('record/{record_id}', 'Staff\RecordController@update');
 
@@ -179,17 +179,8 @@ Route::group(['middleware' => ['auth']], function(){
 	 * Index
 	 */
 
-	Route::get('index/{record_id}', function($record_id){
-		$record = App\Record::findOrFail($record_id);
-		$patient = App\Patient::find($record->patient_id);
-		$indexes = DB::table('indexes')
-		            ->leftJoin(DB::raw("(SELECT * FROM record_index WHERE record_id = $record_id) AS temp_tbl"), 'indexes.id', '=', 'temp_tbl.index_id')
-		            ->select('indexes.id AS index_id', 'indexes.name', 'temp_tbl.value', 'temp_tbl.id AS id')
-		            ->orderBy('index_id')
-		            ->get();
-        return ['indexes' => $indexes, 'patient' => $patient, 'record' => $record];
-	}); //Move to RecordIndexController
-	Route::post('index/{record_id}', 'Staff\RecordIndexController@update');
+	Route::get('index/{record_id}', 'Staff\RecordIndexController@index');
+	Route::post('index/{record_id}', 'Staff\RecordIndexController@update')->middleware(['nurse_middleware']);
 	
 	/*
 	 * Examination
@@ -240,10 +231,10 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::post('exploration/{record_id}', 'Staff\RecordExplorationController@update');
 
 	/*
-	 * Plant
+	 * Plan
 	 */
-	Route::post('plant/create/{patient_id}', 'Staff\PlantController@store');
-	Route::get('plant/{patient_id}', 'Staff\PlantController@getPlantsByPatientId');
+	Route::post('plant/create/{patient_id}', 'Staff\PlantController@store')->middleware(['doctor_middleware']);
+	Route::get('plant/{patient_id}', 'Staff\PlantController@getPlantsByPatientId')->middleware(['doctor_middleware']);
 
 	/*
 	 * Daily

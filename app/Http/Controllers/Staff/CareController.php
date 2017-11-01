@@ -11,6 +11,9 @@ use App\Patient;
 use Auth;
 class CareController extends Controller
 {
+	public function __construct() {
+    	$this->middleware('nurse_middleware');
+    }
 	public function getLineChart($patient_id){
 		$care = Care::select('mach', 'nhiet_do', 'ngay')->where('patient_id', '=', $patient_id)->orderBy('ngay', 'ASC')->get();
 		return $care;
