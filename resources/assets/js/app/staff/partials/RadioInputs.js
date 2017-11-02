@@ -105,7 +105,7 @@ export default class RadioInputs extends React.Component{
 								onClick={(e)=>{this.onClick(e.target.checked, item)}}
 						    />
 						    <div style={{height: 50, width: 50, display: 'inline-block'}}>
-						    	<IconButton tooltip={item.description}>
+						    	<IconButton tooltip={item.description}  tooltipPosition="bottom-left">
 						    		<IconHelp/>
 						    	</IconButton>
 						    </div>

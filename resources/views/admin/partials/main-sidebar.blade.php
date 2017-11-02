@@ -69,6 +69,11 @@
           <li class="{{ Route::is('image.*') ? 'active' : '' }}"><a href="{{route('image.index')}}"><i class="fa fa-film"></i> Quản lý chẩn đoán hình ảnh</a></li>
         </ul>
       </li>
+      <li>
+        <a href="/admin/chart">
+          <i class="fa fa-bar-chart"></i> <span>Thống kê</span>
+        </a>
+      </li>
     </ul>
   </section>
   <!-- /.sidebar -->

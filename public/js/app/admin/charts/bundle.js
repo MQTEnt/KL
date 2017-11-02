@@ -22399,7 +22399,9 @@
 			_this.state = {
 				signData: [],
 				symptomData: [],
-				activityData: []
+				activityData: [],
+				agePatient: {},
+				genderPatient: {}
 			};
 			return _this;
 		}
@@ -22415,10 +22417,20 @@
 				}).then(function (obj) {
 					//Data Response
 					//console.log('Data Response: ', obj);
+					var age = [];
+					var count = [];
+					obj.agePatient.map(function (item) {
+						age.push(item.age);
+						count.push(item.count);
+					});
+					console.log(count);
+					console.log(age);
 					this.setState({
 						signData: obj.signData,
 						symptomData: obj.symptomData,
-						activityData: obj.activityData
+						activityData: obj.activityData,
+						agePatient: { age: age, count: count },
+						genderPatient: { male: obj.malePatient, female: obj.femalePatient, other: obj.otherPatient }
 					});
 				}.bind(this)).catch(function (ex) {
 					//Log Error
@@ -22428,6 +22440,58 @@
 		}, {
 			key: 'render',
 			value: function render() {
+				var dataBar = {
+					labels: this.state.agePatient.age,
+					datasets: [{
+						label: 'Số lượng',
+						type: 'line',
+						data: this.state.agePatient.count,
+						fill: false,
+						borderColor: '#EC932F',
+						backgroundColor: '#EC932F',
+						pointBorderColor: '#EC932F',
+						pointBackgroundColor: '#EC932F',
+						pointHoverBackgroundColor: '#EC932F',
+						pointHoverBorderColor: '#EC932F',
+						yAxisID: 'y-axis-1'
+					}]
+				};
+
+				var optionsBar = {
+					responsive: true,
+					tooltips: {
+						mode: 'label'
+					},
+					elements: {
+						line: {
+							fill: false
+						}
+					},
+					scales: {
+						xAxes: [{
+							display: true,
+							gridLines: {
+								display: false
+							},
+							labels: {
+								show: true
+							}
+						}],
+						yAxes: [{
+							type: 'linear',
+							display: false,
+							position: 'left',
+							id: 'y-axis-1',
+							gridLines: {
+								display: false
+							},
+							labels: {
+								show: false
+							}
+						}]
+					}
+				};
+
 				var signChartData = {
 					labels: this.state.signData[1],
 					datasets: [{
@@ -22457,14 +22521,14 @@
 					null,
 					_react2.default.createElement(
 						'div',
-						{ className: 'row' },
+						{ className: 'row', style: { marginBottom: 100 } },
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-6' },
 							_react2.default.createElement(
 								'h4',
 								null,
-								'Th\u1ED1ng k\xEA c\xE1c tri\u1EC7u ch\u1EE9ng c\u01A1 n\u0103ng'
+								'Th\u1ED1ng k\xEA c\xE1c tri\u1EC7u ch\u1EE9ng th\u1EF1c th\u1EC3'
 							),
 							_react2.default.createElement(_reactChartjs.Doughnut, { data: signChartData }),
 							this.state.signData !== [] ? _react2.default.createElement(
@@ -22481,7 +22545,7 @@
 							_react2.default.createElement(
 								'h4',
 								null,
-								'Th\u1ED1ng k\xEA c\xE1c tri\u1EC7u ch\u1EE9ng th\u1EF1c th\u1EC3'
+								'Th\u1ED1ng k\xEA c\xE1c tri\u1EC7u ch\u1EE9ng c\u01A1 n\u0103ng'
 							),
 							_react2.default.createElement(_reactChartjs.Doughnut, { data: symptomChartData }),
 							this.state.symptomData !== [] ? _react2.default.createElement(
@@ -22495,7 +22559,7 @@
 					),
 					_react2.default.createElement(
 						'div',
-						{ className: 'row>' },
+						{ className: 'row', style: { marginBottom: 100 } },
 						_react2.default.createElement(
 							'div',
 							{ className: 'col-md-6 col-md-offset-3' },
@@ -22505,6 +22569,50 @@
 								'Th\u1ED1ng k\xEA c\xE1c ho\u1EA1t \u0111\u1ED9ng \u0111i\u1EC1u tr\u1ECB tr\xEAn nh\u1EEFng b\u1EC7nh nh\xE2n c\xF3 ti\u1EBFn tri\u1EC3n'
 							),
 							_react2.default.createElement(_reactChartjs.Doughnut, { data: activityChartData })
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row', style: { marginBottom: 100 } },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-8 col-md-offset-2' },
+							_react2.default.createElement(
+								'h4',
+								null,
+								'S\u1ED1 l\u01B0\u1EE3ng b\u1EC7nh nh\xE2n t\xEDnh theo \u0111\u1ED9 tu\u1ED5i'
+							),
+							_react2.default.createElement(_reactChartjs.Bar, {
+								data: dataBar,
+								options: optionsBar
+							})
+						)
+					),
+					_react2.default.createElement(
+						'div',
+						{ className: 'row', style: { marginBottom: 100 } },
+						_react2.default.createElement(
+							'div',
+							{ className: 'col-md-8 col-md-offset-2' },
+							_react2.default.createElement(
+								'h3',
+								null,
+								'S\u1ED1 l\u01B0\u1EE3ng: '
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement('i', { className: 'fa fa-male' }),
+								' Nam: ',
+								this.state.genderPatient.male
+							),
+							_react2.default.createElement(
+								'h4',
+								null,
+								_react2.default.createElement('i', { className: 'fa fa-female' }),
+								' N\u1EEF: ',
+								this.state.genderPatient.female
+							)
 						)
 					)
 				);

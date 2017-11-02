@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use DB;
+use App\Patient;
+use Carbon\Carbon;
 class ChartController extends Controller
 {
 	public function __construct() {
@@ -76,10 +78,36 @@ class ChartController extends Controller
 		$activityValue = $activities->pluck('value');
 		$activityTotal = array_sum($activities->pluck('value'));
 		$activityRatio = array_map( function($val) use ($activityTotal){ return $val*100/$activityTotal; }, $activityValue);
+
+		$totalPatient = Patient::count();
+		$malePatient = Patient::where('gender', 1)->count();
+		$femalePatient = Patient::where('gender', 2)->count();
+		$otherPatient = Patient::where('gender', 3)->count();
+		//
+		$yearData = Patient::select('dob')
+					->orderBy('dob', 'desc')
+					->get()
+					->groupBy(function($val) {
+            			return Carbon::parse($val->dob)->format('Y');
+     				});
+     	$agePatient = [];
+     	$nowYear = date("Y");
+     	foreach ($yearData as $key => $value) {
+     		array_push($agePatient, [
+     				'age' => $nowYear - $key,
+     				'count' => count($value)
+     			]);
+     	}
+
 		return [
 			'signData' => [$signId, $signName, $signTotal, $signRatio],
 			'symptomData' => [$symptomId, $symptomName, $symptomTotal, $symptomRatio],
-			'activityData' => [$activityId, $activityName, $activityTotal, $activityRatio]
+			'activityData' => [$activityId, $activityName, $activityTotal, $activityRatio],
+			'totalPatient' => $totalPatient,
+			'malePatient' => $malePatient,
+			'femalePatient' => $femalePatient,
+			'otherPatient' => $otherPatient,
+			'agePatient' => $agePatient
 		];
 	}
 }
