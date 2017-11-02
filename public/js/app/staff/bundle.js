@@ -75693,6 +75693,7 @@
 	                  },
 	                  api: '/record/' + this.props.params.record_id,
 	                  patient_state: this.state.patient.state,
+	                  patient_id: this.state.patient.id,
 	                  displayNoti: this.displayNoti
 	                })
 	              )
@@ -75886,9 +75887,15 @@
 
 	var _Checkbox2 = _interopRequireDefault(_Checkbox);
 
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	var _helpOutline = __webpack_require__(976);
 
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+	var _helpOutline2 = _interopRequireDefault(_helpOutline);
+
+	var _IconButton = __webpack_require__(456);
+
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -75901,7 +75908,9 @@
 			textAlign: 'center'
 		},
 		checkbox: {
-			marginBottom: 16
+			marginBottom: 16,
+			maxWidth: 200,
+			display: 'inline-block'
 		}
 	};
 
@@ -75994,16 +76003,26 @@
 					'div',
 					{ style: styles.block },
 					items.map(function (item) {
-						var _React$createElement;
-
 						return _react2.default.createElement(
 							'div',
 							{ key: item.index_id, style: { maxWidth: 250, margin: '0 auto' } },
-							_react2.default.createElement(_Checkbox2.default, (_React$createElement = {
-								label: 'Simple'
-							}, _defineProperty(_React$createElement, 'label', item.name), _defineProperty(_React$createElement, 'style', styles.checkbox), _defineProperty(_React$createElement, 'defaultChecked', item.id !== null ? true : false), _defineProperty(_React$createElement, 'onClick', function onClick(e) {
-								_this2.onClick(e.target.checked, item);
-							}), _React$createElement))
+							_react2.default.createElement(_Checkbox2.default, {
+								label: item.name,
+								style: styles.checkbox,
+								defaultChecked: item.id !== null ? true : false,
+								onClick: function onClick(e) {
+									_this2.onClick(e.target.checked, item);
+								}
+							}),
+							_react2.default.createElement(
+								'div',
+								{ style: { height: 50, width: 50, display: 'inline-block' } },
+								_react2.default.createElement(
+									_IconButton2.default,
+									{ tooltip: item.description },
+									_react2.default.createElement(_helpOutline2.default, null)
+								)
+							)
 						);
 					})
 				);
@@ -76456,6 +76475,16 @@
 
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 
+	var _FlatButton = __webpack_require__(534);
+
+	var _FlatButton2 = _interopRequireDefault(_FlatButton);
+
+	var _event = __webpack_require__(654);
+
+	var _event2 = _interopRequireDefault(_event);
+
+	var _reactRouter = __webpack_require__(188);
+
 	var _reactAutobind = __webpack_require__(648);
 
 	var _reactAutobind2 = _interopRequireDefault(_reactAutobind);
@@ -76468,6 +76497,16 @@
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+	var style = {
+		mediumIcon: {
+			width: 48,
+			height: 48
+		},
+		medium: {
+			height: 96,
+			padding: 24
+		}
+	};
 	var items = [_react2.default.createElement(_MenuItem2.default, { key: 1, value: false, primaryText: 'Kh\xF4ng c\xF3 bi\u1EBFn ch\u1EE9ng' }), _react2.default.createElement(_MenuItem2.default, { key: 2, value: true, primaryText: 'C\xF3 bi\u1EBFn ch\u1EE9ng' })];
 	var states = [_react2.default.createElement(_MenuItem2.default, { key: 0, value: 0, primaryText: '' }), _react2.default.createElement(_MenuItem2.default, { key: 1, value: 1, primaryText: 'Kh\xF4ng ti\u1EBFn tri\u1EC3n' }), _react2.default.createElement(_MenuItem2.default, { key: 2, value: 2, primaryText: 'T\u1ED1t l\xEAn' }), _react2.default.createElement(_MenuItem2.default, { key: 3, value: 3, primaryText: 'Kh\u1ECFi' }), _react2.default.createElement(_MenuItem2.default, { key: 4, value: 4, primaryText: 'Ra vi\u1EC7n' })];
 
@@ -76674,6 +76713,18 @@
 							floatingLabelText: '\u0110\xE1nh gi\xE1'
 						},
 						states
+					),
+					_react2.default.createElement(
+						'div',
+						{ style: { textAlign: 'right' } },
+						_react2.default.createElement(
+							_reactRouter.Link,
+							{ to: "/staff/plant/create/" + this.props.patient_id },
+							_react2.default.createElement(_FlatButton2.default, {
+								label: 'L\u1EADp k\u1EBF ho\u1EA1ch \u0111i\u1EC1u tr\u1ECB',
+								icon: _react2.default.createElement(_event2.default, null)
+							})
+						)
 					)
 				);
 			}
@@ -78286,7 +78337,7 @@
 				var _this2 = this;
 
 				var patient = this.state.patient;
-				var nav = [{ name: 'Danh sách bệnh nhân', url: '/staff/plant' }, { name: 'Lập kế hoạch điều trị', url: '/staff/plant/create/' + this.props.params.patient_id }];
+				var nav = [{ name: 'Danh sách bệnh nhân', url: '/staff/plant' }, { name: 'Lập kế hoạch điều trị', url: '/staff/plant/create/' + this.props.params.patient_id }, { name: 'Theo dõi điều trị', url: '/staff/follow/' + this.props.params.patient_id }];
 				return _react2.default.createElement(
 					'div',
 					{ style: { width: '80%', margin: '0 auto' } },
@@ -79672,7 +79723,7 @@
 	          {
 	            openSecondary: true,
 	            docked: false,
-	            width: 200,
+	            width: 300,
 	            open: this.state.openDrawer,
 	            onRequestChange: function onRequestChange() {
 	              return _this3.setState({ openDrawer: false });
@@ -123273,6 +123324,42 @@
 	}(_react2.default.Component);
 
 	exports.default = Profile;
+
+/***/ }),
+/* 975 */,
+/* 976 */
+/***/ (function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _pure = __webpack_require__(429);
+
+	var _pure2 = _interopRequireDefault(_pure);
+
+	var _SvgIcon = __webpack_require__(439);
+
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+
+	function _interopRequireDefault(obj) {
+	  return obj && obj.__esModule ? obj : { default: obj };
+	}
+
+	var ActionHelpOutline = function ActionHelpOutline(props) {
+	  return _react2.default.createElement(_SvgIcon2.default, props, _react2.default.createElement('path', { d: 'M11 18h2v-2h-2v2zm1-16C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm0-14c-2.21 0-4 1.79-4 4h2c0-1.1.9-2 2-2s2 .9 2 2c0 2-3 1.75-3 5h2c0-2.25 3-2.5 3-5 0-2.21-1.79-4-4-4z' }));
+	};
+	ActionHelpOutline = (0, _pure2.default)(ActionHelpOutline);
+	ActionHelpOutline.displayName = 'ActionHelpOutline';
+	ActionHelpOutline.muiName = 'SvgIcon';
+
+	exports.default = ActionHelpOutline;
 
 /***/ })
 /******/ ]);

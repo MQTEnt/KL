@@ -73,7 +73,8 @@ export default class ListPlant extends React.Component{
 		let patient = this.state.patient;
 		let nav = [
 			{name: 'Danh sách bệnh nhân', url: '/staff/plant'},
-			{name: 'Lập kế hoạch điều trị', url: '/staff/plant/create/'+this.props.params.patient_id}
+			{name: 'Lập kế hoạch điều trị', url: '/staff/plant/create/'+this.props.params.patient_id},
+			{name: 'Theo dõi điều trị', url: '/staff/follow/'+this.props.params.patient_id}
 		];
 		return (
 			<div style={{width: '80%', margin: '0 auto'}}>

@@ -50,7 +50,7 @@ class DailyController extends Controller
                             ON (temp_tbl2.activity_id = temp_tbl.activity_id)
                         )
                     "),'activities.id', '=', 'temp_tbl.activity_id')
-                    ->select('activities.id AS index_id', 'activities.name', 'temp_tbl2.id AS id')
+                    ->select('activities.id AS index_id', 'activities.name', 'activities.description', 'temp_tbl2.id AS id')
                     ->orderBy('index_id')
                     ->get();
                 return ['isFollow' => true, 'day' => $day, 'activities' => $activities];

@@ -252,6 +252,7 @@ export default class ExaminationDetail extends React.Component {
                     ref={(ref)=>this.diagnosisComponent = ref}
                     api={'/record/'+this.props.params.record_id}
                     patient_state={this.state.patient.state}
+                    patient_id={this.state.patient.id}
                     displayNoti={this.displayNoti}
                   />
                 </Tab>

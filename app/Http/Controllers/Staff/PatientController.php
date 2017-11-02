@@ -103,7 +103,9 @@ class PatientController extends Controller
 		$patient = Patient::findOrFail($id);
 		$dobArr = explode("-",$patient->dob);
 		$patient->dob = $dobArr[2].'-'.$dobArr[1].'-'.$dobArr[0]; 
-		$records = Record::select('*')->where('patient_id', $id)->get()
+		$records = Record::select('*')->where('patient_id', $id)
+					->orderBy('created_at', 'desc')
+					->get()
 					->groupBy(function($val) {
             			return Carbon::parse($val->created_at)->format('Y-m');
      				});

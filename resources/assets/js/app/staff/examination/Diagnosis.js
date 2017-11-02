@@ -2,8 +2,21 @@ import React from 'react';
 import TextField from 'material-ui/TextField';
 import SelectField from 'material-ui/SelectField';
 import MenuItem from 'material-ui/MenuItem';
+import FlatButton from 'material-ui/FlatButton';
+import IconEvent from 'material-ui/svg-icons/action/event';
+import {Link} from 'react-router';
 import autoBind from 'react-autobind';
 
+const style = {
+	mediumIcon: {
+	    width: 48,
+	    height: 48,
+	},
+	medium: {
+	    height: 96,
+	    padding: 24,
+  	}
+}
 const items = [
 	<MenuItem key={1} value={false} primaryText="Không có biến chứng" />,
 	<MenuItem key={2} value={true} primaryText="Có biến chứng" />,
@@ -191,6 +204,15 @@ export default class Diagnosis extends React.Component{
 		        >
 		        	{states}
 		        </SelectField>
+		        <div style={{textAlign: 'right'}}>
+			        <Link to={"/staff/plant/create/"+this.props.patient_id}>
+				        <FlatButton
+					      label="Lập kế hoạch điều trị"
+					      icon={<IconEvent/>}
+					    >
+						</FlatButton>
+					</Link>
+				</div>
 			</div>
 		);
 	}

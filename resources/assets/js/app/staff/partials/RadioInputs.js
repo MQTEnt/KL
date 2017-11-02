@@ -1,12 +1,15 @@
 import React from 'react';
 import Checkbox from 'material-ui/Checkbox';
-
+import IconHelp from 'material-ui/svg-icons/action/help-outline';
+import IconButton from 'material-ui/IconButton';
 const styles = {
   block: {
     textAlign: 'center'
   },
   checkbox: {
     marginBottom: 16,
+    maxWidth: 200,
+    display: 'inline-block'
   },
 };
 
@@ -96,12 +99,16 @@ export default class RadioInputs extends React.Component{
 				{items.map( (item) => (
 						<div key={item.index_id} style={{maxWidth: 250, margin: '0 auto'}}>
 		    				<Checkbox
-								label="Simple"
 								label={item.name}
 								style={styles.checkbox}
 								defaultChecked={(item.id !== null)?true:false}
 								onClick={(e)=>{this.onClick(e.target.checked, item)}}
 						    />
+						    <div style={{height: 50, width: 50, display: 'inline-block'}}>
+						    	<IconButton tooltip={item.description}>
+						    		<IconHelp/>
+						    	</IconButton>
+						    </div>
 						</div>
 					)
 				)}

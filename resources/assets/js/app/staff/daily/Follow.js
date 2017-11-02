@@ -271,7 +271,7 @@ export default class Follow extends React.Component{
         <Drawer
           openSecondary={true}
           docked={false}
-          width={200}
+          width={300}
           open={this.state.openDrawer}
           onRequestChange={() => this.setState({openDrawer: false})}
         >

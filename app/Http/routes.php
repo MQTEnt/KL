@@ -188,12 +188,12 @@ Route::group(['middleware' => ['auth']], function(){
 	Route::get('examination/{record_id}', function($record_id){
 		$symptoms = DB::table('symptoms')
 		            ->leftJoin(DB::raw("(SELECT * FROM record_symptom WHERE record_id = $record_id) AS temp_tbl"), 'symptoms.id', '=', 'temp_tbl.symptom_id')
-		            ->select('symptoms.id AS index_id', 'symptoms.name', 'temp_tbl.id AS id')
+		            ->select('symptoms.id AS index_id', 'symptoms.name', 'symptoms.description', 'temp_tbl.id AS id')
 		            ->orderBy('index_id')
 		            ->get();
 		$signs = DB::table('signs')
 		            ->leftJoin(DB::raw("(SELECT * FROM record_sign WHERE record_id = $record_id) AS temp_tbl"), 'signs.id', '=', 'temp_tbl.sign_id')
-		            ->select('signs.id AS index_id', 'signs.name', 'temp_tbl.id AS id')
+		            ->select('signs.id AS index_id', 'signs.name', 'signs.description', 'temp_tbl.id AS id')
 		            ->orderBy('index_id')
 		            ->get();
 		$images = DB::table('images')
